@@ -1,8 +1,8 @@
 # datasets + generated artifacts (rewrite / keyword / embedding); keep loader .py
 data/*.json
-# the two benchmark datasets are tracked (dataset_LM.json via Git LFS, see .gitattributes)
+# LoCoMo is tracked for baseline reproduction. LongMemEval is not tracked until
+# the real large file is obtained and a storage policy is explicitly approved.
 !data/dataset_locomo.json
-!data/dataset_LM.json
 data/LM/
 data/locomo/
 data/AR/

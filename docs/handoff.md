@@ -82,28 +82,38 @@ LoCoMo:
 
 LongMemEval:
 
-- `data/dataset_LM.json` is tracked through Git LFS upstream.
-- Current local clone hit upstream LFS quota: `This repository exceeded its LFS budget`.
+- `data/dataset_LM.json` is tracked through Git LFS in the upstream repository.
+- The real LFS object was not available when this private reproduction repository was created.
+- This private repository intentionally does not track `data/dataset_LM.json` until the real dataset is obtained.
 - Until resolved, LongMemEval reproduction is blocked or must use an alternate legitimate dataset source.
 
 What this means:
 
 - Git LFS is used when a repository stores large files outside normal Git history.
 - The normal Git checkout only contains a small pointer file. Git LFS then downloads the real large file.
-- In this clone, GitHub refused the large-file download because the upstream repository exceeded its LFS bandwidth/storage budget.
+- If only the pointer is pushed to the private repository, fresh clones fail because Git LFS tries to download a large object that is not present in the private repository.
 - This is not a MRAgent code bug and not a local Python environment bug.
 - LongMemEval cannot be treated as available until `data/dataset_LM.json` is the real dataset file, not a pointer.
+
+If a clone failed with `smudge filter lfs failed`:
+
+```bash
+cd /data/nishome/cuiwenjia/MRAgent-Reproduction
+GIT_LFS_SKIP_SMUDGE=1 git checkout -f HEAD
+git pull --ff-only origin main
+```
 
 Check:
 
 ```bash
 git lfs ls-files
-Get-Item data/dataset_LM.json
-cat data/dataset_LM.json | head
+ls -lh data/dataset_LM.json
+head data/dataset_LM.json
 ```
 
 Expected:
 
+- If the file is missing, LongMemEval is not ready.
 - If the file is a small pointer and contains `version https://git-lfs.github.com/spec/v1`, LongMemEval is not ready.
 - If the file is hundreds of MB, LongMemEval is ready.
 

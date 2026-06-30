@@ -27,11 +27,11 @@ https://github.com/sunyia123/MRAgent-Reproduction
 - `upstream` points to `https://github.com/Ji-shuo/MRAgent.git`.
 - `origin` points to the private reproduction repository.
 - LoCoMo data is available.
-- LongMemEval data is currently blocked by GitHub LFS quota on upstream.
+- LongMemEval data is currently blocked because the upstream Git LFS object was not available.
 
 LongMemEval blocker:
 
-`data/dataset_LM.json` may appear in the working tree, but the current clone only has the Git LFS pointer because the upstream repository exceeded its LFS budget. This means the real LongMemEval dataset has not been downloaded. Treat LongMemEval as unavailable until the file is verified as a real hundreds-of-MB JSON file.
+`data/dataset_LM.json` is intentionally not tracked in this private reproduction repository. During initial setup, only the Git LFS pointer was available, not the real 275MB dataset object. Keeping that pointer makes fresh clones fail because Git LFS tries to download an object that does not exist in this private repository. Treat LongMemEval as unavailable until the real dataset is obtained and verified as a hundreds-of-MB JSON file.
 
 Check:
 
@@ -40,7 +40,7 @@ ls -lh data/dataset_LM.json
 head data/dataset_LM.json
 ```
 
-If the file starts with `version https://git-lfs.github.com/spec/v1`, it is only a pointer file and cannot be used for reproduction.
+If the file is missing, LongMemEval is not ready. If the file starts with `version https://git-lfs.github.com/spec/v1`, it is only a pointer file and cannot be used for reproduction.
 
 ## Minimal Smoke
 
