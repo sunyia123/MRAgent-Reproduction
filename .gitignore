@@ -10,6 +10,15 @@ data/AR/
 # results / logs / caches
 result/
 log/
+repro_runs/
+reports/generated/
+reports/raw/
+checkpoints/
+*.sqlite
+*.sqlite3
+*.pt
+*.pth
+*.ckpt
 *.log
 __pycache__/
 *.pyc
@@ -17,6 +26,7 @@ __pycache__/
 
 # secrets
 .env
+*.env
 
 # local notes / scratch / experiment outputs (not part of the released code)
 MERGE_CHANGES.md

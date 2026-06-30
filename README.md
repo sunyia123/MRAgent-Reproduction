@@ -1,5 +1,19 @@
 # MRAgent
 
+## Reproduction Workspace Notice
+
+This checkout is maintained as `sunyia123/MRAgent-Reproduction`, a private reproduction and extension workspace.
+
+Before running experiments, read:
+
+- [README_REPRODUCTION.md](README_REPRODUCTION.md)
+- [docs/goal.md](docs/goal.md)
+- [docs/handoff.md](docs/handoff.md)
+- [docs/reproduction_plan.md](docs/reproduction_plan.md)
+- [.agents/codex_experience_review.md](.agents/codex_experience_review.md)
+
+The original upstream repository is preserved as read-only `upstream`.
+
 > This repository contains the code for the paper
 > **"Memory is Reconstructed, Not Retrieved: Graph Memory for LLM Agents"** ([arXiv:2606.06036](https://arxiv.org/abs/2606.06036)).
 
