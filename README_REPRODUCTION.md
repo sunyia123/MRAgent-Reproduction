@@ -29,6 +29,19 @@ https://github.com/sunyia123/MRAgent-Reproduction
 - LoCoMo data is available.
 - LongMemEval data is currently blocked by GitHub LFS quota on upstream.
 
+LongMemEval blocker:
+
+`data/dataset_LM.json` may appear in the working tree, but the current clone only has the Git LFS pointer because the upstream repository exceeded its LFS budget. This means the real LongMemEval dataset has not been downloaded. Treat LongMemEval as unavailable until the file is verified as a real hundreds-of-MB JSON file.
+
+Check:
+
+```bash
+ls -lh data/dataset_LM.json
+head data/dataset_LM.json
+```
+
+If the file starts with `version https://git-lfs.github.com/spec/v1`, it is only a pointer file and cannot be used for reproduction.
+
 ## Minimal Smoke
 
 ```bash
@@ -40,4 +53,3 @@ python run.py --data locomo --model gemini --file smoke --sample 0
 ```
 
 Do not run full experiments before the smoke report is written.
-

@@ -106,6 +106,8 @@ Risks:
 Current blocker:
 
 - Upstream `data/dataset_LM.json` failed to download because GitHub LFS quota is exceeded.
+- The local file may exist but still be only a Git LFS pointer. A pointer file is not usable benchmark data.
+- This blocker is external data availability, not an implementation failure.
 
 Plan:
 
@@ -124,6 +126,12 @@ Expected:
 
 - Category-specific result files.
 - Evaluation report comparable to paper Table 2.
+
+Dataset readiness criteria:
+
+- `data/dataset_LM.json` must be hundreds of MB, not around 100-200 bytes.
+- The first lines must be JSON data, not `version https://git-lfs.github.com/spec/v1`.
+- The experiment report must record file size, checksum, and source URL or transfer path.
 
 ## 3. Trace Requirements
 
@@ -231,4 +239,3 @@ Report fixed/broken cases against A.
 4. Run a 3-sample LoCoMo subset.
 5. Write first reproduction report.
 6. Resolve LongMemEval data availability.
-

@@ -86,17 +86,32 @@ LongMemEval:
 - Current local clone hit upstream LFS quota: `This repository exceeded its LFS budget`.
 - Until resolved, LongMemEval reproduction is blocked or must use an alternate legitimate dataset source.
 
+What this means:
+
+- Git LFS is used when a repository stores large files outside normal Git history.
+- The normal Git checkout only contains a small pointer file. Git LFS then downloads the real large file.
+- In this clone, GitHub refused the large-file download because the upstream repository exceeded its LFS bandwidth/storage budget.
+- This is not a MRAgent code bug and not a local Python environment bug.
+- LongMemEval cannot be treated as available until `data/dataset_LM.json` is the real dataset file, not a pointer.
+
 Check:
 
 ```bash
 git lfs ls-files
 Get-Item data/dataset_LM.json
+cat data/dataset_LM.json | head
 ```
 
 Expected:
 
-- If the file is a small pointer, LongMemEval is not ready.
+- If the file is a small pointer and contains `version https://git-lfs.github.com/spec/v1`, LongMemEval is not ready.
 - If the file is hundreds of MB, LongMemEval is ready.
+
+Required handling:
+
+- Prefer LoCoMo for the first reproducible baseline.
+- Before any LongMemEval experiment, record the dataset source, file size, checksum, and acquisition method.
+- Do not fabricate, truncate, or silently replace `dataset_LM.json`.
 
 ## Baseline Smoke
 
@@ -171,4 +186,3 @@ Write `reports/<experiment_name>_YYYYMMDD.md` with:
 8. Metrics.
 9. Failure cases.
 10. Next action.
-
