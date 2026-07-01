@@ -217,7 +217,66 @@ grep -R "Traceback\\|ERROR\\|IndexError\\|ValueError\\|APITimeout" log/locomo/*.
 result JSONL + metrics summary + memory audit + artifact manifest + clean report 同时存在。
 ```
 
-## 11. Artifact Manifest 模板
+## 11. Git 推送与数据保留检查
+
+每次远端推送前必须确认：
+
+```bash
+git status --short --branch
+git log --oneline --decorate -5
+git diff --name-status origin/main..HEAD
+```
+
+禁止把以下情况伪装成正常更新：
+
+- force-push 覆盖已经汇报过的实验提交。
+- 删除已有报告、metrics、manifest，却没有在新报告中说明原因。
+- 只保留结论报告，删除能支撑结论的 result/log/audit。
+- 重新 clone 或 `reset --hard` 后丢失服务器上唯一存在的中间缓存。
+
+如果发生 force-push，必须在报告中写明：
+
+```text
+old_commit:
+new_commit:
+rewritten_branch:
+removed_files:
+preserved_remote_artifacts:
+backup_tag:
+reason:
+```
+
+正常 push 不会删除 GitHub 历史中的旧 commit，但 force-push 会让旧 commit 从分支历史中消失。服务器上被 `.gitignore` 忽略的 rewrite/keyword/embedding 缓存通常不会因为 push 本身消失；真正危险的是 `git reset --hard`、`git clean -fdx`、删除重 clone、或手动删除实验目录。
+
+## 12. 模型诊断检查
+
+如果要把失败归因于模型能力，必须先提交模型诊断证据。最低要求：
+
+- 每个失败 session 的 raw prompt。
+- 每个失败 session 的 raw API response。
+- `content`、`reasoning_content`、`finish_reason`、usage tokens。
+- JSON parse error 原文。
+- schema validation error 原文。
+- 是否触发或疑似触发 `max_tokens` 截断。
+- 每次 retry 的 temperature、输出长度、错误类型。
+- DeepSeek 在 `response_format=json_object` 下是否仍失败。
+- DeepSeek 在 `max_tokens=16384/32768` 下是否仍失败。
+- 同一批 session 用 Gemini-2.5-Flash 或 Claude-Sonnet-4.5 是否通过。
+- 同一批 session 用 Qwen3-235B 是否通过。
+
+没有这些证据时，只能写：
+
+```text
+当前模型/Provider/解析链路未通过结构化抽取诊断。
+```
+
+不能写：
+
+```text
+模型能力不行。
+```
+
+## 13. Artifact Manifest 模板
 
 每轮实验必须提交一个小型 JSON manifest，例如：
 
