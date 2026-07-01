@@ -2,7 +2,7 @@
 
 import os
 import time
-from typing import List, Sequence, Optional
+from typing import List, Sequence, Optional, Any
 
 # OpenAI Python SDK v1.x
 # pip install openai>=1.0.0
