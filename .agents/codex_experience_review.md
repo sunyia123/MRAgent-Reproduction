@@ -28,6 +28,7 @@ Before changing code or running server experiments, read:
 2. `docs/goal.md`
 3. `docs/handoff.md`
 4. `docs/reproduction_plan.md`
+5. `docs/intermediate_artifact_checklist.md`
 
 ## Reproduction Discipline
 
@@ -43,6 +44,9 @@ For each run, record:
 - Evidence recall if available.
 - Average turns, tool calls, tokens, and runtime if available.
 - Failure cases with original question, gold answer, prediction, retrieved evidence, and graph traversal path.
+- Intermediate artifact status: rewrite, keyword, embedding, memory audit, metrics, clean logs, and artifact manifest.
+
+If intermediate artifacts are missing, stop and document the gap before running more samples. Do not describe the run as a valid reproduction until `docs/intermediate_artifact_checklist.md` passes.
 
 ## Extension Discipline
 
@@ -53,4 +57,3 @@ For CBR/Q-learning-style extensions, do not claim improvement unless:
 3. The trace shows which tool/action/event choices changed.
 4. Fixed and broken cases are reported against the same baseline.
 5. Data leakage across conversations/samples is explicitly ruled out.
-

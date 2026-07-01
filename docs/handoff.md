@@ -143,6 +143,50 @@ Failure handling:
 - If embedding fails, check OpenRouter model access and `llm/embeddings.py`.
 - If output format validation fails, preserve raw error and sample id.
 
+## Intermediate Artifact Review
+
+Before reporting any experiment as successful, read:
+
+```bash
+cat docs/intermediate_artifact_checklist.md
+```
+
+Required minimum evidence:
+
+- `result/*.jsonl`: final predictions with gold answer, category, evidence, prediction context, and per-question metrics.
+- `result/*metrics*.json`: aggregate F1 / judge / runtime / tool-call summary.
+- `result/*memory_audit*.json`: rewrite, keyword, and estimated graph quality summary.
+- `reports/*.md`: human-readable report with command, commit, model, dataset subset, failures, and next action.
+- A clean or clearly segmented log showing the valid run, not only earlier failed attempts.
+- An artifact manifest recording rewrite, keyword, embedding, result, log, metrics, and memory-audit paths.
+
+Large generated caches may stay on the server, but their existence must be auditable:
+
+```bash
+ls -lh data/locomo/rewrite_<model>/<sample>_rewrite.json
+ls -lh data/locomo/keyword_<model>/<sample>_keyword.json
+ls -lh data/locomo/embedding/*/<sample>_embedding.pkl
+sha256sum data/locomo/rewrite_<model>/<sample>_rewrite.json
+sha256sum data/locomo/keyword_<model>/<sample>_keyword.json
+sha256sum data/locomo/embedding/*/<sample>_embedding.pkl
+```
+
+Required checks:
+
+- Rewrite must not contain silent `null` sessions.
+- Keyword sentence count must align with rewrite sentence count, or the report must explain the gap.
+- Embedding question count must cover every selected question original index.
+- Memory audit must report node/edge/topic/persona counts.
+- Logs must be checked for `Traceback`, `ERROR`, `IndexError`, `ValueError`, and timeout patterns.
+- Judge files must not be polluted by repeated append runs.
+
+If any of these are missing:
+
+- Stop expanding the experiment.
+- Do not merge the experiment branch into `main`.
+- Do not write "reproduction succeeded".
+- First add the missing audit summary or an `artifact_manifest_*.json` explaining remote paths, file sizes, checksums, and why the raw artifact is not committed.
+
 ## Evaluation
 
 ```bash
@@ -196,3 +240,5 @@ Write `reports/<experiment_name>_YYYYMMDD.md` with:
 8. Metrics.
 9. Failure cases.
 10. Next action.
+11. Intermediate artifact status: rewrite, keyword, embedding, memory audit, trace, metrics, and manifest.
+12. Whether the run passes `docs/intermediate_artifact_checklist.md`.

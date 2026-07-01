@@ -7,7 +7,8 @@ Read first:
 1. `docs/goal.md`
 2. `docs/handoff.md`
 3. `docs/reproduction_plan.md`
-4. `.agents/codex_experience_review.md`
+4. `docs/intermediate_artifact_checklist.md`
+5. `.agents/codex_experience_review.md`
 
 ## Local Path
 
@@ -53,3 +54,13 @@ python run.py --data locomo --model gemini --file smoke --sample 0
 ```
 
 Do not run full experiments before the smoke report is written.
+
+## Review Gate
+
+Before accepting any remote experiment as a valid reproduction result, check:
+
+```text
+docs/intermediate_artifact_checklist.md
+```
+
+If rewrite, keyword, embedding, memory audit, metrics, logs, or artifact manifest are missing, the run is only a partial result and must not be treated as paper-level reproduction.

@@ -46,12 +46,14 @@ Expected:
 - Single LoCoMo sample completes.
 - Rewrite, keyword, embedding, result, and log files are produced.
 - Evaluation script runs.
+- Intermediate artifact status is checked with `docs/intermediate_artifact_checklist.md`.
 
 Acceptance:
 
 - No unhandled exception.
 - At least one prediction JSONL exists.
 - The report records all generated files.
+- Memory audit or equivalent artifact summary proves that rewrite/keyword/embedding are complete enough for QA.
 
 ### Stage B: LoCoMo Small Subset
 
@@ -77,6 +79,16 @@ reports/locomo_subset_reproduction_YYYYMMDD.md
 reports/locomo_subset_reproduction_YYYYMMDD.csv
 ```
 
+Required intermediate evidence:
+
+- `artifact_manifest_*.json` or equivalent table in the report.
+- `memory_audit_*.json` for every evaluated sample.
+- Per-question trace or log section showing tool calls and final supports.
+- Clean metrics summary generated from the exact result files.
+- Explicit statement of whether rewrite, keyword, and embedding caches were reused or regenerated.
+
+If any intermediate evidence is missing, the subset is not accepted as a reproduction result.
+
 ### Stage C: Full LoCoMo Reproduction
 
 Goal: compare against paper Table 1 under available model/backend constraints.
@@ -93,6 +105,7 @@ Expected:
 - All LoCoMo samples complete.
 - Result JSONL files exist under `result/locomo/`.
 - Evaluation summary is produced.
+- Every sample passes the intermediate artifact checklist.
 
 Risks:
 
@@ -138,6 +151,14 @@ Dataset readiness criteria:
 ## 3. Trace Requirements
 
 Every reproduced answer must be auditable at the graph traversal level.
+
+Before trace analysis, run the intermediate artifact checklist:
+
+```text
+docs/intermediate_artifact_checklist.md
+```
+
+Trace analysis is invalid if the underlying rewrite, keyword, embedding, or memory graph audit is missing or incomplete.
 
 Required fields:
 

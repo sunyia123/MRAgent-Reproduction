@@ -24,6 +24,6 @@ Reproduce the public MRAgent results at a verifiable small-to-full scale, then e
 3. LoCoMo small subset run produces answer JSONL and evaluation summary.
 4. LongMemEval data availability is resolved or documented as blocked by Git LFS quota.
 5. Full LoCoMo reproduction runs on the server with cached intermediate artifacts.
-6. Reports compare reproduced metrics with paper Table 1/2/3 and identify model/backend differences.
-7. Extension experiments record graph traversal traces, fixed/broken cases, and utility-scored memory decisions.
-
+6. Every accepted run passes `docs/intermediate_artifact_checklist.md`, including rewrite, keyword, embedding, memory audit, trace, metrics, and artifact manifest checks.
+7. Reports compare reproduced metrics with paper Table 1/2/3 and identify model/backend differences.
+8. Extension experiments record graph traversal traces, fixed/broken cases, and utility-scored memory decisions.
