@@ -17,6 +17,8 @@ class LLM:
                              timeout=600.0,
                              max_retries=2)
         self.model = config.MODEL
+        # metrics instrumentation
+        self.last_tool_calls = 0
 
     def chat_with_tool(
             self,
@@ -234,6 +236,7 @@ class LLM:
             logger.info(f"[round {round_id}] no tool_calls; finish.")
             continue
 
+        self.last_tool_calls = tool_calls_used
         return ans_obj.get("answer"), ans_obj.get("supports")
 
     def chat_text(

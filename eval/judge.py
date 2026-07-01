@@ -9,10 +9,19 @@ import openai
 from openai import OpenAI
 
 from dotenv import load_dotenv
-import os
 load_dotenv()  # read API key from .env
-API_KEY = os.getenv("OPENROUTER_API_KEY")
-client = OpenAI(api_key=API_KEY, base_url="https://openrouter.ai/api/v1")
+
+# Judge LLM configuration — env-variable driven, provider-agnostic
+JUDGE_API_KEY = os.getenv("JUDGE_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
+JUDGE_BASE_URL = os.getenv("JUDGE_BASE_URL", os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1"))
+JUDGE_MODEL = os.getenv("JUDGE_MODEL", "openai/gpt-4o-mini")
+_client = None
+
+def _get_client():
+    global _client
+    if _client is None:
+        _client = OpenAI(api_key=JUDGE_API_KEY, base_url=JUDGE_BASE_URL)
+    return _client
 
 ACCURACY_PROMPT = """
 Your task is to label an answer to a question as ’CORRECT’ or ’WRONG’. You will be given the following data:
@@ -43,8 +52,8 @@ Just return the label CORRECT or WRONG in a json format with the key as "label".
 
 def evaluate_llm_judge(question, gold_answer, generated_answer):
     """Evaluate the generated answer against the gold answer using an LLM judge."""
-    response = client.chat.completions.create(
-        model="openai/gpt-4o-mini",
+    response = _get_client().chat.completions.create(
+        model=JUDGE_MODEL,
         messages=[
             {
                 "role": "user",

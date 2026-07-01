@@ -25,6 +25,9 @@ class Agent:
 
         self.episode_link_num = 0
         self.tags = set()
+        # metrics instrumentation (reset per question)
+        self.schema_retries = 0
+        self.forced_accepts = 0
 
     # ---------- Core utility: one tool-calling turn (with automatic tool execution) ----------
     def _chat_with_tools(self, system_prompt: str, user_obj: dict, category):
@@ -448,6 +451,13 @@ class Agent:
 
 
     def answer_question(self, question: str, category=0, question_emb=None, override_question_time=None, lm_current_date=None) -> Dict[str, Any]:
+        import time as _time
+        _t_start = _time.time()
+
+        # reset per-question metrics
+        self.schema_retries = 0
+        self.forced_accepts = 0
+        self.llm.last_tool_calls = 0
         self.memory_controller.question_emb = question_emb
         question_keys = self.extract_question_keys(question)
         self.memory_controller.set_queried_keywords(question_keys.get("keywords"))
@@ -561,6 +571,14 @@ class Agent:
         ans_messages, evidence_support = self._chat_with_tools(
             _answer_prompt, ans_input, category)
         support_origin = self.memory.get_support_origin(evidence_support)
+
+        # store per-question metrics on the agent for the caller to read
+        self._last_question_metrics = {
+            "tool_calls": self.llm.last_tool_calls,
+            "schema_retries": self.schema_retries,
+            "forced_accepts": self.forced_accepts,
+            "runtime_sec": round(_time.time() - _t_start, 2),
+        }
         return ans_messages, support_origin
 
     def extract_question_keys(self, questions: str):
@@ -604,6 +622,7 @@ class Agent:
 
         if not flag:
             for attempt in range(1, max_tries + 1):
+                self.schema_retries += 1
                 rewrite_out = self.llm.chat_text(
                     messages=[
                         {"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT + "The previous run failed with the following error:"  + last_err},
@@ -681,6 +700,7 @@ class Agent:
 
         if not flag:
             for attempt in range(1, max_tries + 1):
+                self.schema_retries += 1
                 keys_out = self.llm.chat_text(
                     messages=[
                         {"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT+ "The previous run failed with the following error:"  + last_err},
@@ -699,6 +719,7 @@ class Agent:
                         # Last attempt exhausted: accept as-is to avoid crashing
                         flag = True
                         err = ""
+                        self.forced_accepts += 1
 
         # final safety check: ensure we return a dict object, not a string
         if isinstance(keys_out, str):
