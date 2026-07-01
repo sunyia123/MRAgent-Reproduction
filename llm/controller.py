@@ -2,6 +2,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import json
 import time
+import hashlib
 from typing import List, Dict, Any, Optional, Callable, Tuple, Union
 from openai import OpenAI, APIStatusError, APIConnectionError, APIResponseValidationError
 from prompts.prompts import Prompts
@@ -9,6 +10,103 @@ from common.utils import extract_json_from_content
 from common import config
 import logging
 logger = logging.getLogger(__name__)
+
+# --- Diagnostic logging (activated by DIAGNOSTIC_LOG=1 in .env) ---
+_DIAG_ENABLED = os.getenv("DIAGNOSTIC_LOG", "0") == "1"
+_DIAG_DIR = os.path.join("result", "diagnostics")
+if _DIAG_ENABLED:
+    os.makedirs(_DIAG_DIR, exist_ok=True)
+    _diag_logger = logging.getLogger("llm.diagnostics")
+    _diag_logger.setLevel(logging.DEBUG)
+    _diag_fh = logging.FileHandler(os.path.join(_DIAG_DIR, "raw_api_calls.jsonl"), encoding="utf-8")
+    _diag_fh.setLevel(logging.DEBUG)
+    _diag_fh.setFormatter(logging.Formatter('%(message)s'))
+    _diag_logger.addHandler(_diag_fh)
+    _diag_logger.propagate = False
+    logger.info(f"Diagnostic logging enabled → {os.path.join(_DIAG_DIR, 'raw_api_calls.jsonl')}")
+
+
+def _diag_record(call_type: str, request: dict, response: Any, error: Optional[str] = None,
+                 latency_s: float = 0.0, attempt: int = 1):
+    """Record a raw API call to the diagnostic log (only when DIAGNOSTIC_LOG=1)."""
+    if not _DIAG_ENABLED:
+        return
+    try:
+        rec = {
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "call_type": call_type,  # "chat" or "embedding"
+            "attempt": attempt,
+            "latency_s": round(latency_s, 3),
+            "request": {
+                "model": request.get("model"),
+                "messages_count": len(request.get("messages", [])),
+                "messages_summary": _summarize_messages(request.get("messages", [])),
+                "temperature": request.get("temperature"),
+                "max_tokens": request.get("max_tokens"),
+                "tools_count": len(request.get("tools", [])),
+            },
+        }
+        if response is not None:
+            try:
+                choice = response.choices[0]
+                msg = getattr(choice, "message", None)
+                rec["response"] = {
+                    "finish_reason": getattr(choice, "finish_reason", None),
+                    "content_length": len(getattr(msg, "content", "") or ""),
+                    "content_preview": (getattr(msg, "content", "") or "")[:500],
+                    "tool_calls_count": len(getattr(msg, "tool_calls", []) or []),
+                    "tool_calls": [
+                        {
+                            "id": tc.id,
+                            "function": getattr(tc, "function", None).name if hasattr(tc, "function") else None,
+                            "arguments_preview": (getattr(getattr(tc, "function", None), "arguments", "") or "")[:300],
+                        }
+                        for tc in (getattr(msg, "tool_calls", []) or [])
+                    ],
+                }
+                usage = getattr(response, "usage", None)
+                if usage:
+                    rec["response"]["usage"] = {
+                        "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                        "completion_tokens": getattr(usage, "completion_tokens", None),
+                        "total_tokens": getattr(usage, "total_tokens", None),
+                    }
+                # Include model identifier from response
+                rec["response"]["model"] = getattr(response, "model", None)
+            except Exception as e:
+                rec["response_parse_error"] = str(e)[:200]
+        if error:
+            rec["error"] = error[:1000]
+            rec["error_type"] = type(error).__name__
+        _diag_logger.info(json.dumps(rec, ensure_ascii=False, default=str))
+    except Exception:
+        pass  # diagnostic logging must never crash the pipeline
+
+
+def _summarize_messages(messages: list) -> list:
+    """Create a compact summary of messages for diagnostic purposes."""
+    summary = []
+    for m in messages:
+        role = m.get("role", "?")
+        content = m.get("content", "") or ""
+        if isinstance(content, str):
+            clen = len(content)
+            summary.append({
+                "role": role,
+                "content_length": clen,
+                "content_hash": hashlib.md5(content.encode()).hexdigest()[:8] if clen > 0 else "",
+                "content_preview": content[:200] + ("..." if clen > 200 else ""),
+            })
+        elif isinstance(content, list):
+            summary.append({"role": role, "content_type": "multipart", "parts": len(content)})
+        else:
+            summary.append({"role": role, "content_type": type(content).__name__})
+        # tool_call_id for tool messages
+        if m.get("tool_call_id"):
+            summary[-1]["tool_call_id"] = m["tool_call_id"][:16]
+        if m.get("name"):
+            summary[-1]["name"] = m["name"]
+    return summary
 
 class LLM:
     def __init__(self):
@@ -58,11 +156,15 @@ class LLM:
             req["max_tokens"] = 4096
 
         last_exc: Optional[Exception] = None
+        _t0 = 0.0
         for attempt in range(1, max_retries + 1):
             try:
+                _t0 = time.time()
                 resp =  self.client.chat.completions.create(**req)
+                _diag_record("chat", req, resp, latency_s=time.time() - _t0, attempt=attempt)
                 return resp
             except APIStatusError as e:
+                _diag_record("chat", req, None, error=repr(e), latency_s=time.time() - _t0, attempt=attempt)
                 status = getattr(e, "status_code", None)
                 text = getattr(getattr(e, "response", None), "text", "") or ""
                 logger.warning(f"APIStatusError {status}: {text[:400]}")
@@ -76,6 +178,7 @@ class LLM:
 
 
             except (APIConnectionError, APIResponseValidationError) as e:
+                _diag_record("chat", req, None, error=repr(e), latency_s=time.time() - _t0, attempt=attempt)
                 logger.warning(f"Connection/Validation error: {repr(e)}")
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)
@@ -84,6 +187,7 @@ class LLM:
                 break
 
             except Exception as e:
+                _diag_record("chat", req, None, error=repr(e), latency_s=time.time() - _t0, attempt=attempt)
                 logger.warning(f"Unexpected error: {repr(e)}", exc_info=True)
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)

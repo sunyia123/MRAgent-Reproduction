@@ -18,6 +18,45 @@ EMBED_BASE_URL = os.getenv("EMBED_BASE_URL", os.getenv("LLM_BASE_URL", "https://
 EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-large")
 os.environ["OPENAI_API_KEY"] = EMBED_API_KEY or ""  # for set_openai_key() validation
 
+# --- Embedding diagnostic logging ---
+import json as _json
+import logging as _logging
+_EMBED_DIAG_ENABLED = os.getenv("DIAGNOSTIC_LOG", "0") == "1"
+_EMBED_DIAG_PATH = os.path.join("result", "diagnostics", "raw_embedding_calls.jsonl")
+if _EMBED_DIAG_ENABLED:
+    os.makedirs(os.path.dirname(_EMBED_DIAG_PATH), exist_ok=True)
+    _emb_diag_log = _logging.getLogger("embed.diag")
+    _emb_diag_log.setLevel(_logging.DEBUG)
+    _emb_diag_log.propagate = False
+    _emb_diag_fh = _logging.FileHandler(_EMBED_DIAG_PATH, encoding="utf-8")
+    _emb_diag_fh.setFormatter(_logging.Formatter('%(message)s'))
+    _emb_diag_log.addHandler(_emb_diag_fh)
+
+
+def _emb_diag_record(model: str, batch_size: int, total_inputs: int, resp: Any = None, error: str = None, latency_s: float = 0.0):
+    if not _EMBED_DIAG_ENABLED:
+        return
+    try:
+        rec = {
+            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "model": model,
+            "batch_size": batch_size,
+            "total_inputs": total_inputs,
+            "latency_s": round(latency_s, 3),
+        }
+        if resp is not None:
+            rec["response"] = {
+                "embedding_count": len(resp.data) if hasattr(resp, 'data') else 0,
+                "embedding_dim": len(resp.data[0].embedding) if hasattr(resp, 'data') and resp.data else None,
+                "usage_prompt_tokens": getattr(getattr(resp, 'usage', None), 'prompt_tokens', None),
+                "usage_total_tokens": getattr(getattr(resp, 'usage', None), 'total_tokens', None),
+            }
+        if error:
+            rec["error"] = str(error)[:500]
+        _emb_diag_log.info(_json.dumps(rec, ensure_ascii=False, default=str))
+    except Exception:
+        pass
+
 # optional helper
 def set_openai_key(key_env: str = "OPENAI_API_KEY") -> None:
     """
