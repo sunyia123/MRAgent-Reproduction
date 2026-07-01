@@ -64,3 +64,5 @@ docs/intermediate_artifact_checklist.md
 ```
 
 If rewrite, keyword, embedding, memory audit, metrics, logs, or artifact manifest are missing, the run is only a partial result and must not be treated as paper-level reproduction.
+
+Also read the `Git Safety And Force-Push Rules` and `Model Diagnostic Evidence Requirements` sections in `docs/handoff.md` before rewriting branch history or blaming a model for failed structured extraction.

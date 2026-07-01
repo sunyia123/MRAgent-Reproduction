@@ -19,6 +19,8 @@ Memento is used only as a design reference for case-based reasoning, Q-learning-
 5. Every experiment must write a Markdown summary under `reports/` and a machine-readable summary under `reports/*.csv` or `reports/*.json`.
 6. Every failed run must record the concrete failure: environment, command, error line, expected behavior, and next fix.
 7. If an experiment claims a memory module is active, verify the trace contains actual retrieved memories/tool calls. Empty retrieval must fail fast, not silently continue.
+8. Do not force-push shared experiment branches after results have been reported. Never force-push `main`.
+9. Do not blame model capability without raw prompt/response, finish_reason, token usage, parse errors, schema errors, truncation evidence, and same-session comparison with at least one paper-aligned model.
 
 ## Required Review Before New Work
 
@@ -47,6 +49,8 @@ For each run, record:
 - Intermediate artifact status: rewrite, keyword, embedding, memory audit, metrics, clean logs, and artifact manifest.
 
 If intermediate artifacts are missing, stop and document the gap before running more samples. Do not describe the run as a valid reproduction until `docs/intermediate_artifact_checklist.md` passes.
+
+If a branch history was rewritten, document old commit, new commit, removed files, backup tag, and preserved remote artifacts in the experiment report.
 
 ## Extension Discipline
 

@@ -33,6 +33,57 @@ Expected:
 - Working tree is clean.
 - Documentation under `docs/` is present.
 
+## Git Safety And Force-Push Rules
+
+Force-push means rewriting the remote branch pointer to a different commit history.
+Example commands include:
+
+```bash
+git push --force origin exp/...
+git push --force-with-lease origin exp/...
+```
+
+Why this matters:
+
+- A normal push adds commits. A force-push can remove previously pushed commits from the GitHub branch view.
+- If those removed commits contained reports, logs, metrics, or manifests, they disappear from that branch on GitHub.
+- Force-push does not directly delete ignored server files such as `data/locomo/rewrite_*` or `embedding.pkl`.
+- However, after a force-push, commands such as `git reset --hard`, `git clean -fdx`, deleting/recloning the repo, or switching to a branch that lacks tracked files can delete local tracked/untracked/ignored artifacts depending on the command.
+- Therefore, a force-push can make evidence hard to recover even if it does not itself erase every server-side cache.
+
+Rules:
+
+- Never force-push `main`.
+- Do not force-push a shared experiment branch after results have been reported.
+- Prefer a new corrective commit over rewriting history.
+- If history rewrite is unavoidable, use `--force-with-lease`, not plain `--force`.
+- Before any force-push, create a safety tag:
+
+```bash
+git tag backup/YYYYMMDD-HHMM-before-force
+git push origin backup/YYYYMMDD-HHMM-before-force
+```
+
+- Before any force-push, write or update an artifact manifest with remote paths, file sizes, and checksums.
+- After a force-push, explicitly state which commits were replaced and whether any reports/results/logs were removed from the branch.
+
+Commands to inspect whether a branch was rewritten:
+
+```bash
+git fetch origin --prune
+git log --oneline --decorate --graph --all -20
+git reflog --date=iso
+git diff --name-status origin/main..origin/exp/20260701-stage-b-eval-audit
+```
+
+Do not use these commands unless explicitly approved:
+
+```bash
+git reset --hard
+git clean -fdx
+rm -rf data/locomo log result reports
+```
+
 ## Environment
 
 Recommended:
@@ -186,6 +237,116 @@ If any of these are missing:
 - Do not merge the experiment branch into `main`.
 - Do not write "reproduction succeeded".
 - First add the missing audit summary or an `artifact_manifest_*.json` explaining remote paths, file sizes, checksums, and why the raw artifact is not committed.
+
+## OpenAI-Compatible Provider Notes
+
+OpenAI-compatible means the provider exposes endpoints shaped like the OpenAI API, usually:
+
+```text
+/v1/chat/completions
+/v1/embeddings
+```
+
+This does not guarantee identical behavior across providers or models.
+
+Must verify for each provider/model:
+
+- Whether `message.content` contains the final answer.
+- Whether important output is instead placed in `reasoning_content`.
+- Whether `tool_calls` follow the OpenAI schema exactly.
+- Whether `response_format={"type":"json_object"}` is supported.
+- Whether strict JSON schema output is supported.
+- Whether `parallel_tool_calls` is ignored, rejected, or honored.
+- Whether `seed` is ignored.
+- Whether `max_tokens` is interpreted as output tokens, total tokens, or provider-specific limit.
+- Whether `finish_reason` reports `stop`, `length`, `tool_calls`, or provider-specific values.
+- Whether `usage.prompt_tokens`, `usage.completion_tokens`, and `usage.total_tokens` are present and reliable.
+
+If a run fails under an OpenAI-compatible provider, do not immediately conclude that the model is weak. First identify whether the failure is caused by provider compatibility, response parsing, token truncation, schema mismatch, or prompt fragility.
+
+## Model Diagnostic Evidence Requirements
+
+When rewrite, keyword extraction, tool calling, or evaluation fails, the experiment report must include enough evidence to distinguish model capability from implementation/provider issues.
+
+Required for every failed rewrite/keyword session:
+
+- Raw prompt sent to the model, with API keys and private secrets redacted.
+- Raw API response, with secrets redacted.
+- `message.content`.
+- `reasoning_content`, if the provider returns it.
+- `finish_reason`.
+- `usage.prompt_tokens`, `usage.completion_tokens`, `usage.total_tokens`.
+- JSON parse error text.
+- Schema validation error text.
+- Whether `max_tokens` truncation occurred or is suspected.
+- Retry number, retry temperature, output length, and error type.
+- Whether the output was `None`, empty string, invalid JSON, valid JSON with null fields, or valid JSON failing schema.
+
+Required comparison tests before blaming a model:
+
+- DeepSeek-V4-Pro with current settings.
+- DeepSeek-V4-Pro with `response_format={"type":"json_object"}` if the provider supports it.
+- DeepSeek-V4-Pro with larger `max_tokens`, at least 16384 and preferably 32768 if supported.
+- Qwen3-235B on the same failed sessions.
+- Gemini-2.5-Flash or Claude-Sonnet-4.5 on the same failed sessions, because these are closer to the original paper/repository settings.
+
+Minimum diagnostic subset:
+
+```text
+1 known-success session
+3 failed sessions
+same prompt
+same parser
+same schema checker
+same report format
+```
+
+For the current `conv-30` investigation, use:
+
+```text
+failed sessions: 6, 8, 17 if available
+plus one successful session from the same rewrite file
+```
+
+Required diagnostic artifact:
+
+```text
+reports/model_diagnostics_YYYYMMDD.md
+result/locomo/model_diagnostic_manifest_YYYYMMDD.json
+```
+
+The manifest must include:
+
+```json
+{
+  "run_id": "",
+  "sample_id": "conv-30",
+  "session_id": "",
+  "model": "",
+  "provider": "",
+  "base_url": "",
+  "response_format": "",
+  "max_tokens": 0,
+  "temperature": 0.0,
+  "retry_id": 0,
+  "prompt_sha256": "",
+  "raw_response_sha256": "",
+  "content_length": 0,
+  "reasoning_content_length": 0,
+  "finish_reason": "",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "parse_status": "ok|json_parse_error|schema_error|empty|truncated|unknown",
+  "parse_error": "",
+  "schema_error": "",
+  "output_status": "valid|valid_with_null_fields|invalid|none"
+}
+```
+
+Raw prompts/responses may be kept on the server if large, but the report must record their absolute paths, sizes, checksums, and redaction status. Do not commit secrets.
 
 ## Evaluation
 
