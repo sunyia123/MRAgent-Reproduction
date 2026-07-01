@@ -1,16 +1,16 @@
 {
   "run_id": "20260701-stage-b-eval-audit",
   "branch": "exp/20260701-stage-b-eval-audit",
-  "commit": "5c43c858693c0639148c76f8e621c87cfac98d99",
+  "commit": "5c43c85 (original) → aa3743e (interrupted run report) → bbd2c73 (diagnostics)",
   "command": "python run_stratified.py --data locomo --model deepseek --file stratified --sample 30 --per_category 3 --total 15 --seed 42",
   "dataset": "locomo",
-  "sample_ids": [
-    "conv-30"
-  ],
+  "sample_ids": ["conv-30"],
   "model": "deepseek-ai/DeepSeek-V4-Pro",
   "embedding_model": "Qwen/Qwen3-Embedding-8B",
   "judge_model": "Qwen/Qwen3-8B",
-  "status": "interrupted — rewrite partial, keyword/embedding/QA not generated",
+  "status": "interrupted — root cause diagnosed as max_tokens=4096 truncation, fix applied 2026-07-02",
+  "diagnostic_reference": "reports/model_diagnostics_20260701.md",
+  "diagnostic_evidence": "result/diagnostics/rewrite/raw/session*_*.json (12 files, 4 sessions × 3 configs)",
   "artifacts": {
     "rewrite": {
       "path": "data/locomo/rewrite_deepseek/conv-30_rewrite.json",
@@ -18,61 +18,21 @@
       "size_bytes": 89025,
       "sha256": "781bf13cea951158f8de91b765e14d42cd860a0d60e536957f74ce2d77f0bbad",
       "committed": false,
-      "note": "17/19 sessions written (10 OK, 7 NULL, 2 MISSING). DeepSeek-V4-Pro limitation."
+      "note": "17/19 sessions (7 NULL). CAUSE: max_tokens=4096 JSON truncation, NOT model capability. See diagnostics."
     },
-    "keyword": {
-      "path": "data/locomo/keyword_deepseek/conv-30_keyword.json",
-      "exists": false,
-      "size_bytes": null,
-      "sha256": null,
-      "note": "Not generated — pipeline interrupted before keyword completion"
-    },
-    "embedding": {
-      "path": "data/locomo/embedding/gpt_deepseek/conv-30_embedding.pkl",
-      "exists": false,
-      "size_bytes": null,
-      "sha256": null,
-      "note": "Not generated"
-    },
-    "result": {
-      "path": "result/locomo/conv-30_result_deepseek_stratified.jsonl",
-      "exists": false,
-      "note": "Not generated — QA never started"
-    },
-    "log": {
-      "path": "log/locomo/conv-30_deepseek_stratified.log",
-      "exists": true,
-      "size_bytes": 6366,
-      "sha256": "8975ac95da2c3c7820abe23ae762b22daa73e52e024ef8a6fa87f34d83f866d4",
-      "committed": true,
-      "note": "Single clean run, 54 API calls, 0 errors, interrupted at keyword extraction"
-    },
-    "metrics": {
-      "path": "result/locomo/metrics_summary_deepseek_stratified.json",
-      "exists": false,
-      "note": "Not generated — QA never started"
-    },
-    "memory_audit": {
-      "path": "result/locomo/memory_audit_deepseek_stratified.json",
-      "exists": true,
-      "size_bytes": 1295,
-      "sha256": "c3b12de5b88d839761d897f35fabf32c58e1e7c6e8212db7f58d28ff4431b654",
-      "note": "17 sessions, 7 null. sessions_without_sentences=7 (FAILS checklist)"
-    }
+    "keyword": {"path": "data/locomo/keyword_deepseek/conv-30_keyword.json", "exists": false, "note": "Not generated"},
+    "embedding": {"path": "data/locomo/embedding/gpt_deepseek/conv-30_embedding.pkl", "exists": false, "note": "Not generated"},
+    "result": {"path": "result/locomo/conv-30_result_deepseek_stratified.jsonl", "exists": false, "note": "Old QA results DELETED — contaminated by null-session rewrite"},
+    "log": {"path": "log/locomo/conv-30_deepseek_stratified.log", "exists": true, "committed": true, "note": "Single clean run, 0 errors"},
+    "metrics": {"path": "result/locomo/metrics_summary_deepseek_stratified.json", "exists": false, "note": "Old metrics DELETED — contaminated"},
+    "memory_audit": {"path": "result/locomo/memory_audit_deepseek_stratified.json", "exists": true, "note": "7 null sessions (max_tokens=4096 cause)"}
   },
-  "known_missing": [
-    "keyword.json — pipeline interrupted",
-    "embedding.pkl — pipeline interrupted",
-    "result.jsonl — QA never reached",
-    "metrics_summary.json — QA never reached",
-    "result_judge_*.jsonl — QA never reached",
-    "sessions 18-19 in rewrite — not written before pipeline interruption"
-  ],
+  "old_qa_metrics_status": "DELETED — produced using rewrite with 7 null sessions, NOT valid reproduction results",
+  "root_cause": "max_tokens=4096 causes DeepSeek-V4-Pro reasoning_content to exhaust token budget before JSON output completes. finish_reason=length confirmed on all NULL sessions.",
+  "fix_applied": "REWRITE_MAX_TOKENS=16384, KEYWORD_MAX_TOKENS=16384 in common/config.py. Cache validation added to run.py and run_stratified.py.",
   "blockers": [
-    "DeepSeek-V4-Pro produces NULL output for 7/17 rewrite sessions (41% failure rate)",
-    "Keyword extraction has extensive schema retries (35+ API calls, 0 output)",
-    "Model latency makes full pipeline impractical (6+ hours, incomplete)",
-    "CHECKLIST FAIL: sessions_without_sentences=7 (must be 0)"
+    "Clean regeneration with max_tokens=16384 not yet completed",
+    "CHECKLIST FAIL: sessions_without_sentences=7 (expected 0 after regeneration)"
   ],
-  "merge_status": "blocked"
+  "merge_status": "blocked — pending clean regeneration with fixed max_tokens"
 }

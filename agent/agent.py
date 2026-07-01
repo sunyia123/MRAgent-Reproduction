@@ -454,6 +454,9 @@ class Agent:
         import time as _time
         _t_start = _time.time()
 
+        # set stage for call logging
+        self.llm._current_stage = "qa"
+
         # reset per-question metrics
         self.schema_retries = 0
         self.forced_accepts = 0
@@ -608,6 +611,7 @@ class Agent:
                 s["id"] = f"{s['origin']}-{cnt[s['origin']]}"
 
     def rewrite(self, text:str):
+        self.llm._current_stage = "rewrite"
         rewrite_prompt = Prompts.extract_rewrite_prompt(json.dumps(text, ensure_ascii=False))
         rewrite_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT},
@@ -686,6 +690,7 @@ class Agent:
 
 
     def extract_keys(self, text: str):
+        self.llm._current_stage = "keyword"
         keys_prompt = Prompts.extract_keyword_prompt(json.dumps(text, ensure_ascii=False), json.dumps(list(self.tags), ensure_ascii=False))
         keys_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT},

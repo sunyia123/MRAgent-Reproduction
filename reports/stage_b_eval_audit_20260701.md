@@ -146,19 +146,30 @@ confirming this is **non-deterministic model output** rather than cached data co
 - Schema validation failures triggered extensive retries (3 retries × 5–10 min each)
 - Never completed before interruption
 
-### 3.6 Root Cause Analysis
+### 3.6 Root Cause Analysis (UPDATED 2026-07-02 after model diagnostics)
 
-The null sessions CANNOT be fixed by cache regeneration because:
+**Initial assessment (2026-07-01) was INCORRECT.** The null sessions were initially attributed to
+model capability, but controlled diagnostics (`reports/model_diagnostics_20260701.md`) proved the
+real cause is `max_tokens=4096` truncation.
 
-1. **All 7 null sessions contain normal text dialogue** (not image-only). The model simply produces
-   `{"sentence": null, "topics": null, "personal_sentences": null}` for these sessions.
-2. **Non-deterministic**: different sessions fail each run, suggesting marginal JSON validity.
-3. **Keyword schema retries are excessive**: DeepSeek-V4-Pro cannot consistently produce valid
-   keyword JSON that passes `check_key_json()` validation, causing 2–3× API call inflation.
-4. **Latency is prohibitive**: 5–10 min per API call × 38 sessions × 1.5× retry multiplier ≈
-   5+ hours just for rewrite+keyword, with QA still ahead.
+**Corrected root cause**:
 
-**Conclusion: DeepSeek-V4-Pro is not a viable model for this pipeline's schema requirements.**
+1. **`max_tokens=4096` (added as a guard in Stage A) causes JSON truncation**: DeepSeek-V4-Pro
+   generates extensive `reasoning_content` that counts against the `max_tokens` budget. For
+   sessions with >20 dialogue items, reasoning alone can consume 4000+ tokens, leaving no
+   budget for the actual JSON output.
+2. **Evidence**: All 4 tested sessions (1, 6, 8, 17) produce valid output at `max_tokens=16384`
+   (28, 55, 73, 57 sentences respectively). At 4096, 3 of 4 return `finish_reason=length` with
+   0 sentences. See `result/diagnostics/rewrite/raw/session*_*.json` for raw prompts and responses.
+3. **Non-determinism explained**: reasoning_content length varies per call; sessions near the
+   token limit fail intermittently. Different sessions fail each run because the token budget is
+   marginal, not because of model unreliability.
+4. **Keyword extraction also affected**: keyword JSON outputs are similarly truncated at 4096,
+   causing the schema retry spiral observed in the 2026-07-01 run.
+
+**Conclusion: The NULL session problem is a TOKEN BUDGET CONFIGURATION issue, not a model
+capability issue.** The fix is to raise `REWRITE_MAX_TOKENS` and `KEYWORD_MAX_TOKENS` to 16384
+(default applied in `common/config.py` as of 2026-07-02).
 
 ---
 
@@ -343,29 +354,32 @@ These metrics are now SUPERSEDED because:
 5. ✅ Judge file append pollution fixed
 6. ✅ Clean log maintained (single run, no errors mixed in)
 
-### What Was NOT Achieved
+### What Was NOT Achieved (as of 2026-07-01)
 
-1. ❌ `sessions_without_sentences=0` — DeepSeek-V4-Pro produces 41% null output
-2. ❌ keyword/embedding/QA never reached — model too slow and unreliable
+1. ❌ `sessions_without_sentences=0` — caused by max_tokens=4096 truncation (see §3.6 update)
+2. ❌ keyword/embedding/QA never reached — pipeline interrupted, not model failure
 3. ❌ Checklist minimum acceptance criteria not met
 4. ❌ No valid result JSONL or metrics to evaluate
 
-### Blockers to Merging
+### Blockers to Merging (as of 2026-07-02)
 
-1. **Model capability**: DeepSeek-V4-Pro is fundamentally unsuitable for this pipeline.
-   Must switch to a model that reliably produces valid JSON output.
-2. **Latency**: Even with a reliable model, rewrite+keyword for 19 sessions is ~3–6 hours.
-   Need a faster model for production-scale runs.
+1. **max_tokens=4096 truncation**: Root cause identified by model diagnostics
+   (`reports/model_diagnostics_20260701.md`). Fix applied: `REWRITE_MAX_TOKENS=16384`,
+   `KEYWORD_MAX_TOKENS=16384` in `common/config.py`. Ready for clean regeneration.
+2. **Cache validation**: Added to `run.py` and `run_stratified.py` — checks session count,
+   null sessions, keyword alignment before skipping cached files. Atomic write via temp files.
+3. **Old 15-question QA metrics are CONTAMINATED**: The previous round's QA results
+   (`conv-30_result_deepseek_stratified.jsonl` from commit `5c43c85`, now deleted) were
+   produced using a rewrite cache with 7 null sessions. These metrics are NOT valid
+   reproduction results and must not be cited.
 
 ### Recommended Next Steps
 
-1. **Switch chat model** to `Qwen/Qwen3-235B-A22B` (SiliconFlow) or `google/gemini-2.5-flash` (OpenRouter)
-   for reliable JSON output and faster latency
-2. **Regenerate rewrite** from scratch with the new model, verify `sessions_without_sentences=0`
-3. **Complete keyword + embedding + QA** with clean rewrite
-4. **Run full evaluation** with F1 + LLM judge
-5. **Document model differences** vs. paper settings per audit report requirements
-6. **Merge to main** only after all checklist items pass
+1. **Clean regeneration**: Run `run_stratified.py` with fixed max_tokens (16384) and cache
+   validation. Expected: 19/19 sessions with data, `sessions_without_sentences=0`.
+2. **Complete pipeline**: keyword → embedding → 15-question stratified QA.
+3. **Full evaluation**: F1 + LLM judge on clean results.
+4. **Merge to main** after all checklist items pass.
 
 ---
 

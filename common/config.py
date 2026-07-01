@@ -75,6 +75,13 @@ TOPIC_K=8            # select_topic: number of topic candidates
 RERANK_LIMIT=20      # event_by_tag: re-rank events only when more than this many match
 MAX_ROUNDS=8         # tool-calling loop: max assistant rounds
 MAX_TOOL_CALLS=50    # tool-calling loop: safety cap on total tool calls
+# --- Stage-specific max_tokens (env-configurable) ---
+# DeepSeek-V4-Pro generates extensive reasoning_content; 4096 causes JSON truncation.
+# See reports/model_diagnostics_20260701.md for evidence.
+REWRITE_MAX_TOKENS = int(os.getenv("REWRITE_MAX_TOKENS", "16384"))
+KEYWORD_MAX_TOKENS = int(os.getenv("KEYWORD_MAX_TOKENS", "16384"))
+QA_MAX_TOKENS = int(os.getenv("QA_MAX_TOKENS", "8192"))
+DEFAULT_MAX_TOKENS = REWRITE_MAX_TOKENS  # default for unclassified calls (was 4096)
 sample_id = args.sample
 qu = args.qu
 ca = args.ca

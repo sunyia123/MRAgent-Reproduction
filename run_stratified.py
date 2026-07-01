@@ -14,6 +14,7 @@ import json
 import re
 import logging
 import random
+import shutil
 from pathlib import Path
 from collections import defaultdict
 
@@ -27,6 +28,61 @@ from data.embed_rewrite import embed_sample
 from common.logging_utils import per_sample_log
 
 logger = logging.getLogger(__name__)
+
+
+# --- Cache validation ---
+
+def _validate_rewrite_cache(rewrite_path: str, expected_sessions: int) -> tuple:
+    """Check rewrite cache completeness. Returns (valid: bool, reason: str)."""
+    if not os.path.exists(rewrite_path):
+        return False, "file not found"
+    try:
+        sessions = []
+        with open(rewrite_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    sessions.append(json.loads(line))
+        if len(sessions) != expected_sessions:
+            return False, f"session count mismatch: {len(sessions)} lines vs {expected_sessions} expected"
+        null_count = 0
+        schema_failures = 0
+        for obj in sessions:
+            for sid, data in obj.items():
+                if data is None:
+                    null_count += 1
+                elif isinstance(data, dict):
+                    if data.get("sentence") is None:
+                        null_count += 1
+                    elif not isinstance(data.get("sentence"), list):
+                        schema_failures += 1
+        if null_count > 0:
+            return False, f"{null_count} sessions have null sentence data"
+        if schema_failures > 0:
+            return False, f"{schema_failures} sessions have invalid sentence structure"
+        return True, "ok"
+    except Exception as e:
+        return False, f"validation error: {e}"
+
+
+def _validate_keyword_cache(keyword_path: str, expected_sentence_count: int) -> tuple:
+    """Check keyword cache completeness. Returns (valid: bool, reason: str)."""
+    if not os.path.exists(keyword_path):
+        return False, "file not found"
+    try:
+        total = 0
+        with open(keyword_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    obj = json.loads(line)
+                    sentences = obj.get("sentence", [])
+                    total += len(sentences) if isinstance(sentences, list) else 0
+        if total != expected_sentence_count:
+            return False, f"keyword sentence count {total} != rewrite sentence count {expected_sentence_count}"
+        return True, "ok"
+    except Exception as e:
+        return False, f"validation error: {e}"
 
 
 def stratified_sample(question_list: dict, sample_id: str, per_category: int = 3, total: int = 15,
@@ -189,18 +245,57 @@ def main():
             memory_controller = MemoryController(memory_system, llm)
             agent = Agent(llm, memory_system, memory_controller)
 
-            # --- Pipeline stages (same as run.py) ---
+            # --- Pipeline stages with cache validation ---
+            expected_sessions = len(sample)
             rewrite_path = config.rewrite_template.format(dataset=dataset, sample_id=sample_id)
-            if not os.path.exists(rewrite_path):
-                agent.rewrite_sample(sample, rewrite_path)
+            rewrite_tmp = rewrite_path + ".tmp"
+
+            rewrite_valid, rewrite_reason = _validate_rewrite_cache(rewrite_path, expected_sessions)
+            if rewrite_valid:
+                logger.info(f"Rewrite cache valid ({rewrite_reason}), skipping.")
             else:
-                logger.info(f"Rewrite for sample {sample_id} already exists, skipping.")
+                logger.info(f"Rewrite cache invalid ({rewrite_reason}), regenerating...")
+                if os.path.exists(rewrite_tmp):
+                    os.remove(rewrite_tmp)
+                # Write to temp file, validate, then atomically rename
+                agent.rewrite_sample(sample, rewrite_tmp)
+                tmp_valid, tmp_reason = _validate_rewrite_cache(rewrite_tmp, expected_sessions)
+                if tmp_valid:
+                    shutil.move(rewrite_tmp, rewrite_path)
+                    logger.info(f"Rewrite regenerated and validated: {rewrite_path}")
+                else:
+                    logger.error(f"Rewrite regeneration FAILED: {tmp_reason}. Keeping temp file: {rewrite_tmp}")
+                    # Continue with temp file for debugging but do NOT replace cache
 
             keyword_path = config.keyword_template.format(dataset=dataset, sample_id=sample_id)
-            if not os.path.exists(keyword_path):
-                agent.extract_keyword_sample(keyword_path, rewrite_path)
+            keyword_tmp = keyword_path + ".tmp"
+            # Count rewrite sentences for keyword validation
+            rewrite_sentence_count = 0
+            with open(rewrite_path, encoding="utf-8") as _rf:
+                for _line in _rf:
+                    _line = _line.strip()
+                    if _line:
+                        _obj = json.loads(_line)
+                        for _sid, _data in _obj.items():
+                            if _data and isinstance(_data, dict):
+                                _s = _data.get("sentence")
+                                if isinstance(_s, list):
+                                    rewrite_sentence_count += len(_s)
+
+            keyword_valid, keyword_reason = _validate_keyword_cache(keyword_path, rewrite_sentence_count)
+            if keyword_valid:
+                logger.info(f"Keyword cache valid ({keyword_reason}), skipping.")
             else:
-                logger.info(f"Keyword for sample {sample_id} already exists, skipping.")
+                logger.info(f"Keyword cache invalid ({keyword_reason}), regenerating...")
+                if os.path.exists(keyword_tmp):
+                    os.remove(keyword_tmp)
+                agent.extract_keyword_sample(keyword_tmp, rewrite_path)
+                tmp_valid, tmp_reason = _validate_keyword_cache(keyword_tmp, rewrite_sentence_count)
+                if tmp_valid:
+                    shutil.move(keyword_tmp, keyword_path)
+                    logger.info(f"Keyword regenerated and validated: {keyword_path}")
+                else:
+                    logger.error(f"Keyword regeneration FAILED: {tmp_reason}. Keeping temp file: {keyword_tmp}")
 
             embedding_path = config.embedding_template.format(dataset=dataset, sample_id=sample_id)
             if not os.path.exists(embedding_path):
