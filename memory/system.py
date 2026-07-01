@@ -261,7 +261,8 @@ class MemorySystem:
 
 
     def add_topics(self, topic_sentences, eid_topic_dict, session_id):
-
+        if topic_sentences is None:
+            return
         for ts in topic_sentences:
             tid = f"D{session_id}:"+ts
             ttext = topic_sentences[ts]

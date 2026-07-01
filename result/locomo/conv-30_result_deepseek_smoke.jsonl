@@ -1,0 +1,3 @@
+{"answer": "19 January, 2023", "prediction": "19 January 2023", "category": 2, "evidence": ["D1:2"], "question": "When Jon has lost his job as a banker?", "prediction_context": ["D1:2"], "sample": "conv-30"}
+{"answer": "January, 2023", "prediction": "January 2023", "category": 2, "evidence": ["D1:3"], "question": "When Gina has lost her job at Door Dash?", "prediction_context": ["D1:3"], "sample": "conv-30"}
+{"answer": "by dancing", "prediction": "dance", "category": 4, "evidence": ["D1:7", "D1:6"], "question": "How do Jon and Gina both like to destress?", "prediction_context": ["D1:7", "D1:8", "D11:5", "D11:6", "D11:7", "D19:1"], "sample": "conv-30"}

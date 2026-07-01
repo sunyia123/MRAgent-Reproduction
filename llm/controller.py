@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 class LLM:
     def __init__(self):
         self.client = OpenAI(api_key=config.API_KEY,
-                             base_url=config.OPENROUTER_URL,
-                             timeout=120.0,
-                             max_retries=3)
+                             base_url=config.LLM_BASE_URL,
+                             timeout=600.0,
+                             max_retries=2)
         self.model = config.MODEL
 
     def chat_with_tool(
@@ -51,6 +51,9 @@ class LLM:
             req["tool_choice"] = tool_choice
         if extra:
             req.update(extra)
+        # Guard: prevent unbounded generation on slow providers
+        if "max_tokens" not in req:
+            req["max_tokens"] = 4096
 
         last_exc: Optional[Exception] = None
         for attempt in range(1, max_retries + 1):

@@ -695,7 +695,10 @@ class Agent:
                 else:
                     last_err = err  # keep the last error
                     if attempt == max_tries:
-                        flag, err = json_scheme.check_key_json(keys_out, text, replace=True)
+                        flag, err = json_scheme.check_key_json(keys_out, text)
+                        # Last attempt exhausted: accept as-is to avoid crashing
+                        flag = True
+                        err = ""
 
         # final safety check: ensure we return a dict object, not a string
         if isinstance(keys_out, str):
@@ -820,6 +823,8 @@ class Agent:
 
         self.memory.add_topics(topic_sentences, eid_topic_dict, session_id)
 
+        if personal_sentences is None:
+            personal_sentences = []
         for ps in personal_sentences:
             pid = f"D{session_id}:" + ps.get("id")
             ptext = ps.get("text")

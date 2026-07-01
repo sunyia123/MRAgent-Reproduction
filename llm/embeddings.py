@@ -13,8 +13,9 @@ from openai._exceptions import OpenAIError, RateLimitError, APIStatusError
 # embedding via OpenRouter (proxies /embeddings; text-embedding-3-large returns 3072-d)
 from dotenv import load_dotenv
 load_dotenv()  # read API key from .env
-EMBED_API_KEY = os.getenv("OPENROUTER_API_KEY")
-EMBED_BASE_URL = "https://openrouter.ai/api/v1"
+EMBED_API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
+EMBED_BASE_URL = os.getenv("EMBED_BASE_URL", os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1"))
+EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-large")
 os.environ["OPENAI_API_KEY"] = EMBED_API_KEY or ""  # for set_openai_key() validation
 
 # optional helper
@@ -33,7 +34,7 @@ def set_openai_key(key_env: str = "OPENAI_API_KEY") -> None:
 
 def get_openai_embedding(
     texts: Sequence[str],
-    model: str = "text-embedding-3-large",
+    model: str = None,
     *,
     batch_size: int = 96,
     max_retries: int = 5,
@@ -65,13 +66,15 @@ def get_openai_embedding(
     List[List[float]]
         Embeddings of shape (len(texts), dim).
     """
+    if model is None:
+        model = EMBED_MODEL
     if not isinstance(texts, (list, tuple)):
         raise TypeError("texts must be a list/tuple of strings")
 
     # preprocess: replace newlines with spaces to avoid length/format issues
     clean_texts = [("" if t is None else str(t)).replace("\n", " ").strip() for t in texts]
 
-    client = OpenAI(timeout=timeout, api_key=EMBED_API_KEY, base_url=EMBED_BASE_URL)  # embedding via OpenRouter
+    client = OpenAI(timeout=timeout, api_key=EMBED_API_KEY, base_url=EMBED_BASE_URL)
 
     embeddings: List[List[float]] = []
     n = len(clean_texts)

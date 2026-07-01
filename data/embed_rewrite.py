@@ -40,6 +40,8 @@ def embed_sample(qa_list, rewrite_path, FILE_EMBEDDING):
         if session_data is None:
             continue
         sentences = session_data.get("sentence")
+        if sentences is None:
+            continue
         topics = session_data.get("topics")
         sentence_list = []
         for s in sentences:

@@ -33,6 +33,9 @@ def get_question(dataset, agent, question_list, sample_id, memory, result_path, 
     logger.info(f"---------------{sample_id}-------------------")
 
     qa_list = question_list[sample_id]
+    if config.MAX_QUESTIONS is not None and len(qa_list) > config.MAX_QUESTIONS:
+        qa_list = qa_list[: config.MAX_QUESTIONS]
+        logger.info(f"Smoke mode: limiting to first {config.MAX_QUESTIONS} questions")
     memory_system = agent.memory  # shared read-only after store_raw_text / store_keyword
 
     # resumable: use the line count of result_path as the cursor, skip already-done questions
