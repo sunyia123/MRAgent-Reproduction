@@ -223,8 +223,11 @@ def main():
     else:
         judge_by_cat = defaultdict(list)
         out_path = f"result_judge_{args.data}_{args.model}_{args.file}.jsonl"
+        # Remove old judge file to prevent append pollution from previous runs
+        if os.path.exists(out_path):
+            os.remove(out_path)
         _t0 = time.time()
-        with open(out_path, "a", encoding="utf-8") as of:
+        with open(out_path, "w", encoding="utf-8") as of:
             for r in data:
                 category = r["category"]
                 if is_adversarial(category):

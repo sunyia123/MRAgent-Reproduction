@@ -13,6 +13,9 @@ parser.add_argument("--re_model", type=str, default=None, help="Dataset name, e.
 parser.add_argument("--ca", type=int, default=1, help="LM category index: 0=multi-session,1=single-session-user,2=temporal-reasoning,3=single-session-preference,4=knowledge-update,5=single-session-assistant")
 parser.add_argument("--lm_batch", type=int, default=1, help="LM: sessions merged per rewrite call. 1=per-session (key=session_i, compatible with existing files/per-session readers); >1=merged (key=session_first-session_last)")
 parser.add_argument("--max_questions", type=int, default=None, help="Max questions to answer per sample (smoke: 3-5)")
+parser.add_argument("--per_category", type=int, default=3, help="Stratified sampling: min questions per category (default 3)")
+parser.add_argument("--total", type=int, default=15, help="Stratified sampling: total questions (default 15)")
+parser.add_argument("--seed", type=int, default=42, help="Stratified sampling: random seed (default 42)")
 
 # parse_known_args (not parse_args) so importing this module under a foreign argv
 # (pytest, notebooks, helper scripts) does not crash on unrecognized arguments.
@@ -77,6 +80,9 @@ qu = args.qu
 ca = args.ca
 LM_REWRITE_BATCH = args.lm_batch  # sessions merged per LM rewrite call
 MAX_QUESTIONS = args.max_questions  # limit questions per sample for smoke tests
+STRATIFIED_PER_CATEGORY = args.per_category  # stratified sampling: min questions per category
+STRATIFIED_TOTAL = args.total  # stratified sampling: total questions
+STRATIFIED_SEED = args.seed  # stratified sampling: random seed
 
 dataset = args.data
 DATASET = dataset

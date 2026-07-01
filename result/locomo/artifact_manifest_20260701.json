@@ -1,0 +1,78 @@
+{
+  "run_id": "20260701-stage-b-eval-audit",
+  "branch": "exp/20260701-stage-b-eval-audit",
+  "commit": "5c43c858693c0639148c76f8e621c87cfac98d99",
+  "command": "python run_stratified.py --data locomo --model deepseek --file stratified --sample 30 --per_category 3 --total 15 --seed 42",
+  "dataset": "locomo",
+  "sample_ids": [
+    "conv-30"
+  ],
+  "model": "deepseek-ai/DeepSeek-V4-Pro",
+  "embedding_model": "Qwen/Qwen3-Embedding-8B",
+  "judge_model": "Qwen/Qwen3-8B",
+  "status": "interrupted — rewrite partial, keyword/embedding/QA not generated",
+  "artifacts": {
+    "rewrite": {
+      "path": "data/locomo/rewrite_deepseek/conv-30_rewrite.json",
+      "exists": true,
+      "size_bytes": 89025,
+      "sha256": "781bf13cea951158f8de91b765e14d42cd860a0d60e536957f74ce2d77f0bbad",
+      "committed": false,
+      "note": "17/19 sessions written (10 OK, 7 NULL, 2 MISSING). DeepSeek-V4-Pro limitation."
+    },
+    "keyword": {
+      "path": "data/locomo/keyword_deepseek/conv-30_keyword.json",
+      "exists": false,
+      "size_bytes": null,
+      "sha256": null,
+      "note": "Not generated — pipeline interrupted before keyword completion"
+    },
+    "embedding": {
+      "path": "data/locomo/embedding/gpt_deepseek/conv-30_embedding.pkl",
+      "exists": false,
+      "size_bytes": null,
+      "sha256": null,
+      "note": "Not generated"
+    },
+    "result": {
+      "path": "result/locomo/conv-30_result_deepseek_stratified.jsonl",
+      "exists": false,
+      "note": "Not generated — QA never started"
+    },
+    "log": {
+      "path": "log/locomo/conv-30_deepseek_stratified.log",
+      "exists": true,
+      "size_bytes": 6366,
+      "sha256": "8975ac95da2c3c7820abe23ae762b22daa73e52e024ef8a6fa87f34d83f866d4",
+      "committed": true,
+      "note": "Single clean run, 54 API calls, 0 errors, interrupted at keyword extraction"
+    },
+    "metrics": {
+      "path": "result/locomo/metrics_summary_deepseek_stratified.json",
+      "exists": false,
+      "note": "Not generated — QA never started"
+    },
+    "memory_audit": {
+      "path": "result/locomo/memory_audit_deepseek_stratified.json",
+      "exists": true,
+      "size_bytes": 1295,
+      "sha256": "c3b12de5b88d839761d897f35fabf32c58e1e7c6e8212db7f58d28ff4431b654",
+      "note": "17 sessions, 7 null. sessions_without_sentences=7 (FAILS checklist)"
+    }
+  },
+  "known_missing": [
+    "keyword.json — pipeline interrupted",
+    "embedding.pkl — pipeline interrupted",
+    "result.jsonl — QA never reached",
+    "metrics_summary.json — QA never reached",
+    "result_judge_*.jsonl — QA never reached",
+    "sessions 18-19 in rewrite — not written before pipeline interruption"
+  ],
+  "blockers": [
+    "DeepSeek-V4-Pro produces NULL output for 7/17 rewrite sessions (41% failure rate)",
+    "Keyword extraction has extensive schema retries (35+ API calls, 0 output)",
+    "Model latency makes full pipeline impractical (6+ hours, incomplete)",
+    "CHECKLIST FAIL: sessions_without_sentences=7 (must be 0)"
+  ],
+  "merge_status": "blocked"
+}
