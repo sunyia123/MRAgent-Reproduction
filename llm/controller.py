@@ -2,6 +2,7 @@ import sys, os
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import json
 import time
+import hashlib
 from typing import List, Dict, Any, Optional, Callable, Tuple, Union
 from openai import OpenAI, APIStatusError, APIConnectionError, APIResponseValidationError
 from prompts.prompts import Prompts
@@ -10,6 +11,77 @@ from common import config
 import logging
 logger = logging.getLogger(__name__)
 
+# --- Per-call metadata logging (always-on; writes to result/diagnostics/) ---
+_CALL_LOG_DIR = os.path.join("result", "diagnostics")
+_CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, "api_call_log.jsonl")
+os.makedirs(_CALL_LOG_DIR, exist_ok=True)
+_call_logger = logging.getLogger("llm.call_log")
+_call_logger.setLevel(logging.INFO)
+_call_logger.propagate = False
+_call_fh = logging.FileHandler(_CALL_LOG_PATH, encoding="utf-8")
+_call_fh.setFormatter(logging.Formatter('%(message)s'))
+_call_logger.addHandler(_call_fh)
+
+
+def _log_api_call(call_type: str, model: str, max_tokens: int, temperature: float,
+                  finish_reason: str = None, usage: dict = None,
+                  latency_s: float = 0.0, attempt: int = 1, error: str = None,
+                  stage: str = None, session: str = None):
+    """Always-on per-call metadata log for audit trail."""
+    try:
+        rec = {
+            "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "call_type": call_type,
+            "model": model,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+            "attempt": attempt,
+            "latency_s": round(latency_s, 1),
+        }
+        if stage: rec["stage"] = stage
+        if session: rec["session"] = session
+        if finish_reason: rec["finish_reason"] = finish_reason
+        if usage: rec["usage"] = usage
+        if error: rec["error"] = str(error)[:500]
+        _call_logger.info(json.dumps(rec, ensure_ascii=False, default=str))
+    except Exception:
+        pass  # call logging must never crash the pipeline
+
+def _log_from_resp(call_type, req, resp, latency_s=0.0, attempt=1, stage=None, session=None):
+    """Extract and log metadata from a successful API response."""
+    try:
+        choice = resp.choices[0]
+        msg = getattr(choice, "message", None)
+        usage = getattr(resp, "usage", None)
+        _log_api_call(
+            call_type=call_type,
+            model=req.get("model", "?"),
+            max_tokens=req.get("max_tokens", 0),
+            temperature=req.get("temperature", 0.0),
+            finish_reason=getattr(choice, "finish_reason", None),
+            usage={"prompt": getattr(usage, "prompt_tokens", None),
+                   "completion": getattr(usage, "completion_tokens", None),
+                   "total": getattr(usage, "total_tokens", None)} if usage else None,
+            latency_s=latency_s, attempt=attempt, stage=stage, session=session,
+        )
+    except Exception:
+        pass
+
+
+def _log_from_error(call_type, req, error, latency_s=0.0, attempt=1, stage=None, session=None):
+    """Log a failed API call."""
+    try:
+        _log_api_call(
+            call_type=call_type,
+            model=req.get("model", "?"),
+            max_tokens=req.get("max_tokens", 0),
+            temperature=req.get("temperature", 0.0),
+            latency_s=latency_s, attempt=attempt, error=error, stage=stage, session=session,
+        )
+    except Exception:
+        pass
+
+
 class LLM:
     def __init__(self):
         self.client = OpenAI(api_key=config.API_KEY,
@@ -17,6 +89,9 @@ class LLM:
                              timeout=600.0,
                              max_retries=2)
         self.model = config.MODEL
+        # metrics instrumentation
+        self.last_tool_calls = 0
+        self._current_stage = None  # set by agent: "rewrite" / "keyword" / "qa"
 
     def chat_with_tool(
             self,
@@ -51,16 +126,21 @@ class LLM:
             req["tool_choice"] = tool_choice
         if extra:
             req.update(extra)
-        # Guard: prevent unbounded generation on slow providers
+        # Guard: prevent unbounded generation. Default from config (16384),
+        # overridable per-call via extra or the caller.
         if "max_tokens" not in req:
-            req["max_tokens"] = 4096
+            req["max_tokens"] = getattr(config, 'DEFAULT_MAX_TOKENS', 4096)
 
         last_exc: Optional[Exception] = None
+        _t0 = 0.0
         for attempt in range(1, max_retries + 1):
             try:
+                _t0 = time.time()
                 resp =  self.client.chat.completions.create(**req)
+                _log_from_resp("chat", req, resp, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
                 return resp
             except APIStatusError as e:
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
                 status = getattr(e, "status_code", None)
                 text = getattr(getattr(e, "response", None), "text", "") or ""
                 logger.warning(f"APIStatusError {status}: {text[:400]}")
@@ -74,6 +154,7 @@ class LLM:
 
 
             except (APIConnectionError, APIResponseValidationError) as e:
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt)
                 logger.warning(f"Connection/Validation error: {repr(e)}")
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)
@@ -82,6 +163,7 @@ class LLM:
                 break
 
             except Exception as e:
+                _diag_record("chat", req, None, error=repr(e), latency_s=time.time() - _t0, attempt=attempt)
                 logger.warning(f"Unexpected error: {repr(e)}", exc_info=True)
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)
@@ -106,6 +188,7 @@ class LLM:
             execute_tool: Optional[Callable] = None,
             max_rounds: int = config.MAX_ROUNDS,  # max rounds (assistant->tool->assistant is one round)
             max_tool_calls: int = config.MAX_TOOL_CALLS,  # max tool calls per session (safety cap)
+            max_tokens: Optional[int] = None,  # override default max_tokens per stage
             **extra
     ) -> Tuple[str, list]:
         """
@@ -148,6 +231,10 @@ class LLM:
                 messages.append({'role': 'user',
                                  'content': 'This is the final tool round. You must call query_conversation_time for relevant event. '})
             logger.info(f"---------- input (round {round_id}) ---------")
+            # Pass stage-specific max_tokens if provided
+            _extra = dict(extra)
+            if max_tokens is not None:
+                _extra["max_tokens"] = max_tokens
             comp = self.chat_with_tool(
                 messages=messages,
                 model=model,
@@ -157,7 +244,7 @@ class LLM:
                 # keep if the SDK supports parallel tool calls; ignore otherwise
                 parallel_tool_calls=True,
                 temperature=temperature,
-                **extra
+                **_extra
             )
             if comp == "400":
                 return "no information available", []
@@ -234,6 +321,7 @@ class LLM:
             logger.info(f"[round {round_id}] no tool_calls; finish.")
             continue
 
+        self.last_tool_calls = tool_calls_used
         return ans_obj.get("answer"), ans_obj.get("supports")
 
     def chat_text(
@@ -244,9 +332,12 @@ class LLM:
             tool_choice: Optional[Any] = "auto",
             model: str = config.MODEL,
             temperature: float = 0.0,
+            max_tokens: Optional[int] = None,  # override default per stage
             **extra
     ) -> str:
 
+        if max_tokens is not None:
+            extra["max_tokens"] = max_tokens
         max_attempts = 3
         json_out = None
 

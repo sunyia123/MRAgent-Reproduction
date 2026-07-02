@@ -14,6 +14,7 @@ from agent.tools import TOOLS
 import os
 import json
 import re
+import shutil
 from llm.controller import LLM
 from memory.controller import MemoryController
 from memory.system import MemorySystem
@@ -79,12 +80,15 @@ def get_question(dataset, agent, question_list, sample_id, memory, result_path, 
                 "answer": qa.get("answer"), "prediction": "ERROR", "category": category,
                 "evidence": evidence_labels, "question": qa.get("question"),
                 "prediction_context": [], "sample": sample_id,
+                "_metrics": {"tool_calls": 0, "schema_retries": 0, "forced_accepts": 0, "runtime_sec": 0},
             }
 
+        _metrics = getattr(q_agent, "_last_question_metrics", {})
         evaluation = {
             "answer": qa.get("answer"), "prediction": results, "category": category,
             "evidence": evidence_labels, "question": qa.get("question"),
             "prediction_context": evidence_support, "sample": sample_id,
+            "_metrics": _metrics,
         }
         return i, evaluation
 
@@ -182,17 +186,62 @@ def main():
                     continue
         with per_sample_log(sample_id=sample_id, dataset=dataset):
             logging.info(f"=== Start processing sample {sample_id} ===")
+
+            # --- Cache validation helpers ---
+            def _validate_rewrite(path, expected):
+                if not os.path.exists(path): return False, "missing"
+                try:
+                    lines = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
+                    if len(lines) != expected: return False, f"{len(lines)} lines != {expected}"
+                    nulls = sum(1 for o in lines for d in o.values()
+                                if d is None or (isinstance(d, dict) and d.get("sentence") is None))
+                    if nulls: return False, f"{nulls} null sessions"
+                    return True, "ok"
+                except Exception as e: return False, str(e)
+
+            expected_sessions = len(sample)
             rewrite_path = config.rewrite_template.format(dataset=dataset, sample_id=sample_id)
-            if not os.path.exists(rewrite_path):
-                agent.rewrite_sample(sample, rewrite_path)
+            rewrite_tmp = rewrite_path + ".tmp"
+            rv, rr = _validate_rewrite(rewrite_path, expected_sessions)
+            if rv:
+                logging.info(f"Rewrite cache valid ({rr}), skipping.")
             else:
-                logging.info(f"Rewrite for sample {sample_id} already exists, skipping.")
+                logging.info(f"Rewrite cache invalid ({rr}), regenerating via temp file...")
+                if os.path.exists(rewrite_tmp): os.remove(rewrite_tmp)
+                agent.rewrite_sample(sample, rewrite_tmp)
+                tv, tr = _validate_rewrite(rewrite_tmp, expected_sessions)
+                if tv:
+                    shutil.move(rewrite_tmp, rewrite_path)
+                    logging.info(f"Rewrite validated and saved: {rewrite_path}")
+                else:
+                    logging.error(f"Rewrite regeneration FAILED: {tr}. Temp file: {rewrite_tmp}")
 
             keyword_path = config.keyword_template.format(dataset=dataset, sample_id=sample_id)
-            if not os.path.exists(keyword_path):
-                agent.extract_keyword_sample(keyword_path, rewrite_path)
+            keyword_tmp = keyword_path + ".tmp"
+            rw_sent = 0
+            for _l in open(rewrite_path, encoding="utf-8"):
+                _l = _l.strip()
+                if _l:
+                    for _d in json.loads(_l).values():
+                        if _d and isinstance(_d, dict) and isinstance(_d.get("sentence"), list):
+                            rw_sent += len(_d["sentence"])
+            kw_ok = os.path.exists(keyword_path)
+            if kw_ok:
+                kw_total = 0
+                for _l in open(keyword_path, encoding="utf-8"):
+                    _l = _l.strip()
+                    if _l:
+                        for _obj in json.loads(_l).values():
+                            if isinstance(_obj, dict) and isinstance(_obj.get("sentence"), list):
+                                kw_total += len(_obj["sentence"])
+                kw_ok = kw_total == rw_sent
+            if kw_ok:
+                logging.info("Keyword cache valid, skipping.")
             else:
-                logging.info(f"Keyword for sample {sample_id} already exists, skipping.")
+                logging.info("Keyword cache invalid, regenerating via temp file...")
+                if os.path.exists(keyword_tmp): os.remove(keyword_tmp)
+                agent.extract_keyword_sample(keyword_tmp, rewrite_path)
+                shutil.move(keyword_tmp, keyword_path)
 
             embedding_path = config.embedding_template.format(dataset=dataset, sample_id=sample_id)
             if not os.path.exists(embedding_path):

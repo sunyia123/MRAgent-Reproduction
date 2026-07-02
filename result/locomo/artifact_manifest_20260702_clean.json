@@ -1,0 +1,132 @@
+{
+  "run_id": "20260702-stage-b-clean-stratified-conv30",
+  "branch": "exp/20260701-stage-b-eval-audit",
+  "commit": "6254f5a50acfb323b9fb1a58b0ec90af51731610",
+  "command": "python run_stratified.py --data locomo --model deepseek --file stratified --sample 30 --per_category 3 --total 15 --seed 42",
+  "dataset": "locomo",
+  "sample_ids": [
+    "conv-30"
+  ],
+  "model": "deepseek-ai/DeepSeek-V4-Pro",
+  "embedding_model": "Qwen/Qwen3-Embedding-8B",
+  "judge_model": "Qwen/Qwen3-8B",
+  "max_tokens_rewrite": 16384,
+  "max_tokens_keyword": 16384,
+  "max_tokens_qa_actual_this_run": 16384,
+  "max_tokens_qa_code_target": 8192,
+  "max_tokens_qa_note": "This run used 16384 for all stages. Code fix c922f9e sets QA=8192 but not yet verified by a re-run.",
+  "status": "complete — all checklist items pass",
+  "artifacts": {
+    "rewrite": {
+      "path": "data/locomo/rewrite_deepseek/conv-30_rewrite.json",
+      "exists": true,
+      "size_bytes": 235782,
+      "sha256": "88442d417ce25d69b7b58785e3227ac0e3a22ad33a8c9d266003b8356ddcccab",
+      "sessions": 19,
+      "null_sessions": 0,
+      "total_sentences": 1094
+    },
+    "keyword": {
+      "path": "data/locomo/keyword_deepseek/conv-30_keyword.json",
+      "exists": true,
+      "size_bytes": 99767,
+      "sha256": "20709f035d885884c749b8b4a832da8a31a4f187e03e4e184ffd10e3c4f1608f",
+      "total_sentences": 1094,
+      "total_keywords": 4408
+    },
+    "embedding": {
+      "path": "data/locomo/embedding/gpt_deepseek/conv-30_embedding.pkl",
+      "exists": true,
+      "size_bytes": 23147326,
+      "sha256": "995514af30c4c6c90949931e835cc3e663b589b75bde23ef77990a5ca5bf008f",
+      "committed": false,
+      "note": "23MB pickle, not committed"
+    },
+    "result": {
+      "path": "result/locomo/conv-30_result_deepseek_stratified.jsonl",
+      "exists": true,
+      "questions": 15,
+      "errors": 0
+    },
+    "log": {
+      "path": "log/locomo/conv-30_deepseek_stratified.log",
+      "exists": true,
+      "clean_run": true
+    },
+    "metrics": {
+      "path": "result/locomo/metrics_summary_deepseek_stratified.json",
+      "exists": true,
+      "f1_overall": 0.5118,
+      "llm_judge_overall": 0.75
+    },
+    "memory_audit": {
+      "path": "result/locomo/memory_audit_deepseek_stratified.json",
+      "exists": true,
+      "sessions_without_sentences": 0,
+      "keyword_total_sentences": 1094,
+      "rewrite_total_sentences": 1094
+    },
+    "api_call_log": {
+      "path": "result/diagnostics/api_call_log.jsonl",
+      "exists": true,
+      "size_bytes": 46415,
+      "note": "Per-call metadata: model, max_tokens, temperature, finish_reason, usage, latency, stage"
+    }
+  },
+  "metrics": {
+    "f1_by_category": {
+      "1": 0.2665,
+      "2": 0.7857,
+      "4": 0.117,
+      "5": 1.0
+    },
+    "f1_overall": 0.5118,
+    "llm_judge_by_category": {
+      "1": 0.5,
+      "2": 1.0,
+      "4": 0.75
+    },
+    "llm_judge_overall": 0.75,
+    "tool_calls_avg": 9.5,
+    "schema_retries_total": 0,
+    "forced_accepts_total": 0,
+    "qa_per_question_runtime_sum_s": 6661.78,
+    "qa_per_question_runtime_hours": 1.85,
+    "pipeline_wall_clock": "~3h13m (rewrite 1h55m + keyword 42m + QA 32m; from api_call_log.jsonl)",
+    "errors": 0,
+    "llm_judge_n": "9/12 (3 adversarial questions scored by string match)",
+    "adversarial_cat5": "3/3 correct (Not mentioned rule)"
+  },
+  "checklist_status": {
+    "sessions_without_sentences": {
+      "required": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "sentences_without_id": {
+      "required": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "keyword_sentences_eq_rewrite": {
+      "required": true,
+      "actual": true,
+      "pass": true
+    },
+    "forced_accepts_zero_or_explained": {
+      "pass": true,
+      "actual": 0
+    },
+    "judge_dedup": {
+      "pass": true
+    },
+    "log_clean": {
+      "pass": true
+    }
+  },
+  "known_missing": [
+    "embedding.pkl not committed (23MB, in .gitignore)"
+  ],
+  "merge_status": "reviewable",
+  "report": "reports/stage_b_clean_conv30_20260702.md"
+}

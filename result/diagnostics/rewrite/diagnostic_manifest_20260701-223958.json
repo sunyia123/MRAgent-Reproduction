@@ -1,0 +1,154 @@
+{
+  "run_id": "20260701-223958",
+  "sample": "conv-30",
+  "sessions_tested": [
+    1,
+    8,
+    17
+  ],
+  "model_configs": [
+    {
+      "label": "deepseek_baseline",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 4096
+    },
+    {
+      "label": "deepseek_16384",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 16384
+    },
+    {
+      "label": "qwen3_397b",
+      "model_id": "Qwen/Qwen3.5-397B-A17B",
+      "max_tokens": 4096
+    }
+  ],
+  "results": [
+    {
+      "session": 1,
+      "config": "deepseek_baseline",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 4096,
+      "finish_reason": "length",
+      "parse_status": "recovered_via_extract",
+      "schema_valid": false,
+      "sentence_count": 0,
+      "total_tokens": 27047,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session1_deepseek_baseline_20260701-223958.json"
+    },
+    {
+      "session": 1,
+      "config": "deepseek_16384",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 16384,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 28,
+      "total_tokens": 21978,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session1_deepseek_16384_20260701-223958.json"
+    },
+    {
+      "session": 1,
+      "config": "qwen3_397b",
+      "model_id": "Qwen/Qwen3.5-397B-A17B",
+      "max_tokens": 4096,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 28,
+      "total_tokens": 16708,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session1_qwen3_397b_20260701-223958.json"
+    },
+    {
+      "session": 8,
+      "config": "deepseek_baseline",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 4096,
+      "finish_reason": "length",
+      "parse_status": "recovered_via_extract",
+      "schema_valid": false,
+      "sentence_count": 0,
+      "total_tokens": 26384,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session8_deepseek_baseline_20260701-223958.json"
+    },
+    {
+      "session": 8,
+      "config": "deepseek_16384",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 16384,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 73,
+      "total_tokens": 23433,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session8_deepseek_16384_20260701-223958.json"
+    },
+    {
+      "session": 8,
+      "config": "qwen3_397b",
+      "model_id": "Qwen/Qwen3.5-397B-A17B",
+      "max_tokens": 4096,
+      "finish_reason": "length",
+      "parse_status": "recovered_via_extract",
+      "schema_valid": false,
+      "sentence_count": 0,
+      "total_tokens": 14391,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session8_qwen3_397b_20260701-223958.json"
+    },
+    {
+      "session": 17,
+      "config": "deepseek_baseline",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 4096,
+      "finish_reason": "length",
+      "parse_status": "recovered_via_extract",
+      "schema_valid": false,
+      "sentence_count": 0,
+      "total_tokens": 16832,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session17_deepseek_baseline_20260701-223958.json"
+    },
+    {
+      "session": 17,
+      "config": "deepseek_16384",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 16384,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 57,
+      "total_tokens": 17639,
+      "truncation_suspected": false,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session17_deepseek_16384_20260701-223958.json"
+    },
+    {
+      "session": 17,
+      "config": "qwen3_397b",
+      "model_id": "Qwen/Qwen3.5-397B-A17B",
+      "max_tokens": 4096,
+      "finish_reason": "length",
+      "parse_status": "recovered_via_extract",
+      "schema_valid": false,
+      "sentence_count": 0,
+      "total_tokens": 13867,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session17_qwen3_397b_20260701-223958.json"
+    }
+  ]
+}

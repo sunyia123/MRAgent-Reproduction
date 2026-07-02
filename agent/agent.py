@@ -25,6 +25,9 @@ class Agent:
 
         self.episode_link_num = 0
         self.tags = set()
+        # metrics instrumentation (reset per question)
+        self.schema_retries = 0
+        self.forced_accepts = 0
 
     # ---------- Core utility: one tool-calling turn (with automatic tool execution) ----------
     def _chat_with_tools(self, system_prompt: str, user_obj: dict, category):
@@ -36,7 +39,8 @@ class Agent:
             execute_tool=self.tool_bridge.call,  # bind tool executor
             temperature=0.0,
             category=category,
-            model=config.RE_MODEL
+            model=config.RE_MODEL,
+            max_tokens=config.QA_MAX_TOKENS,
         )
 
     @staticmethod
@@ -256,7 +260,8 @@ class Agent:
             question_out = self.llm.chat_text(
                 messages=[{"role": "system", "content": Prompts.ANSWER_SORT_PROMPT2},
                           {"role": "user", "content": json.dumps(ans_input2, ensure_ascii=False)}],
-                model=config.RE_MODEL
+                model=config.RE_MODEL,
+                max_tokens=config.QA_MAX_TOKENS,
             )
 
 
@@ -321,7 +326,8 @@ class Agent:
             question_out = self.llm.chat_text(
                 messages=[{"role": "system", "content": Prompts.ANSWER_SORT_PROMPT},
                           {"role": "user", "content": json.dumps(ans_input2, ensure_ascii=False)}],
-                model=config.RE_MODEL
+                model=config.RE_MODEL,
+                max_tokens=config.QA_MAX_TOKENS,
             )
 
             if question_out is None:
@@ -411,7 +417,8 @@ class Agent:
                             {"role": "system", "content": Prompts.EVENT_KEYWORDS_SYSTEM_PROMPT},
                             {"role": "user", "content": json.dumps(ans_input_tag, ensure_ascii=False)},
                         ],
-                        model=config.RE_MODEL, )
+                        model=config.RE_MODEL,
+                        max_tokens=config.QA_MAX_TOKENS,)
 
 
                     if key_out is None:
@@ -448,6 +455,16 @@ class Agent:
 
 
     def answer_question(self, question: str, category=0, question_emb=None, override_question_time=None, lm_current_date=None) -> Dict[str, Any]:
+        import time as _time
+        _t_start = _time.time()
+
+        # set stage for call logging
+        self.llm._current_stage = "qa"
+
+        # reset per-question metrics
+        self.schema_retries = 0
+        self.forced_accepts = 0
+        self.llm.last_tool_calls = 0
         self.memory_controller.question_emb = question_emb
         question_keys = self.extract_question_keys(question)
         self.memory_controller.set_queried_keywords(question_keys.get("keywords"))
@@ -561,6 +578,14 @@ class Agent:
         ans_messages, evidence_support = self._chat_with_tools(
             _answer_prompt, ans_input, category)
         support_origin = self.memory.get_support_origin(evidence_support)
+
+        # store per-question metrics on the agent for the caller to read
+        self._last_question_metrics = {
+            "tool_calls": self.llm.last_tool_calls,
+            "schema_retries": self.schema_retries,
+            "forced_accepts": self.forced_accepts,
+            "runtime_sec": round(_time.time() - _t_start, 2),
+        }
         return ans_messages, support_origin
 
     def extract_question_keys(self, questions: str):
@@ -568,7 +593,8 @@ class Agent:
         question_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.QUESTION_KEY_SYSTEM_PROMPT},
                       {"role": "user", "content": question_prompt}],
-            model=config.RE_MODEL
+            model=config.RE_MODEL,
+            max_tokens=config.QA_MAX_TOKENS,
         )
         return question_out
 
@@ -590,10 +616,12 @@ class Agent:
                 s["id"] = f"{s['origin']}-{cnt[s['origin']]}"
 
     def rewrite(self, text:str):
+        self.llm._current_stage = "rewrite"
         rewrite_prompt = Prompts.extract_rewrite_prompt(json.dumps(text, ensure_ascii=False))
         rewrite_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT},
                       {"role": "user", "content": rewrite_prompt}],
+            max_tokens=config.REWRITE_MAX_TOKENS,
         )
         # [fix] chat_text already returns a parsed dict; drop the redundant json.loads here (json.loads on a dict raises TypeError);
         # JSON parsing is done inside llm.chat_text.
@@ -604,12 +632,14 @@ class Agent:
 
         if not flag:
             for attempt in range(1, max_tries + 1):
+                self.schema_retries += 1
                 rewrite_out = self.llm.chat_text(
                     messages=[
                         {"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT + "The previous run failed with the following error:"  + last_err},
                         {"role": "user", "content": rewrite_prompt},
                     ],
                     temperature=1.0,
+                    max_tokens=config.REWRITE_MAX_TOKENS,
                 )
                 self._normalize_sentence_ids(rewrite_out)  # [batch>1] fix the "-seq" of ids
                 flag, err = json_scheme.check_rewrite_json(rewrite_out, text)
@@ -667,10 +697,12 @@ class Agent:
 
 
     def extract_keys(self, text: str):
+        self.llm._current_stage = "keyword"
         keys_prompt = Prompts.extract_keyword_prompt(json.dumps(text, ensure_ascii=False), json.dumps(list(self.tags), ensure_ascii=False))
         keys_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT},
                       {"role": "user", "content": keys_prompt}],
+            max_tokens=config.KEYWORD_MAX_TOKENS,
         )
         # [fix] chat_text already returns a parsed dict; drop the redundant json.loads here (json.loads on a dict raises TypeError);
         # JSON parsing is done inside llm.chat_text.
@@ -681,12 +713,14 @@ class Agent:
 
         if not flag:
             for attempt in range(1, max_tries + 1):
+                self.schema_retries += 1
                 keys_out = self.llm.chat_text(
                     messages=[
                         {"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT+ "The previous run failed with the following error:"  + last_err},
                         {"role": "user", "content": keys_prompt},
                     ],
                     temperature=0.5,
+                    max_tokens=config.KEYWORD_MAX_TOKENS,
                 )
                 # [fix] chat_text already returns a parsed dict; drop the redundant json.loads
                 flag, err = json_scheme.check_key_json(keys_out, text)
@@ -699,6 +733,7 @@ class Agent:
                         # Last attempt exhausted: accept as-is to avoid crashing
                         flag = True
                         err = ""
+                        self.forced_accepts += 1
 
         # final safety check: ensure we return a dict object, not a string
         if isinstance(keys_out, str):

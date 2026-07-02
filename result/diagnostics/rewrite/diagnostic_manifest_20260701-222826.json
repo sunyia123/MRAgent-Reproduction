@@ -1,0 +1,68 @@
+{
+  "run_id": "20260701-222826",
+  "sample": "conv-30",
+  "sessions_tested": [
+    6
+  ],
+  "model_configs": [
+    {
+      "label": "deepseek_baseline",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 4096
+    },
+    {
+      "label": "deepseek_16384",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 16384
+    },
+    {
+      "label": "qwen3_397b",
+      "model_id": "Qwen/Qwen3.5-397B-A17B",
+      "max_tokens": 4096
+    }
+  ],
+  "results": [
+    {
+      "session": 6,
+      "config": "deepseek_baseline",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 4096,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 19,
+      "total_tokens": 8787,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session6_deepseek_baseline_20260701-222826.json"
+    },
+    {
+      "session": 6,
+      "config": "deepseek_16384",
+      "model_id": "deepseek-ai/DeepSeek-V4-Pro",
+      "max_tokens": 16384,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 55,
+      "total_tokens": 19585,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session6_deepseek_16384_20260701-222826.json"
+    },
+    {
+      "session": 6,
+      "config": "qwen3_397b",
+      "model_id": "Qwen/Qwen3.5-397B-A17B",
+      "max_tokens": 4096,
+      "finish_reason": "stop",
+      "parse_status": "ok",
+      "schema_valid": true,
+      "sentence_count": 19,
+      "total_tokens": 14723,
+      "truncation_suspected": true,
+      "error": null,
+      "evidence_path": "result/diagnostics/rewrite/raw/session6_qwen3_397b_20260701-222826.json"
+    }
+  ]
+}
