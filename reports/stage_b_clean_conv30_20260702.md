@@ -17,17 +17,21 @@ loop-closure demonstrating that the MRAgent pipeline produces auditable results 
 
 ## 3. Model Configuration
 
-| Component | Provider | Model | max_tokens |
-|-----------|----------|-------|-----------|
+| Component | Provider | Model | max_tokens (this run) |
+|-----------|----------|-------|----------------------|
 | Rewrite | SiliconFlow | deepseek-ai/DeepSeek-V4-Pro | 16384 |
 | Keyword | SiliconFlow | deepseek-ai/DeepSeek-V4-Pro | 16384 |
-| QA / Tool-calling | SiliconFlow | deepseek-ai/DeepSeek-V4-Pro | 8192 |
+| QA / Tool-calling | SiliconFlow | deepseek-ai/DeepSeek-V4-Pro | **16384** |
 | Embedding | SiliconFlow | Qwen/Qwen3-Embedding-8B | — |
 | Judge | SiliconFlow | Qwen/Qwen3-8B | — |
 
-The max_tokens values are from `REWRITE_MAX_TOKENS`, `KEYWORD_MAX_TOKENS`, `QA_MAX_TOKENS` in
-`common/config.py`. The root cause diagnostic that led to 16384 is documented in
-`reports/model_diagnostics_20260701.md`.
+> **⚠️ QA max_tokens note**: This clean run used `max_tokens=16384` for all stages
+> because `QA_MAX_TOKENS=8192` was not yet plumbed through the agent call chain at the
+> time of the run. The code fix in commit `c922f9e` adds proper stage-specific
+> `max_tokens` (REWRITE=16384, KEYWORD=16384, QA=8192), but `QA_MAX_TOKENS=8192` has
+> **not been experimentally verified** with a full pipeline re-run. The results in this
+> report reflect `max_tokens=16384` for QA. See `result/diagnostics/api_call_log.jsonl`
+> for per-call verification.
 
 ## 4. Command
 

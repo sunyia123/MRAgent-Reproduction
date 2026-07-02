@@ -12,7 +12,9 @@
   "judge_model": "Qwen/Qwen3-8B",
   "max_tokens_rewrite": 16384,
   "max_tokens_keyword": 16384,
-  "max_tokens_qa": 8192,
+  "max_tokens_qa_actual_this_run": 16384,
+  "max_tokens_qa_code_target": 8192,
+  "max_tokens_qa_note": "This run used 16384 for all stages. Code fix c922f9e sets QA=8192 but not yet verified by a re-run.",
   "status": "complete — all checklist items pass",
   "artifacts": {
     "rewrite": {
