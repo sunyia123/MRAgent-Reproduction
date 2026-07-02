@@ -21,6 +21,14 @@ Important:
 - Current private repo LoCoMo file contains 10 conversation samples and 1986 QA items.
 - LongMemEval is still blocked until the real `data/dataset_LM.json` is obtained.
 
+Optional parallel task:
+
+- If working on LongMemEval unblock, follow `docs/handoff.md` section "LongMemEval Recovery Procedure".
+- First download `longmemeval_s_cleaned.json` from HuggingFace into `data/external/`.
+- Then print the first sample schema and write a schema audit report.
+- Do not directly rename the downloaded file to `data/dataset_LM.json`.
+- Do not run full LM until a converter and loader validation pass.
+
 ## 0. Sync And Environment
 
 ```bash

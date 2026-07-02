@@ -176,6 +176,57 @@ python eval/evaluate_reasoning.py --data locomo --model deepseek --file locomo10
 - 文件大小、SHA256、来源记录在报告中。
 - 能按 `--ca 0/1/2` 至少跑论文涉及类别。
 
+推荐恢复路径：
+
+1. 从 HuggingFace `xiaowu0162/longmemeval-cleaned` 下载 `longmemeval_s_cleaned.json` 到 `data/external/`。
+2. 审计第一条样本的字段结构。
+3. 若字段不匹配 MRAgent loader，则新增转换脚本 `repro/convert_longmemeval_to_mragent.py`。
+4. 生成 `data/dataset_LM.json`。
+5. 用 `data.get_data("LM", "data/dataset_LM.json")` 验证 loader 可读。
+6. 先跑 `--max_samples 1` smoke，再跑 `--ca 0/1/2`。
+
+下载与 schema 审计命令：
+
+```bash
+mkdir -p data/external
+curl -L --fail \
+  -o data/external/longmemeval_s_cleaned.json \
+  https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json
+
+ls -lh data/external/longmemeval_s_cleaned.json
+sha256sum data/external/longmemeval_s_cleaned.json
+
+python - <<'PY'
+import json
+from pathlib import Path
+p = Path("data/external/longmemeval_s_cleaned.json")
+data = json.loads(p.read_text(encoding="utf-8"))
+print(type(data), len(data) if hasattr(data, "__len__") else "NA")
+first = data[0] if isinstance(data, list) else next(iter(data.values()))
+print(first.keys())
+for k, v in first.items():
+    print(k, type(v), (str(v)[:300]).replace("\n", " "))
+PY
+```
+
+转换后的验收命令：
+
+```bash
+python - <<'PY'
+from data.get_data import get_data
+c, q, _, _ = get_data("LM", "data/dataset_LM.json")
+print("samples", len(c))
+print("questions", sum(len(v or []) for v in q.values()))
+print("first_sample", next(iter(c)))
+PY
+```
+
+注意：
+
+- 不要把 downloaded raw dataset 直接重命名为 `data/dataset_LM.json` 后运行。
+- 不要提交 `data/external/` 或 `data/dataset_LM.json`。
+- 必须提交 schema audit report 和 conversion manifest。
+
 命令：
 
 ```bash

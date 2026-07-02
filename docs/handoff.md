@@ -174,6 +174,105 @@ Required handling:
 - Before any LongMemEval experiment, record the dataset source, file size, checksum, and acquisition method.
 - Do not fabricate, truncate, or silently replace `dataset_LM.json`.
 
+### LongMemEval Recovery Procedure
+
+Do not keep trying to repair the broken private-repo Git LFS pointer. The safer route is:
+
+1. Download the real LongMemEval cleaned data from the official HuggingFace dataset.
+2. Inspect the schema.
+3. Convert it to MRAgent's expected `data/dataset_LM.json` schema only after confirming the fields.
+4. Run a small LM smoke test.
+5. Record provenance, file size, checksum, and conversion command.
+
+Recommended download:
+
+```bash
+mkdir -p data/external
+curl -L --fail \
+  -o data/external/longmemeval_s_cleaned.json \
+  https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json
+```
+
+Validate the downloaded file:
+
+```bash
+ls -lh data/external/longmemeval_s_cleaned.json
+head -c 200 data/external/longmemeval_s_cleaned.json
+sha256sum data/external/longmemeval_s_cleaned.json
+```
+
+Expected:
+
+- File is real JSON, not a Git LFS pointer.
+- File is large enough to plausibly be LongMemEval data.
+- The first bytes are JSON content, not `version https://git-lfs.github.com/spec/v1`.
+
+Inspect schema before conversion:
+
+```bash
+python - <<'PY'
+import json
+from pathlib import Path
+p = Path("data/external/longmemeval_s_cleaned.json")
+data = json.loads(p.read_text(encoding="utf-8"))
+print(type(data), len(data) if hasattr(data, "__len__") else "NA")
+first = data[0] if isinstance(data, list) else next(iter(data.values()))
+print(first.keys())
+for k, v in first.items():
+    print(k, type(v), (str(v)[:300]).replace("\n", " "))
+PY
+```
+
+MRAgent expects `data/dataset_LM.json` to be a list of samples with at least:
+
+```text
+sample_id
+conversation
+  session_1
+  session_1_date_time
+qa
+  question
+  answer
+  category
+metadata.question_date
+```
+
+If the HuggingFace file does not match that schema, create a converter such as:
+
+```text
+repro/convert_longmemeval_to_mragent.py
+```
+
+The converter must write:
+
+```text
+data/dataset_LM.json
+```
+
+Then validate with:
+
+```bash
+python - <<'PY'
+from data.get_data import get_data
+c, q, _, _ = get_data("LM", "data/dataset_LM.json")
+print("samples", len(c))
+print("questions", sum(len(v or []) for v in q.values()))
+print("first_sample", next(iter(c)))
+PY
+```
+
+Only after this succeeds may LM smoke tests start:
+
+```bash
+python run.py --data LM --model deepseek --file lm_smoke_ca0 --ca 0 --lm_batch 1 --max_samples 1
+```
+
+Important:
+
+- Do not commit `data/external/`.
+- Do not commit `data/dataset_LM.json`.
+- Commit only the converter, a small schema audit report, and a manifest with source URL, size, SHA256, and conversion command.
+
 ## Baseline Smoke
 
 Run one LoCoMo sample:
