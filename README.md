@@ -10,6 +10,7 @@ Before running experiments, read:
 - [docs/goal.md](docs/goal.md)
 - [docs/handoff.md](docs/handoff.md)
 - [docs/reproduction_plan.md](docs/reproduction_plan.md)
+- [reports/mragent_vlm_cbr_qlearning_design_20260702.md](reports/mragent_vlm_cbr_qlearning_design_20260702.md)
 - [.agents/codex_experience_review.md](.agents/codex_experience_review.md)
 
 The original upstream repository is preserved as read-only `upstream`.
