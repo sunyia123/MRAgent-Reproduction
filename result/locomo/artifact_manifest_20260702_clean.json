@@ -88,7 +88,9 @@
     "tool_calls_avg": 9.5,
     "schema_retries_total": 0,
     "forced_accepts_total": 0,
-    "total_runtime_hours": 1.85,
+    "qa_per_question_runtime_sum_s": 6661.78,
+    "qa_per_question_runtime_hours": 1.85,
+    "pipeline_wall_clock": "~3h13m (rewrite 1h55m + keyword 42m + QA 32m; from api_call_log.jsonl)",
     "errors": 0,
     "llm_judge_n": "9/12 (3 adversarial questions scored by string match)",
     "adversarial_cat5": "3/3 correct (Not mentioned rule)"

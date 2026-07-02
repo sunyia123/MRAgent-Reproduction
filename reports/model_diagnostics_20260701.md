@@ -150,9 +150,13 @@ Each raw evidence file contains:
 - Schema validation status and error text
 - Whether max_tokens truncation occurred
 
-Diagnostic API call logs (with `DIAGNOSTIC_LOG=1`):
-- `result/diagnostics/raw_api_calls.jsonl` — chat API calls with request/response summaries
-- `result/diagnostics/raw_embedding_calls.jsonl` — embedding calls (none in this test)
+Diagnostic evidence locations:
+- **Raw prompt/response evidence**: `result/diagnostics/rewrite/raw/session*_*.json`
+  (12 files from 2026-07-01, 28 files from 2026-07-02; 4 sessions × 3–7 configs each)
+- **Per-call metadata**: `result/diagnostics/api_call_log.jsonl`
+  (model, max_tokens, temperature, finish_reason, usage, latency, stage per call)
+- **`result/diagnostics/raw_api_calls.jsonl`** is 0 bytes and is NOT valid evidence for this round.
+  Do not rely on it.
 
 Manifests:
 - `result/diagnostics/rewrite/diagnostic_manifest_20260701-222826.json`
@@ -171,7 +175,7 @@ ls -lh result/diagnostics/rewrite/raw/
 ls -lh result/diagnostics/rewrite/diagnostic_manifest_*.json
 
 # API call trace
-ls -lh result/diagnostics/raw_api_calls.jsonl
+ls -lh result/diagnostics/api_call_log.jsonl
 ```
 
 ## 9. Checklist Status

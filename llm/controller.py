@@ -188,6 +188,7 @@ class LLM:
             execute_tool: Optional[Callable] = None,
             max_rounds: int = config.MAX_ROUNDS,  # max rounds (assistant->tool->assistant is one round)
             max_tool_calls: int = config.MAX_TOOL_CALLS,  # max tool calls per session (safety cap)
+            max_tokens: Optional[int] = None,  # override default max_tokens per stage
             **extra
     ) -> Tuple[str, list]:
         """
@@ -230,6 +231,10 @@ class LLM:
                 messages.append({'role': 'user',
                                  'content': 'This is the final tool round. You must call query_conversation_time for relevant event. '})
             logger.info(f"---------- input (round {round_id}) ---------")
+            # Pass stage-specific max_tokens if provided
+            _extra = dict(extra)
+            if max_tokens is not None:
+                _extra["max_tokens"] = max_tokens
             comp = self.chat_with_tool(
                 messages=messages,
                 model=model,
@@ -239,7 +244,7 @@ class LLM:
                 # keep if the SDK supports parallel tool calls; ignore otherwise
                 parallel_tool_calls=True,
                 temperature=temperature,
-                **extra
+                **_extra
             )
             if comp == "400":
                 return "no information available", []
@@ -327,9 +332,12 @@ class LLM:
             tool_choice: Optional[Any] = "auto",
             model: str = config.MODEL,
             temperature: float = 0.0,
+            max_tokens: Optional[int] = None,  # override default per stage
             **extra
     ) -> str:
 
+        if max_tokens is not None:
+            extra["max_tokens"] = max_tokens
         max_attempts = 3
         json_out = None
 

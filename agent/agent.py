@@ -39,7 +39,8 @@ class Agent:
             execute_tool=self.tool_bridge.call,  # bind tool executor
             temperature=0.0,
             category=category,
-            model=config.RE_MODEL
+            model=config.RE_MODEL,
+            max_tokens=config.QA_MAX_TOKENS,
         )
 
     @staticmethod
@@ -259,7 +260,8 @@ class Agent:
             question_out = self.llm.chat_text(
                 messages=[{"role": "system", "content": Prompts.ANSWER_SORT_PROMPT2},
                           {"role": "user", "content": json.dumps(ans_input2, ensure_ascii=False)}],
-                model=config.RE_MODEL
+                model=config.RE_MODEL,
+                max_tokens=config.QA_MAX_TOKENS,
             )
 
 
@@ -324,7 +326,8 @@ class Agent:
             question_out = self.llm.chat_text(
                 messages=[{"role": "system", "content": Prompts.ANSWER_SORT_PROMPT},
                           {"role": "user", "content": json.dumps(ans_input2, ensure_ascii=False)}],
-                model=config.RE_MODEL
+                model=config.RE_MODEL,
+                max_tokens=config.QA_MAX_TOKENS,
             )
 
             if question_out is None:
@@ -414,7 +417,8 @@ class Agent:
                             {"role": "system", "content": Prompts.EVENT_KEYWORDS_SYSTEM_PROMPT},
                             {"role": "user", "content": json.dumps(ans_input_tag, ensure_ascii=False)},
                         ],
-                        model=config.RE_MODEL, )
+                        model=config.RE_MODEL,
+                        max_tokens=config.QA_MAX_TOKENS,)
 
 
                     if key_out is None:
@@ -589,7 +593,8 @@ class Agent:
         question_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.QUESTION_KEY_SYSTEM_PROMPT},
                       {"role": "user", "content": question_prompt}],
-            model=config.RE_MODEL
+            model=config.RE_MODEL,
+            max_tokens=config.QA_MAX_TOKENS,
         )
         return question_out
 
@@ -616,6 +621,7 @@ class Agent:
         rewrite_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT},
                       {"role": "user", "content": rewrite_prompt}],
+            max_tokens=config.REWRITE_MAX_TOKENS,
         )
         # [fix] chat_text already returns a parsed dict; drop the redundant json.loads here (json.loads on a dict raises TypeError);
         # JSON parsing is done inside llm.chat_text.
@@ -633,6 +639,7 @@ class Agent:
                         {"role": "user", "content": rewrite_prompt},
                     ],
                     temperature=1.0,
+                    max_tokens=config.REWRITE_MAX_TOKENS,
                 )
                 self._normalize_sentence_ids(rewrite_out)  # [batch>1] fix the "-seq" of ids
                 flag, err = json_scheme.check_rewrite_json(rewrite_out, text)
@@ -695,6 +702,7 @@ class Agent:
         keys_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT},
                       {"role": "user", "content": keys_prompt}],
+            max_tokens=config.KEYWORD_MAX_TOKENS,
         )
         # [fix] chat_text already returns a parsed dict; drop the redundant json.loads here (json.loads on a dict raises TypeError);
         # JSON parsing is done inside llm.chat_text.
@@ -712,6 +720,7 @@ class Agent:
                         {"role": "user", "content": keys_prompt},
                     ],
                     temperature=0.5,
+                    max_tokens=config.KEYWORD_MAX_TOKENS,
                 )
                 # [fix] chat_text already returns a parsed dict; drop the redundant json.loads
                 flag, err = json_scheme.check_key_json(keys_out, text)

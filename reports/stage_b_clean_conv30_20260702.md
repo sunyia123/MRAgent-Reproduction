@@ -90,7 +90,8 @@ episode_events: 1094, links: 4408
 | Tool calls / q | avg 9.5, min 3, max 31 |
 | Schema retries | 0 |
 | Forced accepts | 0 |
-| Total runtime | 1.85h (QA only; rewrite+keyword cached from diagnostic) |
+| Pipeline wall-clock | ~3h13m (rewrite 1h55m + keyword 42m + QA 32m) |
+| QA per-question runtime sum | 6661.78s (1.85h, QA only; avg 444s/q) |
 | Errors | 0/15 |
 
 ### 6.2 Per-Question Analysis
