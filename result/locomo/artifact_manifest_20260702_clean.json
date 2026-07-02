@@ -1,7 +1,7 @@
 {
   "run_id": "20260702-stage-b-clean-stratified-conv30",
   "branch": "exp/20260701-stage-b-eval-audit",
-  "commit": "da669137347d6ee45654bde0a8b6fd8fc181cd2a",
+  "commit": "6254f5a50acfb323b9fb1a58b0ec90af51731610",
   "command": "python run_stratified.py --data locomo --model deepseek --file stratified --sample 30 --per_category 3 --total 15 --seed 42",
   "dataset": "locomo",
   "sample_ids": [
@@ -63,6 +63,12 @@
       "sessions_without_sentences": 0,
       "keyword_total_sentences": 1094,
       "rewrite_total_sentences": 1094
+    },
+    "api_call_log": {
+      "path": "result/diagnostics/api_call_log.jsonl",
+      "exists": true,
+      "size_bytes": 46415,
+      "note": "Per-call metadata: model, max_tokens, temperature, finish_reason, usage, latency, stage"
     }
   },
   "metrics": {
@@ -83,7 +89,9 @@
     "schema_retries_total": 0,
     "forced_accepts_total": 0,
     "total_runtime_hours": 1.85,
-    "errors": 0
+    "errors": 0,
+    "llm_judge_n": "9/12 (3 adversarial questions scored by string match)",
+    "adversarial_cat5": "3/3 correct (Not mentioned rule)"
   },
   "checklist_status": {
     "sessions_without_sentences": {
@@ -115,5 +123,6 @@
   "known_missing": [
     "embedding.pkl not committed (23MB, in .gitignore)"
   ],
-  "merge_status": "reviewable"
+  "merge_status": "reviewable",
+  "report": "reports/stage_b_clean_conv30_20260702.md"
 }

@@ -1,4 +1,10 @@
-# Stage B: Eval & Audit Infrastructure + Clean Regeneration Attempt — 2026-07-01
+# Stage B: Eval & Audit Infrastructure + Initial Regeneration Attempt — 2026-07-01
+
+> **⚠️ HISTORICAL — SUPERSEDED by `reports/stage_b_clean_conv30_20260702.md`.**
+> This report documents the initial (failed) 2026-07-01 regeneration attempt with max_tokens=4096.
+> The root cause was later diagnosed as token budget truncation, NOT model capability.
+> The 15-question QA metrics in this report are CONTAMINATED (produced with 7/19 NULL rewrite sessions).
+> **Use `reports/stage_b_clean_conv30_20260702.md` for the valid clean run results.**
 
 ## 1. Objective
 

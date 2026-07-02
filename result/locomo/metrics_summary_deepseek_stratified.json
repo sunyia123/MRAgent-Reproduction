@@ -18,5 +18,13 @@
   "schema_retries_total": 0,
   "forced_accepts_total": 0,
   "total_runtime_sec": 6661.779999999999,
-  "errors": 0
+  "errors": 0,
+  "llm_judge_by_cat": {
+    "1": 0.5,
+    "2": 1.0,
+    "4": 0.75
+  },
+  "llm_judge_overall": 0.75,
+  "llm_judge_total": "9/12 non-adversarial",
+  "adversarial_cat5_correct": "3/3"
 }
