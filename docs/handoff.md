@@ -206,6 +206,7 @@ Current priority:
 
 1. Validate Qwen/Qwen3.5-397B-A17B as a standalone visual-evidence tool.
 2. Run a 50-question exploratory LoCoMo subset after VLM connectivity is confirmed.
+3. Before calling anything a benchmark reproduction, read `docs/benchmark_reproduction_plan.md`.
 
 Stage 1 command:
 
@@ -244,6 +245,7 @@ Expected:
 - The intended total is 50 QA questions.
 - Results are exploratory diagnostics, not a formal validation/test split.
 - This run does not yet inject VLM output into MRAgent QA.
+- This run is not a paper benchmark reproduction.
 
 Required after Stage 2:
 
@@ -251,6 +253,36 @@ Required after Stage 2:
 - Report exact sample list, selected question counts, category distribution, errors, runtime, tool calls, and badcases.
 - Do not claim CBR/Q-learning effect from this run.
 - Do not claim full paper reproduction from this run.
+
+## Benchmark Reproduction Requirements
+
+Read:
+
+```bash
+cat docs/benchmark_reproduction_plan.md
+```
+
+MRAgent benchmark reproduction must cover, or explicitly document inability to cover:
+
+- LoCoMo.
+- LongMemEval.
+- Standard RAG baseline.
+- A-Mem baseline.
+- MemoryOS baseline.
+- LangMem baseline.
+- Mem0 baseline.
+
+Current dataset status:
+
+- `data/dataset_locomo.json` is available locally, but current private repo copy contains 10 conversation samples and 1986 QA items.
+- The paper-level LoCoMo data scale must be verified before claiming full LoCoMo reproduction.
+- `data/dataset_LM.json` is not available as a real LongMemEval JSON file in this private repository.
+
+Hard rule:
+
+- `explore50_vlmready` is a diagnostic subset.
+- It must not be reported as benchmark reproduction.
+- A benchmark report must include dataset size, sample ids, question count, category distribution, baseline name, result paths, evaluation paths, and whether the data scale matches the paper.
 
 ## Intermediate Artifact Review
 

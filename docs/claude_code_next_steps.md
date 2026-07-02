@@ -7,6 +7,20 @@ This document is the current server-side execution instruction. It covers only t
 
 Do not treat these two stages as full paper reproduction.
 
+Before writing any benchmark-level conclusion, also read:
+
+```bash
+cat docs/benchmark_reproduction_plan.md
+```
+
+Important:
+
+- `explore50_vlmready` is a diagnostic subset only.
+- MRAgent paper-level reproduction also requires benchmark and baseline replication.
+- The paper benchmarks are LoCoMo and LongMemEval.
+- Current private repo LoCoMo file contains 10 conversation samples and 1986 QA items.
+- LongMemEval is still blocked until the real `data/dataset_LM.json` is obtained.
+
 ## 0. Sync And Environment
 
 ```bash
@@ -178,6 +192,7 @@ Minimum contents:
 Do not claim:
 
 - Full paper reproduction.
+- Benchmark reproduction.
 - VLM-enhanced QA result.
 - CBR/Q-learning effect.
 
