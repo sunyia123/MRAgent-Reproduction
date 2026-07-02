@@ -213,7 +213,62 @@ flowchart LR
 
 这样做的好处是：CBR 不直接塞答案事实，而是影响图结构记忆如何生成、保留、剪枝和检索。
 
-### 5.2 CBR 中间流程图
+### 5.2 更新后的核心设想：检索前自生成问题
+
+更合适的模块位置不是“回答时直接把相似案例塞进 prompt”，而是在正式检索前增加一个自生成问题和案例库构建环节。
+
+设想流程：
+
+1. 输入一个 conversation sample。
+2. 先构建一个初始图记忆，或者至少完成事件重写、时间锚定、人物事实、图像字段保留。
+3. 系统根据典型问题类型自动生成一组探测问题，例如时间问题、跨事件问题、人物状态变化问题、图像相关问题、未提及问题。
+4. 用这些探测问题在当前图上跑一轮工具调用和检索。
+5. 把探测问题、检索路径、命中节点、失败原因、正确性或启发式奖励写入案例记忆库。
+6. 正式回答 benchmark 问题时，先查询这个案例记忆库，再决定图检索路径、图更新方式、是否调用 VLM、是否剪枝或扩展节点。
+
+这个设计的关键点是：CBR 的案例不只来自历史 benchmark 问题，也可以由当前 conversation sample 自己生成。这样做更适合 MRAgent，因为 MRAgent 的核心不是一次性 top-k retrieval，而是工具调用式图遍历。
+
+需要注意：
+
+- 自生成问题不能使用 gold answer。
+- 自生成问题只能用于建立检索策略和图结构操作案例，不能把答案事实泄漏进正式 benchmark。
+- 自生成问题的质量必须记录，否则会把错误探测路径固化进案例库。
+- 这个阶段仍然是探索性实验，不是正式训练/验证划分。
+
+### 5.3 检索前自生成问题流程图
+
+```mermaid
+flowchart TB
+    subgraph 原始样本处理["原始样本处理"]
+        A["长对话样本"] --> B["初始事件重写"]
+        B --> C["初始图记忆"]
+    end
+
+    subgraph 新增探测层["新增：检索前探测层"]
+        D["典型问题模板"] --> E["自生成探测问题"]
+        C --> E
+        E --> F["在当前图上试运行工具调用"]
+        F --> G["记录命中节点、路径和失败类型"]
+        G --> H["样本内案例记忆库"]
+    end
+
+    subgraph 正式问答["正式 benchmark 问答"]
+        I["真实问题"] --> J["查询案例记忆库"]
+        H --> J
+        J --> K["选择检索策略和图更新策略"]
+        K --> L["图工具遍历"]
+        L --> M["最终回答"]
+    end
+
+    classDef old fill:#eaf3ff,stroke:#3b82f6,color:#111827;
+    classDef probe fill:#e8f7e8,stroke:#16a34a,color:#111827;
+    classDef qa fill:#fff3cd,stroke:#f59e0b,color:#111827;
+    class A,B,C old;
+    class D,E,F,G,H probe;
+    class I,J,K,L,M qa;
+```
+
+### 5.4 CBR 中间流程图
 
 ```mermaid
 flowchart TB
@@ -269,6 +324,14 @@ flowchart TB
 
 ## 6. CBR 与 Q-learning 在本实验中的区别
 
+先明确概念边界：Q-learning 不是 CBR 的一种。CBR 是“如何利用历史案例”的框架，Q-learning 是“如何根据奖励学习状态-动作价值”的方法。二者可以组合：在可插拔 CBR 模块里，Q-learning 可以作为案例价值估计、工具选择、图更新和剪枝策略的学习机制。
+
+在本项目中，更准确的表述是：
+
+- CBR 是模块外壳：负责案例存储、相似案例检索、策略复用和轨迹回写。
+- Q-learning 是可选学习器：负责给案例、工具动作、图更新动作分配价值，并根据 reward 更新策略。
+- 不实现 reward、状态、动作和更新记录时，只能称为 CBR 或启发式策略，不能称为 Q-learning。
+
 ### 6.1 区别表
 
 | 维度 | CBR | Q-learning |
@@ -285,19 +348,22 @@ flowchart TB
 
 CBR 先作为可插拔模块接入，不改变 MRAgent 主流程：
 
-1. 图生成前：检索相似图构建案例，提示 rewrite/keyword/tag/person/image metadata 的保留策略。
-2. 图检索前：检索相似问答轨迹，提示优先使用哪些图工具。
-3. 回答后：把成功/失败轨迹写回案例库。
+1. 图生成后、正式检索前：根据当前 conversation sample 自生成探测问题。
+2. 用探测问题在当前图上试运行工具调用，形成样本内案例记忆库。
+3. 图检索前：检索相似问答轨迹，提示优先使用哪些图工具、是否调用 VLM、是否扩展或剪枝节点。
+4. 图更新时：根据案例库决定保留哪些节点、补充哪些边、哪些低价值路径不再展开。
+5. 回答后：把成功/失败轨迹写回案例库，供后续样本和后续问题复用。
 
 关键约束：
 
 - CBR 不能直接注入 gold answer。
 - CBR 注入的是策略，不是事实答案。
 - 每次 CBR 命中必须记录 case_id、相似度、注入内容、是否影响工具选择。
+- 自生成探测问题必须单独标记为 synthetic_probe，不能和 benchmark gold 问题混在一起。
 
 ### 6.3 Q-learning 在本实验中的具体设计
 
-Q-learning 不应只是“加一个 rerank 分数”。如果要声称使用 Q-learning，至少需要定义：
+Q-learning 在这里更适合作为 CBR 模块内部的价值更新器，而不是单独替代 MRAgent。它不应只是“加一个 rerank 分数”。如果要声称使用 Q-learning，至少需要定义：
 
 状态：
 
@@ -311,6 +377,8 @@ Q-learning 不应只是“加一个 rerank 分数”。如果要声称使用 Q-l
 - 选择下一个图工具。
 - 保留或剪枝某类节点。
 - 是否调用 VLM 工具。
+- 是否根据自生成探测问题更新当前图。
+- 是否把某条探测路径写入案例库。
 - 是否停止检索并生成答案。
 - 是否回到图中继续扩展。
 
@@ -321,6 +389,8 @@ Q-learning 不应只是“加一个 rerank 分数”。如果要声称使用 Q-l
 - 检索过多无效节点：负奖励。
 - 时间问题命中正确日期证据：中间正奖励。
 - 输出 `no information available` 但证据已存在：负奖励。
+- 自生成探测问题发现高价值节点或缺失边：中间正奖励。
+- 自生成探测问题反复产生无效路径：负奖励。
 
 更新：
 
@@ -339,8 +409,9 @@ flowchart LR
     end
 
     subgraph 新增_CBR["新增：案例推理模块"]
-        E["案例库"] --> F["相似案例检索"]
-        F --> G["策略提示"]
+        E["自生成探测问题"] --> F["样本内案例记忆库"]
+        F --> G["相似案例检索"]
+        G --> N["策略提示"]
     end
 
     subgraph 新增_Q学习["新增：奖励学习模块"]
@@ -349,20 +420,20 @@ flowchart LR
         J --> K["工具选择和剪枝策略"]
     end
 
-    A --> F
-    G --> B
-    G --> C
+    B --> E
+    N --> C
     C --> H
     D --> H
+    H --> F
     K --> C
     K --> B
-    H --> E
+    K --> F
 
     classDef old fill:#eaf3ff,stroke:#3b82f6,color:#111827;
     classDef cbr fill:#e8f7e8,stroke:#16a34a,color:#111827;
     classDef q fill:#fff3cd,stroke:#f59e0b,color:#111827;
     class A,B,C,D old;
-    class E,F,G cbr;
+    class E,F,G,N cbr;
     class H,I,J,K q;
 ```
 
@@ -418,12 +489,14 @@ flowchart LR
 
 ### Stage 3：CBR case bank
 
-目标：把 Stage 0-2 的轨迹转为案例库。
+目标：把 Stage 0-2 的轨迹和自生成探测问题转为案例库。
 
 产物：
 
 - `result/case_bank/graph_cases_YYYYMMDD.jsonl`
 - 每条 case 包含问题、轨迹、成功/失败、reward、lesson。
+- 自生成探测问题必须额外记录 `source=synthetic_probe`。
+- benchmark 原始问题必须记录 `source=benchmark_question`。
 
 ### Stage 4：CBR 图生成/检索改造
 
@@ -432,13 +505,14 @@ flowchart LR
 对比：
 
 - baseline：原始 MRAgent。
-- CBR-generation：只影响图生成。
-- CBR-retrieval：只影响图检索。
-- CBR-both：同时影响图生成和图检索。
+- CBR-probe：检索前自生成问题，只构建案例库，不改变正式 QA。
+- CBR-retrieval：用案例库影响图检索和工具选择。
+- CBR-update：用案例库影响检索时的图更新、节点保留和剪枝。
+- CBR-full：同时启用探测问题、检索策略和图更新策略。
 
 ### Stage 5：Q-learning 策略学习
 
-目标：在已有 case bank 和轨迹日志后，学习图工具选择、节点剪枝、VLM 调用的动作价值。
+目标：在已有 case bank 和轨迹日志后，把 Q-learning 作为 CBR 模块内部学习器，学习图工具选择、节点剪枝、VLM 调用、样本内案例写入的动作价值。
 
 前置条件：
 
@@ -460,6 +534,7 @@ flowchart LR
 本阶段优先级：
 
 1. 先验收 VLM 工具。
-2. 再做 50 题探索性诊断。
-3. 用诊断轨迹建立 CBR case bank。
-4. 最后再接 Q-learning。
+2. 设计并实现自生成探测问题，不接入正式 QA。
+3. 用探测轨迹和 50 题诊断轨迹建立 CBR case bank。
+4. 再让 CBR case bank 影响正式图检索和图更新。
+5. 最后把 Q-learning 作为 CBR 内部价值学习器接入。
