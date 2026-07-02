@@ -299,6 +299,7 @@ Before continuing from the current MRAgent state, read:
 
 ```bash
 cat docs/claude_code_next_steps.md
+cat docs/claude_code_full_experiment_instructions.md
 ```
 
 Current priority:

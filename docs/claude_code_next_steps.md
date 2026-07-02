@@ -7,6 +7,12 @@ This document is the current server-side execution instruction. It covers only t
 
 Do not treat these two stages as full paper reproduction.
 
+For the complete experiment roadmap and all command groups, read:
+
+```bash
+cat docs/claude_code_full_experiment_instructions.md
+```
+
 Before writing any benchmark-level conclusion, also read:
 
 ```bash
