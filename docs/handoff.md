@@ -194,6 +194,64 @@ Failure handling:
 - If embedding fails, check OpenRouter model access and `llm/embeddings.py`.
 - If output format validation fails, preserve raw error and sample id.
 
+## Current Next Experiments
+
+Before continuing from the current MRAgent state, read:
+
+```bash
+cat docs/claude_code_next_steps.md
+```
+
+Current priority:
+
+1. Validate Qwen/Qwen3.5-397B-A17B as a standalone visual-evidence tool.
+2. Run a 50-question exploratory LoCoMo subset after VLM connectivity is confirmed.
+
+Stage 1 command:
+
+```bash
+python repro/validate_vlm_tool.py \
+  --data locomo \
+  --sample 30 \
+  --limit 5 \
+  --file stage1_vlm
+```
+
+Expected:
+
+- At least 3 real image turns return non-empty VLM evidence.
+- JSONL is written under `result/diagnostics/`.
+- A Markdown validation report is written under `reports/`.
+- This is tool validation only; it is not a QA benchmark.
+
+Stage 2 command:
+
+```bash
+python run_stratified.py \
+  --data locomo \
+  --model deepseek \
+  --file explore50_vlmready \
+  --sample_ids 30,42,44,48,50 \
+  --per_category 2 \
+  --total 10 \
+  --seed 42
+```
+
+Expected:
+
+- Exactly 5 conversation samples are processed.
+- Exactly 10 questions are selected per sample.
+- The intended total is 50 QA questions.
+- Results are exploratory diagnostics, not a formal validation/test split.
+- This run does not yet inject VLM output into MRAgent QA.
+
+Required after Stage 2:
+
+- Write `reports/explore50_vlmready_YYYYMMDD.md`.
+- Report exact sample list, selected question counts, category distribution, errors, runtime, tool calls, and badcases.
+- Do not claim CBR/Q-learning effect from this run.
+- Do not claim full paper reproduction from this run.
+
 ## Intermediate Artifact Review
 
 Before reporting any experiment as successful, read:

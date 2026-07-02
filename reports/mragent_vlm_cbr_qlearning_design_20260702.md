@@ -462,13 +462,23 @@ flowchart LR
 1. 从 `conv-30` 中选 3-5 个有 `img_url` 的事件。
 2. 调用 VLM 读取原图。
 3. 保存原始响应和解析结果。
-4. 对 Q9 做一次带 VLM 工具的 QA。
+4. 确认 VLM 工具可用后，再进入后续 QA 集成；当前阶段不改正式 QA。
+
+当前已新增工具级验收入口：
+
+```bash
+python repro/validate_vlm_tool.py \
+  --data locomo \
+  --sample 30 \
+  --limit 5 \
+  --file stage1_vlm
+```
 
 成功标准：
 
 - VLM 工具 trace 可审计。
-- Q9 不再仅依赖 caption。
-- 失败时能区分 API 失败、图片 URL 失败、模型理解失败、工具路由失败。
+- 至少 3 个真实 LoCoMo 图片事件返回非空视觉描述。
+- 失败时能区分 API 失败、图片 URL 失败、模型理解失败或空响应。
 
 ### Stage 2：50 题探索性诊断
 
@@ -476,16 +486,37 @@ flowchart LR
 
 建议：
 
-- 选择 5 个 conversation samples。
+- 选择 5 个 conversation samples：`conv-30, conv-42, conv-44, conv-48, conv-50`。
 - 每个样本 10 题。
 - 优先包含 image-related、temporal、multi-hop。
 - 使用 file tag：`explore50_vlm`。
 
+当前已新增 runner 控制参数：
+
+```bash
+python run_stratified.py \
+  --data locomo \
+  --model deepseek \
+  --file explore50_vlmready \
+  --sample_ids 30,42,44,48,50 \
+  --per_category 2 \
+  --total 10 \
+  --seed 42
+```
+
+说明：
+
+- `--sample_ids` 固定 5 个样本。
+- `--total 10` 表示每个样本抽 10 题。
+- 总计 50 题。
+- 该 run 不会自动注入 VLM 输出；它用于扩大 baseline 诊断和收集失败轨迹。
+
 产物：
 
-- 每题 answer、gold、category、tool trace、VLM trace。
+- 每题 answer、gold、category、tool trace。
 - 按失败类型汇总 badcase。
 - 记录每个 sample 的图构建是否完整。
+- 额外标记疑似 image-related badcase，供下一阶段 VLM QA 集成使用。
 
 ### Stage 3：CBR case bank
 

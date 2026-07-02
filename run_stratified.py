@@ -216,12 +216,19 @@ def main():
     datapath = config.datapath
     conversation_list, question_list, raw_conversation_list, raw_text_list = get_data(dataset, datapath)
 
+    allowed_sample_ids = set(getattr(config, "SAMPLE_IDS", []) or [])
+    processed_samples = 0
     for sample_id, sample in conversation_list.items():
         # sample filter
         if config.sample_id is not None:
             num = int(sample_id.split('-')[1])
             if num != config.sample_id:
                 continue
+        if allowed_sample_ids and sample_id not in allowed_sample_ids:
+            continue
+        if config.MAX_SAMPLES is not None and processed_samples >= config.MAX_SAMPLES:
+            logger.info(f"Reached --max_samples={config.MAX_SAMPLES}; stopping subset run.")
+            break
 
         # stratified sampling
         selected_qa = stratified_sample(
@@ -316,6 +323,7 @@ def main():
             result_path = config.result_template.format(dataset=dataset, sample_id=sample_id)
             answer_questions(dataset, agent, selected_qa, sample_id, memory_system,
                              result_path, all_embs)
+            processed_samples += 1
 
 
 def _get_conv_embeddings(embedding_path):

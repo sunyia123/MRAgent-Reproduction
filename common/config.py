@@ -16,6 +16,8 @@ parser.add_argument("--max_questions", type=int, default=None, help="Max questio
 parser.add_argument("--per_category", type=int, default=3, help="Stratified sampling: min questions per category (default 3)")
 parser.add_argument("--total", type=int, default=15, help="Stratified sampling: total questions (default 15)")
 parser.add_argument("--seed", type=int, default=42, help="Stratified sampling: random seed (default 42)")
+parser.add_argument("--max_samples", type=int, default=None, help="Max samples to process for subset runs")
+parser.add_argument("--sample_ids", type=str, default=None, help="Comma-separated sample ids, e.g. 26,30,41 or conv-26,conv-30")
 
 # parse_known_args (not parse_args) so importing this module under a foreign argv
 # (pytest, notebooks, helper scripts) does not crash on unrecognized arguments.
@@ -90,6 +92,14 @@ MAX_QUESTIONS = args.max_questions  # limit questions per sample for smoke tests
 STRATIFIED_PER_CATEGORY = args.per_category  # stratified sampling: min questions per category
 STRATIFIED_TOTAL = args.total  # stratified sampling: total questions
 STRATIFIED_SEED = args.seed  # stratified sampling: random seed
+MAX_SAMPLES = args.max_samples  # subset sampling: max sample count
+SAMPLE_IDS = []
+if args.sample_ids:
+    for _sid in args.sample_ids.split(","):
+        _sid = _sid.strip()
+        if not _sid:
+            continue
+        SAMPLE_IDS.append(_sid if _sid.startswith("conv-") else f"conv-{_sid}")
 
 dataset = args.data
 DATASET = dataset
