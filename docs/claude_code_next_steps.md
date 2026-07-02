@@ -1,9 +1,10 @@
-# Claude Code Next Steps: VLM Validation And Explore-50
+# Claude Code Next Steps: VLM Validation, VLM Rewrite, And Explore-50
 
-This document is the current server-side execution instruction. It covers only the next two stages:
+This document is the current server-side execution instruction. It covers only the next three stages:
 
 1. Validate Qwen VLM as a standalone visual-evidence tool.
-2. Run a 50-question exploratory LoCoMo subset after VLM connectivity is confirmed.
+2. Test VLM-enriched rewrite without overwriting baseline rewrite cache.
+3. Run a 50-question exploratory LoCoMo subset after VLM connectivity is confirmed.
 
 Do not treat these two stages as full paper reproduction.
 
@@ -37,8 +38,13 @@ Optional parallel task:
 
 ## 0. Sync And Environment
 
+If a long experiment is still running in this checkout, wait for it to finish before pulling new code. If the server has local committed results that are not on GitHub yet, push them first or use a separate clone.
+
 ```bash
 cd /data/nishome/cuiwenjia/MRAgent-Reproduction
+git status --short --branch
+git log --oneline --decorate -5
+git branch -vv
 git pull --ff-only origin main
 git status --short --branch
 conda activate mragent-repro
@@ -129,7 +135,74 @@ Acceptance:
 - Only after Stage 1 passes should VLM be considered available as a tool.
 - This stage does not modify MRAgent QA behavior.
 
-## 3. Stage 2: Explore-50 Diagnostic Run
+## 3. Stage 2: VLM-Enriched Rewrite Smoke
+
+Purpose:
+
+- Verify whether Qwen VLM can add visual facts before MRAgent rewrite.
+- Keep the generated rewrite under `data/locomo/rewrite_deepseek_vlm/`.
+- Do not overwrite `data/locomo/rewrite_deepseek/`.
+
+Dry run:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3 \
+  --dry_run
+```
+
+Real visual-evidence collection, no text rewrite yet:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3
+```
+
+Full VLM-enriched rewrite smoke:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3 \
+  --rewrite
+```
+
+Expected:
+
+- `reports/vlm_enriched_rewrite_vlmrewrite_smoke_*.md` exists.
+- `result/diagnostics/vlm_enriched_rewrite_visual_vlmrewrite_smoke_*.jsonl` exists.
+- `result/diagnostics/vlm_enriched_rewrite_sessions_vlmrewrite_smoke_*.jsonl` exists.
+- With `--rewrite`, `data/locomo/rewrite_deepseek_vlm/conv-30_rewrite.json` exists.
+
+Report requirements:
+
+- Number of image turns found.
+- Number of VLM calls attempted.
+- Number of successful VLM evidence injections.
+- Whether failures are due to image URL reachability, API/model response, or rewrite parsing.
+- A short comparison against baseline rewrite for at least 3 image turns.
+
+Do not claim:
+
+- VLM-enhanced QA improvement.
+- Benchmark reproduction.
+- CBR/Q-learning effect.
+
+## 4. Stage 3: Explore-50 Diagnostic Run
 
 Definition:
 
@@ -178,7 +251,7 @@ Important:
 - The purpose is to collect a wider baseline and failure traces after confirming that VLM is available.
 - Do not overwrite or delete the earlier `stratified` clean run.
 
-## 4. Required Report After Stage 2
+## 5. Required Report After Stage 3
 
 Write:
 
@@ -210,7 +283,7 @@ Do not claim:
 - VLM-enhanced QA result.
 - CBR/Q-learning effect.
 
-## 5. Git Commit Rules
+## 6. Git Commit Rules
 
 Commit only:
 

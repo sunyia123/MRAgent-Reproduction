@@ -33,6 +33,29 @@ Expected:
 - Working tree is clean.
 - Documentation under `docs/` is present.
 
+## Server Sync Safety
+
+Before pulling new code, especially while another experiment is still running:
+
+```bash
+cd /data/nishome/cuiwenjia/MRAgent-Reproduction
+git status --short --branch
+git log --oneline --decorate -5
+git branch -vv
+```
+
+Expected:
+
+- If the working tree is clean and the branch is not ahead of `origin/main`, `git pull --ff-only origin main` is safe.
+- If there are local commits ahead of `origin/main`, push them first or record why they are intentionally local-only.
+- If the working tree is dirty, do not pull until the current run finishes and the files are classified as code/report/ignored artifact.
+
+Failure handling:
+
+- Do not use `git reset --hard` or `git clean -fdx` to "fix" a dirty experiment checkout.
+- If code must be updated while a long experiment continues, create a second clone and run the new task there.
+- If a server-side report says "committed" but GitHub `main` does not show it, treat it as unpushed or committed on another branch until proven otherwise.
+
 ## Git Safety And Force-Push Rules
 
 Force-push means rewriting the remote branch pointer to a different commit history.
@@ -353,6 +376,92 @@ Required after Stage 2:
 - Report exact sample list, selected question counts, category distribution, errors, runtime, tool calls, and badcases.
 - Do not claim CBR/Q-learning effect from this run.
 - Do not claim full paper reproduction from this run.
+
+## VLM-Enriched Rewrite Experiment
+
+Current issue:
+
+- Baseline MRAgent rewrite does not call a VLM.
+- Image turns only contribute text fields such as dialogue text and existing `blip_caption`.
+- If visual facts are missing before graph construction, later retrieval may fail even when the graph traversal logic is correct.
+
+New script:
+
+```text
+repro/run_vlm_enriched_rewrite.py
+```
+
+It creates a separate VLM rewrite cache:
+
+```text
+data/locomo/rewrite_deepseek_vlm/
+```
+
+It must not overwrite:
+
+```text
+data/locomo/rewrite_deepseek/
+```
+
+Dry run:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3 \
+  --dry_run
+```
+
+Real VLM evidence collection:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3
+```
+
+Full rewrite smoke:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3 \
+  --rewrite
+```
+
+Expected outputs:
+
+```text
+reports/vlm_enriched_rewrite_vlmrewrite_smoke_*.md
+result/diagnostics/vlm_enriched_rewrite_visual_vlmrewrite_smoke_*.jsonl
+result/diagnostics/vlm_enriched_rewrite_sessions_vlmrewrite_smoke_*.jsonl
+data/locomo/rewrite_deepseek_vlm/conv-30_rewrite.json
+```
+
+Acceptance:
+
+- The report states image-turn count, VLM attempts, VLM successes, rewrite status, and output paths.
+- The generated rewrite file contains non-empty rewritten sessions.
+- At least 3 image turns are manually compared against the baseline rewrite.
+- If server-side image URLs cannot be fetched, record it as network/tool failure and do not conclude that the method has no value.
+
+Failure handling:
+
+- If VLM fails but rewrite succeeds with caption-only fallback, label the run as fallback-only.
+- If VLM succeeds but rewrite fails, preserve visual JSONL and debug the text rewrite stage separately.
+- If the baseline cache is accidentally overwritten, stop and record exactly which files changed before rerunning anything.
 
 ## Benchmark Reproduction Requirements
 

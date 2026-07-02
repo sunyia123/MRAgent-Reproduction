@@ -14,6 +14,18 @@ Do not treat any diagnostic subset as paper-level benchmark reproduction.
 
 ## 0. Common Setup
 
+If another server process is still running, do not update code in that same checkout until the process finishes. First inspect whether the server has local commits that are not visible on GitHub:
+
+```bash
+cd /data/nishome/cuiwenjia/MRAgent-Reproduction
+git status --short --branch
+git log --oneline --decorate -5
+git branch -vv
+git remote -v
+```
+
+If `git status` is dirty or `git branch -vv` shows local commits ahead of `origin/main`, commit/push those files first or create a separate clone for the next experiment. Do not run `git pull`, `git reset --hard`, or `git clean` in a checkout that is still producing results.
+
 ```bash
 cd /data/nishome/cuiwenjia/MRAgent-Reproduction
 git pull --ff-only origin main
@@ -91,6 +103,80 @@ Commit only:
 
 - The Markdown report if small.
 - A small manifest if raw JSONL is not committed.
+
+### 1.1.5 VLM-Enriched Rewrite Smoke
+
+Purpose:
+
+- Test whether visual evidence can be injected before MRAgent's rewrite stage.
+- Keep this separate from the baseline rewrite cache.
+- This is a prerequisite for later image-aware QA, but it is not the final VLM-QA experiment.
+
+Why this matters:
+
+- The original rewrite code only uses existing text and `blip_caption`.
+- It does not call a VLM during rewrite.
+- For image-related LoCoMo questions, missing visual facts can already damage the graph before retrieval starts.
+
+Dry run, no API calls:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3 \
+  --dry_run
+```
+
+Real VLM evidence collection, but no text rewrite call:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3
+```
+
+Full smoke: collect VLM evidence and run text rewrite:
+
+```bash
+python repro/run_vlm_enriched_rewrite.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --file vlmrewrite_smoke \
+  --limit_image_turns 10 \
+  --max_sessions 3 \
+  --rewrite
+```
+
+Expected outputs:
+
+```text
+data/locomo/rewrite_deepseek_vlm/conv-30_rewrite.json
+result/diagnostics/vlm_enriched_rewrite_visual_vlmrewrite_smoke_*.jsonl
+result/diagnostics/vlm_enriched_rewrite_sessions_vlmrewrite_smoke_*.jsonl
+reports/vlm_enriched_rewrite_vlmrewrite_smoke_*.md
+```
+
+Acceptance:
+
+- The baseline `data/locomo/rewrite_deepseek/` cache is not overwritten.
+- The report shows how many image turns were found, how many VLM calls succeeded, and where the enriched sessions were written.
+- If image URLs are unreachable, the report must say so and the run should be treated as network/tool failure, not as proof that VLM is useless.
+- If `--rewrite` is used, verify that `data/locomo/rewrite_deepseek_vlm/conv-30_rewrite.json` exists and has non-empty rewritten sessions.
+
+Failure handling:
+
+- If every VLM call fails, first check URL reachability and SiliconFlow VLM model support.
+- If the full rewrite fails after VLM evidence collection, keep the visual JSONL/report and debug text rewrite separately.
+- Do not delete or replace the baseline rewrite cache.
 
 ### 1.2 Explore-50 Diagnostic Subset
 
