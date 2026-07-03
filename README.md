@@ -13,6 +13,7 @@ Before running experiments, read:
 - [docs/claude_code_full_experiment_instructions.md](docs/claude_code_full_experiment_instructions.md)
 - [docs/benchmark_reproduction_plan.md](docs/benchmark_reproduction_plan.md)
 - [docs/reproduction_plan.md](docs/reproduction_plan.md)
+- [reports/mragent_experiment_progress_20260703.md](reports/mragent_experiment_progress_20260703.md)
 - [reports/mragent_vlm_cbr_qlearning_design_20260702.md](reports/mragent_vlm_cbr_qlearning_design_20260702.md)
 - [.agents/codex_experience_review.md](.agents/codex_experience_review.md)
 
