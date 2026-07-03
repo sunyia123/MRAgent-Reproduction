@@ -16,6 +16,15 @@ Before running experiments, read:
 - [reports/mragent_vlm_cbr_qlearning_design_20260702.md](reports/mragent_vlm_cbr_qlearning_design_20260702.md)
 - [.agents/codex_experience_review.md](.agents/codex_experience_review.md)
 
+Current server-side execution entry:
+
+```bash
+cat docs/claude_code_next_steps.md
+cat docs/claude_code_full_experiment_instructions.md
+```
+
+The current active additions are Qwen VLM validation and VLM-enriched rewrite smoke tests. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
+
 The original upstream repository is preserved as read-only `upstream`.
 
 > This repository contains the code for the paper
