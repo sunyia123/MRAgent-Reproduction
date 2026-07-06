@@ -11,6 +11,7 @@ Do not treat these two stages as full paper reproduction.
 For the complete experiment roadmap and all command groups, read:
 
 ```bash
+cat docs/experiment_master_agenda.md
 cat docs/claude_code_full_experiment_instructions.md
 ```
 
@@ -27,6 +28,29 @@ Important:
 - The paper benchmarks are LoCoMo and LongMemEval.
 - Current private repo LoCoMo file contains 10 conversation samples and 1986 QA items.
 - LongMemEval is still blocked until the real `data/dataset_LM.json` is obtained.
+- Do not run every stage with DeepSeek-V4-Pro by default. Use cheaper/faster models for diagnostics when the question is engineering validity rather than final model capability.
+- Current priority is to explain low single-hop performance with badcase process evidence, then compare MRAgent against Standard RAG and GraphRAG baselines.
+
+## Current Priority: Single-Hop Badcase Audit
+
+Run this before expanding more expensive full-pipeline experiments:
+
+```bash
+python repro/export_badcase_pack.py \
+  --data locomo \
+  --model deepseek \
+  --file stratified \
+  --sample 30 \
+  --output reports/badcase_pack_conv30_stratified_20260706.md
+```
+
+Expected:
+
+- A small Markdown report under `reports/`.
+- Cat4 single-hop cases clearly listed with question, gold, prediction, gold evidence, retrieved context, tool calls, and failure type.
+- Manual notes added for whether each low-F1 single-hop case is a real wrong answer, paraphrase/F1 mismatch, image-related failure, retrieval miss, or tool-path drift.
+
+Commit this report to GitHub.
 
 Optional parallel task:
 

@@ -11,6 +11,7 @@ Before running experiments, read:
 - [docs/handoff.md](docs/handoff.md)
 - [docs/claude_code_next_steps.md](docs/claude_code_next_steps.md)
 - [docs/claude_code_full_experiment_instructions.md](docs/claude_code_full_experiment_instructions.md)
+- [docs/experiment_master_agenda.md](docs/experiment_master_agenda.md)
 - [docs/benchmark_reproduction_plan.md](docs/benchmark_reproduction_plan.md)
 - [docs/reproduction_plan.md](docs/reproduction_plan.md)
 - [reports/mragent_experiment_progress_20260703.md](reports/mragent_experiment_progress_20260703.md)
