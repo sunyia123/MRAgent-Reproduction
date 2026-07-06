@@ -28,18 +28,28 @@ def normalize_sample_id(value: str) -> str:
     return value if value.startswith("conv-") else f"conv-{value}"
 
 
-def load_embeddings(path: Path) -> tuple[dict[str, Any], Any, list[str], Any]:
+def load_embeddings(path: Path) -> tuple[dict[str, Any], Any, list[str], Any, dict[str, Any]]:
     with path.open("rb") as f:
         database = pickle.load(f)
     embeddings = database.get("embeddings")
     sentence_ids = database.get("sentence_id")
     topic_embeddings = database.get("topic")
-    topic_ids = database.get("topic_id")
+    # data/embed_rewrite.py stores topic ids under "topic_list". Keep
+    # "topic_id" as a backward-compatible fallback for older local artifacts.
+    topic_source = "topic_list" if database.get("topic_list") is not None else "topic_id"
+    topic_ids = database.get("topic_list") or database.get("topic_id")
     question_embeddings = database.get("question_embeddings")
     if embeddings is None or sentence_ids is None:
         raise ValueError(f"Missing embeddings or sentence_id in {path}")
     id2emb = {sid: embeddings[i] for i, sid in enumerate(sentence_ids)}
-    return id2emb, question_embeddings, topic_ids or [], topic_embeddings
+    audit = {
+        "embedding_sentence_count": len(sentence_ids),
+        "topic_id_source": topic_source,
+        "topic_id_count": len(topic_ids or []),
+        "topic_embedding_count": len(topic_embeddings) if topic_embeddings is not None else 0,
+        "question_embedding_count": len(question_embeddings) if question_embeddings is not None else 0,
+    }
+    return id2emb, question_embeddings, topic_ids or [], topic_embeddings, audit
 
 
 def default_paths(args: argparse.Namespace) -> dict[str, Path]:
@@ -92,7 +102,7 @@ def main() -> None:
 
     memory = MemorySystem()
     agent = Agent(None, memory, None)
-    conv_embeddings, question_embeddings, topic_ids, topic_embeddings = load_embeddings(paths["embedding"])
+    conv_embeddings, question_embeddings, topic_ids, topic_embeddings, embedding_audit = load_embeddings(paths["embedding"])
     agent.store_raw_text(raw_text_list[sample_id], conv_embeddings, topic_ids, topic_embeddings)
     agent.store_keyword(str(paths["keyword"]), str(paths["rewrite"]))
 
@@ -193,6 +203,11 @@ def main() -> None:
         f"- rewrite: `{paths['rewrite']}`",
         f"- keyword: `{paths['keyword']}`",
         f"- embedding: `{paths['embedding']}`",
+        f"- embedding sentence count: {embedding_audit['embedding_sentence_count']}",
+        f"- topic id source: `{embedding_audit['topic_id_source']}`",
+        f"- topic id count: {embedding_audit['topic_id_count']}",
+        f"- topic embedding count: {embedding_audit['topic_embedding_count']}",
+        f"- question embedding count: {embedding_audit['question_embedding_count']}",
         "",
         "## Outputs",
         "",
