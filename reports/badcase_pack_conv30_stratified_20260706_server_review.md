@@ -294,7 +294,119 @@ These are gitignored and not on the Codex machine.
 
 ---
 
-## 8. Next Steps
+## 8. Graph-Layer Evidence (Server Graph Snapshot)
+
+Generated: 2026-07-06 | Source: `result/graph_snapshot/conv-30_nodes.jsonl` + `conv-30_edges.jsonl`
+
+### 8.1 Graph Overview
+
+| metric | value |
+| --- | --- |
+| episode events | 1094 |
+| keywords | 1779 |
+| topics | 213 |
+| persona | 4 (344 personal events) |
+| edges (keyword→event) | 5103 |
+| edges (topic→event) | 1321 |
+| gold evidence IDs in dataset | 75 (all 75 map to ≥1 sentence in graph via turn→sentence prefix) |
+
+**Key correction**: The raw `export_graph_snapshot.py` report says "75 missing from episode graph" — this is a **false negative**. Gold evidence IDs are turn-level (`D1:25`), while graph stores sentence-level IDs (`D1:25-1`). All 75 gold evidence turns have ≥1 sentence in the episode graph. The format mismatch was corrected by prefix-matching.
+
+### 8.2 Q9 Graph Analysis — "What do the dancers in the photo represent?"
+
+| field | finding |
+| --- | --- |
+| gold evidence ID | `D1:25` |
+| sentences in graph | **3**: D1:25-1 (Compliment), D1:25-2 (Inquiry), D1:25-3 (Compliment) |
+| connected keywords | `dancers`, `festival`, `graceful`, `group of dancers`, `Gina`, `Wow`, `awesome`, `Jon's` |
+| connected topics | `D1:t13` — "Jon's group performs at a festival next month" |
+| answer-bearing turn D1:26 in graph? | **YES** — 2 sentences: D1:26-1 (Confirmation: "they're the ones performing at the festival!"), D1:26-2 (Praise) |
+| D1:26 keywords | `dancers`, `festival`, `performing`, `Jon's group`, `grace`, `impress`, `practicing hard`, `skill` |
+| keyword "dancers" → events | D1:24-2, D1:25-2, D1:25-3, D1:26-1, D1:26-2, D1:27-1, D1:27-2 (16 events total across sessions) |
+| keyword "festival" → events | D1:25-2, D1:26-1 (plus other sessions) |
+| keyword "photo" → events | D1:24-7, D2:4-7, D3:3-4, D9:2-4, D9:5-5, etc. (39 events total) |
+| image turn D1:24 in graph? | **YES** — 7 sentences: D1:24-1 to D1:24-7, tags include "Photo Sharing", "Rehearsal", "Upcoming Performance" |
+| D1:24 keywords (relevant) | `photo` (D1:24-7), `dancers` (D1:24-2), `nearby festival` (D1:24-5), `perform` (D1:24-5), `small group` (D1:24-2) |
+
+**Conclusion**: 
+- Gold evidence D1:25 is **present and well-connected** in the graph with relevant keywords (`dancers`, `festival`, `graceful`).
+- Answer turn D1:26 is **also in the graph**, connected via topic D1:t13 and keywords `dancers`, `festival`, `performing`.
+- A `search_event("dancers festival")` would match D1:25-2 and D1:26-1; `search_event("dancers photo")` would match D1:24-2,7.
+- **Root cause is RETRIEVAL MISS (tool-path drift), NOT graph construction.** The keywords and topical links exist. The model's 31-tool exploration never landed on these nodes — likely a search query formulation or stopping-criterion problem.
+
+### 8.3 Q10 Graph Analysis — "What is Jon's attitude towards being part of the dance festival?"
+
+| field | finding |
+| --- | --- |
+| gold evidence ID | `D1:28` |
+| sentences in graph | **2**: D1:28-1 (Agreement: "Yeah, awesome!"), D1:28-2 (Satisfaction: "Glad to be part of it") |
+| connected keywords | `Glad`, `festival performance`, `part`, `Jon`, `Yeah`, `awesome` |
+| connected topics | `D1:t13` |
+| in prediction_context? | **YES** — D1:28 is in context |
+| retrieval diagnosis | **Successful retrieval** |
+| graph construction | Sound — D1:28 in same topic as D1:24-26 |
+| failure type | **Evaluation mismatch** (F1=0.105 vs semantically "glad" in prediction) |
+
+### 8.4 Q11 Graph Analysis — "What made Gina choose the furniture and decor for her store?"
+
+| field | finding |
+| --- | --- |
+| gold evidence ID | `D3:6` |
+| sentences in graph | **4**: D3:6-1 (Gratitude), D3:6-2 (Furniture selection motivation), D3:6-3 (Furniture choice), D3:6-4 (Decor element) |
+| connected keywords | `furniture`, `furniture and decor`, `own style`, `customers`, `cozy`, `chandelier`, `Gina's`, `selection`, `look`, `feel`, `make`, `wanted` |
+| connected topics | `D3:t5`, `D3:t6` |
+| in prediction_context? | **YES** — D3:6 is in context |
+| retrieval diagnosis | **Successful retrieval** |
+| failure type | **Evaluation mismatch** (F1=0.056 vs semantically correct answer) |
+
+### 8.5 Q12 Graph Analysis — "Why did Gina combine her clothing business with dance?"
+
+| field | finding |
+| --- | --- |
+| gold evidence ID | `D8:8` |
+| sentences in graph | **3**: D8:8-1 (Gratitude), D8:8-2 (Passion Combination), D8:8-3 (Product Ideas) |
+| connected keywords | `dance`, `fashion`, `passionate`, `combining`, `clothing business`, `Gina's creativity`, `share`, `show`, `dance-inspired items` |
+| connected topics | `D8:t8`, `D8:t3`, `D8:t7` |
+| in prediction_context? | **YES** — D8:8 is in context |
+| retrieval diagnosis | **Successful retrieval** |
+| failure type | **Borderline** — semantically correct, moderate F1 penalty |
+
+### 8.6 Graph-Layer Summary
+
+| Q | evidence in graph | keywords connect? | topic links? | retrieval success? | actual failure |
+| --- | :---: | :---: | :---: | :---: | --- |
+| Q9 | ✅ (D1:25 + D1:26) | ✅ (dancers, festival, photo) | ✅ (D1:t13) | ❌ (empty ctx, 31 tools) | **Retrieval/tool-path miss** |
+| Q10 | ✅ (D1:28) | ✅ (Glad, festival performance) | ✅ (D1:t13) | ✅ | Evaluation mismatch |
+| Q11 | ✅ (D3:6) | ✅ (furniture, own style, cozy) | ✅ (D3:t5, t6) | ✅ | Evaluation mismatch |
+| Q12 | ✅ (D8:8) | ✅ (dance, fashion, passionate) | ✅ (D8:t3, t7, t8) | ✅ | Borderline |
+
+**Key finding**: 0/4 cat4 questions have graph construction issues. All gold evidence exists in the graph with adequate keyword and topic connections. Q9's failure is purely a retrieval/tool-path problem — the evidence is well-linked but the model's 31-tool exploration never converged on the correct nodes. This confirms the earlier analysis (Section 3.4: "0 graph construction issues") with concrete graph-layer evidence.
+
+### 8.7 Q9 Retrieval Failure — Detailed Diagnosis
+
+Based on graph structure, here is why Q9 retrieval should have worked but didn't:
+
+1. **Question**: "What do the dancers in the photo represent?"
+2. **Effective search terms** (extractable from question): `dancers`, `photo`, `represent`
+3. **Graph keyword matches**:
+   - `dancers`: 14 keyword nodes, links to D1:24-2, D1:25-2,3, D1:26-1,2, D1:27-1,2
+   - `photo`: 5 keyword nodes, links to D1:24-7 (and 38 other events)
+   - `festival`: 4 keyword nodes, links to D1:25-2, D1:26-1
+   - `dance performance photo`: links to D1:24 area
+4. **Why retrieval likely failed**:
+   - `search_event("dancers")` would return many events (16), requiring `sort` + filtering
+   - `search_event("photo represent")` → keyword "represent" doesn't exist (0 occurrences)
+   - The model may have searched for "represent" (negative result) and then drifted
+   - 31 tool calls with empty context suggests iterative reformulation without convergence
+   - The model never used a simple `search_event("festival dancers")` query that would directly hit D1:25-2 and D1:26-1
+5. **Possible fixes**:
+   - Add stopping criterion after N consecutive failed searches
+   - Prompt model to fall back to broader keyword search when specific queries fail
+   - Add `query_topic_events` or `query_event_context` on nearby successfully-retrieved events
+
+---
+
+## 9. Next Steps
 
 1. **Fix gold answer granularity** before re-running any cat4 evaluation. Add a minimum token count or use LLM judge as the primary single-hop metric.
 
@@ -306,8 +418,8 @@ These are gitignored and not on the Codex machine.
 
 5. **Oracle evidence QA on Q1 and Q9**: Give the model gold evidence directly and check if it can answer. This isolates retrieval error from synthesis error.
 
-6. **Graph snapshot export**: Must be done on the server (cache files required). See `reports/graph_snapshot_manifest_conv30_20260706.md`.
+6. **Graph snapshot export**: ✅ Done on server. See `reports/graph_snapshot_conv30_20260706_server.md`.
 
 ---
 
-*This report was written on the Codex machine (Windows) using committed result/log files. Cache-dependent graph snapshot could not be generated locally.*
+*This report was updated on the server (2026-07-06) with graph-layer evidence from `result/graph_snapshot/conv-30_*.jsonl`. Original analysis (Sections 1-7) was written on the Codex machine. Section 8 added on server.*
