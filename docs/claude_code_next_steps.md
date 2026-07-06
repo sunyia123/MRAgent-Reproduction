@@ -12,6 +12,7 @@ For the complete experiment roadmap and all command groups, read:
 
 ```bash
 cat docs/experiment_master_agenda.md
+cat docs/next_iteration_handoff.md
 cat docs/claude_code_full_experiment_instructions.md
 ```
 
@@ -30,6 +31,29 @@ Important:
 - LongMemEval is still blocked until the real `data/dataset_LM.json` is obtained.
 - Do not run every stage with DeepSeek-V4-Pro by default. Use cheaper/faster models for diagnostics when the question is engineering validity rather than final model capability.
 - Current priority is to explain low single-hop performance with badcase process evidence, then compare MRAgent against Standard RAG and GraphRAG baselines.
+
+## Current Priority: Dataset, Graph, And Badcase Audit
+
+Run these before expanding more expensive full-pipeline experiments:
+
+```bash
+python repro/audit_dataset_tasks.py \
+  --data_path data/dataset_locomo.json \
+  --output reports/dataset_task_audit_locomo_20260706.md
+
+python repro/export_graph_snapshot.py \
+  --data locomo \
+  --model deepseek \
+  --sample 30 \
+  --output_dir result/graph_snapshot \
+  --report reports/graph_snapshot_conv30_20260706.md
+```
+
+Expected:
+
+- Dataset/task audit explains the sample, category, and image-turn structure.
+- Graph snapshot rebuilds the in-memory graph from existing rewrite, keyword, and embedding caches.
+- No rewrite, keyword, embedding, or QA model call is made by the graph snapshot step.
 
 ## Current Priority: Single-Hop Badcase Audit
 
