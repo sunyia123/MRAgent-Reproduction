@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Compare full Standard RAG output against a smaller MRAgent subset.
+"""Compare a baseline output against a smaller MRAgent subset.
 
 Use case:
 - MRAgent stratified result has 15 selected questions.
-- Standard RAG smoke may run all 105 conv-30 questions.
-- This script matches by exact question text, extracts the same subset from
-  RAG, and writes a fair per-question comparison report.
+- Standard RAG / GraphRAG / Oracle may run a larger or same subset.
+- This script matches by exact question text and writes a fair per-question
+  comparison report.
 
 No API calls are made.
 """
@@ -14,12 +14,28 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+from collections import Counter
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from eval.evaluation import f1_score
+
+def simple_f1_score(prediction: str, ground_truth: str) -> float:
+    pred_tokens = re.sub(r"[^a-zA-Z0-9\u4e00-\u9fff]+", " ", prediction.lower()).split()
+    gold_tokens = re.sub(r"[^a-zA-Z0-9\u4e00-\u9fff]+", " ", ground_truth.lower()).split()
+    if not pred_tokens and not gold_tokens:
+        return 1.0
+    if not pred_tokens or not gold_tokens:
+        return 0.0
+    common = Counter(pred_tokens) & Counter(gold_tokens)
+    same = sum(common.values())
+    if same == 0:
+        return 0.0
+    precision = same / len(pred_tokens)
+    recall = same / len(gold_tokens)
+    return 2 * precision * recall / (precision + recall)
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -38,7 +54,7 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
 def score_row(row: dict[str, Any]) -> float:
     if str(row.get("category")) == "5":
         return 1.0 if "not mentioned" in str(row.get("prediction", "")).lower() else 0.0
-    return f1_score(str(row.get("prediction", "")), str(row.get("answer", "")))
+    return simple_f1_score(str(row.get("prediction", "")), str(row.get("answer", "")))
 
 
 def evidence_hit(evidence: list[Any], context: list[Any]) -> bool:
@@ -67,9 +83,10 @@ def truncate(text: Any, limit: int = 120) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Compare RAG full output to MRAgent subset by question text.")
+    parser = argparse.ArgumentParser(description="Compare baseline output to MRAgent subset by question text.")
     parser.add_argument("--mragent_result", required=True)
-    parser.add_argument("--rag_result", required=True)
+    parser.add_argument("--rag_result", required=True, help="Baseline result JSONL. Name kept for backward compatibility.")
+    parser.add_argument("--baseline_label", default="RAG")
     parser.add_argument("--output", default=None)
     parser.add_argument("--subset_output", default=None)
     args = parser.parse_args()
@@ -139,22 +156,23 @@ def main() -> None:
         hit_by_cat_mr[cat].append(1.0 if pair["mragent_evidence_hit"] else 0.0)
         hit_by_cat_rag[cat].append(1.0 if pair["rag_evidence_hit"] else 0.0)
 
-    output = Path(args.output) if args.output else Path("reports") / f"rag_vs_mragent_subset_{datetime.now().strftime('%Y%m%d')}.md"
+    label = args.baseline_label
+    output = Path(args.output) if args.output else Path("reports") / f"{label.lower()}_vs_mragent_subset_{datetime.now().strftime('%Y%m%d')}.md"
     output.parent.mkdir(parents=True, exist_ok=True)
     lines = [
-        f"# RAG vs MRAgent Subset Comparison - {datetime.now().strftime('%Y-%m-%d')}",
+        f"# {label} vs MRAgent Subset Comparison - {datetime.now().strftime('%Y-%m-%d')}",
         "",
         "## Source",
         "",
         f"- MRAgent subset: `{mragent_path}` ({len(mr_rows)} rows)",
-        f"- RAG full result: `{rag_path}` ({len(rag_rows)} rows)",
+        f"- {label} result: `{rag_path}` ({len(rag_rows)} rows)",
         f"- matched questions: {len(pairs)} / {len(mr_rows)}",
         f"- missing questions: {len(missing)}",
         f"- duplicate RAG questions: {len(duplicates)}",
         "",
         "## Score Summary",
         "",
-        "| category | n | MRAgent score | RAG score | RAG - MRAgent | MRAgent evidence hit | RAG evidence hit |",
+        f"| category | n | MRAgent score | {label} score | {label} - MRAgent | MRAgent evidence hit | {label} evidence hit |",
         "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for cat in sorted(set(by_cat_mr) | set(by_cat_rag), key=str):
@@ -179,7 +197,7 @@ def main() -> None:
             "",
             "## Per-Question Comparison",
             "",
-            "| # | cat | MR score | RAG score | MR hit | RAG hit | question | gold | MRAgent prediction | RAG prediction |",
+            f"| # | cat | MR score | {label} score | MR hit | {label} hit | question | gold | MRAgent prediction | {label} prediction |",
             "| ---: | --- | ---: | ---: | --- | --- | --- | --- | --- | --- |",
         ]
     )
@@ -209,7 +227,7 @@ def main() -> None:
             "",
             "## Interpretation Rules",
             "",
-            "- If RAG hits evidence and MRAgent misses it, diagnose tool-path or graph traversal.",
+            f"- If {label} hits evidence and MRAgent misses it, diagnose tool-path or graph traversal.",
             "- If both hit evidence but answer differs, diagnose answer synthesis or evaluation.",
             "- If both miss evidence, diagnose rewrite/embedding/query formulation or image missingness.",
             "- This comparison is fair only for matched questions; do not compare 105-question RAG aggregate to 15-question MRAgent aggregate directly.",

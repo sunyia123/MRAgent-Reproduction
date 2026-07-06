@@ -133,6 +133,27 @@ def stratified_sample(question_list: dict, sample_id: str, per_category: int = 3
     return result
 
 
+def load_subset_manifest(path: str) -> dict:
+    obj = json.loads(Path(path).read_text(encoding="utf-8"))
+    by_sample = defaultdict(list)
+    for record in obj.get("records", []):
+        sample_id = record.get("sample_id")
+        qidx = record.get("question_index")
+        if sample_id is None or qidx is None:
+            continue
+        by_sample[sample_id].append(int(qidx))
+    return {sample_id: sorted(set(indices)) for sample_id, indices in by_sample.items()}
+
+
+def subset_from_manifest(question_list: dict, sample_id: str, subset_by_sample: dict) -> list:
+    qa_list = question_list.get(sample_id, [])
+    result = []
+    for qidx in subset_by_sample.get(sample_id, []):
+        if 0 <= qidx < len(qa_list):
+            result.append((qidx, qa_list[qidx]))
+    return result
+
+
 def answer_questions(dataset, agent, selected_qa, sample_id, memory, result_path, question_embeddings=None):
     """Answer only the selected questions. selected_qa is list of (original_index, qa_dict) tuples."""
     from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -215,8 +236,11 @@ def main():
     dataset = config.dataset
     datapath = config.datapath
     conversation_list, question_list, raw_conversation_list, raw_text_list = get_data(dataset, datapath)
+    subset_by_sample = load_subset_manifest(config.SUBSET_MANIFEST) if config.SUBSET_MANIFEST else None
 
     allowed_sample_ids = set(getattr(config, "SAMPLE_IDS", []) or [])
+    if subset_by_sample:
+        allowed_sample_ids = set(subset_by_sample) if not allowed_sample_ids else allowed_sample_ids & set(subset_by_sample)
     processed_samples = 0
     for sample_id, sample in conversation_list.items():
         # sample filter
@@ -230,13 +254,16 @@ def main():
             logger.info(f"Reached --max_samples={config.MAX_SAMPLES}; stopping subset run.")
             break
 
-        # stratified sampling
-        selected_qa = stratified_sample(
-            question_list, sample_id,
-            per_category=getattr(config, 'STRATIFIED_PER_CATEGORY', 3),
-            total=getattr(config, 'STRATIFIED_TOTAL', 15),
-            seed=getattr(config, 'STRATIFIED_SEED', 42),
-        )
+        # fixed manifest takes precedence over local random stratification
+        if subset_by_sample:
+            selected_qa = subset_from_manifest(question_list, sample_id, subset_by_sample)
+        else:
+            selected_qa = stratified_sample(
+                question_list, sample_id,
+                per_category=getattr(config, 'STRATIFIED_PER_CATEGORY', 3),
+                total=getattr(config, 'STRATIFIED_TOTAL', 15),
+                seed=getattr(config, 'STRATIFIED_SEED', 42),
+            )
         logger.info(f"Stratified selection: {len(selected_qa)} questions (sample {sample_id})")
         cat_counts = defaultdict(int)
         for orig_idx, qa in selected_qa:

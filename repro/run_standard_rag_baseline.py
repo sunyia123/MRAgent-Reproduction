@@ -40,6 +40,20 @@ If the context does not contain enough information, answer "no information avail
 Give a concise answer — just the key fact, entity, date, or phrase asked for."""
 
 
+def load_subset_manifest(path: Optional[str]) -> Optional[dict[str, list[int]]]:
+    if not path:
+        return None
+    obj = json.loads(Path(path).read_text(encoding="utf-8"))
+    by_sample: dict[str, list[int]] = {}
+    for record in obj.get("records", []):
+        sample_id = record.get("sample_id")
+        qidx = record.get("question_index")
+        if sample_id is None or qidx is None:
+            continue
+        by_sample.setdefault(sample_id, []).append(int(qidx))
+    return {sample_id: sorted(set(indices)) for sample_id, indices in by_sample.items()}
+
+
 def cosine_similarity(a, b):
     """Cosine similarity between two vectors (both should be numpy arrays or lists)."""
     a = np.asarray(a).flatten()
@@ -136,15 +150,21 @@ def answer_question_rag(llm: LLM, question: str, context: str) -> str:
 
 
 def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path: str,
-               llm: LLM, result_path: str, top_k: int):
+               llm: LLM, result_path: str, top_k: int, question_indices: Optional[list[int]] = None):
     """Run RAG QA for all questions of one sample."""
-    logger.info(f"--- {sample_id} ({len(qa_list)} questions, top_k={top_k}) ---")
+    if question_indices is None:
+        question_items = list(enumerate(qa_list))
+    else:
+        question_items = [(idx, qa_list[idx]) for idx in question_indices if 0 <= idx < len(qa_list)]
+    logger.info(f"--- {sample_id} ({len(question_items)} questions, top_k={top_k}) ---")
 
     # Load rewrite sentences and embeddings
     sentences = load_rewrite_sentences(rewrite_path)
     emb_data = load_embeddings(embedding_path)
     id2emb = emb_data["id2emb"]
-    question_embs = emb_data.get("question_embeddings") or []
+    question_embs = emb_data.get("question_embeddings")
+    if question_embs is None:
+        question_embs = []
 
     logger.info(f"  Loaded {len(sentences)} sentences, {len(id2emb)} embeddings")
 
@@ -153,12 +173,12 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
     if os.path.exists(result_path):
         with open(result_path, encoding="utf-8") as f:
             done = sum(1 for l in f if l.strip())
-    if done >= len(qa_list):
-        logger.info(f"  All {len(qa_list)} done, skipping.")
+    if done >= len(question_items):
+        logger.info(f"  All {len(question_items)} done, skipping.")
         return
 
-    for i, qa in enumerate(qa_list):
-        if i < done:
+    for seq, (orig_idx, qa) in enumerate(question_items):
+        if seq < done:
             continue
 
         category = qa.get("category")
@@ -179,7 +199,7 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
             q_text = question
 
         # Get question embedding
-        q_emb = question_embs[i] if i < len(question_embs) else None
+        q_emb = question_embs[orig_idx] if orig_idx < len(question_embs) else None
 
         # Retrieve top-k
         top_sents = retrieve_top_k(q_emb, sentences, id2emb, top_k)
@@ -201,6 +221,8 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
             "question": question,
             "prediction_context": pred_ctx,
             "sample": sample_id,
+            "question_index": orig_idx,
+            "question_index_1based": orig_idx + 1,
             "_metrics": {
                 "tool_calls": 0,
                 "schema_retries": 0,
@@ -212,7 +234,7 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
         with open(result_path, "a", encoding="utf-8") as f:
             f.write(json.dumps(evaluation, ensure_ascii=False, default=list) + "\n")
 
-        logger.info(f"  Q{i+1}/{len(qa_list)} cat={category} pred={str(prediction)[:60]}")
+        logger.info(f"  Q{seq+1}/{len(question_items)} orig={orig_idx+1} cat={category} pred={str(prediction)[:60]}")
 
 
 def main():
@@ -223,12 +245,14 @@ def main():
     parser.add_argument("--sample_ids", default=None, help="Comma-separated, e.g. 30,42,44")
     parser.add_argument("--top_k", type=int, default=20)
     parser.add_argument("--max_samples", type=int, default=None)
+    parser.add_argument("--subset_manifest", default=None, help="Optional fixed subset manifest from repro/build_stratified_subset.py")
     args = parser.parse_args()
 
     dataset = args.data
     datapath = f"data/dataset_{dataset}.json"
 
     conversation_list, question_list, _, _ = get_data(dataset, datapath)
+    subset_by_sample = load_subset_manifest(args.subset_manifest)
 
     # Filter samples
     if args.sample_ids:
@@ -242,6 +266,8 @@ def main():
 
     if args.max_samples:
         sample_keys = sample_keys[:args.max_samples]
+    if subset_by_sample is not None:
+        sample_keys = [sid for sid in sample_keys if sid in subset_by_sample]
 
     logger.info(f"RAG baseline: {len(sample_keys)} samples, top_k={args.top_k}")
 
@@ -262,10 +288,11 @@ def main():
             continue
 
         qa_list = question_list.get(sample_id, [])
+        q_indices = subset_by_sample.get(sample_id) if subset_by_sample is not None else None
         with per_sample_log(sample_id=sample_id, dataset=dataset):
             llm = LLM()
             run_sample(sample_id, qa_list, rewrite_path, embedding_path,
-                       llm, result_path, args.top_k)
+                       llm, result_path, args.top_k, q_indices)
 
 
 if __name__ == "__main__":
