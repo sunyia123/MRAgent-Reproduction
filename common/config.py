@@ -18,6 +18,7 @@ parser.add_argument("--total", type=int, default=15, help="Stratified sampling: 
 parser.add_argument("--seed", type=int, default=42, help="Stratified sampling: random seed (default 42)")
 parser.add_argument("--max_samples", type=int, default=None, help="Max samples to process for subset runs")
 parser.add_argument("--sample_ids", type=str, default=None, help="Comma-separated sample ids, e.g. 26,30,41 or conv-26,conv-30")
+parser.add_argument("--subset_manifest", type=str, default=None, help="Fixed subset manifest with sample_id and question_index records")
 
 # parse_known_args (not parse_args) so importing this module under a foreign argv
 # (pytest, notebooks, helper scripts) does not crash on unrecognized arguments.
@@ -100,6 +101,7 @@ if args.sample_ids:
         if not _sid:
             continue
         SAMPLE_IDS.append(_sid if _sid.startswith("conv-") else f"conv-{_sid}")
+SUBSET_MANIFEST = args.subset_manifest
 
 dataset = args.data
 DATASET = dataset
