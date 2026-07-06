@@ -120,16 +120,25 @@ def answer_question_rag(llm: LLM, question: str, context: str) -> str:
     """Simple single-turn RAG QA."""
     user_msg = f"Question: {question}\n\nContext:\n{context}\n\nAnswer:"
     try:
-        result = llm.chat_text(
+        comp = llm.chat_with_tool(
             messages=[
                 {"role": "system", "content": RAG_SYSTEM_PROMPT},
                 {"role": "user", "content": user_msg},
             ],
+            use_tool=False,
+            temperature=0.0,
             max_tokens=config.QA_MAX_TOKENS,
         )
-        if isinstance(result, dict):
-            return result.get("answer", str(result))
-        return str(result or "no information available")
+        text = ""
+        if getattr(comp, "choices", None):
+            msg = getattr(comp.choices[0], "message", None)
+            if msg is not None:
+                c = msg.content
+                text = ("".join(
+                    getattr(p, "text", "") for p in c
+                    if getattr(p, "type", "") == "text"
+                ) if isinstance(c, list) else str(c or ""))
+        return text.strip() or "no information available"
     except Exception as e:
         logger.error(f"RAG QA failed: {e}")
         return "ERROR"
@@ -144,7 +153,8 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
     sentences = load_rewrite_sentences(rewrite_path)
     emb_data = load_embeddings(embedding_path)
     id2emb = emb_data["id2emb"]
-    question_embs = emb_data.get("question_embeddings") or []
+    qe = emb_data.get("question_embeddings")
+    question_embs = qe if qe is not None else []
 
     logger.info(f"  Loaded {len(sentences)} sentences, {len(id2emb)} embeddings")
 
