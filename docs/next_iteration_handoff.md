@@ -176,6 +176,7 @@ python repro/export_badcase_pack.py \
 目的：
 
 - 判断 MRAgent 图工具链是否至少优于扁平向量检索。
+- 必须和 MRAgent stratified 的同一批 15 题比较，不能直接拿 RAG 105 题总体分数对比 MRAgent 15 题分数。
 
 前提：
 
@@ -198,17 +199,29 @@ python eval/evaluate_reasoning.py \
   --allfile
 ```
 
+公平对比：
+
+```bash
+python repro/compare_rag_to_mragent_subset.py \
+  --mragent_result result/locomo/conv-30_result_deepseek_stratified.jsonl \
+  --rag_result result/locomo/conv-30_result_deepseek_rag_smoke.jsonl \
+  --output reports/rag_vs_mragent_conv30_stratified_20260706.md \
+  --subset_output result/locomo/conv-30_result_deepseek_rag_smoke_stratified_subset.jsonl
+```
+
 预期：
 
 - 生成 RAG prediction JSONL。
 - 生成评估结果。
-- 报告对比 MRAgent conv-30 stratified 与 RAG smoke。
+- 生成 `reports/rag_vs_mragent_conv30_stratified_20260706.md`。
+- 报告对比 MRAgent conv-30 stratified 15 题与 RAG full output 中匹配出来的同一批 15 题。
 
 验收：
 
-- 使用同一批或明确说明不同批问题。
+- 必须显示 matched questions 为 15/15。
 - 报告至少包含 overall、cat1、cat2、cat4、cat5。
-- 记录 RAG 是否命中 gold evidence。
+- 记录 MRAgent 和 RAG 各自是否命中 gold evidence。
+- 如果 RAG full output 没有匹配到 15 题中的任意问题，停止解释原因，不要写结论。
 
 ## 8. 任务 F：GraphRAG baseline 设计与实现
 
@@ -320,4 +333,3 @@ manifest 包含：
 - SHA256；
 - 生成命令；
 - 对应 commit hash。
-

@@ -31,6 +31,7 @@ Important:
 - LongMemEval is still blocked until the real `data/dataset_LM.json` is obtained.
 - Do not run every stage with DeepSeek-V4-Pro by default. Use cheaper/faster models for diagnostics when the question is engineering validity rather than final model capability.
 - Current priority is to explain low single-hop performance with badcase process evidence, then compare MRAgent against Standard RAG and GraphRAG baselines.
+- For Standard RAG, do not compare 105-question aggregate against the 15-question MRAgent stratified subset. Use `repro/compare_rag_to_mragent_subset.py` to extract matched questions and produce a fair comparison report.
 
 ## Current Priority: Dataset, Graph, And Badcase Audit
 

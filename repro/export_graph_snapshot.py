@@ -74,6 +74,20 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
             f.write(json.dumps(row, ensure_ascii=False, default=str) + "\n")
 
 
+def matching_episode_ids(turn_id: str, episode_ids: set[str]) -> list[str]:
+    """Return sentence-level episode ids matching a turn-level evidence id.
+
+    LoCoMo gold evidence is usually turn-level, for example D1:25. MRAgent
+    rewrite expands one turn into sentence-level nodes such as D1:25-1 and
+    D1:25-2. Exact matching therefore creates false missing-evidence reports.
+    """
+
+    if turn_id in episode_ids:
+        return [turn_id]
+    prefix = f"{turn_id}-"
+    return sorted(eid for eid in episode_ids if eid.startswith(prefix))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export a MRAgent graph snapshot from caches.")
     parser.add_argument("--data", default="locomo")
@@ -191,7 +205,13 @@ def main() -> None:
     for qa in question_list.get(sample_id, []) or []:
         for eid in qa.get("evidence") or []:
             gold_evidence_ids[eid] += 1
-    missing_gold = [eid for eid in sorted(gold_evidence_ids) if eid not in memory.episode_events]
+    episode_id_set = set(memory.episode_events)
+    gold_matches = {
+        eid: matching_episode_ids(eid, episode_id_set)
+        for eid in sorted(gold_evidence_ids)
+    }
+    missing_gold = [eid for eid, matches in gold_matches.items() if not matches]
+    total_matched_sentence_nodes = sum(len(matches) for matches in gold_matches.values())
 
     report = Path(args.report) if args.report else Path("reports") / f"graph_snapshot_{sample_id}_{datetime.now().strftime('%Y%m%d')}.md"
     report.parent.mkdir(parents=True, exist_ok=True)
@@ -230,7 +250,10 @@ def main() -> None:
             "## Gold Evidence Coverage",
             "",
             f"- unique gold evidence ids: {len(gold_evidence_ids)}",
-            f"- missing from episode graph: {len(missing_gold)}",
+            f"- gold evidence turns with at least one sentence node: {len(gold_evidence_ids) - len(missing_gold)} / {len(gold_evidence_ids)}",
+            f"- matched sentence-level evidence nodes: {total_matched_sentence_nodes}",
+            "- matching rule: exact event id or sentence-level prefix match, e.g. `D1:25` matches `D1:25-1`",
+            f"- missing from episode graph after prefix matching: {len(missing_gold)}",
             f"- missing ids: {', '.join(missing_gold) if missing_gold else 'none'}",
             "",
             "## Manual Badcase Use",
