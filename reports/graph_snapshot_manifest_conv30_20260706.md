@@ -1,129 +1,58 @@
 # Graph Snapshot Manifest — conv-30
 
-Generated: 2026-07-06 | Machine: Codex本机 (CWJ, Windows 11)
-Status: **NOT GENERATED** — cache files exist only on server
+Generated: 2026-07-06 | Machine: Server (Linux)
+Status: **GENERATED** ✅
 
 ---
 
-## 1. Why Not Generated
+## 1. Server Execution
 
-The graph snapshot script (`repro/export_graph_snapshot.py`) requires three cache files that are gitignored and exist only on the Linux server:
+| field | value |
+| --- | --- |
+| server | Linux server (`/data/nishome/cuiwenjia/MRAgent-Reproduction`) |
+| commit | Merged `origin/main` (aac5117) into `exp/20260701-stage-b-eval-audit` |
+| command | `python repro/export_graph_snapshot.py --data locomo --model deepseek --sample 30 --output_dir result/graph_snapshot --report reports/graph_snapshot_conv30_20260706_server.md` |
+| cache rewrite | `data/locomo/rewrite_deepseek/conv-30_rewrite.json` (231K) |
+| cache keyword | `data/locomo/keyword_deepseek/conv-30_keyword.json` (98K) |
+| cache embedding | `data/locomo/embedding/gpt_deepseek/conv-30_embedding.pkl` (23M) |
 
-| cache | server path | gitignored |
-| --- | --- | --- |
-| rewrite | `data/locomo/rewrite_deepseek/conv-30_rewrite.json` | yes |
-| keyword | `data/locomo/keyword_deepseek/conv-30_keyword.json` | yes |
-| embedding | `data/locomo/embedding/gpt_deepseek/conv-30_embedding.pkl` | yes |
+## 2. Output Artifacts
 
-These were regenerated on the server during the 2026-07-02 stratified run (see log lines 3, 24, 45+ in `log/locomo/conv-30_deepseek_stratified.log`).
+| file | size | committed | notes |
+| --- | --- | :---: | --- |
+| `result/graph_snapshot/conv-30_nodes.jsonl` | 755K | ❌ | Too large; not committed |
+| `result/graph_snapshot/conv-30_edges.jsonl` | 453K | ❌ | Too large; not committed |
+| `reports/graph_snapshot_conv30_20260706_server.md` | — | ✅ | Committed |
 
-On the Codex machine (Windows), the directories `data/locomo/rewrite_deepseek/`, `data/locomo/keyword_deepseek/`, and `data/locomo/embedding/gpt_deepseek/` exist but are EMPTY.
-
----
-
-## 2. Memory Audit (from committed artifact)
-
-The memory audit at `result/locomo/memory_audit_deepseek_stratified.json` provides a partial graph inventory without needing to re-run `export_graph_snapshot.py`:
+## 3. Graph Statistics
 
 | component | count |
 | --- | ---: |
-| sessions | 19 |
-| total sentences (episode events) | 1094 |
-| unique tags | 465 |
-| keywords (key nodes) | 4408 |
-| unique keywords | 1779 |
+| episode events | 1094 |
+| keywords | 1779 |
 | topics | 213 |
-| persona events | 344 |
-| unique persons | 4 |
-| sentences without keywords | 9 / 1094 |
-| sessions without sentences | 0 |
-| sentences without id/text/tag | 0 |
+| persona | 4 |
+| personal events | 344 |
+| keyword→event edges | 5103 |
+| topic→event edges | 1321 |
+| persona→fact edges | 344 |
+| embedding sentence count | 1094 |
+| topic id source | `topic_list` |
+| topic id count | 213 |
+| topic embedding count | 213 |
+| question embedding count | 105 |
 
----
+## 4. Gold Evidence Coverage
 
-## 3. Expected Output (when run on server)
+- unique gold evidence IDs: **75**
+- in episode graph: **75 / 75 (100%)** ✅
+- format: gold evidence IDs are turn-level (`D1:25`), graph stores sentence-level (`D1:25-1`)
+- correction: raw script reported "75 missing" due to exact string match bug — prefix matching confirms all 75 present
 
-```bash
-cd /data/nishome/cuiwenjia/MRAgent-Reproduction
-conda activate mragent-repro
-python repro/export_graph_snapshot.py \
-  --data locomo \
-  --model deepseek \
-  --sample 30 \
-  --output_dir result/graph_snapshot \
-  --report reports/graph_snapshot_conv30_20260706.md
-```
+## 5. Bug Fix
 
-Expected outputs:
+The original `export_graph_snapshot.py` (commit 48a7807) had a `topic_id` → `topic_list` field name mismatch causing a `D1:t1 not in list` assertion error. Fixed in commit aac5117 on `origin/main`.
 
-| file | description | expected size |
-| --- | --- | --- |
-| `result/graph_snapshot/conv-30_nodes.jsonl` | episode_event, keyword, topic, persona, personal_event nodes | ~1–2 MB |
-| `result/graph_snapshot/conv-30_edges.jsonl` | keyword_event, topic_event, persona_fact edges | ~0.5–1 MB |
-| `reports/graph_snapshot_conv30_20260706.md` | summary counts and gold evidence coverage | small |
+## 6. Badcase Graph Analysis
 
----
-
-## 4. Gold Evidence Coverage (pre-computed from result)
-
-From the result JSONL and dataset, the expected gold evidence for conv-30 stratified questions:
-
-| question | category | gold evidence ids | in episode graph? |
-| --- | --- | --- | --- |
-| Q1: commonality | 1 | D1:2, D1:3, D1:4, D2:1 | expected yes (D1, D2 sessions) |
-| Q2: ideal studio | 1 | D1:20, D2:4, D2:8 | expected yes |
-| Q3: Jon gym start | 2 | D6:1 | expected yes |
-| Q4: Gina store open | 2 | D6:6 | expected yes |
-| Q5: Gina store reason | 1 | D6:8, D1:3 | expected yes |
-| Q6: Jon in Rome | 2 | D15:1 | expected yes |
-| Q7: studio time | 1 | D1:2, D15:13 | expected yes |
-| Q8: collaborate date | 2 | D18:18 | expected yes |
-| Q9: dancers photo | 4 | D1:25 | expected yes |
-| Q10: Jon attitude | 4 | D1:28 | expected yes |
-| Q11: Gina furniture | 4 | D3:6 | expected yes |
-| Q12: Gina combine | 4 | D8:8 | expected yes |
-| Q13: Jon internship | 5 | D12:3 | expected yes |
-| Q14: Jon limited edition | 5 | D16:3 | expected yes |
-| Q15: Gina plans | 5 | D18:10 | expected yes |
-
-All gold evidence IDs map to real conversation turns (verified by extracting original text from `data/dataset_locomo.json`). With 1094 episode events and zero sessions_without_sentences, **all gold evidence should exist in the episode graph**.
-
-If any are missing when the graph snapshot is actually exported, the issue is in the rewrite-to-graph construction pipeline, not in the raw data.
-
----
-
-## 5. Server Artifact Paths (to be filled after server run)
-
-When the graph snapshot is generated on the server, record here:
-
-```json
-{
-  "server": "TBD",
-  "commit": "48a7807",
-  "command": "python repro/export_graph_snapshot.py --data locomo --model deepseek --sample 30 --output_dir result/graph_snapshot --report reports/graph_snapshot_conv30_20260706.md",
-  "nodes": {
-    "path": "result/graph_snapshot/conv-30_nodes.jsonl",
-    "size_bytes": null,
-    "sha256": null,
-    "committed": false
-  },
-  "edges": {
-    "path": "result/graph_snapshot/conv-30_edges.jsonl",
-    "size_bytes": null,
-    "sha256": null,
-    "committed": false
-  },
-  "report": {
-    "path": "reports/graph_snapshot_conv30_20260706.md",
-    "committed": true
-  }
-}
-```
-
----
-
-## 6. Recommendation
-
-The graph snapshot should be generated on the server during the next server-side Claude Code session. The cache files exist there and the command is a pure read-only operation (no API calls). The resulting report can then be committed alongside this manifest.
-
-For now, the memory audit (`result/locomo/memory_audit_deepseek_stratified.json`) provides sufficient structural evidence: 1094 events, 4408 keyword links, 213 topics, 344 persona events, zero structural anomalies.
+Graph-layer evidence for Q9-Q12 was added to `reports/badcase_pack_conv30_stratified_20260706_server_review.md` Section 8. Key finding: 0/4 cat4 single-hop questions have graph construction issues. All gold evidence exists with adequate keyword/topic connections. Q9's failure is a retrieval/tool-path miss (31 tools, empty context), not a graph problem.
