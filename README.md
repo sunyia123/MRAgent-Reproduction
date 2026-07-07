@@ -23,11 +23,11 @@ Before running experiments, read:
 Current server-side execution entry:
 
 ```bash
-cat docs/claude_code_next_steps.md
-cat docs/claude_code_full_experiment_instructions.md
+cat docs/medium_core_validation_handoff.md
+python repro/audit_runtime_config.py --data locomo --sample_ids 26 --model deepseek --re_model v4flash --file mragent_100q --subset_manifest data/subsets/locomo10_100q_seed42.json
 ```
 
-The current active additions are Qwen VLM validation and VLM-enriched rewrite smoke tests. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
+For the current medium-core validation, do not run `run_stratified.py --sample_ids 26 --model deepseek` as a bare command. It omits the fixed subset manifest, uses the default result tag `0`, and relies on environment defaults for the actual DeepSeek model and provider URL. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
 
 The original upstream repository is preserved as read-only `upstream`.
 

@@ -467,6 +467,23 @@ def log_config(config_module):
     logging.info("===================================")
 
 
+def warn_suspicious_run_config(config_module):
+    if getattr(config_module, "SAMPLE_IDS", None) and not getattr(config_module, "SUBSET_MANIFEST", None):
+        logging.warning(
+            "--sample_ids was provided without --subset_manifest; this will use local stratified sampling, "
+            "not the fixed 100q manifest."
+        )
+    if getattr(config_module, "SAMPLE_IDS", None) and getattr(config_module.args, "file", "0") == "0":
+        logging.warning(
+            "--file is still the default '0'; result files will be written as *_result_<model>_0.jsonl, "
+            "not *_mragent_100q.jsonl."
+        )
+    if getattr(config_module.args, "model", "") == "deepseek" and "api.siliconflow.cn" not in getattr(config_module, "LLM_BASE_URL", ""):
+        logging.warning(
+            "--model deepseek is active but LLM_BASE_URL is not SiliconFlow. Check .env or use an explicit provider URL."
+        )
+
+
 if __name__ == "__main__":
     global_file_handler = logging.FileHandler(
         f"log/run_{config.DATASET}_{config.ADDITIONAL_TK}_{config.ADDITIONAL_RE}.log",
@@ -481,6 +498,7 @@ if __name__ == "__main__":
     )
     logging.info("=== Program start (stratified) ===")
     log_config(config)
+    warn_suspicious_run_config(config)
     root_logger = logging.getLogger()
     root_logger.removeHandler(global_file_handler)
     global_file_handler.close()

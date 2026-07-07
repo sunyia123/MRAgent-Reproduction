@@ -54,6 +54,47 @@ LoCoMo-10 / 100 questions / 同一题集 / 多方法对比
 
 注意：2026-07-07 发现过一个模型路由问题：`--re_model` 设置了重写模型，但旧版 `agent.rewrite()` / `agent.extract_keys()` 没有显式传入 `config.RE_MODEL`，因此实际仍可能调用 `MODEL`。新版已修复，rewrite 和 keyword 都应使用 `RE_MODEL`。如果 api_call_log 中 rewrite/keyword 仍显示 V4-Pro，而你期望的是 V4-Flash，先停下来检查环境变量和命令行参数，不要继续跑。
 
+2026-07-07 又发现一个运行命令风险：
+
+```text
+/data/nishome/cuiwenjia/MRAgent-Reproduction/.venv/bin/python3 run_stratified.py --sample_ids 26 --model deepseek
+```
+
+这条裸命令不能作为中型验证命令，因为它会带来以下风险：
+
+- 没有 `--subset_manifest`，不会使用固定 100q manifest，而是退回本地随机分层抽样。
+- 没有 `--file mragent_100q`，结果会写成 `*_result_deepseek_0.jsonl`，容易和正式结果混淆。
+- 没有 `--re_model v4flash`，rewrite/keyword 会默认跟随 `MODEL`。
+- 如果 `.env` 没有设置 `LLM_BASE_URL` 或 `DEEPSEEK_MODEL_ID`，旧代码可能退到错误 provider 或错误模型。
+
+每次正式运行前必须先使用：
+
+```text
+repro/audit_runtime_config.py
+```
+
+确认以下字段：
+
+- `MODEL`
+- `RE_MODEL`
+- `LLM_BASE_URL`
+- `SAMPLE_IDS`
+- `SUBSET_MANIFEST`
+- `ADDITIONAL_RE`
+- `result_template`
+- `rewrite_template`
+
+中型验证的最低完整参数应包含：
+
+```text
+--data locomo
+--sample_ids 26
+--model deepseek
+--re_model v4flash
+--file mragent_100q
+--subset_manifest data/subsets/locomo10_100q_seed42.json
+```
+
 不要为了提速临时改变 prompt、抽样题集或评价脚本，否则 100 题对比会失去可解释性。
 
 ## Request
