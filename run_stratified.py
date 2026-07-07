@@ -85,6 +85,68 @@ def _validate_keyword_cache(keyword_path: str, expected_sentence_count: int) -> 
         return False, f"validation error: {e}"
 
 
+def _rewrite_partial_progress(rewrite_path: str, expected_session_ids: list) -> tuple:
+    """Return resumable rewrite line count from a partial jsonl cache."""
+    if not os.path.exists(rewrite_path):
+        return 0, "file not found"
+    completed = 0
+    try:
+        with open(rewrite_path, encoding="utf-8") as f:
+            for line_no, line in enumerate(f, start=1):
+                line = line.strip()
+                if not line:
+                    break
+                obj = json.loads(line)
+                if not isinstance(obj, dict) or len(obj) != 1:
+                    break
+                session_id, data = next(iter(obj.items()))
+                if completed >= len(expected_session_ids):
+                    break
+                if session_id != expected_session_ids[completed]:
+                    break
+                if not isinstance(data, dict) or not isinstance(data.get("sentence"), list):
+                    break
+                completed += 1
+    except Exception as e:
+        return completed, f"stopped at {completed}: {e}"
+    return completed, f"{completed}/{len(expected_session_ids)} sessions complete"
+
+
+def _keyword_partial_progress(keyword_path: str) -> tuple:
+    """Return resumable keyword line count from a partial jsonl cache."""
+    if not os.path.exists(keyword_path):
+        return 0, "file not found"
+    completed = 0
+    try:
+        with open(keyword_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    break
+                obj = json.loads(line)
+                if obj is None:
+                    completed += 1
+                    continue
+                if not isinstance(obj, dict) or not isinstance(obj.get("sentence"), list):
+                    break
+                completed += 1
+    except Exception as e:
+        return completed, f"stopped at {completed}: {e}"
+    return completed, f"{completed} keyword rows complete"
+
+
+def _truncate_jsonl_prefix(path: str, keep_lines: int) -> None:
+    """Keep only the first keep_lines non-empty JSONL records."""
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as f:
+        lines = [line for line in f if line.strip()]
+    if len(lines) <= keep_lines:
+        return
+    with open(path, "w", encoding="utf-8") as f:
+        f.writelines(lines[:keep_lines])
+
+
 def stratified_sample(question_list: dict, sample_id: str, per_category: int = 3, total: int = 15,
                        seed: int = 42) -> list:
     """
@@ -283,23 +345,29 @@ def main():
             expected_sessions = len(sample)
             rewrite_path = config.rewrite_template.format(dataset=dataset, sample_id=sample_id)
             rewrite_tmp = rewrite_path + ".tmp"
+            expected_session_ids = list(sample.keys())
 
             rewrite_valid, rewrite_reason = _validate_rewrite_cache(rewrite_path, expected_sessions)
             if rewrite_valid:
                 logger.info(f"Rewrite cache valid ({rewrite_reason}), skipping.")
             else:
-                logger.info(f"Rewrite cache invalid ({rewrite_reason}), regenerating...")
-                if os.path.exists(rewrite_tmp):
-                    os.remove(rewrite_tmp)
-                # Write to temp file, validate, then atomically rename
-                agent.rewrite_sample(sample, rewrite_tmp)
+                logger.info(f"Rewrite cache invalid ({rewrite_reason}), regenerating/resuming...")
+                if not os.path.exists(rewrite_tmp) and os.path.exists(rewrite_path):
+                    shutil.copyfile(rewrite_path, rewrite_tmp)
+                    logger.info(f"Copied invalid rewrite cache to resumable temp file: {rewrite_tmp}")
+                completed, progress_reason = _rewrite_partial_progress(rewrite_tmp, expected_session_ids)
+                logger.info(f"Rewrite resume progress: {progress_reason}")
+                _truncate_jsonl_prefix(rewrite_tmp, completed)
+                # Append only missing sessions. agent.rewrite_sample uses 1-based session_id_ref.
+                agent.rewrite_sample(sample, rewrite_tmp, session_id_ref=completed + 1)
                 tmp_valid, tmp_reason = _validate_rewrite_cache(rewrite_tmp, expected_sessions)
                 if tmp_valid:
                     shutil.move(rewrite_tmp, rewrite_path)
                     logger.info(f"Rewrite regenerated and validated: {rewrite_path}")
                 else:
                     logger.error(f"Rewrite regeneration FAILED: {tmp_reason}. Keeping temp file: {rewrite_tmp}")
-                    # Continue with temp file for debugging but do NOT replace cache
+                    logger.error("Skipping this sample until rewrite cache is complete.")
+                    continue
 
             keyword_path = config.keyword_template.format(dataset=dataset, sample_id=sample_id)
             keyword_tmp = keyword_path + ".tmp"
@@ -320,16 +388,22 @@ def main():
             if keyword_valid:
                 logger.info(f"Keyword cache valid ({keyword_reason}), skipping.")
             else:
-                logger.info(f"Keyword cache invalid ({keyword_reason}), regenerating...")
-                if os.path.exists(keyword_tmp):
-                    os.remove(keyword_tmp)
-                agent.extract_keyword_sample(keyword_tmp, rewrite_path)
+                logger.info(f"Keyword cache invalid ({keyword_reason}), regenerating/resuming...")
+                if not os.path.exists(keyword_tmp) and os.path.exists(keyword_path):
+                    shutil.copyfile(keyword_path, keyword_tmp)
+                    logger.info(f"Copied invalid keyword cache to resumable temp file: {keyword_tmp}")
+                completed, progress_reason = _keyword_partial_progress(keyword_tmp)
+                logger.info(f"Keyword resume progress: {progress_reason}")
+                _truncate_jsonl_prefix(keyword_tmp, completed)
+                agent.extract_keyword_sample(keyword_tmp, rewrite_path, ref_id=completed)
                 tmp_valid, tmp_reason = _validate_keyword_cache(keyword_tmp, rewrite_sentence_count)
                 if tmp_valid:
                     shutil.move(keyword_tmp, keyword_path)
                     logger.info(f"Keyword regenerated and validated: {keyword_path}")
                 else:
                     logger.error(f"Keyword regeneration FAILED: {tmp_reason}. Keeping temp file: {keyword_tmp}")
+                    logger.error("Skipping this sample until keyword cache is complete.")
+                    continue
 
             embedding_path = config.embedding_template.format(dataset=dataset, sample_id=sample_id)
             if not os.path.exists(embedding_path):
