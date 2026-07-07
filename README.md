@@ -28,7 +28,36 @@ python repro/update_server_directory_manifest.py --root /data/nishome/cuiwenjia/
 python repro/audit_runtime_config.py --data locomo --sample_ids 26 --model deepseek --re_model v4flash --file mragent_100q --subset_manifest data/subsets/locomo10_100q_seed42.json
 ```
 
-For the current medium-core validation, do not run `run_stratified.py --sample_ids 26 --model deepseek` as a bare command. It omits the fixed subset manifest, uses the default result tag `0`, and relies on environment defaults for the actual DeepSeek model and provider URL. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
+For the current medium-core validation, do not run `run_stratified.py --sample_ids 26 --model deepseek` as a bare command. It omits the fixed subset manifest, uses the default result tag `0`, and routes rewrite/keyword through the default `deepseek` model unless `--re_model` is explicit. In this workspace, `--model deepseek` resolves to `deepseek-ai/DeepSeek-V4-Pro`; graph-building rewrite/keyword should normally use `--re_model v4flash` to avoid slow reasoning-mode calls. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
+
+Canonical server graph-build command for one sample:
+
+```bash
+export RUN_ID=conv26_graphbuild_$(date +%Y%m%d_%H%M%S)
+python repro/audit_runtime_config.py \
+  --data locomo \
+  --sample_ids 26 \
+  --model deepseek \
+  --re_model v4flash \
+  --file graphbuild_100q \
+  --subset_manifest data/subsets/locomo10_100q_seed42.json
+python run_stratified.py \
+  --data locomo \
+  --sample_ids 26 \
+  --model deepseek \
+  --re_model v4flash \
+  --file graphbuild_100q \
+  --subset_manifest data/subsets/locomo10_100q_seed42.json
+```
+
+Immediately verify model routing after the first rewrite call:
+
+```bash
+tail -n 5 result/diagnostics/api_call_log_${RUN_ID}.jsonl
+python repro/audit_rewrite_cache.py data/locomo/rewrite_deepseek/conv-26_rewrite.json.tmp
+```
+
+The rewrite-stage API log must show `stage=rewrite` and `model=deepseek-ai/DeepSeek-V4-Flash`. If it shows `deepseek-ai/DeepSeek-V4-Pro`, stop the run, back up the partial `.tmp`, and restart with the canonical command above. Do not mix V4-Pro and V4-Flash rewrite outputs in the same graph-build cache unless the report explicitly labels that sample as mixed-model.
 
 Every run writes persistent logs. Set `RUN_ID=<short-readable-id>` before long runs, then inspect:
 
