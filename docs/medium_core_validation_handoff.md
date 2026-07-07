@@ -52,6 +52,8 @@ LoCoMo-10 / 100 questions / 同一题集 / 多方法对比
 - QA 对比：可以继续使用同一模型，保证方法间公平。
 - 如果 Flash 在同一个 session 连续超时，停止该 batch，记录 session id、日志路径和 `.tmp` 已完成行数。
 
+注意：2026-07-07 发现过一个模型路由问题：`--re_model` 设置了重写模型，但旧版 `agent.rewrite()` / `agent.extract_keys()` 没有显式传入 `config.RE_MODEL`，因此实际仍可能调用 `MODEL`。新版已修复，rewrite 和 keyword 都应使用 `RE_MODEL`。如果 api_call_log 中 rewrite/keyword 仍显示 V4-Pro，而你期望的是 V4-Flash，先停下来检查环境变量和命令行参数，不要继续跑。
+
 不要为了提速临时改变 prompt、抽样题集或评价脚本，否则 100 题对比会失去可解释性。
 
 ## Request
@@ -159,6 +161,7 @@ conv-26 session 9 的本地静态诊断结论：
 - D9 不是 conv-26 最长 session；D14、D8、D3 等都更长。
 - 因此“session 9 特别长导致超时”这个解释不成立。
 - 更可能是供应商侧超时、内容安全审核、结构化 JSON 生成卡住，或当前时段服务不稳定。
+- 但在确认 `RE_MODEL` 路由前，不能断言 V4-Flash 也失败；必须先用修复后的代码真实重试。
 
 诊断坏 session 时可以临时缩短 API 等待时间：
 
@@ -170,6 +173,13 @@ CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
 ```
 
 这组变量只用于定位问题。正式 batch 可以恢复默认值，或保留较短 timeout 以避免单个 session 阻塞全局。
+
+跳过机制只允许作为最后手段：
+
+- 不允许直接跳过 D9 并生成正式 cache。
+- 如果 V4-Flash、Qwen 替代模型都失败，才允许生成一条人工审计报告，说明该 session 无法由当前 API 完成。
+- 若临时跳过，只能进入 `diagnostic` 标记结果，不能进入正式 100q 对比。
+- 正式实验必须保证 graph construction 没有人为缺口，否则后续 RAG/MRAgent/Oracle 对比都不可信。
 
 ### 任务 3：运行 Standard RAG on 100q subset
 

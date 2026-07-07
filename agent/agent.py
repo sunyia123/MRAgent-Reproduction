@@ -621,6 +621,7 @@ class Agent:
         rewrite_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT},
                       {"role": "user", "content": rewrite_prompt}],
+            model=config.RE_MODEL,
             max_tokens=config.REWRITE_MAX_TOKENS,
         )
         # [fix] chat_text already returns a parsed dict; drop the redundant json.loads here (json.loads on a dict raises TypeError);
@@ -638,6 +639,7 @@ class Agent:
                         {"role": "system", "content": Prompts.REWRITE_SYSTEM_PROMPT + "The previous run failed with the following error:"  + last_err},
                         {"role": "user", "content": rewrite_prompt},
                     ],
+                    model=config.RE_MODEL,
                     temperature=1.0,
                     max_tokens=config.REWRITE_MAX_TOKENS,
                 )
@@ -702,6 +704,7 @@ class Agent:
         keys_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT},
                       {"role": "user", "content": keys_prompt}],
+            model=config.RE_MODEL,
             max_tokens=config.KEYWORD_MAX_TOKENS,
         )
         # [fix] chat_text already returns a parsed dict; drop the redundant json.loads here (json.loads on a dict raises TypeError);
@@ -719,6 +722,7 @@ class Agent:
                         {"role": "system", "content": Prompts.KEYWORD_SYSTEM_PROMPT+ "The previous run failed with the following error:"  + last_err},
                         {"role": "user", "content": keys_prompt},
                     ],
+                    model=config.RE_MODEL,
                     temperature=0.5,
                     max_tokens=config.KEYWORD_MAX_TOKENS,
                 )
