@@ -181,6 +181,28 @@ CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
 - 若临时跳过，只能进入 `diagnostic` 标记结果，不能进入正式 100q 对比。
 - 正式实验必须保证 graph construction 没有人为缺口，否则后续 RAG/MRAgent/Oracle 对比都不可信。
 
+2026-07-07 额外风险：
+
+- `smart_retry_batch.py` 一类自动跳过脚本不允许用于正式实验。
+- 该类脚本可能向 rewrite `.tmp` 写入 `conversation_time: skipped-api-timeout` 和空 `sentence: []`。
+- 新版 `run_stratified.py` 会拒绝这种 skip marker，不再把它当作有效 rewrite cache。
+- 如果服务器上已经产生过 skip marker，必须先用 `repro/audit_rewrite_cache.py` 审计，再只保留连续有效前缀。
+
+审计命令使用的代码：
+
+```text
+repro/audit_rewrite_cache.py
+```
+
+需要报告：
+
+- `.tmp` 总行数。
+- `valid_prefix_count`。
+- 是否有 `skip marker`。
+- 是否有空 sentence list。
+- 是否有 JSON parse error。
+- 最后一个有效 session id。
+
 ### 任务 3：运行 Standard RAG on 100q subset
 
 使用代码：

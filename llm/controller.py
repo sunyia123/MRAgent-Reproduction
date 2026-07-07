@@ -156,7 +156,7 @@ class LLM:
 
 
             except (APIConnectionError, APIResponseValidationError) as e:
-                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt)
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
                 logger.warning(f"Connection/Validation error: {repr(e)}")
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)

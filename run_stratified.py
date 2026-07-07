@@ -47,17 +47,29 @@ def _validate_rewrite_cache(rewrite_path: str, expected_sessions: int) -> tuple:
             return False, f"session count mismatch: {len(sessions)} lines vs {expected_sessions} expected"
         null_count = 0
         schema_failures = 0
+        skipped_count = 0
+        empty_sentence_count = 0
         for obj in sessions:
             for sid, data in obj.items():
                 if data is None:
                     null_count += 1
                 elif isinstance(data, dict):
+                    if str(data.get("conversation_time", "")).startswith("skipped"):
+                        skipped_count += 1
                     if data.get("sentence") is None:
                         null_count += 1
                     elif not isinstance(data.get("sentence"), list):
                         schema_failures += 1
+                    elif len(data.get("sentence")) == 0:
+                        empty_sentence_count += 1
+                else:
+                    schema_failures += 1
         if null_count > 0:
             return False, f"{null_count} sessions have null sentence data"
+        if skipped_count > 0:
+            return False, f"{skipped_count} sessions are skip markers"
+        if empty_sentence_count > 0:
+            return False, f"{empty_sentence_count} sessions have empty sentence lists"
         if schema_failures > 0:
             return False, f"{schema_failures} sessions have invalid sentence structure"
         return True, "ok"
@@ -105,6 +117,10 @@ def _rewrite_partial_progress(rewrite_path: str, expected_session_ids: list) -> 
                 if session_id != expected_session_ids[completed]:
                     break
                 if not isinstance(data, dict) or not isinstance(data.get("sentence"), list):
+                    break
+                if str(data.get("conversation_time", "")).startswith("skipped"):
+                    break
+                if len(data.get("sentence")) == 0:
                     break
                 completed += 1
     except Exception as e:
