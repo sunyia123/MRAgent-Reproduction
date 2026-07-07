@@ -63,6 +63,8 @@ if args.re_model:
         RE_MODEL = "google/gemini-2.5-flash"
     elif args.re_model == "deepseek":
         RE_MODEL = os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V3")
+    elif args.re_model == "v4flash":
+        RE_MODEL = "deepseek-ai/DeepSeek-V4-Flash"
     else:
         RE_MODEL = MODEL
 else:

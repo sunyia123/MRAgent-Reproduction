@@ -326,6 +326,59 @@ class LLM:
         self.last_tool_calls = tool_calls_used
         return ans_obj.get("answer"), ans_obj.get("supports")
 
+    def _detect_expected_format(self, messages: List[Dict[str, Any]]) -> dict:
+        """Inspect the system prompt to guess the expected JSON shape, returning a safe empty default."""
+        sys_text = ""
+        for m in messages:
+            if m.get("role") == "system":
+                sys_text = str(m.get("content", ""))
+                break
+        # ANSWER_SORT_PROMPT: {"mode":"score","relevance_scores":{...}}
+        if '"mode"' in sys_text and 'relevance_scores' in sys_text:
+            return {"mode": "score", "relevance_scores": {}}
+        # ANSWER_SORT_PROMPT2: {"mode":"sort","events":[...]}
+        if '"mode"' in sys_text and 'events' in sys_text:
+            return {"mode": "sort", "events": []}
+        # select_key_tag: expects {"tag_scores": {...}}
+        if 'tag_scores' in sys_text:
+            return {"tag_scores": {}}
+        # generic fallback (rewrite / other structured outputs)
+        return {}
+
+    def _repair_json_format(self, messages: List[Dict[str, Any]], raw_text: str, model: str) -> dict:
+        """One-shot LLM call to repair a plain-text response into the expected JSON format."""
+        expected = self._detect_expected_format(messages)
+        repair_prompt = (
+            "You are a JSON repair assistant. Below is a system prompt that told you what JSON format to output, "
+            "followed by the user input, and then the raw text you actually outputted (which was NOT valid JSON).\n\n"
+            f"=== EXPECTED JSON SHAPE ===\n{json.dumps(expected, ensure_ascii=False, indent=2)}\n\n"
+            f"=== YOUR RAW OUTPUT ===\n{raw_text[:2000]}\n\n"
+            "Reformat your raw output into the expected JSON shape. Output ONLY valid JSON, no explanation."
+        )
+        try:
+            comp = self.chat_with_tool(
+                messages=[{"role": "user", "content": repair_prompt}],
+                model=model,
+                use_tool=False,
+                temperature=0.0,
+                max_tokens=config.QA_MAX_TOKENS,
+            )
+            text = ""
+            if getattr(comp, "choices", None):
+                msg = getattr(comp.choices[0], "message", None)
+                if msg is not None:
+                    c = msg.content
+                    text = ("".join(
+                        getattr(p, "text", "") for p in c
+                        if getattr(p, "type", "") == "text"
+                    ) if isinstance(c, list) else str(c or ""))
+            repaired = json.loads(text.strip())
+            logger.info(f"chat_text: JSON repair succeeded, head={str(repaired)[:200]!r}")
+            return repaired
+        except Exception as e:
+            logger.warning(f"chat_text: JSON repair also failed: {e}")
+            return expected  # return empty-but-correct-format placeholder
+
     def chat_text(
             self,
             *,
@@ -375,26 +428,22 @@ class LLM:
                     json_out = extract_json_from_content(text)
                     break
                 except (json.JSONDecodeError, ValueError) as e:
-                    # log the error and keep retrying even if parsing fails
                     logger.warning(f"chat_text: failed to parse JSON on attempt {attempt}: {e}")
                     continue
 
-        # Fallback: if all attempts failed to produce JSON, wrap the last raw text
-        # as a dict instead of returning None.  This prevents downstream crashes
-        # and records a badcase for later analysis.
         if json_out is None:
             last_text = (_last_raw_text or "").strip()
-            json_out = {"_fallback_text": last_text}
             _log_from_error(
                 call_type="chat_text_fallback",
                 req={"messages_summary": str(messages[-1].get("content", ""))[:500] if messages else ""},
-                error=f"chat_text: all parse attempts exhausted; wrapping raw text as _fallback_text (head={last_text[:200]!r})",
+                error=f"chat_text: all parse attempts exhausted; attempting JSON repair (head={last_text[:200]!r})",
                 stage=getattr(self, "_current_stage", None),
             )
             logger.warning(
                 f"chat_text: all {max_attempts} parse attempts failed; "
-                f"wrapping raw text as _fallback_text (head={last_text[:120]!r})"
+                f"calling repair LLM (head={last_text[:120]!r})"
             )
+            json_out = self._repair_json_format(messages, last_text, model)
 
         return json_out
 

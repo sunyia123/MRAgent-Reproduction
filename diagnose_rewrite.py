@@ -37,34 +37,32 @@ os.makedirs(os.path.join("result", "diagnostics", "raw_api_calls"), exist_ok=Tru
 RUN_ID = datetime.now().strftime("%Y%m%d-%H%M%S")
 
 # --- Model configurations to test ---
+DS_MODEL = os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V4-Pro")
+QW_MODEL = "Qwen/Qwen3.5-397B-A17B"
+BASE_URL = os.getenv("LLM_BASE_URL", "https://api.siliconflow.cn/v1")
+API_KEY = os.getenv("OPENAI_API_KEY")
+
 MODEL_CONFIGS = [
-    {
-        "label": "deepseek_baseline",
-        "model_id": os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V4-Pro"),
-        "base_url": os.getenv("LLM_BASE_URL", "https://api.siliconflow.cn/v1"),
-        "api_key": os.getenv("OPENAI_API_KEY"),
-        "max_tokens": 4096,
-        "temperature": 0.0,
-        "extra": {},
-    },
-    {
-        "label": "deepseek_16384",
-        "model_id": os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V4-Pro"),
-        "base_url": os.getenv("LLM_BASE_URL", "https://api.siliconflow.cn/v1"),
-        "api_key": os.getenv("OPENAI_API_KEY"),
-        "max_tokens": 16384,
-        "temperature": 0.0,
-        "extra": {},
-    },
-    {
-        "label": "qwen3_397b",
-        "model_id": "Qwen/Qwen3.5-397B-A17B",
-        "base_url": os.getenv("LLM_BASE_URL", "https://api.siliconflow.cn/v1"),
-        "api_key": os.getenv("OPENAI_API_KEY"),
-        "max_tokens": 4096,
-        "temperature": 0.0,
-        "extra": {},
-    },
+    # DeepSeek-V4-Pro: token budget sweep
+    {"label": "ds_4096",     "model_id": DS_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 4096,  "temperature": 0.0, "extra": {}},
+    {"label": "ds_16384",    "model_id": DS_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 16384, "temperature": 0.0, "extra": {}},
+    {"label": "ds_32768",    "model_id": DS_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 32768, "temperature": 0.0, "extra": {}},
+    # DeepSeek with response_format=json_object
+    {"label": "ds_16384_json", "model_id": DS_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 16384, "temperature": 0.0,
+     "extra": {"response_format": {"type": "json_object"}}},
+    # Qwen3-397B: token budget sweep
+    {"label": "qw_4096",     "model_id": QW_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 4096,  "temperature": 0.0, "extra": {}},
+    {"label": "qw_16384",    "model_id": QW_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 16384, "temperature": 0.0, "extra": {}},
+    # Qwen with json_object (if supported; record error if not)
+    {"label": "qw_16384_json", "model_id": QW_MODEL, "base_url": BASE_URL, "api_key": API_KEY,
+     "max_tokens": 16384, "temperature": 0.0,
+     "extra": {"response_format": {"type": "json_object"}}},
 ]
 
 def load_session(sample_id: str, session_num: int) -> tuple:
