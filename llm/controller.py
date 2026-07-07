@@ -3,6 +3,8 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import json
 import time
 import hashlib
+import signal
+import contextlib
 from typing import List, Dict, Any, Optional, Callable, Tuple, Union
 from openai import OpenAI, APIStatusError, APIConnectionError, APIResponseValidationError
 from prompts.prompts import Prompts
@@ -16,6 +18,8 @@ logger = logging.getLogger(__name__)
 _CALL_LOG_DIR = os.path.join("result", "diagnostics")
 _CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, "api_call_log.jsonl")
 _RUN_CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, f"api_call_log_{RUN_ID}.jsonl")
+_RAW_CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, "raw_api_calls.jsonl")
+_RUN_RAW_CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, f"raw_api_calls_{RUN_ID}.jsonl")
 os.makedirs(_CALL_LOG_DIR, exist_ok=True)
 _call_logger = logging.getLogger("llm.call_log")
 _call_logger.setLevel(logging.INFO)
@@ -28,10 +32,144 @@ _run_call_fh.setFormatter(logging.Formatter('%(message)s'))
 _call_logger.addHandler(_run_call_fh)
 
 
+class ApiHardTimeoutError(TimeoutError):
+    pass
+
+
+@contextlib.contextmanager
+def _hard_timeout(seconds: float):
+    """Unix hard timeout for SDK calls that can hang below the SDK timeout layer."""
+    if not seconds or seconds <= 0 or not hasattr(signal, "SIGALRM"):
+        yield
+        return
+
+    def _handler(signum, frame):
+        raise ApiHardTimeoutError(f"API hard timeout after {seconds}s")
+
+    old_handler = signal.getsignal(signal.SIGALRM)
+    signal.signal(signal.SIGALRM, _handler)
+    signal.setitimer(signal.ITIMER_REAL, seconds)
+    try:
+        yield
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, old_handler)
+
+
+def _maybe_truncate(value):
+    max_chars = getattr(config, "RAW_API_LOG_MAX_CHARS", 0)
+    if not max_chars:
+        return value
+    text = json.dumps(value, ensure_ascii=False, default=str)
+    if len(text) <= max_chars:
+        return value
+    return {"_truncated": True, "max_chars": max_chars, "text_head": text[:max_chars]}
+
+
+def _write_raw_api_record(rec: dict) -> None:
+    if not getattr(config, "RAW_API_LOG", True):
+        return
+    try:
+        line = json.dumps(rec, ensure_ascii=False, default=str)
+        for path in (_RAW_CALL_LOG_PATH, _RUN_RAW_CALL_LOG_PATH):
+            with open(path, "a", encoding="utf-8") as f:
+                f.write(line + "\n")
+    except Exception:
+        pass
+
+
+def _request_id(req: dict, attempt: int, stage: str = None) -> str:
+    payload = {
+        "run_id": RUN_ID,
+        "stage": stage,
+        "attempt": attempt,
+        "model": req.get("model"),
+        "messages": req.get("messages"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
+        "ts_bucket": int(time.time()),
+    }
+    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def _extract_response_payload(resp) -> dict:
+    try:
+        choice = resp.choices[0]
+        msg = getattr(choice, "message", None)
+        usage = getattr(resp, "usage", None)
+        payload = {
+            "id": getattr(resp, "id", None),
+            "created": getattr(resp, "created", None),
+            "model": getattr(resp, "model", None),
+            "finish_reason": getattr(choice, "finish_reason", None),
+            "usage": {"prompt": getattr(usage, "prompt_tokens", None),
+                      "completion": getattr(usage, "completion_tokens", None),
+                      "total": getattr(usage, "total_tokens", None)} if usage else None,
+        }
+        if msg is not None:
+            payload["message"] = {
+                "role": getattr(msg, "role", None),
+                "content": getattr(msg, "content", None),
+                "reasoning_content": getattr(msg, "reasoning_content", None),
+                "tool_calls": getattr(msg, "tool_calls", None),
+            }
+        return payload
+    except Exception as e:
+        return {"extract_error": repr(e)}
+
+
+def _log_raw_start(call_type, req, request_id, attempt=1, stage=None, session=None):
+    _write_raw_api_record({
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "run_id": RUN_ID,
+        "request_id": request_id,
+        "status": "started",
+        "call_type": call_type,
+        "stage": stage,
+        "session": session,
+        "attempt": attempt,
+        "request": _maybe_truncate(req),
+    })
+
+
+def _log_raw_success(call_type, req, resp, request_id, latency_s=0.0, attempt=1, stage=None, session=None):
+    _write_raw_api_record({
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "run_id": RUN_ID,
+        "request_id": request_id,
+        "status": "success",
+        "call_type": call_type,
+        "stage": stage,
+        "session": session,
+        "attempt": attempt,
+        "latency_s": round(latency_s, 1),
+        "request": _maybe_truncate(req),
+        "response": _maybe_truncate(_extract_response_payload(resp)),
+    })
+
+
+def _log_raw_error(call_type, req, error, request_id, latency_s=0.0, attempt=1, stage=None, session=None):
+    _write_raw_api_record({
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "run_id": RUN_ID,
+        "request_id": request_id,
+        "status": "error",
+        "call_type": call_type,
+        "stage": stage,
+        "session": session,
+        "attempt": attempt,
+        "latency_s": round(latency_s, 1),
+        "request": _maybe_truncate(req),
+        "error": str(error),
+    })
+
+
 def _log_api_call(call_type: str, model: str, max_tokens: int, temperature: float,
                   finish_reason: str = None, usage: dict = None,
                   latency_s: float = 0.0, attempt: int = 1, error: str = None,
-                  stage: str = None, session: str = None):
+                  stage: str = None, session: str = None, status: str = None,
+                  request_id: str = None):
     """Always-on per-call metadata log for audit trail."""
     try:
         rec = {
@@ -44,6 +182,8 @@ def _log_api_call(call_type: str, model: str, max_tokens: int, temperature: floa
             "attempt": attempt,
             "latency_s": round(latency_s, 1),
         }
+        if status: rec["status"] = status
+        if request_id: rec["request_id"] = request_id
         if stage: rec["stage"] = stage
         if session: rec["session"] = session
         if finish_reason: rec["finish_reason"] = finish_reason
@@ -53,7 +193,7 @@ def _log_api_call(call_type: str, model: str, max_tokens: int, temperature: floa
     except Exception:
         pass  # call logging must never crash the pipeline
 
-def _log_from_resp(call_type, req, resp, latency_s=0.0, attempt=1, stage=None, session=None):
+def _log_from_resp(call_type, req, resp, latency_s=0.0, attempt=1, stage=None, session=None, request_id=None):
     """Extract and log metadata from a successful API response."""
     try:
         choice = resp.choices[0]
@@ -69,12 +209,14 @@ def _log_from_resp(call_type, req, resp, latency_s=0.0, attempt=1, stage=None, s
                    "completion": getattr(usage, "completion_tokens", None),
                    "total": getattr(usage, "total_tokens", None)} if usage else None,
             latency_s=latency_s, attempt=attempt, stage=stage, session=session,
+            status="success",
+            request_id=request_id,
         )
     except Exception:
         pass
 
 
-def _log_from_error(call_type, req, error, latency_s=0.0, attempt=1, stage=None, session=None):
+def _log_from_error(call_type, req, error, latency_s=0.0, attempt=1, stage=None, session=None, request_id=None):
     """Log a failed API call."""
     try:
         _log_api_call(
@@ -83,6 +225,26 @@ def _log_from_error(call_type, req, error, latency_s=0.0, attempt=1, stage=None,
             max_tokens=req.get("max_tokens", 0),
             temperature=req.get("temperature", 0.0),
             latency_s=latency_s, attempt=attempt, error=error, stage=stage, session=session,
+            status="error",
+            request_id=request_id,
+        )
+    except Exception:
+        pass
+
+
+def _log_from_start(call_type, req, request_id, attempt=1, stage=None, session=None):
+    try:
+        _log_api_call(
+            call_type=call_type,
+            model=req.get("model", "?"),
+            max_tokens=req.get("max_tokens", 0),
+            temperature=req.get("temperature", 0.0),
+            latency_s=0.0,
+            attempt=attempt,
+            stage=stage,
+            session=session,
+            status="started",
+            request_id=request_id,
         )
     except Exception:
         pass
@@ -142,13 +304,19 @@ class LLM:
         last_exc: Optional[Exception] = None
         _t0 = 0.0
         for attempt in range(1, max_retries + 1):
+            request_id = _request_id(req, attempt, self._current_stage)
             try:
                 _t0 = time.time()
-                resp =  self.client.chat.completions.create(**req)
-                _log_from_resp("chat", req, resp, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_from_start("chat", req, request_id, attempt=attempt, stage=self._current_stage)
+                _log_raw_start("chat", req, request_id, attempt=attempt, stage=self._current_stage)
+                with _hard_timeout(getattr(config, "API_HARD_TIMEOUT_SECONDS", 0)):
+                    resp = self.client.chat.completions.create(**req)
+                _log_raw_success("chat", req, resp, request_id, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_from_resp("chat", req, resp, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage, request_id=request_id)
                 return resp
             except APIStatusError as e:
-                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_raw_error("chat", req, repr(e), request_id, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage, request_id=request_id)
                 status = getattr(e, "status_code", None)
                 text = getattr(getattr(e, "response", None), "text", "") or ""
                 logger.warning(f"APIStatusError {status}: {text[:400]}")
@@ -162,7 +330,8 @@ class LLM:
 
 
             except (APIConnectionError, APIResponseValidationError) as e:
-                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_raw_error("chat", req, repr(e), request_id, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage, request_id=request_id)
                 logger.warning(f"Connection/Validation error: {repr(e)}")
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)
@@ -171,7 +340,8 @@ class LLM:
                 break
 
             except Exception as e:
-                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_raw_error("chat", req, repr(e), request_id, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage, request_id=request_id)
                 logger.warning(f"Unexpected error: {repr(e)}", exc_info=True)
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)

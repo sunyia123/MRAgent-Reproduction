@@ -70,9 +70,12 @@ KEYWORD_MAX_TOKENS = int(os.getenv("KEYWORD_MAX_TOKENS", "16384"))
 QA_MAX_TOKENS = int(os.getenv("QA_MAX_TOKENS", "8192"))
 DEFAULT_MAX_TOKENS = REWRITE_MAX_TOKENS  # default for unclassified calls (was 4096)
 API_TIMEOUT_SECONDS = float(os.getenv("API_TIMEOUT_SECONDS", "600"))
+API_HARD_TIMEOUT_SECONDS = float(os.getenv("API_HARD_TIMEOUT_SECONDS", str(int(API_TIMEOUT_SECONDS) + 60)))
 API_CLIENT_MAX_RETRIES = int(os.getenv("API_CLIENT_MAX_RETRIES", "2"))
 API_CALL_MAX_RETRIES = int(os.getenv("API_CALL_MAX_RETRIES", "3"))
 CHAT_TEXT_PARSE_MAX_ATTEMPTS = int(os.getenv("CHAT_TEXT_PARSE_MAX_ATTEMPTS", "3"))
+RAW_API_LOG = os.getenv("RAW_API_LOG", "1") != "0"
+RAW_API_LOG_MAX_CHARS = int(os.getenv("RAW_API_LOG_MAX_CHARS", "0"))  # 0 means no truncation
 sample_id = args.sample
 qu = args.qu
 ca = args.ca
