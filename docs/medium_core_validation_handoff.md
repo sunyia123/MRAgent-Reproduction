@@ -133,6 +133,44 @@ result/locomo/<sample>_result_deepseek_mragent_100q.jsonl
 - 是否存在 API timeout、retry、坏 JSON、schema error。
 - 如果中断，`.tmp` 文件路径和已完成行数。
 
+### 单个 session 连续超时的检查方法
+
+如果某个 rewrite session 连续超时，不要先假设是“对话太长”。先用静态诊断脚本检查：
+
+```text
+repro/diagnose_rewrite_session.py
+```
+
+它不会调用模型 API，只读取原始 LoCoMo 数据和已有 `.tmp`。
+
+需要检查：
+
+- 该 session 的 turn 数、字符数、估算 prompt token。
+- 它在同一个 sample 内是否真的是最长 session。
+- 是否含有图片 caption、image url、特殊敏感主题或异常空字段。
+- `.tmp` 已经保存了多少个完整 session。
+- 是否最后一行损坏；如果损坏，新版 `run_stratified.py` 会截断到最后一个有效 JSONL 记录再续跑。
+
+conv-26 session 9 的本地静态诊断结论：
+
+- D9 只有 17 turns。
+- session 文本约 2651 字符。
+- rewrite prompt 约 4950 字符，估算约 1414 tokens。
+- D9 不是 conv-26 最长 session；D14、D8、D3 等都更长。
+- 因此“session 9 特别长导致超时”这个解释不成立。
+- 更可能是供应商侧超时、内容安全审核、结构化 JSON 生成卡住，或当前时段服务不稳定。
+
+诊断坏 session 时可以临时缩短 API 等待时间：
+
+```text
+API_TIMEOUT_SECONDS=120
+API_CLIENT_MAX_RETRIES=0
+API_CALL_MAX_RETRIES=1
+CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
+```
+
+这组变量只用于定位问题。正式 batch 可以恢复默认值，或保留较短 timeout 以避免单个 session 阻塞全局。
+
 ### 任务 3：运行 Standard RAG on 100q subset
 
 使用代码：

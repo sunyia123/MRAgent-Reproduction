@@ -86,8 +86,8 @@ class LLM:
     def __init__(self):
         self.client = OpenAI(api_key=config.API_KEY,
                              base_url=config.LLM_BASE_URL,
-                             timeout=600.0,
-                             max_retries=2)
+                             timeout=config.API_TIMEOUT_SECONDS,
+                             max_retries=config.API_CLIENT_MAX_RETRIES)
         self.model = config.MODEL
         # metrics instrumentation
         self.last_tool_calls = 0
@@ -104,7 +104,7 @@ class LLM:
             temperature: float = 0.0,
             top_p: float = 1.0,
             seed: Optional[int] = 66,
-            max_retries: int = 3,
+            max_retries: Optional[int] = None,
             backoff: float = 1.5,
             **extra  # extra params, e.g. response_format
     ):
@@ -130,6 +130,8 @@ class LLM:
         # overridable per-call via extra or the caller.
         if "max_tokens" not in req:
             req["max_tokens"] = getattr(config, 'DEFAULT_MAX_TOKENS', 4096)
+        if max_retries is None:
+            max_retries = config.API_CALL_MAX_RETRIES
 
         last_exc: Optional[Exception] = None
         _t0 = 0.0
@@ -163,7 +165,7 @@ class LLM:
                 break
 
             except Exception as e:
-                _diag_record("chat", req, None, error=repr(e), latency_s=time.time() - _t0, attempt=attempt)
+                _log_from_error("chat", req, repr(e), latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
                 logger.warning(f"Unexpected error: {repr(e)}", exc_info=True)
                 if attempt < max_retries:
                     time.sleep(backoff ** attempt)
@@ -338,7 +340,7 @@ class LLM:
 
         if max_tokens is not None:
             extra["max_tokens"] = max_tokens
-        max_attempts = 3
+        max_attempts = config.CHAT_TEXT_PARSE_MAX_ATTEMPTS
         json_out = None
 
         for attempt in range(max_attempts):
