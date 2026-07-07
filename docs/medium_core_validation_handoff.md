@@ -228,6 +228,7 @@ CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
 - 该类脚本可能向 rewrite `.tmp` 写入 `conversation_time: skipped-api-timeout` 和空 `sentence: []`。
 - 新版 `run_stratified.py` 会拒绝这种 skip marker，不再把它当作有效 rewrite cache。
 - 如果服务器上已经产生过 skip marker，必须先用 `repro/audit_rewrite_cache.py` 审计，再只保留连续有效前缀。
+- 新版 `run_stratified.py` 在截断 JSONL 前会自动写 `.bak_before_truncate_*` 备份；如果误截断，先找备份，不要直接重跑已完成 session。
 
 审计命令使用的代码：
 
@@ -243,6 +244,27 @@ repro/audit_rewrite_cache.py
 - 是否有空 sentence list。
 - 是否有 JSON parse error。
 - 最后一个有效 session id。
+
+如果 `.tmp` 已经从 8 行误截断成 1 行：
+
+1. 先查找备份文件：
+
+```text
+data/locomo/rewrite_deepseek/conv-26_rewrite.json.tmp.bak_before_truncate_*
+```
+
+2. 对每个备份运行 `repro/audit_rewrite_cache.py`。
+3. 选择 `valid_prefix_count` 最大、且无 skip marker 的备份恢复为 `.tmp`。
+4. 如果没有可用备份，才从当前 `.tmp` 继续重跑。
+5. 为避免 SDK 内部静默重试吞掉日志，诊断阶段必须设置：
+
+```text
+API_CLIENT_MAX_RETRIES=0
+API_CALL_MAX_RETRIES=1
+CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
+```
+
+这样 timeout 会进入应用层日志，并带有 `stage=rewrite`。
 
 ### 任务 3：运行 Standard RAG on 100q subset
 

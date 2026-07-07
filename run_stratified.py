@@ -15,6 +15,7 @@ import re
 import logging
 import random
 import shutil
+from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
@@ -102,30 +103,39 @@ def _rewrite_partial_progress(rewrite_path: str, expected_session_ids: list) -> 
     if not os.path.exists(rewrite_path):
         return 0, "file not found"
     completed = 0
+    stop_reason = ""
     try:
         with open(rewrite_path, encoding="utf-8") as f:
             for line_no, line in enumerate(f, start=1):
                 line = line.strip()
                 if not line:
+                    stop_reason = f"line {line_no}: blank line"
                     break
                 obj = json.loads(line)
                 if not isinstance(obj, dict) or len(obj) != 1:
+                    stop_reason = f"line {line_no}: expected one-key object"
                     break
                 session_id, data = next(iter(obj.items()))
                 if completed >= len(expected_session_ids):
+                    stop_reason = f"line {line_no}: more rows than expected sessions"
                     break
                 if session_id != expected_session_ids[completed]:
+                    stop_reason = f"line {line_no}: session id {session_id!r} != expected {expected_session_ids[completed]!r}"
                     break
                 if not isinstance(data, dict) or not isinstance(data.get("sentence"), list):
+                    stop_reason = f"line {line_no}: sentence is missing or not a list"
                     break
                 if str(data.get("conversation_time", "")).startswith("skipped"):
+                    stop_reason = f"line {line_no}: skip marker"
                     break
                 if len(data.get("sentence")) == 0:
+                    stop_reason = f"line {line_no}: empty sentence list"
                     break
                 completed += 1
     except Exception as e:
         return completed, f"stopped at {completed}: {e}"
-    return completed, f"{completed}/{len(expected_session_ids)} sessions complete"
+    suffix = f"; stopped: {stop_reason}" if stop_reason else ""
+    return completed, f"{completed}/{len(expected_session_ids)} sessions complete{suffix}"
 
 
 def _keyword_partial_progress(keyword_path: str) -> tuple:
@@ -133,34 +143,43 @@ def _keyword_partial_progress(keyword_path: str) -> tuple:
     if not os.path.exists(keyword_path):
         return 0, "file not found"
     completed = 0
+    stop_reason = ""
     try:
         with open(keyword_path, encoding="utf-8") as f:
-            for line in f:
+            for line_no, line in enumerate(f, start=1):
                 line = line.strip()
                 if not line:
+                    stop_reason = f"line {line_no}: blank line"
                     break
                 obj = json.loads(line)
                 if obj is None:
                     completed += 1
                     continue
                 if not isinstance(obj, dict) or not isinstance(obj.get("sentence"), list):
+                    stop_reason = f"line {line_no}: invalid keyword schema"
                     break
                 completed += 1
     except Exception as e:
         return completed, f"stopped at {completed}: {e}"
-    return completed, f"{completed} keyword rows complete"
+    suffix = f"; stopped: {stop_reason}" if stop_reason else ""
+    return completed, f"{completed} keyword rows complete{suffix}"
 
 
-def _truncate_jsonl_prefix(path: str, keep_lines: int) -> None:
+def _truncate_jsonl_prefix(path: str, keep_lines: int) -> str:
     """Keep only the first keep_lines non-empty JSONL records."""
     if not os.path.exists(path):
-        return
+        return ""
     with open(path, encoding="utf-8") as f:
         lines = [line for line in f if line.strip()]
     if len(lines) <= keep_lines:
-        return
+        return ""
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_path = f"{path}.bak_before_truncate_{stamp}_{os.getpid()}"
+    shutil.copyfile(path, backup_path)
+    logger.warning(f"Backed up {path} to {backup_path} before truncating {len(lines)} -> {keep_lines} lines.")
     with open(path, "w", encoding="utf-8") as f:
         f.writelines(lines[:keep_lines])
+    return backup_path
 
 
 def stratified_sample(question_list: dict, sample_id: str, per_category: int = 3, total: int = 15,
