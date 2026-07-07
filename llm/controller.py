@@ -93,6 +93,20 @@ def _request_id(req: dict, attempt: int, stage: str = None) -> str:
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
 
 
+def _apply_thinking_config(req: dict) -> None:
+    model = str(req.get("model", ""))
+    base_url = str(getattr(config, "LLM_BASE_URL", ""))
+    if "siliconflow.cn" not in base_url:
+        return
+    if not (model.startswith("deepseek-ai/") or model.startswith("Qwen/")):
+        return
+    extra_body = dict(req.get("extra_body") or {})
+    extra_body["enable_thinking"] = bool(getattr(config, "ENABLE_THINKING", False))
+    if getattr(config, "ENABLE_THINKING", False):
+        extra_body["thinking_budget"] = int(getattr(config, "THINKING_BUDGET", 1024))
+    req["extra_body"] = extra_body
+
+
 def _extract_response_payload(resp) -> dict:
     try:
         choice = resp.choices[0]
@@ -126,6 +140,9 @@ def _log_raw_start(call_type, req, request_id, attempt=1, stage=None, session=No
         "request_id": request_id,
         "status": "started",
         "call_type": call_type,
+        "model": req.get("model"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
         "stage": stage,
         "session": session,
         "attempt": attempt,
@@ -140,6 +157,9 @@ def _log_raw_success(call_type, req, resp, request_id, latency_s=0.0, attempt=1,
         "request_id": request_id,
         "status": "success",
         "call_type": call_type,
+        "model": req.get("model"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
         "stage": stage,
         "session": session,
         "attempt": attempt,
@@ -156,6 +176,9 @@ def _log_raw_error(call_type, req, error, request_id, latency_s=0.0, attempt=1, 
         "request_id": request_id,
         "status": "error",
         "call_type": call_type,
+        "model": req.get("model"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
         "stage": stage,
         "session": session,
         "attempt": attempt,
@@ -298,6 +321,7 @@ class LLM:
         # overridable per-call via extra or the caller.
         if "max_tokens" not in req:
             req["max_tokens"] = getattr(config, 'DEFAULT_MAX_TOKENS', 4096)
+        _apply_thinking_config(req)
         if max_retries is None:
             max_retries = config.API_CALL_MAX_RETRIES
 
@@ -309,6 +333,10 @@ class LLM:
                 _t0 = time.time()
                 _log_from_start("chat", req, request_id, attempt=attempt, stage=self._current_stage)
                 _log_raw_start("chat", req, request_id, attempt=attempt, stage=self._current_stage)
+                cooldown = getattr(config, "API_CALL_COOLDOWN_SECONDS", 0)
+                if cooldown and cooldown > 0:
+                    logger.info("API cooldown before call: %.1fs", cooldown)
+                    time.sleep(cooldown)
                 with _hard_timeout(getattr(config, "API_HARD_TIMEOUT_SECONDS", 0)):
                     resp = self.client.chat.completions.create(**req)
                 _log_raw_success("chat", req, resp, request_id, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)
