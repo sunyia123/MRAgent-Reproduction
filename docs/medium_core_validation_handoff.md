@@ -24,6 +24,36 @@ LoCoMo-10 / 100 questions / 同一题集 / 多方法对比
 3. GraphRAG。
 4. Oracle evidence QA。
 
+## 当前阻塞与处理原则
+
+2026-07-07 的中型验证启动时发现：
+
+- conv-30 的 rewrite、keyword、embedding cache 完整。
+- conv-26 只有 rewrite cache，缺 keyword 和 embedding。
+- conv-42 有不完整 `.tmp` rewrite，不能当作完整 cache。
+- conv-41、conv-43、conv-44、conv-47、conv-48、conv-49、conv-50 缺 rewrite、keyword、embedding。
+- DeepSeek-V4-Pro 太慢；DeepSeek-V4-Flash 速度更好，但下午高峰仍可能 API 超时。
+
+这不是模型能力问题，而是工程可恢复性问题：旧逻辑只有整批 session 全完成后才会把 rewrite cache 视为有效，中断后容易丢进度。
+
+现在 `run_stratified.py` 已改为可恢复：
+
+- 不删除已有 `.tmp`。
+- rewrite 按已完成 session 数续跑。
+- keyword 按已完成 jsonl 行数续跑。
+- 如果 `.tmp` 最后一行损坏，会截断到最后一个完整有效记录。
+- 完整校验通过后才把 `.tmp` 移动为正式 cache。
+
+因此下一步不是继续手工清理目录，而是直接分批补 cache，并保留每批报告。
+
+推荐模型策略：
+
+- rewrite / keyword：优先使用 `deepseek-ai/DeepSeek-V4-Flash`。
+- QA 对比：可以继续使用同一模型，保证方法间公平。
+- 如果 Flash 在同一个 session 连续超时，停止该 batch，记录 session id、日志路径和 `.tmp` 已完成行数。
+
+不要为了提速临时改变 prompt、抽样题集或评价脚本，否则 100 题对比会失去可解释性。
+
 ## Request
 
 请完成中型核心验证实验的准备和第一轮运行。重点不是追求最大规模，而是保证所有方法在同一批 100 题上比较。
@@ -77,8 +107,31 @@ result/locomo/<sample>_result_deepseek_mragent_100q.jsonl
 要点：
 
 - 可以复用已有 rewrite/keyword/embedding cache。
-- 如果某个 sample 缺 cache，先停下来说明，不要直接重跑昂贵阶段。
+- 如果某个 sample 缺 cache，使用可恢复逻辑分批补齐，不要删除 `.tmp`。
 - 每个 sample 只跑 manifest 指定的 10 题。
+
+分批推进顺序：
+
+1. Batch 1：conv-26、conv-42。
+   - conv-26 需要 keyword + embedding + MRAgent 10 题。
+   - conv-42 需要从 `.tmp` rewrite 续跑或重建完整 rewrite，然后 keyword + embedding + MRAgent 10 题。
+   - 输出 `reports/cache_batch1_conv26_conv42_20260707.md`。
+2. Batch 2：conv-41、conv-43、conv-44。
+   - 每个 sample 需要 rewrite + keyword + embedding + MRAgent 10 题。
+   - 输出 `reports/cache_batch2_conv41_conv43_conv44_20260707.md`。
+3. Batch 3：conv-47、conv-48、conv-49、conv-50。
+   - 每个 sample 需要 rewrite + keyword + embedding + MRAgent 10 题。
+   - 输出 `reports/cache_batch3_conv47_conv48_conv49_conv50_20260707.md`。
+
+每个 batch 报告必须写清楚：
+
+- 使用的模型 id。
+- 每个 sample 的 rewrite session 完成数。
+- keyword 行数是否等于 rewrite session 数。
+- embedding 文件是否生成。
+- MRAgent result JSONL 是否为 10 行。
+- 是否存在 API timeout、retry、坏 JSON、schema error。
+- 如果中断，`.tmp` 文件路径和已完成行数。
 
 ### 任务 3：运行 Standard RAG on 100q subset
 
@@ -210,7 +263,7 @@ reports/medium_core_validation_100q_YYYYMMDD.md
 ## Constraints
 
 1. 不要全量跑 1986 题。
-2. 不要重跑 rewrite、keyword、embedding，除非 cache 缺失并先停下来说明。
+2. 允许补齐缺失 cache，但必须使用可恢复逻辑，禁止删除 `.tmp` 后从零开始。
 3. 不要把不同题集的结果当作公平对比。
 4. 不要提交大型 cache、embedding、rewrite、keyword、log。
 5. result JSONL 如果较小可以提交；如果过大，写 manifest。
@@ -221,7 +274,7 @@ reports/medium_core_validation_100q_YYYYMMDD.md
 
 遇到以下情况必须停下来：
 
-1. 任一 sample 的 rewrite/embedding cache 缺失。
+1. 同一个 session 连续超时，导致 batch 无法继续。
 2. Standard RAG、GraphRAG、Oracle 使用的题集不一致。
 3. MRAgent 无法保证与 manifest 同题。
 4. GraphRAG 报错或输出空 context。
