@@ -93,6 +93,20 @@ def _request_id(req: dict, attempt: int, stage: str = None) -> str:
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
 
 
+def _apply_thinking_config(req: dict) -> None:
+    model = str(req.get("model", ""))
+    base_url = str(getattr(config, "LLM_BASE_URL", ""))
+    if "siliconflow.cn" not in base_url:
+        return
+    if not (model.startswith("deepseek-ai/") or model.startswith("Qwen/")):
+        return
+    extra_body = dict(req.get("extra_body") or {})
+    extra_body["enable_thinking"] = bool(getattr(config, "ENABLE_THINKING", False))
+    if getattr(config, "ENABLE_THINKING", False):
+        extra_body["thinking_budget"] = int(getattr(config, "THINKING_BUDGET", 1024))
+    req["extra_body"] = extra_body
+
+
 def _extract_response_payload(resp) -> dict:
     try:
         choice = resp.choices[0]
@@ -307,6 +321,7 @@ class LLM:
         # overridable per-call via extra or the caller.
         if "max_tokens" not in req:
             req["max_tokens"] = getattr(config, 'DEFAULT_MAX_TOKENS', 4096)
+        _apply_thinking_config(req)
         if max_retries is None:
             max_retries = config.API_CALL_MAX_RETRIES
 

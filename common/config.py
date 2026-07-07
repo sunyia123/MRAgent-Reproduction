@@ -77,6 +77,8 @@ API_CALL_MAX_RETRIES = int(os.getenv("API_CALL_MAX_RETRIES", "3"))
 CHAT_TEXT_PARSE_MAX_ATTEMPTS = int(os.getenv("CHAT_TEXT_PARSE_MAX_ATTEMPTS", "3"))
 RAW_API_LOG = os.getenv("RAW_API_LOG", "1") != "0"
 RAW_API_LOG_MAX_CHARS = int(os.getenv("RAW_API_LOG_MAX_CHARS", "0"))  # 0 means no truncation
+ENABLE_THINKING = os.getenv("ENABLE_THINKING", "0") == "1"
+THINKING_BUDGET = int(os.getenv("THINKING_BUDGET", "1024"))
 sample_id = args.sample
 qu = args.qu
 ca = args.ca

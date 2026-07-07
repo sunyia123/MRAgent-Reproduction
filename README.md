@@ -41,6 +41,7 @@ export API_HARD_TIMEOUT_SECONDS=720
 export API_CALL_COOLDOWN_SECONDS=60
 export RAW_API_LOG=1
 export RAW_API_LOG_MAX_CHARS=0
+export ENABLE_THINKING=0
 python repro/audit_runtime_config.py \
   --data locomo \
   --sample_ids 26 \
@@ -73,6 +74,7 @@ For API hangs, use the log state, not terminal silence:
 - `raw_api_calls_${RUN_ID}.jsonl` records the complete request messages and response payload for each call when `RAW_API_LOG=1`.
 - If a call hangs below the SDK timeout layer, `API_HARD_TIMEOUT_SECONDS` should raise an error and write an `error` record. If the process is killed externally, the last `started` record without a matching `success` or `error` identifies the exact input that hung.
 - For graph-building rewrite runs, keep `API_CALL_COOLDOWN_SECONDS=60` unless there is evidence that the provider is stable. The observed SiliconFlow failure pattern is 2-4 large rewrite calls succeeding, followed by the next large call hanging or timing out.
+- For SiliconFlow DeepSeek/Qwen calls, `ENABLE_THINKING=0` injects `extra_body.enable_thinking=false`. Verify this in `raw_api_calls_${RUN_ID}.jsonl`; the request should contain `"extra_body":{"enable_thinking":false}` and the response should not contain large `reasoning_content`.
 
 Every run writes persistent logs. Set `RUN_ID=<short-readable-id>` before long runs, then inspect:
 
