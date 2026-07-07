@@ -126,6 +126,9 @@ def _log_raw_start(call_type, req, request_id, attempt=1, stage=None, session=No
         "request_id": request_id,
         "status": "started",
         "call_type": call_type,
+        "model": req.get("model"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
         "stage": stage,
         "session": session,
         "attempt": attempt,
@@ -140,6 +143,9 @@ def _log_raw_success(call_type, req, resp, request_id, latency_s=0.0, attempt=1,
         "request_id": request_id,
         "status": "success",
         "call_type": call_type,
+        "model": req.get("model"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
         "stage": stage,
         "session": session,
         "attempt": attempt,
@@ -156,6 +162,9 @@ def _log_raw_error(call_type, req, error, request_id, latency_s=0.0, attempt=1, 
         "request_id": request_id,
         "status": "error",
         "call_type": call_type,
+        "model": req.get("model"),
+        "max_tokens": req.get("max_tokens"),
+        "temperature": req.get("temperature"),
         "stage": stage,
         "session": session,
         "attempt": attempt,
@@ -309,6 +318,10 @@ class LLM:
                 _t0 = time.time()
                 _log_from_start("chat", req, request_id, attempt=attempt, stage=self._current_stage)
                 _log_raw_start("chat", req, request_id, attempt=attempt, stage=self._current_stage)
+                cooldown = getattr(config, "API_CALL_COOLDOWN_SECONDS", 0)
+                if cooldown and cooldown > 0:
+                    logger.info("API cooldown before call: %.1fs", cooldown)
+                    time.sleep(cooldown)
                 with _hard_timeout(getattr(config, "API_HARD_TIMEOUT_SECONDS", 0)):
                     resp = self.client.chat.completions.create(**req)
                 _log_raw_success("chat", req, resp, request_id, latency_s=time.time() - _t0, attempt=attempt, stage=self._current_stage)

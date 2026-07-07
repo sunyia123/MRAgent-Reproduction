@@ -36,8 +36,9 @@ Canonical server graph-build command for one sample:
 export RUN_ID=conv26_graphbuild_$(date +%Y%m%d_%H%M%S)
 export API_CLIENT_MAX_RETRIES=0
 export API_CALL_MAX_RETRIES=1
-export API_TIMEOUT_SECONDS=240
-export API_HARD_TIMEOUT_SECONDS=420
+export API_TIMEOUT_SECONDS=600
+export API_HARD_TIMEOUT_SECONDS=720
+export API_CALL_COOLDOWN_SECONDS=60
 export RAW_API_LOG=1
 export RAW_API_LOG_MAX_CHARS=0
 python repro/audit_runtime_config.py \
@@ -71,6 +72,7 @@ For API hangs, use the log state, not terminal silence:
 - `api_call_log_${RUN_ID}.jsonl` records `started`, `success`, and `error` metadata, including `request_id`.
 - `raw_api_calls_${RUN_ID}.jsonl` records the complete request messages and response payload for each call when `RAW_API_LOG=1`.
 - If a call hangs below the SDK timeout layer, `API_HARD_TIMEOUT_SECONDS` should raise an error and write an `error` record. If the process is killed externally, the last `started` record without a matching `success` or `error` identifies the exact input that hung.
+- For graph-building rewrite runs, keep `API_CALL_COOLDOWN_SECONDS=60` unless there is evidence that the provider is stable. The observed SiliconFlow failure pattern is 2-4 large rewrite calls succeeding, followed by the next large call hanging or timing out.
 
 Every run writes persistent logs. Set `RUN_ID=<short-readable-id>` before long runs, then inspect:
 
