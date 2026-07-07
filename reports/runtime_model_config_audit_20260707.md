@@ -62,7 +62,7 @@ result_template=result/{dataset}/{sample_id}_result_deepseek_mragent_100q.jsonl
 | `agent/agent.py` | rewrite/keyword and rerank calls use `config.RE_MODEL`. |
 | `memory/controller.py` | tag reranking uses `config.RE_MODEL`. |
 | `llm/controller.py` | default function arguments still show `config.MODEL`, but callers pass explicit models for current pipeline paths; timeout logs now include stage. |
-| `llm/embeddings.py` | embedding model is controlled by `EMBED_MODEL`; if `EMBED_BASE_URL` is SiliconFlow and `EMBED_MODEL` is unset, default is now `Qwen/Qwen3-Embedding-8B`. |
+| `llm/embeddings.py` | embedding model is controlled by `EMBED_MODEL`; if `EMBED_BASE_URL` is SiliconFlow and `EMBED_MODEL` is unset, default is now `Qwen/Qwen3-Embedding-4B`. |
 | `eval/judge.py` | judge model is controlled by `JUDGE_MODEL`; default remains `openai/gpt-4o-mini`, so SiliconFlow-only runs must set a local judge model explicitly. |
 | `README.md` / old docs | Many historical examples still mention Gemini/Claude; current medium-core validation should follow `docs/medium_core_validation_handoff.md`. |
 

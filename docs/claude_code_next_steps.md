@@ -130,7 +130,7 @@ OPENAI_API_KEY=<new key here>
 DEEPSEEK_MODEL_ID=deepseek-ai/DeepSeek-V4-Pro
 VLM_MODEL=Qwen/Qwen3.5-397B-A17B
 VLM_MAX_TOKENS=1024
-EMBED_MODEL=Qwen/Qwen3-Embedding-8B
+EMBED_MODEL=Qwen/Qwen3-Embedding-4B
 ```
 
 Rules:

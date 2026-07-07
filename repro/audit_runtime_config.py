@@ -22,7 +22,7 @@ from common import config
 def _effective_embed_model():
     if os.getenv("EMBED_MODEL"):
         return os.getenv("EMBED_MODEL")
-    return "Qwen/Qwen3-Embedding-8B" if "siliconflow.cn" in config.EMBED_BASE_URL else "text-embedding-3-large"
+    return "Qwen/Qwen3-Embedding-4B" if "siliconflow.cn" in config.EMBED_BASE_URL else "text-embedding-3-large"
 
 
 def _redact(value):

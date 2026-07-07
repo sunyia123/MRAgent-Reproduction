@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()  # read API key from .env
 EMBED_API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
 EMBED_BASE_URL = os.getenv("EMBED_BASE_URL", os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1"))
-_DEFAULT_EMBED_MODEL = "Qwen/Qwen3-Embedding-8B" if "siliconflow.cn" in EMBED_BASE_URL else "text-embedding-3-large"
+_DEFAULT_EMBED_MODEL = "Qwen/Qwen3-Embedding-4B" if "siliconflow.cn" in EMBED_BASE_URL else "text-embedding-3-large"
 EMBED_MODEL = os.getenv("EMBED_MODEL", _DEFAULT_EMBED_MODEL)
 os.environ["OPENAI_API_KEY"] = EMBED_API_KEY or ""  # for set_openai_key() validation
 
