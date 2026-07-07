@@ -29,6 +29,14 @@ python repro/audit_runtime_config.py --data locomo --sample_ids 26 --model deeps
 
 For the current medium-core validation, do not run `run_stratified.py --sample_ids 26 --model deepseek` as a bare command. It omits the fixed subset manifest, uses the default result tag `0`, and relies on environment defaults for the actual DeepSeek model and provider URL. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
 
+Every run writes persistent logs. Set `RUN_ID=<short-readable-id>` before long runs, then inspect:
+
+```text
+log/<dataset>/runs/<RUN_ID>_<model>_<file>.log
+log/<dataset>/<sample>_<model>_<file>_<RUN_ID>.log
+result/diagnostics/api_call_log_<RUN_ID>.jsonl
+```
+
 The original upstream repository is preserved as read-only `upstream`.
 
 > This repository contains the code for the paper

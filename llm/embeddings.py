@@ -8,6 +8,7 @@ from typing import List, Sequence, Optional, Any
 # pip install openai>=1.0.0
 from openai import OpenAI
 from openai._exceptions import OpenAIError, RateLimitError, APIStatusError
+from common.logging_utils import RUN_ID
 
 
 # embedding via OpenRouter (proxies /embeddings; text-embedding-3-large returns 3072-d)
@@ -24,6 +25,7 @@ import json as _json
 import logging as _logging
 _EMBED_DIAG_ENABLED = os.getenv("DIAGNOSTIC_LOG", "0") == "1"
 _EMBED_DIAG_PATH = os.path.join("result", "diagnostics", "raw_embedding_calls.jsonl")
+_EMBED_RUN_DIAG_PATH = os.path.join("result", "diagnostics", f"raw_embedding_calls_{RUN_ID}.jsonl")
 if _EMBED_DIAG_ENABLED:
     os.makedirs(os.path.dirname(_EMBED_DIAG_PATH), exist_ok=True)
     _emb_diag_log = _logging.getLogger("embed.diag")
@@ -32,6 +34,9 @@ if _EMBED_DIAG_ENABLED:
     _emb_diag_fh = _logging.FileHandler(_EMBED_DIAG_PATH, encoding="utf-8")
     _emb_diag_fh.setFormatter(_logging.Formatter('%(message)s'))
     _emb_diag_log.addHandler(_emb_diag_fh)
+    _emb_run_diag_fh = _logging.FileHandler(_EMBED_RUN_DIAG_PATH, encoding="utf-8")
+    _emb_run_diag_fh.setFormatter(_logging.Formatter('%(message)s'))
+    _emb_diag_log.addHandler(_emb_run_diag_fh)
 
 
 def _emb_diag_record(model: str, batch_size: int, total_inputs: int, resp: Any = None, error: str = None, latency_s: float = 0.0):
@@ -40,6 +45,7 @@ def _emb_diag_record(model: str, batch_size: int, total_inputs: int, resp: Any =
     try:
         rec = {
             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "run_id": RUN_ID,
             "model": model,
             "batch_size": batch_size,
             "total_inputs": total_inputs,

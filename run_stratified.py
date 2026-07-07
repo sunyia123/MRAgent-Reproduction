@@ -26,7 +26,7 @@ from agent.agent import Agent
 from common import config
 from data.get_data import get_data
 from data.embed_rewrite import embed_sample
-from common.logging_utils import per_sample_log
+from common.logging_utils import add_run_file_handler, per_sample_log
 
 logger = logging.getLogger(__name__)
 
@@ -383,6 +383,10 @@ def main():
             expected_session_ids = list(sample.keys())
 
             rewrite_valid, rewrite_reason = _validate_rewrite_cache(rewrite_path, expected_sessions)
+            logger.info(
+                "Stage=rewrite sample=%s expected_sessions=%s rewrite_path=%s rewrite_tmp=%s valid=%s reason=%s",
+                sample_id, expected_sessions, rewrite_path, rewrite_tmp, rewrite_valid, rewrite_reason
+            )
             if rewrite_valid:
                 logger.info(f"Rewrite cache valid ({rewrite_reason}), skipping.")
             else:
@@ -420,6 +424,10 @@ def main():
                                     rewrite_sentence_count += len(_s)
 
             keyword_valid, keyword_reason = _validate_keyword_cache(keyword_path, rewrite_sentence_count)
+            logger.info(
+                "Stage=keyword sample=%s expected_sentence_count=%s keyword_path=%s keyword_tmp=%s valid=%s reason=%s",
+                sample_id, rewrite_sentence_count, keyword_path, keyword_tmp, keyword_valid, keyword_reason
+            )
             if keyword_valid:
                 logger.info(f"Keyword cache valid ({keyword_reason}), skipping.")
             else:
@@ -441,6 +449,7 @@ def main():
                     continue
 
             embedding_path = config.embedding_template.format(dataset=dataset, sample_id=sample_id)
+            logger.info("Stage=embedding sample=%s embedding_path=%s exists=%s", sample_id, embedding_path, os.path.exists(embedding_path))
             if not os.path.exists(embedding_path):
                 embed_sample(question_list[sample_id], rewrite_path, embedding_path)
             else:
@@ -448,6 +457,13 @@ def main():
 
             raw_text = raw_text_list[sample_id]
             id2emb, question_embeddings_all, topic_id_list, topic_embeddings = _get_conv_embeddings(embedding_path)
+            logger.info(
+                "Stage=store sample=%s event_embeddings=%s topic_ids=%s question_embeddings=%s",
+                sample_id,
+                len(id2emb) if id2emb is not None else 0,
+                len(topic_id_list) if topic_id_list is not None else 0,
+                len(question_embeddings_all) if question_embeddings_all is not None else 0,
+            )
             agent.store_raw_text(raw_text, id2emb, topic_id_list, topic_embeddings)
             agent.store_keyword(keyword_path, rewrite_path)
 
@@ -457,6 +473,7 @@ def main():
             # In answer_questions, _run_one receives (seq, orig_idx, qa) and accesses question_embeddings[orig_idx]
             # so pass all_embs (full list) not selected_question_embs
             result_path = config.result_template.format(dataset=dataset, sample_id=sample_id)
+            logger.info("Stage=qa sample=%s selected_questions=%s result_path=%s", sample_id, len(selected_qa), result_path)
             answer_questions(dataset, agent, selected_qa, sample_id, memory_system,
                              result_path, all_embs)
             processed_samples += 1
@@ -504,21 +521,19 @@ def warn_suspicious_run_config(config_module):
 
 
 if __name__ == "__main__":
-    global_file_handler = logging.FileHandler(
-        f"log/run_{config.DATASET}_{config.ADDITIONAL_TK}_{config.ADDITIONAL_RE}.log",
-        encoding="utf-8"
-    )
     stream_handler = logging.StreamHandler()
     logging.basicConfig(
         level=logging.INFO,
         format='[%(asctime)s] [%(levelname)s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
-        handlers=[global_file_handler, stream_handler]
+        handlers=[stream_handler]
     )
+    _, run_log = add_run_file_handler(dataset=config.DATASET)
     logging.info("=== Program start (stratified) ===")
+    logging.info("Run log path: %s", run_log)
     log_config(config)
     warn_suspicious_run_config(config)
-    root_logger = logging.getLogger()
-    root_logger.removeHandler(global_file_handler)
-    global_file_handler.close()
-    main()
+    try:
+        main()
+    finally:
+        logging.info("=== Program end (stratified) ===")

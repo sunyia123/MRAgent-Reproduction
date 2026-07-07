@@ -393,6 +393,45 @@ reports/medium_core_validation_100q_YYYYMMDD.md
 8. 是否有任何 runner 未按 manifest 运行。
 9. 新提交的报告路径和 commit hash。
 
+## 运行日志要求
+
+每次服务器运行都必须保留完整日志，不要只依赖终端输出。
+
+当前代码会自动生成：
+
+```text
+log/<dataset>/runs/<RUN_ID>_<model>_<file>.log
+log/<dataset>/<sample>_<model>_<file>_<RUN_ID>.log
+result/diagnostics/api_call_log_<RUN_ID>.jsonl
+result/diagnostics/api_call_log.jsonl
+```
+
+如果启用 embedding 诊断：
+
+```text
+DIAGNOSTIC_LOG=1
+result/diagnostics/raw_embedding_calls_<RUN_ID>.jsonl
+result/diagnostics/raw_embedding_calls.jsonl
+```
+
+每次反馈必须写明：
+
+- `RUN_ID`
+- run-level log 路径
+- sample-level log 路径
+- API call log 路径
+- result JSONL 路径
+- 当前停在哪个 stage：rewrite / keyword / embedding / store / qa
+- 最后一个已完成 session 或 question
+
+正式运行建议显式设置 `RUN_ID`，例如：
+
+```text
+RUN_ID=conv26_mragent_100q_20260707_01
+```
+
+这样所有日志和诊断文件会使用同一个可追踪前缀。
+
 ## Constraints
 
 1. 不要全量跑 1986 题。

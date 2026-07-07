@@ -8,12 +8,14 @@ from openai import OpenAI, APIStatusError, APIConnectionError, APIResponseValida
 from prompts.prompts import Prompts
 from common.utils import extract_json_from_content
 from common import config
+from common.logging_utils import RUN_ID
 import logging
 logger = logging.getLogger(__name__)
 
 # --- Per-call metadata logging (always-on; writes to result/diagnostics/) ---
 _CALL_LOG_DIR = os.path.join("result", "diagnostics")
 _CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, "api_call_log.jsonl")
+_RUN_CALL_LOG_PATH = os.path.join(_CALL_LOG_DIR, f"api_call_log_{RUN_ID}.jsonl")
 os.makedirs(_CALL_LOG_DIR, exist_ok=True)
 _call_logger = logging.getLogger("llm.call_log")
 _call_logger.setLevel(logging.INFO)
@@ -21,6 +23,9 @@ _call_logger.propagate = False
 _call_fh = logging.FileHandler(_CALL_LOG_PATH, encoding="utf-8")
 _call_fh.setFormatter(logging.Formatter('%(message)s'))
 _call_logger.addHandler(_call_fh)
+_run_call_fh = logging.FileHandler(_RUN_CALL_LOG_PATH, encoding="utf-8")
+_run_call_fh.setFormatter(logging.Formatter('%(message)s'))
+_call_logger.addHandler(_run_call_fh)
 
 
 def _log_api_call(call_type: str, model: str, max_tokens: int, temperature: float,
@@ -31,6 +36,7 @@ def _log_api_call(call_type: str, model: str, max_tokens: int, temperature: floa
     try:
         rec = {
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "run_id": RUN_ID,
             "call_type": call_type,
             "model": model,
             "max_tokens": max_tokens,
