@@ -289,7 +289,7 @@ reason:
   "dataset": "locomo",
   "sample_ids": ["conv-30"],
   "model": "deepseek-ai/DeepSeek-V4-Pro",
-  "embedding_model": "Qwen/Qwen3-Embedding-8B",
+  "embedding_model": "Qwen/Qwen3-Embedding-4B",
   "judge_model": "",
   "artifacts": {
     "rewrite": {

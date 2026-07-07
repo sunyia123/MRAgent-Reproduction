@@ -5,11 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()  # read API key from .env
 parser = argparse.ArgumentParser(description="Configure dataset and model parameters.")
 parser.add_argument("--data", type=str, default="locomo", help="Dataset name, e.g., AR / LM / locomo")
-parser.add_argument("--model", type=str, default="gemini", help="Model name, e.g., gemini / claude / gpt4o / qwen")
+parser.add_argument("--model", type=str, default="gemini", help="Model short name or explicit model id, e.g., deepseek / v4flash / qwen397 / gemini")
 parser.add_argument("--file", type=str, default="0", help="Run/experiment tag appended to result filenames")
 parser.add_argument("--sample", type=int, default=None, help="Sample id to run (e.g. 42). Omit to run all samples.")
 parser.add_argument("--qu", type=int, default=0, help="Dataset name, e.g., AR / LM / locomo")
-parser.add_argument("--re_model", type=str, default=None, help="Dataset name, e.g., AR / LM / locomo")
+parser.add_argument("--re_model", type=str, default=None, help="Rewrite/keyword model short name or explicit model id")
 parser.add_argument("--ca", type=int, default=1, help="LM category index: 0=multi-session,1=single-session-user,2=temporal-reasoning,3=single-session-preference,4=knowledge-update,5=single-session-assistant")
 parser.add_argument("--lm_batch", type=int, default=1, help="LM: sessions merged per rewrite call. 1=per-session (key=session_i, compatible with existing files/per-session readers); >1=merged (key=session_first-session_last)")
 parser.add_argument("--max_questions", type=int, default=None, help="Max questions to answer per sample (smoke: 3-5)")
@@ -25,50 +25,32 @@ parser.add_argument("--subset_manifest", type=str, default=None, help="Fixed sub
 args, _ = parser.parse_known_args()
 
 
-LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1")
+def _resolve_model(name: str) -> str:
+    aliases = {
+        "gpt4.1mini": "openai/gpt-4.1-mini",
+        "gpt4omini": "gpt-4o-mini-2024-07-18",
+        "claude": "anthropic/claude-sonnet-4.5",
+        "gpt4o": "openai/gpt-4o",
+        "claude3.5": "anthropic/claude-3.5-haiku",
+        "qwen": os.getenv("QWEN_MODEL_ID", "Qwen/Qwen3.5-397B-A17B"),
+        "qwen397": "Qwen/Qwen3.5-397B-A17B",
+        "gemini": "google/gemini-2.5-flash",
+        "deepseek": os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V4-Pro"),
+        "v4pro": "deepseek-ai/DeepSeek-V4-Pro",
+        "v4flash": "deepseek-ai/DeepSeek-V4-Flash",
+    }
+    return aliases.get(name, name)
+
+
+MODEL = _resolve_model(args.model)
+_siliconflow_prefixes = ("deepseek-ai/", "Qwen/")
+_default_base_url = "https://api.siliconflow.cn/v1" if MODEL.startswith(_siliconflow_prefixes) else "https://openrouter.ai/api/v1"
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", _default_base_url)
 EMBED_BASE_URL = os.getenv("EMBED_BASE_URL", LLM_BASE_URL)
 OPENROUTER_URL = LLM_BASE_URL  # backward compat: some modules reference OPENROUTER_URL
-if args.model == "gpt4.1mini":
-    MODEL = "openai/gpt-4.1-mini"
-elif args.model == "gpt4omini":
-    MODEL = "gpt-4o-mini-2024-07-18"
-elif args.model == "claude":
-    MODEL = "anthropic/claude-sonnet-4.5"
-elif args.model == "gpt4o":
-    MODEL = "openai/gpt-4o"
-elif args.model == "claude3.5":
-    MODEL = "anthropic/claude-3.5-haiku"
-elif args.model == "qwen":
-    MODEL = "qwen/qwen3-max"
-elif args.model == "gemini":
-    MODEL = "google/gemini-2.5-flash"
-elif args.model == "deepseek":
-    MODEL = os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V3")
 CHOOSE_MODEL = MODEL
 MODEL_NAME = args.model  # short name (gemini/claude/...), used by the LM temporal method answer_question_with_time_lm
-if args.re_model:
-    if args.re_model == "gpt4.1mini":
-        RE_MODEL = "openai/gpt-4.1-mini"
-    elif args.re_model == "gpt4omini":
-        RE_MODEL = "gpt-4o-mini-2024-07-18"
-    elif args.re_model == "claude":
-        RE_MODEL = "anthropic/claude-sonnet-4.5"
-    elif args.re_model == "gpt4o":
-        RE_MODEL = "openai/gpt-4o"
-    elif args.re_model == "claude3.5":
-        RE_MODEL = "anthropic/claude-3.5-haiku"
-    elif args.re_model == "qwen":
-        RE_MODEL = "qwen/qwen3-max"
-    elif args.re_model == "gemini":
-        RE_MODEL = "google/gemini-2.5-flash"
-    elif args.re_model == "deepseek":
-        RE_MODEL = os.getenv("DEEPSEEK_MODEL_ID", "deepseek-ai/DeepSeek-V3")
-    elif args.re_model == "v4flash":
-        RE_MODEL = "deepseek-ai/DeepSeek-V4-Flash"
-    else:
-        RE_MODEL = MODEL
-else:
-    RE_MODEL = MODEL
+RE_MODEL = _resolve_model(args.re_model) if args.re_model else MODEL
 API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
 MODEL_SORT = MODEL #"anthropic/claude-sonnet-4.5"
 K1=80                 # coarse retrieval breadth (embedding similarity)

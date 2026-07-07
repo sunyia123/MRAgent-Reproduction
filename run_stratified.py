@@ -15,6 +15,7 @@ import re
 import logging
 import random
 import shutil
+from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
@@ -25,7 +26,7 @@ from agent.agent import Agent
 from common import config
 from data.get_data import get_data
 from data.embed_rewrite import embed_sample
-from common.logging_utils import per_sample_log
+from common.logging_utils import add_run_file_handler, per_sample_log
 
 logger = logging.getLogger(__name__)
 
@@ -102,30 +103,39 @@ def _rewrite_partial_progress(rewrite_path: str, expected_session_ids: list) -> 
     if not os.path.exists(rewrite_path):
         return 0, "file not found"
     completed = 0
+    stop_reason = ""
     try:
         with open(rewrite_path, encoding="utf-8") as f:
             for line_no, line in enumerate(f, start=1):
                 line = line.strip()
                 if not line:
+                    stop_reason = f"line {line_no}: blank line"
                     break
                 obj = json.loads(line)
                 if not isinstance(obj, dict) or len(obj) != 1:
+                    stop_reason = f"line {line_no}: expected one-key object"
                     break
                 session_id, data = next(iter(obj.items()))
                 if completed >= len(expected_session_ids):
+                    stop_reason = f"line {line_no}: more rows than expected sessions"
                     break
                 if session_id != expected_session_ids[completed]:
+                    stop_reason = f"line {line_no}: session id {session_id!r} != expected {expected_session_ids[completed]!r}"
                     break
                 if not isinstance(data, dict) or not isinstance(data.get("sentence"), list):
+                    stop_reason = f"line {line_no}: sentence is missing or not a list"
                     break
                 if str(data.get("conversation_time", "")).startswith("skipped"):
+                    stop_reason = f"line {line_no}: skip marker"
                     break
                 if len(data.get("sentence")) == 0:
+                    stop_reason = f"line {line_no}: empty sentence list"
                     break
                 completed += 1
     except Exception as e:
         return completed, f"stopped at {completed}: {e}"
-    return completed, f"{completed}/{len(expected_session_ids)} sessions complete"
+    suffix = f"; stopped: {stop_reason}" if stop_reason else ""
+    return completed, f"{completed}/{len(expected_session_ids)} sessions complete{suffix}"
 
 
 def _keyword_partial_progress(keyword_path: str) -> tuple:
@@ -133,34 +143,43 @@ def _keyword_partial_progress(keyword_path: str) -> tuple:
     if not os.path.exists(keyword_path):
         return 0, "file not found"
     completed = 0
+    stop_reason = ""
     try:
         with open(keyword_path, encoding="utf-8") as f:
-            for line in f:
+            for line_no, line in enumerate(f, start=1):
                 line = line.strip()
                 if not line:
+                    stop_reason = f"line {line_no}: blank line"
                     break
                 obj = json.loads(line)
                 if obj is None:
                     completed += 1
                     continue
                 if not isinstance(obj, dict) or not isinstance(obj.get("sentence"), list):
+                    stop_reason = f"line {line_no}: invalid keyword schema"
                     break
                 completed += 1
     except Exception as e:
         return completed, f"stopped at {completed}: {e}"
-    return completed, f"{completed} keyword rows complete"
+    suffix = f"; stopped: {stop_reason}" if stop_reason else ""
+    return completed, f"{completed} keyword rows complete{suffix}"
 
 
-def _truncate_jsonl_prefix(path: str, keep_lines: int) -> None:
+def _truncate_jsonl_prefix(path: str, keep_lines: int) -> str:
     """Keep only the first keep_lines non-empty JSONL records."""
     if not os.path.exists(path):
-        return
+        return ""
     with open(path, encoding="utf-8") as f:
         lines = [line for line in f if line.strip()]
     if len(lines) <= keep_lines:
-        return
+        return ""
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_path = f"{path}.bak_before_truncate_{stamp}_{os.getpid()}"
+    shutil.copyfile(path, backup_path)
+    logger.warning(f"Backed up {path} to {backup_path} before truncating {len(lines)} -> {keep_lines} lines.")
     with open(path, "w", encoding="utf-8") as f:
         f.writelines(lines[:keep_lines])
+    return backup_path
 
 
 def stratified_sample(question_list: dict, sample_id: str, per_category: int = 3, total: int = 15,
@@ -364,6 +383,10 @@ def main():
             expected_session_ids = list(sample.keys())
 
             rewrite_valid, rewrite_reason = _validate_rewrite_cache(rewrite_path, expected_sessions)
+            logger.info(
+                "Stage=rewrite sample=%s expected_sessions=%s rewrite_path=%s rewrite_tmp=%s valid=%s reason=%s",
+                sample_id, expected_sessions, rewrite_path, rewrite_tmp, rewrite_valid, rewrite_reason
+            )
             if rewrite_valid:
                 logger.info(f"Rewrite cache valid ({rewrite_reason}), skipping.")
             else:
@@ -401,6 +424,10 @@ def main():
                                     rewrite_sentence_count += len(_s)
 
             keyword_valid, keyword_reason = _validate_keyword_cache(keyword_path, rewrite_sentence_count)
+            logger.info(
+                "Stage=keyword sample=%s expected_sentence_count=%s keyword_path=%s keyword_tmp=%s valid=%s reason=%s",
+                sample_id, rewrite_sentence_count, keyword_path, keyword_tmp, keyword_valid, keyword_reason
+            )
             if keyword_valid:
                 logger.info(f"Keyword cache valid ({keyword_reason}), skipping.")
             else:
@@ -422,6 +449,7 @@ def main():
                     continue
 
             embedding_path = config.embedding_template.format(dataset=dataset, sample_id=sample_id)
+            logger.info("Stage=embedding sample=%s embedding_path=%s exists=%s", sample_id, embedding_path, os.path.exists(embedding_path))
             if not os.path.exists(embedding_path):
                 embed_sample(question_list[sample_id], rewrite_path, embedding_path)
             else:
@@ -429,6 +457,13 @@ def main():
 
             raw_text = raw_text_list[sample_id]
             id2emb, question_embeddings_all, topic_id_list, topic_embeddings = _get_conv_embeddings(embedding_path)
+            logger.info(
+                "Stage=store sample=%s event_embeddings=%s topic_ids=%s question_embeddings=%s",
+                sample_id,
+                len(id2emb) if id2emb is not None else 0,
+                len(topic_id_list) if topic_id_list is not None else 0,
+                len(question_embeddings_all) if question_embeddings_all is not None else 0,
+            )
             agent.store_raw_text(raw_text, id2emb, topic_id_list, topic_embeddings)
             agent.store_keyword(keyword_path, rewrite_path)
 
@@ -438,6 +473,7 @@ def main():
             # In answer_questions, _run_one receives (seq, orig_idx, qa) and accesses question_embeddings[orig_idx]
             # so pass all_embs (full list) not selected_question_embs
             result_path = config.result_template.format(dataset=dataset, sample_id=sample_id)
+            logger.info("Stage=qa sample=%s selected_questions=%s result_path=%s", sample_id, len(selected_qa), result_path)
             answer_questions(dataset, agent, selected_qa, sample_id, memory_system,
                              result_path, all_embs)
             processed_samples += 1
@@ -467,21 +503,37 @@ def log_config(config_module):
     logging.info("===================================")
 
 
+def warn_suspicious_run_config(config_module):
+    if getattr(config_module, "SAMPLE_IDS", None) and not getattr(config_module, "SUBSET_MANIFEST", None):
+        logging.warning(
+            "--sample_ids was provided without --subset_manifest; this will use local stratified sampling, "
+            "not the fixed 100q manifest."
+        )
+    if getattr(config_module, "SAMPLE_IDS", None) and getattr(config_module.args, "file", "0") == "0":
+        logging.warning(
+            "--file is still the default '0'; result files will be written as *_result_<model>_0.jsonl, "
+            "not *_mragent_100q.jsonl."
+        )
+    if getattr(config_module.args, "model", "") == "deepseek" and "api.siliconflow.cn" not in getattr(config_module, "LLM_BASE_URL", ""):
+        logging.warning(
+            "--model deepseek is active but LLM_BASE_URL is not SiliconFlow. Check .env or use an explicit provider URL."
+        )
+
+
 if __name__ == "__main__":
-    global_file_handler = logging.FileHandler(
-        f"log/run_{config.DATASET}_{config.ADDITIONAL_TK}_{config.ADDITIONAL_RE}.log",
-        encoding="utf-8"
-    )
     stream_handler = logging.StreamHandler()
     logging.basicConfig(
         level=logging.INFO,
         format='[%(asctime)s] [%(levelname)s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
-        handlers=[global_file_handler, stream_handler]
+        handlers=[stream_handler]
     )
+    _, run_log = add_run_file_handler(dataset=config.DATASET)
     logging.info("=== Program start (stratified) ===")
+    logging.info("Run log path: %s", run_log)
     log_config(config)
-    root_logger = logging.getLogger()
-    root_logger.removeHandler(global_file_handler)
-    global_file_handler.close()
-    main()
+    warn_suspicious_run_config(config)
+    try:
+        main()
+    finally:
+        logging.info("=== Program end (stratified) ===")

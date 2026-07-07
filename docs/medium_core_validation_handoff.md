@@ -10,6 +10,7 @@
 - graph snapshot 已证明 conv-30 的 gold evidence coverage 是 75/75。
 - single-hop 低分主要不是图构建缺失，而是 evaluation mismatch、图像证据缺失、tool path 漂移。
 - 现在要进入中型核心验证阶段，目标是判断 MRAgent 的图结构检索是否真的比更简单的检索方法强。
+- 但当前 10 个 sample 的对话级 cache 仍大量缺失，所以第一步不是继续评价，而是让所有 sample 的 rewrite / keyword / embedding / graph / result 产物可见、可审计、可续跑。
 
 不要直接全量跑 LoCoMo-10 的 1986 题。当前阶段固定为：
 
@@ -54,11 +55,92 @@ LoCoMo-10 / 100 questions / 同一题集 / 多方法对比
 
 注意：2026-07-07 发现过一个模型路由问题：`--re_model` 设置了重写模型，但旧版 `agent.rewrite()` / `agent.extract_keys()` 没有显式传入 `config.RE_MODEL`，因此实际仍可能调用 `MODEL`。新版已修复，rewrite 和 keyword 都应使用 `RE_MODEL`。如果 api_call_log 中 rewrite/keyword 仍显示 V4-Pro，而你期望的是 V4-Flash，先停下来检查环境变量和命令行参数，不要继续跑。
 
+2026-07-07 又发现一个运行命令风险：
+
+```text
+/data/nishome/cuiwenjia/MRAgent-Reproduction/.venv/bin/python3 run_stratified.py --sample_ids 26 --model deepseek
+```
+
+这条裸命令不能作为中型验证命令，因为它会带来以下风险：
+
+- 没有 `--subset_manifest`，不会使用固定 100q manifest，而是退回本地随机分层抽样。
+- 没有 `--file mragent_100q`，结果会写成 `*_result_deepseek_0.jsonl`，容易和正式结果混淆。
+- 没有 `--re_model v4flash`，rewrite/keyword 会默认跟随 `MODEL`。
+- 如果 `.env` 没有设置 `LLM_BASE_URL` 或 `DEEPSEEK_MODEL_ID`，旧代码可能退到错误 provider 或错误模型。
+
+每次正式运行前必须先使用：
+
+```text
+repro/audit_runtime_config.py
+```
+
+确认以下字段：
+
+- `MODEL`
+- `RE_MODEL`
+- `LLM_BASE_URL`
+- `SAMPLE_IDS`
+- `SUBSET_MANIFEST`
+- `ADDITIONAL_RE`
+- `result_template`
+- `rewrite_template`
+
+中型验证的最低完整参数应包含：
+
+```text
+--data locomo
+--sample_ids 26
+--model deepseek
+--re_model v4flash
+--file mragent_100q
+--subset_manifest data/subsets/locomo10_100q_seed42.json
+```
+
 不要为了提速临时改变 prompt、抽样题集或评价脚本，否则 100 题对比会失去可解释性。
 
 ## Request
 
 请完成中型核心验证实验的准备和第一轮运行。重点不是追求最大规模，而是保证所有方法在同一批 100 题上比较。
+
+### 任务 0：每次推送前更新服务器目录清单
+
+当前最主要的问题之一是服务器上 sample cache、graph snapshot、result、log 的位置不透明。每次服务器运行和推送前，必须先更新目录清单。
+
+使用代码：
+
+```text
+repro/update_server_directory_manifest.py
+```
+
+扫描根目录固定为：
+
+```text
+/data/nishome/cuiwenjia/MRAgent-Reproduction
+```
+
+默认输出：
+
+```text
+reports/server_directory_manifest.md
+reports/server_directory_manifest.jsonl
+```
+
+清单必须提交到 GitHub。它用于回答：
+
+- 哪些 sample 已有 rewrite / keyword / embedding cache。
+- 哪些 result JSONL 已经生成。
+- graph snapshot 节点/边文件在哪里。
+- 每次运行的 run log、sample log、API call log 在哪里。
+- 是否存在脏 `.tmp`、`.bak_before_truncate_*`、skip marker 相关文件。
+
+默认跳过 `.git`、`.venv`、`__pycache__` 等非实验产物目录；如果确实需要全量本地排查，可以临时加 `--include_venv`，但不要提交巨大的 venv manifest。
+
+每次反馈必须包含：
+
+- `reports/server_directory_manifest.md` 是否更新。
+- `reports/server_directory_manifest.jsonl` 文件数。
+- 当前 `data/locomo/rewrite_deepseek/`、`data/locomo/keyword_deepseek/`、`data/locomo/embedding/gpt_deepseek/`、`result/locomo/`、`result/graph_snapshot/`、`log/locomo/runs/` 的文件摘要。
+- 新 commit hash。
 
 ### 任务 1：构建固定 100 题 subset manifest
 
@@ -187,6 +269,7 @@ CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
 - 该类脚本可能向 rewrite `.tmp` 写入 `conversation_time: skipped-api-timeout` 和空 `sentence: []`。
 - 新版 `run_stratified.py` 会拒绝这种 skip marker，不再把它当作有效 rewrite cache。
 - 如果服务器上已经产生过 skip marker，必须先用 `repro/audit_rewrite_cache.py` 审计，再只保留连续有效前缀。
+- 新版 `run_stratified.py` 在截断 JSONL 前会自动写 `.bak_before_truncate_*` 备份；如果误截断，先找备份，不要直接重跑已完成 session。
 
 审计命令使用的代码：
 
@@ -202,6 +285,27 @@ repro/audit_rewrite_cache.py
 - 是否有空 sentence list。
 - 是否有 JSON parse error。
 - 最后一个有效 session id。
+
+如果 `.tmp` 已经从 8 行误截断成 1 行：
+
+1. 先查找备份文件：
+
+```text
+data/locomo/rewrite_deepseek/conv-26_rewrite.json.tmp.bak_before_truncate_*
+```
+
+2. 对每个备份运行 `repro/audit_rewrite_cache.py`。
+3. 选择 `valid_prefix_count` 最大、且无 skip marker 的备份恢复为 `.tmp`。
+4. 如果没有可用备份，才从当前 `.tmp` 继续重跑。
+5. 为避免 SDK 内部静默重试吞掉日志，诊断阶段必须设置：
+
+```text
+API_CLIENT_MAX_RETRIES=0
+API_CALL_MAX_RETRIES=1
+CHAT_TEXT_PARSE_MAX_ATTEMPTS=1
+```
+
+这样 timeout 会进入应用层日志，并带有 `stage=rewrite`。
 
 ### 任务 3：运行 Standard RAG on 100q subset
 
@@ -329,6 +433,45 @@ reports/medium_core_validation_100q_YYYYMMDD.md
 7. 初步指标。
 8. 是否有任何 runner 未按 manifest 运行。
 9. 新提交的报告路径和 commit hash。
+
+## 运行日志要求
+
+每次服务器运行都必须保留完整日志，不要只依赖终端输出。
+
+当前代码会自动生成：
+
+```text
+log/<dataset>/runs/<RUN_ID>_<model>_<file>.log
+log/<dataset>/<sample>_<model>_<file>_<RUN_ID>.log
+result/diagnostics/api_call_log_<RUN_ID>.jsonl
+result/diagnostics/api_call_log.jsonl
+```
+
+如果启用 embedding 诊断：
+
+```text
+DIAGNOSTIC_LOG=1
+result/diagnostics/raw_embedding_calls_<RUN_ID>.jsonl
+result/diagnostics/raw_embedding_calls.jsonl
+```
+
+每次反馈必须写明：
+
+- `RUN_ID`
+- run-level log 路径
+- sample-level log 路径
+- API call log 路径
+- result JSONL 路径
+- 当前停在哪个 stage：rewrite / keyword / embedding / store / qa
+- 最后一个已完成 session 或 question
+
+正式运行建议显式设置 `RUN_ID`，例如：
+
+```text
+RUN_ID=conv26_mragent_100q_20260707_01
+```
+
+这样所有日志和诊断文件会使用同一个可追踪前缀。
 
 ## Constraints
 
