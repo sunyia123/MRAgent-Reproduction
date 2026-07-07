@@ -10,6 +10,7 @@
 - graph snapshot 已证明 conv-30 的 gold evidence coverage 是 75/75。
 - single-hop 低分主要不是图构建缺失，而是 evaluation mismatch、图像证据缺失、tool path 漂移。
 - 现在要进入中型核心验证阶段，目标是判断 MRAgent 的图结构检索是否真的比更简单的检索方法强。
+- 但当前 10 个 sample 的对话级 cache 仍大量缺失，所以第一步不是继续评价，而是让所有 sample 的 rewrite / keyword / embedding / graph / result 产物可见、可审计、可续跑。
 
 不要直接全量跑 LoCoMo-10 的 1986 题。当前阶段固定为：
 
@@ -100,6 +101,46 @@ repro/audit_runtime_config.py
 ## Request
 
 请完成中型核心验证实验的准备和第一轮运行。重点不是追求最大规模，而是保证所有方法在同一批 100 题上比较。
+
+### 任务 0：每次推送前更新服务器目录清单
+
+当前最主要的问题之一是服务器上 sample cache、graph snapshot、result、log 的位置不透明。每次服务器运行和推送前，必须先更新目录清单。
+
+使用代码：
+
+```text
+repro/update_server_directory_manifest.py
+```
+
+扫描根目录固定为：
+
+```text
+/data/nishome/cuiwenjia/MRAgent-Reproduction
+```
+
+默认输出：
+
+```text
+reports/server_directory_manifest.md
+reports/server_directory_manifest.jsonl
+```
+
+清单必须提交到 GitHub。它用于回答：
+
+- 哪些 sample 已有 rewrite / keyword / embedding cache。
+- 哪些 result JSONL 已经生成。
+- graph snapshot 节点/边文件在哪里。
+- 每次运行的 run log、sample log、API call log 在哪里。
+- 是否存在脏 `.tmp`、`.bak_before_truncate_*`、skip marker 相关文件。
+
+默认跳过 `.git`、`.venv`、`__pycache__` 等非实验产物目录；如果确实需要全量本地排查，可以临时加 `--include_venv`，但不要提交巨大的 venv manifest。
+
+每次反馈必须包含：
+
+- `reports/server_directory_manifest.md` 是否更新。
+- `reports/server_directory_manifest.jsonl` 文件数。
+- 当前 `data/locomo/rewrite_deepseek/`、`data/locomo/keyword_deepseek/`、`data/locomo/embedding/gpt_deepseek/`、`result/locomo/`、`result/graph_snapshot/`、`log/locomo/runs/` 的文件摘要。
+- 新 commit hash。
 
 ### 任务 1：构建固定 100 题 subset manifest
 
