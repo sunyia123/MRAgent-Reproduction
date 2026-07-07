@@ -73,6 +73,7 @@ API_TIMEOUT_SECONDS = float(os.getenv("API_TIMEOUT_SECONDS", "600"))
 API_CLIENT_MAX_RETRIES = int(os.getenv("API_CLIENT_MAX_RETRIES", "2"))
 API_CALL_MAX_RETRIES = int(os.getenv("API_CALL_MAX_RETRIES", "3"))
 CHAT_TEXT_PARSE_MAX_ATTEMPTS = int(os.getenv("CHAT_TEXT_PARSE_MAX_ATTEMPTS", "3"))
+ENABLE_JSON_REPAIR = os.getenv("ENABLE_JSON_REPAIR", "") == "1"  # strictly opt-in: set ENABLE_JSON_REPAIR=1 to enable
 sample_id = args.sample
 qu = args.qu
 ca = args.ca

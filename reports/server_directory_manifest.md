@@ -1,6 +1,6 @@
 # Server Directory Manifest
 
-Generated: `2026-07-07T19:50:55`
+Generated: `2026-07-07T20:10:41`
 Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 
 ## Scan Policy
@@ -10,7 +10,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 
 ## Summary
 
-- Files listed: `194`
+- Files listed: `197`
 
 ### Top-Level Counts
 
@@ -33,7 +33,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `log` | 19 |
 | `memory` | 3 |
 | `prompts` | 3 |
-| `reports` | 27 |
+| `reports` | 30 |
 | `repro` | 19 |
 | `requirements.txt` | 1 |
 | `result` | 68 |
@@ -47,14 +47,44 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 |---|---:|
 | `.json` | 60 |
 | `.py` | 46 |
-| `.md` | 40 |
-| `.jsonl` | 21 |
+| `.md` | 42 |
+| `.jsonl` | 22 |
 | `.log` | 19 |
 | `[no suffix]` | 4 |
 | `.example` | 1 |
 | `.pkl` | 1 |
 | `.tmp` | 1 |
 | `.txt` | 1 |
+
+## Per-Sample Cache Summary
+
+| sample | sessions | rewrite | keyword | embedding | results | graph | logs |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| conv-26 | 19 | deepseek.tmp(valid=1) | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-30 | 19 | deepseek: 19/19<br>deepseek_vlm: 3/19 | deepseek: 19 lines | gpt_deepseek: 22605 KB | 8 files | 2 files | ❌ |
+| conv-41 | 32 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-42 | 29 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-43 | 29 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-44 | 28 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-47 | 31 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-48 | 30 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-49 | 25 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| conv-50 | 30 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+### Cache Completeness
+
+| sample | rewrite ready | keyword ready | embedding ready | overall |
+|---|---:|---:|---:|---:|
+| conv-26 | ❌ | ❌ | ❌ | ❌ |
+| conv-30 | ✅ | ✅ | ✅ | ✅ |
+| conv-41 | ❌ | ❌ | ❌ | ❌ |
+| conv-42 | ❌ | ❌ | ❌ | ❌ |
+| conv-43 | ❌ | ❌ | ❌ | ❌ |
+| conv-44 | ❌ | ❌ | ❌ | ❌ |
+| conv-47 | ❌ | ❌ | ❌ | ❌ |
+| conv-48 | ❌ | ❌ | ❌ | ❌ |
+| conv-49 | ❌ | ❌ | ❌ | ❌ |
+| conv-50 | ❌ | ❌ | ❌ | ❌ |
 
 ## Files
 
@@ -71,7 +101,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `agent/agent.py` | 45294 | `2026-07-07T16:18:49` |
 | `agent/tools.py` | 6158 | `2026-06-30T21:42:53` |
 | `common/__init__.py` | 0 | `2026-06-30T21:42:53` |
-| `common/config.py` | 7358 | `2026-07-07T19:50:25` |
+| `common/config.py` | 7477 | `2026-07-07T20:08:41` |
 | `common/logging_utils.py` | 2885 | `2026-07-07T19:50:07` |
 | `common/utils.py` | 4472 | `2026-06-30T21:42:53` |
 | `data/README.md` | 978 | `2026-07-02T11:20:10` |
@@ -108,7 +138,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `eval/judge.py` | 4616 | `2026-07-01T15:57:27` |
 | `eval/memory_audit.py` | 12009 | `2026-07-01T15:57:27` |
 | `llm/__init__.py` | 0 | `2026-06-30T21:42:54` |
-| `llm/controller.py` | 20535 | `2026-07-07T19:50:07` |
+| `llm/controller.py` | 20958 | `2026-07-07T20:08:51` |
 | `llm/embeddings.py` | 6307 | `2026-07-07T19:50:07` |
 | `llm/rag_utils.py` | 1202 | `2026-06-30T21:42:54` |
 | `log/locomo/conv-26_deepseek_0.log` | 731 | `2026-07-07T19:39:47` |
@@ -141,6 +171,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `reports/badcase_pack_conv30_stratified_20260706.md` | 2273 | `2026-07-06T14:47:09` |
 | `reports/badcase_pack_conv30_stratified_20260706_server_review.md` | 24192 | `2026-07-06T21:44:30` |
 | `reports/benchmark_data_audit_20260702.md` | 2419 | `2026-07-02T11:30:16` |
+| `reports/conv26_rewrite_tmp_audit_20260707.md` | 3019 | `2026-07-07T20:08:27` |
 | `reports/dataset_task_audit_locomo_20260706.md` | 1659 | `2026-07-06T14:47:09` |
 | `reports/dataset_task_audit_locomo_20260706_server.md` | 1659 | `2026-07-06T14:47:09` |
 | `reports/diagnose_conv26_D9_20260707.md` | 6660 | `2026-07-07T16:04:22` |
@@ -155,6 +186,8 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `reports/rag_vs_mragent_conv30_stratified_20260706.md` | 4735 | `2026-07-06T22:56:19` |
 | `reports/reproduction_audit_20260701.md` | 12714 | `2026-07-01T15:57:27` |
 | `reports/runtime_model_config_audit_20260707.md` | 3107 | `2026-07-07T19:50:07` |
+| `reports/server_directory_manifest.jsonl` | 24882 | `2026-07-07T19:50:55` |
+| `reports/server_directory_manifest.md` | 17366 | `2026-07-07T19:50:55` |
 | `reports/stage_b_clean_conv30_20260702.md` | 10209 | `2026-07-02T09:33:02` |
 | `reports/stage_b_eval_audit_20260701.md` | 16758 | `2026-07-02T09:12:13` |
 | `reports/standard_rag_baseline_20260702.md` | 2956 | `2026-07-02T13:08:40` |
@@ -180,7 +213,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `repro/run_vlm_enriched_rewrite.py` | 18390 | `2026-07-03T09:36:32` |
 | `repro/smart_retry_batch.py` | 5239 | `2026-07-07T16:46:39` |
 | `repro/summarize_core_validation.py` | 5936 | `2026-07-06T22:57:31` |
-| `repro/update_server_directory_manifest.py` | 5323 | `2026-07-07T19:50:07` |
+| `repro/update_server_directory_manifest.py` | 15161 | `2026-07-07T20:09:42` |
 | `repro/validate_vlm_tool.py` | 11002 | `2026-07-02T11:20:10` |
 | `requirements.txt` | 470 | `2026-06-30T21:42:54` |
 | `result/diagnostics/api_call_log.jsonl` | 155198 | `2026-07-07T19:13:36` |

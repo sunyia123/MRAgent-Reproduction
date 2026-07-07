@@ -9,7 +9,7 @@
 {"mtime": "2026-07-07T16:18:49", "path": "agent/agent.py", "size_bytes": 45294, "suffix": ".py"}
 {"mtime": "2026-06-30T21:42:53", "path": "agent/tools.py", "size_bytes": 6158, "suffix": ".py"}
 {"mtime": "2026-06-30T21:42:53", "path": "common/__init__.py", "size_bytes": 0, "suffix": ".py"}
-{"mtime": "2026-07-07T19:50:25", "path": "common/config.py", "size_bytes": 7358, "suffix": ".py"}
+{"mtime": "2026-07-07T20:08:41", "path": "common/config.py", "size_bytes": 7477, "suffix": ".py"}
 {"mtime": "2026-07-07T19:50:07", "path": "common/logging_utils.py", "size_bytes": 2885, "suffix": ".py"}
 {"mtime": "2026-06-30T21:42:53", "path": "common/utils.py", "size_bytes": 4472, "suffix": ".py"}
 {"mtime": "2026-07-02T11:20:10", "path": "data/README.md", "size_bytes": 978, "suffix": ".md"}
@@ -46,7 +46,7 @@
 {"mtime": "2026-07-01T15:57:27", "path": "eval/judge.py", "size_bytes": 4616, "suffix": ".py"}
 {"mtime": "2026-07-01T15:57:27", "path": "eval/memory_audit.py", "size_bytes": 12009, "suffix": ".py"}
 {"mtime": "2026-06-30T21:42:54", "path": "llm/__init__.py", "size_bytes": 0, "suffix": ".py"}
-{"mtime": "2026-07-07T19:50:07", "path": "llm/controller.py", "size_bytes": 20535, "suffix": ".py"}
+{"mtime": "2026-07-07T20:08:51", "path": "llm/controller.py", "size_bytes": 20958, "suffix": ".py"}
 {"mtime": "2026-07-07T19:50:07", "path": "llm/embeddings.py", "size_bytes": 6307, "suffix": ".py"}
 {"mtime": "2026-06-30T21:42:54", "path": "llm/rag_utils.py", "size_bytes": 1202, "suffix": ".py"}
 {"mtime": "2026-07-07T19:39:47", "path": "log/locomo/conv-26_deepseek_0.log", "size_bytes": 731, "suffix": ".log"}
@@ -79,6 +79,7 @@
 {"mtime": "2026-07-06T14:47:09", "path": "reports/badcase_pack_conv30_stratified_20260706.md", "size_bytes": 2273, "suffix": ".md"}
 {"mtime": "2026-07-06T21:44:30", "path": "reports/badcase_pack_conv30_stratified_20260706_server_review.md", "size_bytes": 24192, "suffix": ".md"}
 {"mtime": "2026-07-02T11:30:16", "path": "reports/benchmark_data_audit_20260702.md", "size_bytes": 2419, "suffix": ".md"}
+{"mtime": "2026-07-07T20:08:27", "path": "reports/conv26_rewrite_tmp_audit_20260707.md", "size_bytes": 3019, "suffix": ".md"}
 {"mtime": "2026-07-06T14:47:09", "path": "reports/dataset_task_audit_locomo_20260706.md", "size_bytes": 1659, "suffix": ".md"}
 {"mtime": "2026-07-06T14:47:09", "path": "reports/dataset_task_audit_locomo_20260706_server.md", "size_bytes": 1659, "suffix": ".md"}
 {"mtime": "2026-07-07T16:04:22", "path": "reports/diagnose_conv26_D9_20260707.md", "size_bytes": 6660, "suffix": ".md"}
@@ -93,6 +94,8 @@
 {"mtime": "2026-07-06T22:56:19", "path": "reports/rag_vs_mragent_conv30_stratified_20260706.md", "size_bytes": 4735, "suffix": ".md"}
 {"mtime": "2026-07-01T15:57:27", "path": "reports/reproduction_audit_20260701.md", "size_bytes": 12714, "suffix": ".md"}
 {"mtime": "2026-07-07T19:50:07", "path": "reports/runtime_model_config_audit_20260707.md", "size_bytes": 3107, "suffix": ".md"}
+{"mtime": "2026-07-07T19:50:55", "path": "reports/server_directory_manifest.jsonl", "size_bytes": 24882, "suffix": ".jsonl"}
+{"mtime": "2026-07-07T19:50:55", "path": "reports/server_directory_manifest.md", "size_bytes": 17366, "suffix": ".md"}
 {"mtime": "2026-07-02T09:33:02", "path": "reports/stage_b_clean_conv30_20260702.md", "size_bytes": 10209, "suffix": ".md"}
 {"mtime": "2026-07-02T09:12:13", "path": "reports/stage_b_eval_audit_20260701.md", "size_bytes": 16758, "suffix": ".md"}
 {"mtime": "2026-07-02T13:08:40", "path": "reports/standard_rag_baseline_20260702.md", "size_bytes": 2956, "suffix": ".md"}
@@ -118,7 +121,7 @@
 {"mtime": "2026-07-03T09:36:32", "path": "repro/run_vlm_enriched_rewrite.py", "size_bytes": 18390, "suffix": ".py"}
 {"mtime": "2026-07-07T16:46:39", "path": "repro/smart_retry_batch.py", "size_bytes": 5239, "suffix": ".py"}
 {"mtime": "2026-07-06T22:57:31", "path": "repro/summarize_core_validation.py", "size_bytes": 5936, "suffix": ".py"}
-{"mtime": "2026-07-07T19:50:07", "path": "repro/update_server_directory_manifest.py", "size_bytes": 5323, "suffix": ".py"}
+{"mtime": "2026-07-07T20:09:42", "path": "repro/update_server_directory_manifest.py", "size_bytes": 15161, "suffix": ".py"}
 {"mtime": "2026-07-02T11:20:10", "path": "repro/validate_vlm_tool.py", "size_bytes": 11002, "suffix": ".py"}
 {"mtime": "2026-06-30T21:42:54", "path": "requirements.txt", "size_bytes": 470, "suffix": ".txt"}
 {"mtime": "2026-07-07T19:13:36", "path": "result/diagnostics/api_call_log.jsonl", "size_bytes": 155198, "suffix": ".jsonl"}

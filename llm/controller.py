@@ -442,14 +442,22 @@ class LLM:
             _log_from_error(
                 call_type="chat_text_fallback",
                 req={"messages_summary": str(messages[-1].get("content", ""))[:500] if messages else ""},
-                error=f"chat_text: all parse attempts exhausted; attempting JSON repair (head={last_text[:200]!r})",
+                error=f"chat_text: all parse attempts exhausted (head={last_text[:200]!r})",
                 stage=getattr(self, "_current_stage", None),
             )
-            logger.warning(
-                f"chat_text: all {max_attempts} parse attempts failed; "
-                f"calling repair LLM (head={last_text[:120]!r})"
-            )
-            json_out = self._repair_json_format(messages, last_text, model)
+            if config.ENABLE_JSON_REPAIR:
+                logger.warning(
+                    f"chat_text: all {max_attempts} parse attempts failed; "
+                    f"calling repair LLM (head={last_text[:120]!r})"
+                )
+                json_out = self._repair_json_format(messages, last_text, model)
+            else:
+                raise RuntimeError(
+                    f"chat_text: all {max_attempts} JSON parse attempts exhausted. "
+                    f"stage={getattr(self, '_current_stage', None)}, "
+                    f"raw_head={last_text[:300]!r}. "
+                    f"Set ENABLE_JSON_REPAIR=1 to enable automatic repair, or check the raw response."
+                )
 
         return json_out
 
