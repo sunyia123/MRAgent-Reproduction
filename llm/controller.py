@@ -342,6 +342,7 @@ class LLM:
             extra["max_tokens"] = max_tokens
         max_attempts = config.CHAT_TEXT_PARSE_MAX_ATTEMPTS
         json_out = None
+        _last_raw_text = ""
 
         for attempt in range(max_attempts):
 
@@ -364,6 +365,8 @@ class LLM:
             else:
                 text = getattr(ch0, "text", "") or ""
 
+            _last_raw_text = text
+
             try:
                 json_out = json.loads(text)
                 break
@@ -375,6 +378,24 @@ class LLM:
                     # log the error and keep retrying even if parsing fails
                     logger.warning(f"chat_text: failed to parse JSON on attempt {attempt}: {e}")
                     continue
+
+        # Fallback: if all attempts failed to produce JSON, wrap the last raw text
+        # as a dict instead of returning None.  This prevents downstream crashes
+        # and records a badcase for later analysis.
+        if json_out is None:
+            last_text = (_last_raw_text or "").strip()
+            json_out = {"_fallback_text": last_text}
+            _log_from_error(
+                call_type="chat_text_fallback",
+                req={"messages_summary": str(messages[-1].get("content", ""))[:500] if messages else ""},
+                error=f"chat_text: all parse attempts exhausted; wrapping raw text as _fallback_text (head={last_text[:200]!r})",
+                stage=getattr(self, "_current_stage", None),
+            )
+            logger.warning(
+                f"chat_text: all {max_attempts} parse attempts failed; "
+                f"wrapping raw text as _fallback_text (head={last_text[:120]!r})"
+            )
+
         return json_out
 
 
