@@ -134,15 +134,13 @@ def answer_question_rag(llm: LLM, question: str, context: str) -> str:
     """Simple single-turn RAG QA."""
     user_msg = f"Question: {question}\n\nContext:\n{context}\n\nAnswer:"
     try:
-        result = llm.chat_text(
+        result = llm.chat_plain_text(
             messages=[
                 {"role": "system", "content": RAG_SYSTEM_PROMPT},
                 {"role": "user", "content": user_msg},
             ],
             max_tokens=config.QA_MAX_TOKENS,
         )
-        if isinstance(result, dict):
-            return result.get("answer", str(result))
         return str(result or "no information available")
     except Exception as e:
         logger.error(f"RAG QA failed: {e}")

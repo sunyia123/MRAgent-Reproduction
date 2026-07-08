@@ -79,15 +79,13 @@ def evidence_context(sentences: list[dict[str, Any]], evidence_ids: list[Any]) -
 
 
 def answer(llm: LLM, question: str, context: str) -> str:
-    result = llm.chat_text(
+    result = llm.chat_plain_text(
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"Question: {question}\n\nGold evidence context:\n{context}\n\nAnswer:"},
         ],
         max_tokens=config.QA_MAX_TOKENS,
     )
-    if isinstance(result, dict):
-        return str(result.get("answer", result))
     return str(result or "no information available")
 
 
