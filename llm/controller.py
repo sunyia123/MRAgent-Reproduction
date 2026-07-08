@@ -38,7 +38,10 @@ class ApiHardTimeoutError(TimeoutError):
 
 @contextlib.contextmanager
 def _hard_timeout(seconds: float):
-    """Unix hard timeout for SDK calls that can hang below the SDK timeout layer."""
+    """Unix hard timeout for SDK calls that can hang below the SDK timeout layer.
+
+    Falls back to SDK timeout only when SIGALRM is unavailable (non-main thread).
+    """
     if not seconds or seconds <= 0 or not hasattr(signal, "SIGALRM"):
         yield
         return
@@ -46,8 +49,13 @@ def _hard_timeout(seconds: float):
     def _handler(signum, frame):
         raise ApiHardTimeoutError(f"API hard timeout after {seconds}s")
 
-    old_handler = signal.getsignal(signal.SIGALRM)
-    signal.signal(signal.SIGALRM, _handler)
+    try:
+        old_handler = signal.getsignal(signal.SIGALRM)
+        signal.signal(signal.SIGALRM, _handler)  # may raise ValueError in worker threads
+    except (ValueError, OSError):
+        yield  # not in main thread — rely on SDK timeout only
+        return
+
     signal.setitimer(signal.ITIMER_REAL, seconds)
     try:
         yield
@@ -650,12 +658,12 @@ class LLM:
                 )
                 json_out = self._repair_json_format(messages, last_text, model)
             else:
-                raise RuntimeError(
-                    f"chat_text: all {max_attempts} JSON parse attempts exhausted. "
-                    f"stage={getattr(self, '_current_stage', None)}, "
-                    f"raw_head={last_text[:300]!r}. "
-                    f"Set ENABLE_JSON_REPAIR=1 to enable automatic repair, or check the raw response."
+                logger.warning(
+                    f"chat_text: all {max_attempts} parse attempts exhausted; "
+                    f"returning raw text as fallback (stage={getattr(self, '_current_stage', None)}, "
+                    f"head={last_text[:120]!r})"
                 )
+                json_out = last_text
 
         return json_out
 
