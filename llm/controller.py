@@ -581,6 +581,45 @@ class LLM:
                     continue
         return json_out
 
+    @staticmethod
+    def _completion_text(comp) -> str:
+        ch0 = comp.choices[0]
+        msg = getattr(ch0, "message", None)
+        if msg is not None:
+            content = msg.content
+            if isinstance(content, list):
+                return "".join(
+                    getattr(part, "text", "") for part in content
+                    if getattr(part, "type", "") == "text"
+                )
+            return content or ""
+        return getattr(ch0, "text", "") or ""
+
+    def chat_plain_text(
+            self,
+            *,
+            messages: List[Dict[str, Any]],
+            model: str = config.MODEL,
+            temperature: float = 0.0,
+            max_tokens: Optional[int] = None,
+            **extra
+    ) -> str:
+        """Single-turn plain-text chat for QA baselines.
+
+        Use this when the prompt asks for a natural-language answer. Keep
+        chat_text for prompts that explicitly require JSON objects.
+        """
+        if max_tokens is not None:
+            extra["max_tokens"] = max_tokens
+        comp = self.chat_with_tool(
+            messages=messages,
+            model=model,
+            use_tool=False,
+            temperature=temperature,
+            **extra,
+        )
+        return self._completion_text(comp).strip()
+
 
 
 

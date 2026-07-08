@@ -177,15 +177,13 @@ def build_context(ids: list[str], graph: dict[str, Any], limit: int) -> str:
 
 
 def answer(llm: LLM, question: str, context: str) -> str:
-    result = llm.chat_text(
+    result = llm.chat_plain_text(
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"Question: {question}\n\nContext:\n{context}\n\nAnswer:"},
         ],
         max_tokens=config.QA_MAX_TOKENS,
     )
-    if isinstance(result, dict):
-        return str(result.get("answer", result))
     return str(result or "no information available")
 
 
