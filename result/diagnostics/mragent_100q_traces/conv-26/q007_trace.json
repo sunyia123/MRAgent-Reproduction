@@ -1,0 +1,28 @@
+{
+  "sample": "conv-26",
+  "question_index": 7,
+  "category": 4,
+  "question": "What did the charity race raise awareness for?",
+  "gold_answer": "mental health",
+  "gold_evidence": [
+    "D2:2"
+  ],
+  "prediction": "mental health",
+  "prediction_context": [
+    "D2:1",
+    "D2:2"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 262.98
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

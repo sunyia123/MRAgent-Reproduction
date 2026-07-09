@@ -1,0 +1,31 @@
+{
+  "sample": "conv-42",
+  "question_index": 1,
+  "category": 3,
+  "question": "Is it likely that Nate has friends besides Joanna?",
+  "gold_answer": "Yesteammates on hisvideo game team.",
+  "gold_evidence": [
+    "D1:7"
+  ],
+  "prediction": "Yes",
+  "prediction_context": [
+    "D2:16-1:Nate:Yeah actually! I start to hang out with some people outside of my circle at the tournament. They're pretty cool!",
+    "D14:14-1:Nate:I talked to some of the guys at the tournament afterwards, and they said they wanted to hang out later!",
+    "D16:3-1:Joanna:Nice! Did your friends like the controller accessories?",
+    "D16:4-1:Nate:Most of them did!",
+    "D23:3-3:Nate:I even made some friends at the convention who love games just like me. We already planned a gaming session together"
+  ],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 663.46
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

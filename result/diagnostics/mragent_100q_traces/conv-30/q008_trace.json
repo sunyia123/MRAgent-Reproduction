@@ -1,0 +1,30 @@
+{
+  "sample": "conv-30",
+  "question_index": 8,
+  "category": 4,
+  "question": "What does Jon plan to do at the grand opening of his dance studio?",
+  "gold_answer": "savor all the good vibes",
+  "gold_evidence": [
+    "D15:9"
+  ],
+  "prediction": "make some awesome memories and savor all the good vibes",
+  "prediction_context": [
+    "D15:13",
+    "D15:9",
+    "D15:7",
+    "D15:11"
+  ],
+  "f1": 0.667,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 8,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 659.33
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

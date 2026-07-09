@@ -1,0 +1,28 @@
+{
+  "sample": "conv-42",
+  "question_index": 8,
+  "category": 4,
+  "question": "What did Nate do while Joanna was on her road trip?",
+  "gold_answer": "Won a video game tournament",
+  "gold_evidence": [
+    "D17:2"
+  ],
+  "prediction": "won his fourth video game tournament",
+  "prediction_context": [
+    "D17:1",
+    "D17:2"
+  ],
+  "f1": 0.8,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 640.05
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

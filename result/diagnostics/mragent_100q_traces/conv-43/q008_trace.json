@@ -1,0 +1,27 @@
+{
+  "sample": "conv-43",
+  "question_index": 8,
+  "category": 4,
+  "question": "What was Tim's huge writing issue last week,as mentioned on November 6, 2023?",
+  "gold_answer": "He got stuck on a plot twist",
+  "gold_evidence": [
+    "D16:1"
+  ],
+  "prediction": "got stuck on a plot twist and couldn't find my way out",
+  "prediction_context": [
+    "D16:1"
+  ],
+  "f1": 0.625,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 0,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 130.68
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

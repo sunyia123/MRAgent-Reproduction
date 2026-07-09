@@ -1,0 +1,26 @@
+{
+  "sample": "conv-50",
+  "question_index": 6,
+  "category": 1,
+  "question": "Who supports Calvin in tough times?",
+  "gold_answer": "friends and team",
+  "gold_evidence": [
+    "D25:6",
+    "D29:7"
+  ],
+  "prediction": "ERROR",
+  "prediction_context": [],
+  "f1": 0.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 0,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 0
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

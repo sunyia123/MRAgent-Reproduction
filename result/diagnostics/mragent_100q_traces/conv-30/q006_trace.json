@@ -1,0 +1,27 @@
+{
+  "sample": "conv-30",
+  "question_index": 6,
+  "category": 4,
+  "question": "What is Jon offering to the dancers at his dance studio?",
+  "gold_answer": "One-on-one mentoring and training",
+  "gold_evidence": [
+    "D13:7"
+  ],
+  "prediction": "one-on-one mentoring and training",
+  "prediction_context": [
+    "D13:7"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 1,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 864.0
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

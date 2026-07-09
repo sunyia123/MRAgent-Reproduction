@@ -1,0 +1,31 @@
+{
+  "sample": "conv-47",
+  "question_index": 4,
+  "category": 1,
+  "question": "Who or which organizations have been the beneficiaries of John's charity tournaments?",
+  "gold_answer": "animal shelter, homeless, children's hospital",
+  "gold_evidence": [
+    "D10:10",
+    "D10:12",
+    "D29:1"
+  ],
+  "prediction": "a children's hospital",
+  "prediction_context": [
+    "D29:1",
+    "D29:2",
+    "D29:3"
+  ],
+  "f1": 0.571,
+  "evidence_hit": 0.333,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 8,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1893.84
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

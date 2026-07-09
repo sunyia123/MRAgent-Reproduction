@@ -1,0 +1,27 @@
+{
+  "sample": "conv-50",
+  "question_index": 8,
+  "category": 4,
+  "question": "What new item did Dave buy recently?",
+  "gold_answer": "A vintage camera",
+  "gold_evidence": [
+    "D30:5"
+  ],
+  "prediction": "a new vintage camera",
+  "prediction_context": [
+    "D30:5"
+  ],
+  "f1": 0.8,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 6,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 391.95
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

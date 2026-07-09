@@ -1,0 +1,29 @@
+{
+  "sample": "conv-26",
+  "question_index": 4,
+  "category": 1,
+  "question": "What are Melanie's pets' names?",
+  "gold_answer": "Oliver, Luna, Bailey",
+  "gold_evidence": [
+    "D13:4",
+    "D7:18"
+  ],
+  "prediction": "Luna, Oliver, and Bailey",
+  "prediction_context": [
+    "D7:18",
+    "D13:4"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 375.06
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

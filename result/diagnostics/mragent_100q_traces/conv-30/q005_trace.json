@@ -1,0 +1,27 @@
+{
+  "sample": "conv-30",
+  "question_index": 5,
+  "category": 4,
+  "question": "What does Gina's tattoo symbolize?",
+  "gold_answer": "Freedom and expressing herself through dance",
+  "gold_evidence": [
+    "D5:15"
+  ],
+  "prediction": "Freedom - dancing without worrying what people think. A reminder to follow my passions and express myself.",
+  "prediction_context": [
+    "D5:15"
+  ],
+  "f1": 0.316,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 252.33
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

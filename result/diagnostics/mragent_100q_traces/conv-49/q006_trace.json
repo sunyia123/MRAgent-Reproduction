@@ -1,0 +1,27 @@
+{
+  "sample": "conv-49",
+  "question_index": 6,
+  "category": 2,
+  "question": "When did Evan's son fall off his bike?",
+  "gold_answer": "Thursday before December 17, 2023.",
+  "gold_evidence": [
+    "D20:3"
+  ],
+  "prediction": "12 December 2023",
+  "prediction_context": [
+    "D20:3"
+  ],
+  "f1": 0.5,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 5,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 913.48
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

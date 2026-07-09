@@ -1,0 +1,28 @@
+{
+  "sample": "conv-26",
+  "question_index": 9,
+  "category": 5,
+  "question": "What did Melanie make for a local church?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D14:17"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [
+    "D14:19",
+    "D14:17"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 2,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 449.84
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

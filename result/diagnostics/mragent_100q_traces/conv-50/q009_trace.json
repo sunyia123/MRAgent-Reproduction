@@ -1,0 +1,28 @@
+{
+  "sample": "conv-50",
+  "question_index": 9,
+  "category": 5,
+  "question": "What car did Calvin work on in the junkyard?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D21:4"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [
+    "D21:3",
+    "D21:4"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1016.3
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

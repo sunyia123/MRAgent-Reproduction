@@ -1,0 +1,28 @@
+{
+  "sample": "conv-49",
+  "question_index": 3,
+  "category": 1,
+  "question": "What kind of writing does Sam do to relax and cope with his health issues?",
+  "gold_answer": "journalling, creative writing",
+  "gold_evidence": [
+    "D6:4",
+    "D11:7"
+  ],
+  "prediction": "journal and creative writing",
+  "prediction_context": [
+    "D11:17"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 0,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 329.34
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

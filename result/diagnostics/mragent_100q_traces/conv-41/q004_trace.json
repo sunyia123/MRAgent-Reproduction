@@ -1,0 +1,29 @@
+{
+  "sample": "conv-41",
+  "question_index": 4,
+  "category": 1,
+  "question": "What desserts has Maria made?",
+  "gold_answer": "Banana split sundae, Peach cobbler",
+  "gold_evidence": [
+    "D2:25",
+    "D13:18"
+  ],
+  "prediction": "Peach cobbler and banana split sundae",
+  "prediction_context": [
+    "D2:25",
+    "D13:18"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 7,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1227.23
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

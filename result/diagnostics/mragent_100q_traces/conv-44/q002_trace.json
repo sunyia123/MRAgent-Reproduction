@@ -1,0 +1,28 @@
+{
+  "sample": "conv-44",
+  "question_index": 2,
+  "category": 3,
+  "question": "What is an indoor activity that Andrew would enjoy doing while make his dog happy?",
+  "gold_answer": "cook dog treats",
+  "gold_evidence": [
+    "D10:12",
+    "D12:1"
+  ],
+  "prediction": "playing board games",
+  "prediction_context": [
+    "D23:1"
+  ],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 9,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1002.31
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

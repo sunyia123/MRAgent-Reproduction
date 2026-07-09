@@ -1,0 +1,28 @@
+{
+  "sample": "conv-47",
+  "question_index": 8,
+  "category": 4,
+  "question": "What project is James working on in his game design course?",
+  "gold_answer": "a new part of the football simulator, collecting player databases",
+  "gold_evidence": [
+    "D13:8"
+  ],
+  "prediction": "a football simulator (collecting player databases)",
+  "prediction_context": [
+    "D13:6",
+    "D13:8"
+  ],
+  "f1": 0.769,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 12,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1323.29
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

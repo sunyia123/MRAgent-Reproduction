@@ -1,0 +1,28 @@
+{
+  "sample": "conv-43",
+  "question_index": 1,
+  "category": 2,
+  "question": "What year did John start surfing?",
+  "gold_answer": "2018",
+  "gold_evidence": [
+    "D3:27"
+  ],
+  "prediction": "2018",
+  "prediction_context": [
+    "D3:27",
+    "D3:26"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 2,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 478.2
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

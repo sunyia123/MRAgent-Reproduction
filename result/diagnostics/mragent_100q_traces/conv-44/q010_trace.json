@@ -1,0 +1,28 @@
+{
+  "sample": "conv-44",
+  "question_index": 10,
+  "category": 5,
+  "question": "Which type of pizza did Audrey suggest trying first to someone new to Italian cuisine?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D25:8"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [
+    "D25:8",
+    "D25:7"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 534.15
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

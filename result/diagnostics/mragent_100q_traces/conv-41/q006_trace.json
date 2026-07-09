@@ -1,0 +1,26 @@
+{
+  "sample": "conv-41",
+  "question_index": 6,
+  "category": 3,
+  "question": "Would John be open to moving to another country?",
+  "gold_answer": "No, he has goals specifically in the U.S. like joining the military and running for office.",
+  "gold_evidence": [
+    "D24:3",
+    "D7:2"
+  ],
+  "prediction": "no information available",
+  "prediction_context": [],
+  "f1": 0.125,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 27,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 767.84
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

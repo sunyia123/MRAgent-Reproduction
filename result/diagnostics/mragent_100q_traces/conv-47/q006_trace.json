@@ -1,0 +1,30 @@
+{
+  "sample": "conv-47",
+  "question_index": 6,
+  "category": 1,
+  "question": "Which countries did James visit in July 2022?",
+  "gold_answer": "Canada, Greenland",
+  "gold_evidence": [
+    "D16:9",
+    "D17:22"
+  ],
+  "prediction": "Canada and Greenland",
+  "prediction_context": [
+    "D16:9-3:James bought air tickets to Toronto",
+    "D16:11-1:James also plans to visit Vancouver",
+    "D17:22-4:James visited Nuuk"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 13,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 943.93
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

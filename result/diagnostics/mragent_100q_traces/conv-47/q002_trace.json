@@ -1,0 +1,27 @@
+{
+  "sample": "conv-47",
+  "question_index": 2,
+  "category": 2,
+  "question": "When did James adopt Ned?",
+  "gold_answer": "first week of April 2022",
+  "gold_evidence": [
+    "D5:1"
+  ],
+  "prediction": "the week before 12 April 2022",
+  "prediction_context": [
+    "D5:1"
+  ],
+  "f1": 0.6,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 7,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 903.87
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

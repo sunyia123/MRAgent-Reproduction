@@ -1,0 +1,27 @@
+{
+  "sample": "conv-30",
+  "question_index": 3,
+  "category": 2,
+  "question": "When did Jon start to go to the gym?",
+  "gold_answer": "March, 2023",
+  "gold_evidence": [
+    "D6:1"
+  ],
+  "prediction": "the week before 16 March 2023",
+  "prediction_context": [
+    "D6:1"
+  ],
+  "f1": 0.571,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 378.92
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

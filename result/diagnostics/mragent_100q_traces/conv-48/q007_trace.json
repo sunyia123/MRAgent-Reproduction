@@ -1,0 +1,28 @@
+{
+  "sample": "conv-48",
+  "question_index": 7,
+  "category": 1,
+  "question": "Where did Jolene and her partner find a cool diving spot?",
+  "gold_answer": "Phuket",
+  "gold_evidence": [
+    "D27:1",
+    "D29:4"
+  ],
+  "prediction": "Not specified in the available information",
+  "prediction_context": [
+    "D29:4"
+  ],
+  "f1": 0,
+  "evidence_hit": 0.5,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 10,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1804.2
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

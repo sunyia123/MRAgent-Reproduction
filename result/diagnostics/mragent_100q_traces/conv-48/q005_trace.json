@@ -1,0 +1,29 @@
+{
+  "sample": "conv-48",
+  "question_index": 5,
+  "category": 4,
+  "question": "What are the names of Jolene's snakes?",
+  "gold_answer": "Susie, Seraphim",
+  "gold_evidence": [
+    "D2:20",
+    "D2:22"
+  ],
+  "prediction": "Susie and Seraphim",
+  "prediction_context": [
+    "D2:20",
+    "D2:22"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 390.43
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

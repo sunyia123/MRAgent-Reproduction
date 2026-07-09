@@ -1,0 +1,32 @@
+{
+  "sample": "conv-50",
+  "question_index": 2,
+  "category": 3,
+  "question": "Does Dave's shop employ a lot of people?",
+  "gold_answer": "Yes",
+  "gold_evidence": [
+    "D4:17"
+  ],
+  "prediction": "No",
+  "prediction_context": [
+    "D6:8",
+    "D5:1",
+    "D5:3",
+    "D5:5",
+    "D4:17",
+    "D19:11"
+  ],
+  "f1": 0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 13,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1735.77
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

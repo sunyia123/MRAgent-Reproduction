@@ -1,0 +1,32 @@
+{
+  "sample": "conv-49",
+  "question_index": 4,
+  "category": 3,
+  "question": "How do Evan and Sam use creative outlets to cope with life's challenges?",
+  "gold_answer": "Evan and Sam use creative activities, like painting and writing, as therapeutic tools to express themselves and cope with stress.",
+  "gold_evidence": [
+    "D21:18 D21:22 D11:15 D11:19"
+  ],
+  "prediction": "Evan uses painting to express himself, relieve stress, and find peace. Sam uses journaling and creative writing to express innermost thoughts and feelings, and make sense of things.",
+  "prediction_context": [
+    "D11:12",
+    "D11:17",
+    "D11:19",
+    "D2:11",
+    "D8:16",
+    "D11:20"
+  ],
+  "f1": 0.439,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 744.17
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

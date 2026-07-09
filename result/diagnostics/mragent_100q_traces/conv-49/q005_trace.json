@@ -1,0 +1,28 @@
+{
+  "sample": "conv-49",
+  "question_index": 5,
+  "category": 3,
+  "question": "Which major holiday season conincides with Evan's wedding?",
+  "gold_answer": "Christmas",
+  "gold_evidence": [
+    "D21:2"
+  ],
+  "prediction": "Christmas holiday season",
+  "prediction_context": [
+    "D21:2-1:Evan says 'got married last week' in a conversation on 2023-12-26, meaning the wedding was around December 19, 2023, which coincides with the Christmas holiday season.",
+    "D21:2-1 conversation time is 2023-12-26, the day after Christmas."
+  ],
+  "f1": 0.5,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 8,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 810.95
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

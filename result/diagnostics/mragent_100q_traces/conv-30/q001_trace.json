@@ -1,0 +1,31 @@
+{
+  "sample": "conv-30",
+  "question_index": 1,
+  "category": 1,
+  "question": "What do Jon and Gina both have in common?",
+  "gold_answer": "They lost their jobs and decided to start their own businesses.",
+  "gold_evidence": [
+    "D1:2",
+    "D1:3",
+    "D1:4",
+    "D2:1"
+  ],
+  "prediction": "They both love dance and use it for stress relief",
+  "prediction_context": [
+    "D1:6",
+    "D1:7"
+  ],
+  "f1": 0.105,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 8,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 694.96
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,25 @@
+{
+  "sample": "conv-43",
+  "question_index": 10,
+  "category": 5,
+  "question": "What special memory does \"Fifty Shades of Grey\" bring to Tim?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D8:16"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [],
+  "f1": 1.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 23,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 832.04
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

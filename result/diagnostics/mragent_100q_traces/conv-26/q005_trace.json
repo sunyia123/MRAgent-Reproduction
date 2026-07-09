@@ -1,0 +1,28 @@
+{
+  "sample": "conv-26",
+  "question_index": 5,
+  "category": 3,
+  "question": "Would Melanie likely enjoy the song \"The Four Seasons\" by Vivaldi?",
+  "gold_answer": "Yes; it's classical music",
+  "gold_evidence": [
+    "D15:28"
+  ],
+  "prediction": "Likely yes",
+  "prediction_context": [
+    "D15:28",
+    "D15:26"
+  ],
+  "f1": 0.333,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 12,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 747.26
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

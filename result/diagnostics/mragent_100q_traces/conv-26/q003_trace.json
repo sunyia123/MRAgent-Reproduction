@@ -1,0 +1,27 @@
+{
+  "sample": "conv-26",
+  "question_index": 3,
+  "category": 3,
+  "question": "Would Melanie be considered a member of the LGBTQ community?",
+  "gold_answer": "Likely no, she does not refer to herself as part of it",
+  "gold_evidence": [],
+  "prediction": "No",
+  "prediction_context": [
+    "D3:16-1:Melanie:5 years already! Time flies- feels like just yesterday I put this dress on! Thanks, Caroline! and shared a photo of a bride in a wedding dress holding a bouquet",
+    "D3:18-2:Melanie:Thanks, Caroline! Appreciate your kind words. Looking forward to more happy years. Our family and moments make it all worth it. and shared a photo of a man and woman sitting on a blanket eating food",
+    "D8:32-2:Melanie:Yeah, Caroline, my family's been great - their love and support really helped me through tough times. It's awesome! We even went on another camping trip in the forest. and shared a photo of a man and two children sitting around a campfire"
+  ],
+  "f1": 0.154,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 11,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1223.74
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,32 @@
+{
+  "sample": "conv-41",
+  "question_index": 5,
+  "category": 1,
+  "question": "What activities has Maria done with her church friends?",
+  "gold_answer": "Hiking, picnic, volunteer work",
+  "gold_evidence": [
+    "D25:2",
+    "D24:6",
+    "D28:5"
+  ],
+  "prediction": "picnic, hiking, camping, and community work",
+  "prediction_context": [
+    "D24:6",
+    "D25:2",
+    "D18:1",
+    "D28:8"
+  ],
+  "f1": 0.667,
+  "evidence_hit": 0.667,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 5,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 390.47
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,25 @@
+{
+  "sample": "conv-41",
+  "question_index": 2,
+  "category": 3,
+  "question": "What might John's financial status be?",
+  "gold_answer": "Middle-class or wealthy",
+  "gold_evidence": [
+    "D5:5"
+  ],
+  "prediction": "no information available",
+  "prediction_context": [],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 32,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 816.28
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

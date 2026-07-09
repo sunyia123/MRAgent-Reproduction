@@ -1,0 +1,35 @@
+{
+  "sample": "conv-43",
+  "question_index": 5,
+  "category": 1,
+  "question": "What books has John read?",
+  "gold_answer": "inpsiring book on dreaming big, The Alchemist, fantasy series, non-fiction books on personal development, Dune",
+  "gold_evidence": [
+    "D4:10",
+    "D11:26",
+    "D17:9",
+    "D19:16",
+    "D19:20",
+    "D22:12"
+  ],
+  "prediction": "The Alchemist, The Hobbit, Dune by Frank Herbert, and a popular fantasy series (likely The Lord of the Rings)",
+  "prediction_context": [
+    "D11:27",
+    "D20:20",
+    "D22:12",
+    "D20:22"
+  ],
+  "f1": 0.296,
+  "evidence_hit": 0.167,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 16,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1319.87
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

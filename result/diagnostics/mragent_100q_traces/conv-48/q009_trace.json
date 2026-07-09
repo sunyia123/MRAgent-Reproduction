@@ -1,0 +1,29 @@
+{
+  "sample": "conv-48",
+  "question_index": 9,
+  "category": 5,
+  "question": "Why did Jolene spend time in the garden?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D6:4"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [
+    "D6:4",
+    "D6:2",
+    "D6:3"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 894.21
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

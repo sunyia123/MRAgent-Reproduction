@@ -1,0 +1,29 @@
+{
+  "sample": "conv-47",
+  "question_index": 5,
+  "category": 3,
+  "question": "Did John and James study together?",
+  "gold_answer": "Yes",
+  "gold_evidence": [
+    "D17:13"
+  ],
+  "prediction": "Yes",
+  "prediction_context": [
+    "D17:13-2:John:Your support means a lot to me. You're a true friend! Remember this photo from elementary school?",
+    "D17:15-4:John:This is from when we were 10 and we were really into skateboarding.",
+    "D17:16-1:James:Indeed, I remember this moment. We loved skateboards back then, sometimes we even left class early to do it."
+  ],
+  "f1": 1.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 12,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1047.88
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

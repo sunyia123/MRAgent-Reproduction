@@ -1,0 +1,28 @@
+{
+  "sample": "conv-44",
+  "question_index": 8,
+  "category": 4,
+  "question": "What is Audrey's favorite recipe that she shares with Andrew on 3 July, 2023?",
+  "gold_answer": "Chicken Pot Pie",
+  "gold_evidence": [
+    "D10:13"
+  ],
+  "prediction": "Chicken Pot Pie",
+  "prediction_context": [
+    "D10:13",
+    "D10:15"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 16,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 562.98
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

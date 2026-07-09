@@ -1,0 +1,23 @@
+{
+  "sample": "conv-50",
+  "question_index": 5,
+  "category": 3,
+  "question": "Would Dave prefer working on a Dodge Charger or a Subaru Forester?",
+  "gold_answer": "Dodge Charger",
+  "gold_evidence": [],
+  "prediction": "ERROR",
+  "prediction_context": [],
+  "f1": 0.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 0,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 0
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

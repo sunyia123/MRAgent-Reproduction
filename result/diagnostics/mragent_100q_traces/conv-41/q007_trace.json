@@ -1,0 +1,29 @@
+{
+  "sample": "conv-41",
+  "question_index": 7,
+  "category": 4,
+  "question": "What did John receive a certificate for?",
+  "gold_answer": "completion of a university degree",
+  "gold_evidence": [
+    "D9:2"
+  ],
+  "prediction": "completion of a university degree",
+  "prediction_context": [
+    "D9:2",
+    "D9:3",
+    "D9:4"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 721.31
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

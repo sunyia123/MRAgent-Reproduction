@@ -1,0 +1,29 @@
+{
+  "sample": "conv-44",
+  "question_index": 4,
+  "category": 2,
+  "question": "When did Audrey get into an accident in the park?",
+  "gold_answer": "between October 19 and 24, 2023",
+  "gold_evidence": [
+    "D25:2"
+  ],
+  "prediction": "22 September 2023",
+  "prediction_context": [
+    "D19:2",
+    "D19:1",
+    "D19:3"
+  ],
+  "f1": 0.25,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 8,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1291.33
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

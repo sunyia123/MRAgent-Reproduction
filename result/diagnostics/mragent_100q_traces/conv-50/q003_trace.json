@@ -1,0 +1,33 @@
+{
+  "sample": "conv-50",
+  "question_index": 3,
+  "category": 1,
+  "question": "Which places or events has Calvin visited in Tokyo?",
+  "gold_answer": "music festival, car museum, Shibuya crossing, Shinjuku",
+  "gold_evidence": [
+    "D3:1",
+    "D12:7",
+    "D24:19"
+  ],
+  "prediction": "Touring with Frank Ocean, a music festival, and a concert/show",
+  "prediction_context": [
+    "D7:1",
+    "D3:3",
+    "D15:4",
+    "D24:11",
+    "D14:6"
+  ],
+  "f1": 0.286,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 15,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 751.01
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

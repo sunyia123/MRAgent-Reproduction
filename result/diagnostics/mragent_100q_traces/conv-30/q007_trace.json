@@ -1,0 +1,31 @@
+{
+  "sample": "conv-30",
+  "question_index": 7,
+  "category": 4,
+  "question": "How does Gina describe the feeling that dance brings?",
+  "gold_answer": "magical",
+  "gold_evidence": [
+    "D15:8"
+  ],
+  "prediction": "It's like air; all her worries vanish; freedom; joy and thrill; magical; ain't nothing like the feeling it gives us",
+  "prediction_context": [
+    "D11:8",
+    "D11:6",
+    "D5:15",
+    "D15:8",
+    "D5:17"
+  ],
+  "f1": 0.105,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 9,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 648.41
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,41 @@
+{
+  "sample": "conv-44",
+  "question_index": 1,
+  "category": 1,
+  "question": "What kind of places have Andrew and his girlfriend checked out around the city?",
+  "gold_answer": "cafes, new places to eat, open space for hikes, pet shelter, wine tasting event, park",
+  "gold_evidence": [
+    "D3:1",
+    "D3:11",
+    "D4:2",
+    "D6:1",
+    "D13:1",
+    "D23:3",
+    "D25:1",
+    "D27:1"
+  ],
+  "prediction": "cafe, new places to eat, wine tasting, picnic, fishing at a nearby lake, farm, cool park outside of town",
+  "prediction_context": [
+    "D3:1",
+    "D3:13",
+    "D3:11",
+    "D25:1",
+    "D11:1",
+    "D17:1",
+    "D15:2",
+    "D27:1"
+  ],
+  "f1": 0.485,
+  "evidence_hit": 0.5,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 9,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 835.38
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

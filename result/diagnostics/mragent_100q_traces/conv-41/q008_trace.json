@@ -1,0 +1,30 @@
+{
+  "sample": "conv-41",
+  "question_index": 8,
+  "category": 4,
+  "question": "What is the name of Maria's second puppy?",
+  "gold_answer": "Shadow",
+  "gold_evidence": [
+    "D31:4"
+  ],
+  "prediction": "Shadow",
+  "prediction_context": [
+    "D31:2",
+    "D31:3",
+    "D31:4",
+    "D30:1"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 4,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 524.96
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

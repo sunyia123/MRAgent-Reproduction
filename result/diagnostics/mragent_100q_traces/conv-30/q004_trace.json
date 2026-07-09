@@ -1,0 +1,31 @@
+{
+  "sample": "conv-30",
+  "question_index": 4,
+  "category": 1,
+  "question": "Why did Gina decide to start her own clothing store?",
+  "gold_answer": "She always loved fashion trends and finding unique pieces and she lost her job so decided it was time to start her own business.",
+  "gold_evidence": [
+    "D6:8",
+    "D1:3"
+  ],
+  "prediction": "She was passionate about fashion trends and finding unique pieces, wanted to blend her love for dance and fashion, saw there wasn't much around like it, and lost her job so she became her own boss.",
+  "prediction_context": [
+    "D6:8",
+    "D5:7",
+    "D8:8",
+    "D14:8"
+  ],
+  "f1": 0.618,
+  "evidence_hit": 0.5,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 2,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 470.46
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,28 @@
+{
+  "sample": "conv-41",
+  "question_index": 10,
+  "category": 5,
+  "question": "Why does Maria think it's important for younger generations to visit art galleries?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D27:12"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [
+    "D27:12",
+    "D27:14"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 7,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1426.93
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

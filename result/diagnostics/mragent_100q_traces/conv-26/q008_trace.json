@@ -1,0 +1,28 @@
+{
+  "sample": "conv-26",
+  "question_index": 8,
+  "category": 4,
+  "question": "What was Melanie's reaction to her children enjoying the Grand Canyon?",
+  "gold_answer": "She was happy and thankful",
+  "gold_evidence": [
+    "D18:5"
+  ],
+  "prediction": "She was thankful and said the kids loved it and it was a nice way to relax after the road trip.",
+  "prediction_context": [
+    "D18:5",
+    "D18:17"
+  ],
+  "f1": 0.3,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 903.46
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

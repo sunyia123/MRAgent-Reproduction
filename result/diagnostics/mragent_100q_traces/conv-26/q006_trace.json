@@ -1,0 +1,27 @@
+{
+  "sample": "conv-26",
+  "question_index": 6,
+  "category": 2,
+  "question": "How long has Melanie been practicing art?",
+  "gold_answer": "Since 2016",
+  "gold_evidence": [
+    "D16:8"
+  ],
+  "prediction": "Seven years",
+  "prediction_context": [
+    "D16:8"
+  ],
+  "f1": 0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 1,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 382.24
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

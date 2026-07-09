@@ -1,0 +1,29 @@
+{
+  "sample": "conv-42",
+  "question_index": 7,
+  "category": 4,
+  "question": "Which dairy-free dessert flavors does Nate enjoy?",
+  "gold_answer": "chocolate and mixed berry",
+  "gold_evidence": [
+    "D3:10"
+  ],
+  "prediction": "coconut milk, chocolate, and mixed berry",
+  "prediction_context": [
+    "D3:10",
+    "D21:6",
+    "D21:10"
+  ],
+  "f1": 0.75,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 5,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 594.66
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

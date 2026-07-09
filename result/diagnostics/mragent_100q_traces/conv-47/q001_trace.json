@@ -1,0 +1,27 @@
+{
+  "sample": "conv-47",
+  "question_index": 1,
+  "category": 2,
+  "question": "Which recreational activity was James pursuing on March 16, 2022?",
+  "gold_answer": "bowling",
+  "gold_evidence": [
+    "D1:26"
+  ],
+  "prediction": "bowling",
+  "prediction_context": [
+    "D1:26"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 6,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1064.07
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

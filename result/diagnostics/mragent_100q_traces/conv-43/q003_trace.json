@@ -1,0 +1,31 @@
+{
+  "sample": "conv-43",
+  "question_index": 3,
+  "category": 3,
+  "question": "What could John do after his basketball career?",
+  "gold_answer": "become a basketball coach since he likes giving back and leadership",
+  "gold_evidence": [
+    "D11:19",
+    "D26:1",
+    "D27:26"
+  ],
+  "prediction": "Start a foundation and do charity work; make a positive difference and inspire others; support youth sports and fight for fair chances in sports for underserved communities.",
+  "prediction_context": [
+    "D11:19-1:John:I've thought about it a lot. I want to use my platform to make a positive difference and inspire others - maybe even start a foundation and do charity work. It's important to me to make the most of the chances I get and leave a meaningful legacy.",
+    "D6:15-3:John:Yeah! Winning a championship is my number one goal. But I also want to make a difference away from the court, like through charity or inspiring people. Basketball has been great to me, so I want to give something back.",
+    "D26:21-5:John:I've been working on supporting youth sports and fighting for fair chances in sports for underserved communities. It's important to me that every kid has access to good sports programs. I've been collaborating with organizations to create more opportunities for young athletes and help them succeed. It's amazing to see the difference sports make in people's lives."
+  ],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 831.63
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

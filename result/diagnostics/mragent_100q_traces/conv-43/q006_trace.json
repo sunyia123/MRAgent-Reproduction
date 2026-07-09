@@ -1,0 +1,26 @@
+{
+  "sample": "conv-43",
+  "question_index": 6,
+  "category": 3,
+  "question": "What is a Star Wars book that Tim might enjoy?",
+  "gold_answer": "Star Wars: Jedi Apprentice by Judy Blundell and David Farland. It is a highly rated and immersive series about his favorite movies.",
+  "gold_evidence": [
+    "D27:19",
+    "D27:21"
+  ],
+  "prediction": "no information available",
+  "prediction_context": [],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 16,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1229.02
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

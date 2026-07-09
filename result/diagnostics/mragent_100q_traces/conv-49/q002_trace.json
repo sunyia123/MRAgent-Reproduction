@@ -1,0 +1,31 @@
+{
+  "sample": "conv-49",
+  "question_index": 2,
+  "category": 1,
+  "question": "What is Evan's favorite food?",
+  "gold_answer": "Ginger snaps",
+  "gold_evidence": [
+    "D3:3",
+    "D5:5",
+    "D23:15",
+    "D22:12"
+  ],
+  "prediction": "ginger snaps",
+  "prediction_context": [
+    "D3:3",
+    "D5:5"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 0.5,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 9,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 728.02
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

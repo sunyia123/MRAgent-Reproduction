@@ -1,0 +1,28 @@
+{
+  "sample": "conv-43",
+  "question_index": 2,
+  "category": 1,
+  "question": "What similar sports collectible do Tim and John own?",
+  "gold_answer": "signed basketball",
+  "gold_evidence": [
+    "D7:7",
+    "D7:9",
+    "D16:7",
+    "D16:9"
+  ],
+  "prediction": "no information available",
+  "prediction_context": [],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 15,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 943.85
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

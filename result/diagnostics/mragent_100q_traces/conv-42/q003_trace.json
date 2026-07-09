@@ -1,0 +1,30 @@
+{
+  "sample": "conv-42",
+  "question_index": 3,
+  "category": 2,
+  "question": "What physical transformation did Nate undergo in April 2022?",
+  "gold_answer": "dyed his hair purple",
+  "gold_evidence": [
+    "D7:1",
+    "D7:3"
+  ],
+  "prediction": "Nate dyed his hair purple",
+  "prediction_context": [
+    "D7:1",
+    "D7:3",
+    "D7:5"
+  ],
+  "f1": 0.889,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 8,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 433.32
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

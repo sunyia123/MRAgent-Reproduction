@@ -1,0 +1,28 @@
+{
+  "sample": "conv-42",
+  "question_index": 2,
+  "category": 3,
+  "question": "What nickname does Nate use for Joanna?",
+  "gold_answer": "Jo",
+  "gold_evidence": [
+    "D7:1"
+  ],
+  "prediction": "Jo",
+  "prediction_context": [
+    "D11:2",
+    "D13:1"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 2,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 595.06
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

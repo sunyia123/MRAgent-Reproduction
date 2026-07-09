@@ -1,0 +1,28 @@
+{
+  "sample": "conv-42",
+  "question_index": 10,
+  "category": 5,
+  "question": "Why did Joanna choose the hair color she did?",
+  "gold_answer": null,
+  "gold_evidence": [
+    "D7:5"
+  ],
+  "prediction": "Not mentioned in the conversation",
+  "prediction_context": [
+    "D7:4",
+    "D7:5"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 10,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 774.45
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

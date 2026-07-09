@@ -1,0 +1,27 @@
+{
+  "sample": "conv-43",
+  "question_index": 7,
+  "category": 4,
+  "question": "What did Anthony and John end up playing during the charity event?",
+  "gold_answer": "an intense Harry Potter trivia contest",
+  "gold_evidence": [
+    "D4:8"
+  ],
+  "prediction": "Harry Potter trivia contest",
+  "prediction_context": [
+    "D4:8"
+  ],
+  "f1": 0.889,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 2,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 326.47
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

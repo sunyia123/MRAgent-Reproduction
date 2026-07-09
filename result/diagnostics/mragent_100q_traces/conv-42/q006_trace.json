@@ -1,0 +1,29 @@
+{
+  "sample": "conv-42",
+  "question_index": 6,
+  "category": 1,
+  "question": "How many times has Nate taken his turtles on a walk?",
+  "gold_answer": "Twice.",
+  "gold_evidence": [
+    "D5:4",
+    "D25:15"
+  ],
+  "prediction": "2",
+  "prediction_context": [
+    "D25:15",
+    "D5:4"
+  ],
+  "f1": 0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 17,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1061.48
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,28 @@
+{
+  "sample": "conv-50",
+  "question_index": 7,
+  "category": 4,
+  "question": "How does Dave feel about the reactions of people when they see the finished restoration project?",
+  "gold_answer": "satisfying and worth the hard work",
+  "gold_evidence": [
+    "D19:9"
+  ],
+  "prediction": "satisfying and makes all the hard work worth it; he's glad he can make people happy",
+  "prediction_context": [
+    "D19:9",
+    "D19:11"
+  ],
+  "f1": 0.444,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 530.08
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

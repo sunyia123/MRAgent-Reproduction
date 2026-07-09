@@ -1,0 +1,29 @@
+{
+  "sample": "conv-42",
+  "question_index": 4,
+  "category": 2,
+  "question": "When is Nate hosting a gaming party?",
+  "gold_answer": "The weekend after 3June, 2022.",
+  "gold_evidence": [
+    "D14:20"
+  ],
+  "prediction": "the weekend of 18 June 2023",
+  "prediction_context": [
+    "D14:19",
+    "D14:20",
+    "D16:2"
+  ],
+  "f1": 0.222,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 5,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 631.95
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,27 @@
+{
+  "sample": "conv-47",
+  "question_index": 7,
+  "category": 4,
+  "question": "What advice did James receive from the famous players he met at the tournament?",
+  "gold_answer": "never put your ego above team success",
+  "gold_evidence": [
+    "D4:12"
+  ],
+  "prediction": "You always need to communicate correctly with the team and never put your ego above team success.",
+  "prediction_context": [
+    "D4:12"
+  ],
+  "f1": 0.636,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 3,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 944.48
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

@@ -1,0 +1,29 @@
+{
+  "sample": "conv-41",
+  "question_index": 1,
+  "category": 2,
+  "question": "When did Maria go to the beach?",
+  "gold_answer": "December 2022",
+  "gold_evidence": [
+    "D3:15"
+  ],
+  "prediction": "December 2022",
+  "prediction_context": [
+    "D3:14",
+    "D3:13",
+    "D3:15"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 12,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1299.78
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

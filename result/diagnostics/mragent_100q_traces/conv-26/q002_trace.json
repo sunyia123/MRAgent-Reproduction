@@ -1,0 +1,29 @@
+{
+  "sample": "conv-26",
+  "question_index": 2,
+  "category": 1,
+  "question": "Where did Caroline move from 4 years ago?",
+  "gold_answer": "Sweden",
+  "gold_evidence": [
+    "D3:13",
+    "D4:3"
+  ],
+  "prediction": "Sweden",
+  "prediction_context": [
+    "D3:13",
+    "D4:3"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 10,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 881.58
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

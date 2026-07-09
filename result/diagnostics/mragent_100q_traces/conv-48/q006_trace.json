@@ -1,0 +1,25 @@
+{
+  "sample": "conv-48",
+  "question_index": 6,
+  "category": 2,
+  "question": "When did Deborah go to an art show with Anna?",
+  "gold_answer": "on 9 April, 2023",
+  "gold_evidence": [
+    "D12:1"
+  ],
+  "prediction": "no information available",
+  "prediction_context": [],
+  "f1": 0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 10,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1219.59
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

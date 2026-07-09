@@ -1,0 +1,32 @@
+{
+  "sample": "conv-48",
+  "question_index": 4,
+  "category": 3,
+  "question": "Is Deborah married?",
+  "gold_answer": "yes",
+  "gold_evidence": [
+    "D2:5",
+    "D19:11",
+    "D23:4",
+    "D28:11"
+  ],
+  "prediction": "Yes",
+  "prediction_context": [
+    "D28:11-1:That beach is super special to me. It's where I got married and discovered my love for surfing.",
+    "D2:5-1:My husband and I are trying to be as good a family as my parents were!",
+    "D2:7-1:It is love, and openness that have kept us close all these years. Being there for each other has made us both happy."
+  ],
+  "f1": 1.0,
+  "evidence_hit": 0.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 5,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 478.49
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

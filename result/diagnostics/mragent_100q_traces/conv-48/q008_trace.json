@@ -1,0 +1,29 @@
+{
+  "sample": "conv-48",
+  "question_index": 8,
+  "category": 4,
+  "question": "What picture did Jolene share related to feeling overwhelmed?",
+  "gold_answer": "a photo of a desk with a notebook and a computer monitor",
+  "gold_evidence": [
+    "D8:16"
+  ],
+  "prediction": "a photo of two notebooks with a blue cover and a white strip; a photo of a notepad with notes on it on a counter; a photo of a desk with a notebook and a computer monitor",
+  "prediction_context": [
+    "D17:4",
+    "D10:6",
+    "D8:16"
+  ],
+  "f1": 0.438,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 7,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 467.66
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}

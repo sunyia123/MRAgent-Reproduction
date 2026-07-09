@@ -1,0 +1,29 @@
+{
+  "sample": "conv-49",
+  "question_index": 8,
+  "category": 4,
+  "question": "What activity helped Evan with stress and flexibility?",
+  "gold_answer": "Yoga",
+  "gold_evidence": [
+    "D24:19"
+  ],
+  "prediction": "Yoga",
+  "prediction_context": [
+    "D24:19",
+    "D18:7",
+    "D18:8"
+  ],
+  "f1": 1.0,
+  "evidence_hit": 1.0,
+  "errors": [],
+  "metrics": {
+    "tool_calls": 2,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 1040.55
+  },
+  "prompt_sections": 0,
+  "response_lines": 0,
+  "tool_call_lines": 0,
+  "retry_lines": 0
+}
