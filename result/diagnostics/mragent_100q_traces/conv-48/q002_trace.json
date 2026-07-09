@@ -26,5 +26,7 @@
   "raw_call_ids": [
     "68d07e06c8bebd81",
     "b164722aafc0bace"
-  ]
+  ],
+  "evidence_hit": 1,
+  "f1": 0.667
 }

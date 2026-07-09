@@ -90,5 +90,7 @@
     "8a2936a57a8658cb",
     "a09d036ffc022afe",
     "dabb1418baeb1537"
-  ]
+  ],
+  "evidence_hit": 0.5,
+  "f1": 1
 }

@@ -30,7 +30,7 @@
     "tool_calls": 1,
     "schema_retries": 0,
     "forced_accepts": 0,
-    "runtime_sec": 864.0
+    "runtime_sec": 864
   },
   "raw_call_ids": [
     "e3f644987063e1a5",
@@ -41,5 +41,7 @@
     "3918b396deab43b9",
     "6c53f3218ba6d8b5",
     "7d424d4dd5d892ea"
-  ]
+  ],
+  "evidence_hit": 1,
+  "f1": 1
 }

@@ -32,6 +32,21 @@ def sanitize_obj(obj):
         return sanitize_text(obj)
     return obj
 
+def _ids(value):
+    text = " ".join(map(str, value)) if isinstance(value, list) else str(value)
+    return re.findall(r'\bD\d+:\d+(?:-\d+)?\b', text)
+
+def evidence_hit_ratio(gold_evidence, prediction_context):
+    gold_ids = _ids(gold_evidence)
+    if not gold_ids:
+        return 1.0
+    context_ids = _ids(prediction_context)
+    hit = 0
+    for gold_id in gold_ids:
+        if any(ctx_id == gold_id or ctx_id.startswith(gold_id + "-") for ctx_id in context_ids):
+            hit += 1
+    return hit / len(gold_ids)
+
 def load_raw_api_calls():
     """Load all raw API calls indexed by request_id for matching started/success/error."""
     calls = defaultdict(dict)  # request_id -> {started: {...}, success: {...}, error: {...}}
@@ -284,8 +299,13 @@ def main():
             # Collect errors from run log for this question
             q_errors = list(q.get("errors", []))
             for (err_sid, err_qnum, err_orig), msgs in run_errors.items():
-                if err_qnum == qi_1based:
+                if err_sid == sid and err_qnum == qi_1based:
                     q_errors.extend(msgs)
+
+            evidence_hit = evidence_hit_ratio(
+                result_row.get("evidence", []),
+                result_row.get("prediction_context", []),
+            )
 
             # Write real trace files
             with open(sample_dir / f"{qname}_raw_prompts.jsonl", "w") as f:
@@ -317,6 +337,7 @@ def main():
                 "gold_evidence": result_row.get("evidence", []),
                 "prediction": str(result_row.get("prediction", "")),
                 "prediction_context": result_row.get("prediction_context", []),
+                "evidence_hit": round(evidence_hit, 3),
                 "prompt_count": len(prompt_entries),
                 "response_count": len(response_entries),
                 "tool_call_count": len(tool_entries),
@@ -358,7 +379,7 @@ def main():
                 "question": result_row.get("question", "?"),
                 "gold_answer": str(gold), "gold_evidence": str(result_row.get("evidence", [])),
                 "prediction": pred, "prediction_context": str(result_row.get("prediction_context", []))[:500],
-                "f1": round(f1_val, 3), "evidence_hit": 0,
+                "f1": round(f1_val, 3), "evidence_hit": round(evidence_hit, 3),
                 "trace_file": f"result/diagnostics/mragent_100q_traces/conv-{sid}/{qname}_trace.json",
                 "raw_prompt_file": f"result/diagnostics/mragent_100q_traces/conv-{sid}/{qname}_raw_prompts.jsonl",
                 "raw_response_file": f"result/diagnostics/mragent_100q_traces/conv-{sid}/{qname}_raw_responses.jsonl",
