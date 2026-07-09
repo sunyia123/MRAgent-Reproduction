@@ -9,17 +9,92 @@
   ],
   "prediction": "no information available",
   "prediction_context": [],
-  "f1": 0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 11,
+  "response_count": 11,
+  "tool_call_count": 10,
+  "tool_call_sequence": [
+    {
+      "request_id": "128dbc14c7a225c5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f1c90c6ca35d43bc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f1c90c6ca35d43bc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f1c90c6ca35d43bc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "88dec16ed268844e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "96f1600ff2b962c2",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "6a2ae552cf6df7bc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "920559abda237211",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "ab8693c9feecd6b7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "add5f63ac66ed2e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'chat_text: all 3 JSON parse attempts exhausted. stage=qa, raw_head=\\'{\\\\n  \"keyword\": \"Calvin\",\\\\n  \"tag_scores\": {\\\\n    \"support\": 1.0,\\\\n    \"support system\": 1.0,\\\\n    \"support network\": 1.0,\\\\n    \"support importance\": 1.0,\\\\n    \"mutual support\": 1.0,\\\\n    \"friendship\": 1.0,\\\\n   "
+  ],
   "metrics": {
     "tool_calls": 10,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1219.59
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "88dec16ed268844e",
+    "f1c90c6ca35d43bc",
+    "128dbc14c7a225c5",
+    "578140d8de997926",
+    "920559abda237211",
+    "ab8693c9feecd6b7",
+    "c323b767183267cc",
+    "0fbfa8f16e37ed76",
+    "6a2ae552cf6df7bc",
+    "96f1600ff2b962c2",
+    "add5f63ac66ed2e5"
+  ]
 }

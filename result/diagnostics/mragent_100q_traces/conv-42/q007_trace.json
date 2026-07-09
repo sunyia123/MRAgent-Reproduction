@@ -13,17 +13,55 @@
     "D21:6",
     "D21:10"
   ],
-  "f1": 0.75,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 5,
+  "tool_call_sequence": [
+    {
+      "request_id": "9d75ea14eee2058e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "9d75ea14eee2058e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "10a3d45a8c48e67d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "10a3d45a8c48e67d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "10a3d45a8c48e67d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 5,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 594.66
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "10a3d45a8c48e67d",
+    "9b718fe0161bf757",
+    "1f612a49051239ee",
+    "9d75ea14eee2058e",
+    "abc294fa5b44ef1f",
+    "305a641e77b6662d"
+  ]
 }

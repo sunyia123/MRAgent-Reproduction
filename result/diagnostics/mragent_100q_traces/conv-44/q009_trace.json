@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "How does Andrew describe his dogs' response to snow?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D23:12"
   ],
@@ -12,17 +12,75 @@
     "D23:12",
     "D23:13"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 8,
+  "response_count": 8,
+  "tool_call_count": 8,
+  "tool_call_sequence": [
+    {
+      "request_id": "48b6a7fc67107cb9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "48b6a7fc67107cb9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "48b6a7fc67107cb9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "48b6a7fc67107cb9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "48b6a7fc67107cb9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "740c1329c5b2b177",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "36c95f9458211336",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "36c95f9458211336",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 8,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 685.1
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "7c4a65fbb46af164",
+    "a6b920bd50430d0f",
+    "740c1329c5b2b177",
+    "48b6a7fc67107cb9",
+    "c0215c8062cc13c0",
+    "36c95f9458211336",
+    "d83f63f90cb28a55",
+    "ac92128466b46448"
+  ]
 }

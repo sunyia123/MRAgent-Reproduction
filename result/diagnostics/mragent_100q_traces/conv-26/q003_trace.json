@@ -11,17 +11,95 @@
     "D3:18-2:Melanie:Thanks, Caroline! Appreciate your kind words. Looking forward to more happy years. Our family and moments make it all worth it. and shared a photo of a man and woman sitting on a blanket eating food",
     "D8:32-2:Melanie:Yeah, Caroline, my family's been great - their love and support really helped me through tough times. It's awesome! We even went on another camping trip in the forest. and shared a photo of a man and two children sitting around a campfire"
   ],
-  "f1": 0.154,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 10,
+  "response_count": 10,
+  "tool_call_count": 11,
+  "tool_call_sequence": [
+    {
+      "request_id": "63469092ce71d880",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "63469092ce71d880",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1cd4a697595cb46b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1cd4a697595cb46b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1cd4a697595cb46b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "c9ca97872325e422",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "c9ca97872325e422",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "786ab6cd076e0f9c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "786ab6cd076e0f9c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "786e5e3b0fa5321a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "41339ccfc40f107a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 11,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1223.74
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "c9ca97872325e422",
+    "c5cfc044426706b7",
+    "63469092ce71d880",
+    "41339ccfc40f107a",
+    "a15a2b5f47954265",
+    "1cd4a697595cb46b",
+    "81555c1016e2af13",
+    "786e5e3b0fa5321a",
+    "786ab6cd076e0f9c",
+    "4e2f7b03cefdc31d"
+  ]
 }

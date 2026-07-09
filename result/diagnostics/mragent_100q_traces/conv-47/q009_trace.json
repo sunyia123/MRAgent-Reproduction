@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "What happened to James's kitten during the recent visit to the clinic?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D18:16"
   ],
@@ -12,17 +12,72 @@
     "D18:14",
     "D18:16"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 5,
+  "response_count": 5,
+  "tool_call_count": 8,
+  "tool_call_sequence": [
+    {
+      "request_id": "b453a6b077880f33",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "b453a6b077880f33",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "26f66284fcdb69a7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "26f66284fcdb69a7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "26f66284fcdb69a7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "26f66284fcdb69a7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "26f66284fcdb69a7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "6ed49a89b1c542bc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 8,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 501.13
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "6ed49a89b1c542bc",
+    "26f66284fcdb69a7",
+    "295cfee5f55bf3a6",
+    "e078f0bfce0d09cc",
+    "b453a6b077880f33"
+  ]
 }

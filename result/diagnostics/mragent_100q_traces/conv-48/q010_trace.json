@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "How did Jolene and her rival initially meet?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D7:9"
   ],
@@ -11,17 +11,76 @@
   "prediction_context": [
     "D7:9"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 9,
+  "response_count": 9,
+  "tool_call_count": 8,
+  "tool_call_sequence": [
+    {
+      "request_id": "7e0f7c5aca366eac",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7e0f7c5aca366eac",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7e0f7c5aca366eac",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d77a23614c019e37",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "6250d8fc39737641",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7dce303c9044cdc4",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "40c4eae0b8a3fa55",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "c80eb0cb4a00f3ce",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 8,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 686.07
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "7e0f7c5aca366eac",
+    "e13a4d0e02644fc4",
+    "17aa3aa98a299752",
+    "d77a23614c019e37",
+    "6250d8fc39737641",
+    "c80eb0cb4a00f3ce",
+    "7dce303c9044cdc4",
+    "40c4eae0b8a3fa55",
+    "2da2b0b5cd742518"
+  ]
 }

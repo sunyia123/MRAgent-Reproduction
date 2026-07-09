@@ -12,17 +12,22 @@
   "prediction_context": [
     "D11:17"
   ],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 4,
+  "response_count": 4,
+  "tool_call_count": 0,
+  "tool_call_sequence": [],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 0,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 329.34
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "6b3f36eeebbbe0da",
+    "3a6fd3abd6633bc7",
+    "920a78dc9cb471a0",
+    "4be45020dfc0d2be"
+  ]
 }

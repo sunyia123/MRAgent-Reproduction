@@ -11,17 +11,68 @@
   "prediction_context": [
     "D5:1"
   ],
-  "f1": 0.6,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 7,
+  "tool_call_sequence": [
+    {
+      "request_id": "90b6132ae28521eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "90b6132ae28521eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "90b6132ae28521eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "90b6132ae28521eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "cf9fb069a2e1d3ab",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "547a101c9c65bb3a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "2f9aa7ac61be9b37",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 7,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 903.87
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "41d56a8f267eeff6",
+    "2f9aa7ac61be9b37",
+    "1fd932ba927a726b",
+    "cf9fb069a2e1d3ab",
+    "547a101c9c65bb3a",
+    "90b6132ae28521eb",
+    "4b48744d6be0fbdb"
+  ]
 }

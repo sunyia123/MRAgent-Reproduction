@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "What important values does Maria want to teach her kids through adopting a rescue dog?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D17:11"
   ],
@@ -12,17 +12,31 @@
     "D17:11",
     "D17:12"
   ],
-  "f1": 0.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 1,
+  "tool_call_sequence": [
+    {
+      "request_id": "1be36808ddf6de02",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 1,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 536.79
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "1be36808ddf6de02",
+    "28c0eebb4f7df955",
+    "b958b9f56ee6452e",
+    "2ab882f5ea6fd767",
+    "9ddfc76d182b5534",
+    "3f20b2d9fd3276da"
+  ]
 }

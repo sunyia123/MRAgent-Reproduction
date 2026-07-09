@@ -12,17 +12,83 @@
   "prediction_context": [
     "D23:1"
   ],
-  "f1": 0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 10,
+  "response_count": 10,
+  "tool_call_count": 9,
+  "tool_call_sequence": [
+    {
+      "request_id": "1c6036468fcb1e15",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1c6036468fcb1e15",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1c6036468fcb1e15",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1b116196b92436fe",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1b116196b92436fe",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1b116196b92436fe",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "70d743391644c334",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "ee2273b1c1d37f46",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1600733cab73b649",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 9,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1002.31
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "1b116196b92436fe",
+    "ee2273b1c1d37f46",
+    "cc0b2dc34e11f1d0",
+    "cd76971d985279f6",
+    "e77759025043579e",
+    "1fa071b27e1bc449",
+    "1c6036468fcb1e15",
+    "510d532f5b9a5913",
+    "1600733cab73b649",
+    "70d743391644c334"
+  ]
 }

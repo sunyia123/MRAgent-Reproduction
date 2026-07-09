@@ -3,23 +3,100 @@
   "question_index": 9,
   "category": 5,
   "question": "What new activity has John started learning in August 2023?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D8:12"
   ],
   "prediction": "no information available",
   "prediction_context": [],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 9,
+  "response_count": 9,
+  "tool_call_count": 11,
+  "tool_call_sequence": [
+    {
+      "request_id": "31847533f0f37fcb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "31847533f0f37fcb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "31847533f0f37fcb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "5cccb5a11386e2ad",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7370df66cbcbea44",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "5bc124707299c691",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "40f93cea07b8c148",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "02ad7df2e4bf2d11",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e8e7ba36f2fa0ab5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fadea81cfd33d4d9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fadea81cfd33d4d9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 11,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 716.05
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "40f93cea07b8c148",
+    "fadea81cfd33d4d9",
+    "31847533f0f37fcb",
+    "e8e7ba36f2fa0ab5",
+    "83368dd5244a8dcd",
+    "5bc124707299c691",
+    "7370df66cbcbea44",
+    "5cccb5a11386e2ad",
+    "02ad7df2e4bf2d11"
+  ]
 }

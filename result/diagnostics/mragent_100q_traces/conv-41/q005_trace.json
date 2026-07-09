@@ -16,17 +16,57 @@
     "D18:1",
     "D28:8"
   ],
-  "f1": 0.667,
-  "evidence_hit": 0.667,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 5,
+  "tool_call_sequence": [
+    {
+      "request_id": "fed56cbafac46c6f",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fed56cbafac46c6f",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fed56cbafac46c6f",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fed56cbafac46c6f",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "655c9c0da3d6373d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'Request timed out.'}"
+  ],
   "metrics": {
     "tool_calls": 5,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 390.47
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "fed56cbafac46c6f",
+    "b67dffaf81b76977",
+    "655c9c0da3d6373d",
+    "42c47b9f1dffd99f",
+    "d1455006be5f50ce",
+    "3a0c236debba1481"
+  ]
 }

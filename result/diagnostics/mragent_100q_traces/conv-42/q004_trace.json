@@ -13,17 +13,57 @@
     "D14:20",
     "D16:2"
   ],
-  "f1": 0.222,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 8,
+  "response_count": 8,
+  "tool_call_count": 5,
+  "tool_call_sequence": [
+    {
+      "request_id": "c5096044111e83f0",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "c5096044111e83f0",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "0e79a41bc5e0c894",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "54108311167ff5f4",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a97f6e3482e5ad34",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 5,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 631.95
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "3d91e7f641e9f593",
+    "a97f6e3482e5ad34",
+    "2196200634fcd8e9",
+    "0e79a41bc5e0c894",
+    "c5096044111e83f0",
+    "93d868b3c463503c",
+    "f25fd0a2bf7ee388",
+    "54108311167ff5f4"
+  ]
 }

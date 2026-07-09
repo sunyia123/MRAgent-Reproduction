@@ -7,17 +7,24 @@
   "gold_evidence": [],
   "prediction": "ERROR",
   "prediction_context": [],
-  "f1": 0.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 3,
+  "response_count": 2,
+  "tool_call_count": 0,
+  "tool_call_sequence": [],
+  "error_count": 2,
+  "error_details": [
+    "{'request_id': '9f3e8b0518dae084', 'ts': '2026-07-08T22:07:25', 'attempt': 1, 'error': \"APITimeoutError('Request timed out.')\"}",
+    "{'error': 'Request timed out.'}"
+  ],
   "metrics": {
     "tool_calls": 0,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 0
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "b006d675e43e1824",
+    "b7a68c04b38d5ef0",
+    "9f3e8b0518dae084"
+  ]
 }

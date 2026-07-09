@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "How is Jon's store doing?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D4:2"
   ],
@@ -19,17 +19,66 @@
     "D16:8",
     "D19:10"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 5,
+  "response_count": 5,
+  "tool_call_count": 7,
+  "tool_call_sequence": [
+    {
+      "request_id": "245acecfd26b32c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "245acecfd26b32c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "245acecfd26b32c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "245acecfd26b32c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "245acecfd26b32c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "245acecfd26b32c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e4ffac2fff3276c3",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 7,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 341.39
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "245acecfd26b32c9",
+    "ff6b723134186ecd",
+    "8cd915996f4f7dc0",
+    "71743d3a24954629",
+    "e4ffac2fff3276c3"
+  ]
 }

@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "Why did Sam decide to get the bonsai tree?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D5:17"
   ],
@@ -13,17 +13,49 @@
     "D5:16",
     "D5:17"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 4,
+  "tool_call_sequence": [
+    {
+      "request_id": "88ad340231be936e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "88ad340231be936e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "12102bdc5b962e03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "12102bdc5b962e03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 4,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 653.96
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "7ea5ee4892ac8bcb",
+    "dc2e32af4314e888",
+    "eacd437f6566b92b",
+    "12102bdc5b962e03",
+    "72c89e608764feb1",
+    "88ad340231be936e"
+  ]
 }

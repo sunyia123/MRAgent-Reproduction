@@ -15,17 +15,50 @@
     "D16:4-1:Nate:Most of them did!",
     "D23:3-3:Nate:I even made some friends at the convention who love games just like me. We already planned a gaming session together"
   ],
-  "f1": 0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 4,
+  "tool_call_sequence": [
+    {
+      "request_id": "2e0ba0d6de41b5ec",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "2e0ba0d6de41b5ec",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "2e0ba0d6de41b5ec",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "4f1d6bb5bbe82f6a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 4,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 663.46
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "4f1d6bb5bbe82f6a",
+    "2e0ba0d6de41b5ec",
+    "2698b03820c654ee",
+    "4ff2945ee824c0d0",
+    "95306fdc8a3a8482",
+    "eb6c764c7f50458a",
+    "5a78ac6123f797c6"
+  ]
 }

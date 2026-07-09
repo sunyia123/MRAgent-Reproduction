@@ -13,17 +13,38 @@
     "D18:7",
     "D18:8"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 2,
+  "tool_call_sequence": [
+    {
+      "request_id": "1189aa67702d09d9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "9bf3fffabecf8e67",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 2,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1040.55
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "9bf3fffabecf8e67",
+    "302fd1aabb3dea12",
+    "1189aa67702d09d9",
+    "bef040c61f92f231",
+    "f552a63ac6031995",
+    "eee48eb06fcde876",
+    "db2d16abe76b0f17"
+  ]
 }

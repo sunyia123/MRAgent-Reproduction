@@ -13,17 +13,76 @@
     "D13:8-2:Audrey:Thanks! That one is Max, my childhood dog.",
     "D2:18-1:Andrew:Got me thinking of my old hiking pics and how much I miss exploring nature trails with my family's dog."
   ],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 9,
+  "response_count": 9,
+  "tool_call_count": 8,
+  "tool_call_sequence": [
+    {
+      "request_id": "d7f0471670998a3c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d7f0471670998a3c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "595503a60de9aca5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "595503a60de9aca5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "595503a60de9aca5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "595503a60de9aca5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "50533bb4e7be2921",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "50533bb4e7be2921",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 8,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 783.47
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "50533bb4e7be2921",
+    "0485c411a2a1a9ee",
+    "13863bc6e9137dd2",
+    "0ec2d1e8c1f4f774",
+    "595503a60de9aca5",
+    "81d951a1c03cf1e2",
+    "d7f0471670998a3c",
+    "e56be0822ac876c3",
+    "96792c2542183498"
+  ]
 }

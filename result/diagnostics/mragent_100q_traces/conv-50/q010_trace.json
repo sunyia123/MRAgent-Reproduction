@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "When did Calvin sell the car he restored last year?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D25:17"
   ],
@@ -12,17 +12,70 @@
     "D25:17",
     "D4:7"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 9,
+  "response_count": 9,
+  "tool_call_count": 7,
+  "tool_call_sequence": [
+    {
+      "request_id": "74d9a33d7187f80c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "74d9a33d7187f80c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a38f489dd599f42e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a38f489dd599f42e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a38f489dd599f42e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "9407b2ef4e275d73",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d13cb0b9de8694b3",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 7,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 891.4
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "a1a19d121e18c915",
+    "2a0c4720fa598c9b",
+    "74d9a33d7187f80c",
+    "0fc29400256252b3",
+    "81a1ff3c77a15cb6",
+    "a38f489dd599f42e",
+    "9407b2ef4e275d73",
+    "d13cb0b9de8694b3",
+    "9817d5f9661bb66c"
+  ]
 }

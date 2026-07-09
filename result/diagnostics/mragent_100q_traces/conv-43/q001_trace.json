@@ -12,17 +12,37 @@
     "D3:27",
     "D3:26"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 2,
+  "tool_call_sequence": [
+    {
+      "request_id": "0bef2bb5943f0a72",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "90a6000a986948a8",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 2,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 478.2
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "631f08b4b447d27d",
+    "90a6000a986948a8",
+    "0bef2bb5943f0a72",
+    "ceab317d4453985b",
+    "93d0f2310417689a",
+    "32265c46c99eb510"
+  ]
 }

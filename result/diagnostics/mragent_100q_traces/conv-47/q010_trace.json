@@ -3,23 +3,49 @@
   "question_index": 10,
   "category": 5,
   "question": "Why did James sign up for a ballet class?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D23:13"
   ],
   "prediction": "Not mentioned in the conversation",
   "prediction_context": [],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "604bae7e08b72977",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "604bae7e08b72977",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a43bfbd7c6b00cac",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 722.55
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "a43bfbd7c6b00cac",
+    "0aa5c7d5999088ba",
+    "b4e8286812696119",
+    "3c61d84e8ee4eb39",
+    "4de13695e041d38e",
+    "604bae7e08b72977"
+  ]
 }

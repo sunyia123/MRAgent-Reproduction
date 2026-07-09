@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "Which type of pizza did Audrey suggest trying first to someone new to Italian cuisine?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D25:8"
   ],
@@ -12,17 +12,43 @@
     "D25:8",
     "D25:7"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "0d1b1e597995130e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "0d1b1e597995130e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e0d4aa12ed71c09d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 534.15
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "f78c37890b493a45",
+    "f9f61a561b3639eb",
+    "e0d4aa12ed71c09d",
+    "d9fcdd0c452487a6",
+    "b3086e749a0f4ede",
+    "0d1b1e597995130e"
+  ]
 }

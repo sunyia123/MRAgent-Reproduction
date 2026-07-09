@@ -13,17 +13,101 @@
     "D17:15-4:John:This is from when we were 10 and we were really into skateboarding.",
     "D17:16-1:James:Indeed, I remember this moment. We loved skateboards back then, sometimes we even left class early to do it."
   ],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 8,
+  "response_count": 8,
+  "tool_call_count": 12,
+  "tool_call_sequence": [
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8cfc1fe89e5d8eeb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e6bfe975c86776eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e6bfe975c86776eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e6bfe975c86776eb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7b475a4e2b66e363",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'Request timed out.'}"
+  ],
   "metrics": {
     "tool_calls": 12,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1047.88
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "8cfc1fe89e5d8eeb",
+    "956a91bd068e7938",
+    "0810872a23cf9fa0",
+    "a626e052c26d0dea",
+    "7b475a4e2b66e363",
+    "a51f0d4770cee446",
+    "e6bfe975c86776eb",
+    "ec00ec85f0aa1a59"
+  ]
 }

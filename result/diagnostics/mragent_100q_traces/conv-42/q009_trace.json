@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "What did Nate think of the caramel ice cream he made?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D3:6"
   ],
@@ -11,17 +11,22 @@
   "prediction_context": [
     "D3:6"
   ],
-  "f1": 0.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 4,
+  "response_count": 4,
+  "tool_call_count": 0,
+  "tool_call_sequence": [],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 0,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 254.59
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "fb17edfa053ea3ed",
+    "006640ef0650105e",
+    "17d01c9609f3bfd2",
+    "a24a26730a79790b"
+  ]
 }

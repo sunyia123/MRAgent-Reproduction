@@ -11,17 +11,35 @@
   "prediction_context": [
     "D1:16"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 4,
+  "response_count": 4,
+  "tool_call_count": 2,
+  "tool_call_sequence": [
+    {
+      "request_id": "beccb2366af16b8f",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "beccb2366af16b8f",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 2,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 352.53
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "d06ee949d92613c3",
+    "5d0561e76e09d55a",
+    "beccb2366af16b8f",
+    "bafe5f8e275aa2a6"
+  ]
 }

@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "Why did Jolene spend time in the garden?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D6:4"
   ],
@@ -13,17 +13,49 @@
     "D6:2",
     "D6:3"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 4,
+  "tool_call_sequence": [
+    {
+      "request_id": "1ceeebe089b1de89",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1ceeebe089b1de89",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "baa3aa83b3d6fc30",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "baa3aa83b3d6fc30",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 4,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 894.21
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "baa3aa83b3d6fc30",
+    "30c11edfaa9a7436",
+    "59a5a6a4627da304",
+    "1ceeebe089b1de89",
+    "760438d966073828",
+    "06d7e54d6d355399"
+  ]
 }

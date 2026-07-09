@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "What type of instrument does Caroline play?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D15:26"
   ],
@@ -13,17 +13,35 @@
     "D15:21",
     "D5:5"
   ],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 4,
+  "response_count": 4,
+  "tool_call_count": 2,
+  "tool_call_sequence": [
+    {
+      "request_id": "94c354d06e1e0603",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "94c354d06e1e0603",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 2,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 355.52
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "1fba248d702f4c09",
+    "7f79b2746448e20a",
+    "94c354d06e1e0603",
+    "9b1c6203fb1ac0d3"
+  ]
 }

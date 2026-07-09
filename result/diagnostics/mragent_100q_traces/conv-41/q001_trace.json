@@ -13,17 +13,102 @@
     "D3:13",
     "D3:15"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 11,
+  "response_count": 11,
+  "tool_call_count": 12,
+  "tool_call_sequence": [
+    {
+      "request_id": "439ff631691e9cc7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "439ff631691e9cc7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "439ff631691e9cc7",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1892b4a440798491",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1892b4a440798491",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1bc85e83b4d9f872",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "1bc85e83b4d9f872",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "089dc345b5a6ae99",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "089dc345b5a6ae99",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "422cd31aa7c76dfd",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "5a732dc7adad3215",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "33292f3000a3fef1",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 12,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1299.78
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "36ee8288e63edf59",
+    "acd3409c5a30d6db",
+    "089dc345b5a6ae99",
+    "33292f3000a3fef1",
+    "439ff631691e9cc7",
+    "1bc85e83b4d9f872",
+    "8d25ab5c348f099f",
+    "1892b4a440798491",
+    "6b37a052e7d16f6a",
+    "422cd31aa7c76dfd",
+    "5a732dc7adad3215"
+  ]
 }

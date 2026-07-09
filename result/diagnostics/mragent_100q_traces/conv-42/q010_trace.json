@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "Why did Joanna choose the hair color she did?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D7:5"
   ],
@@ -12,17 +12,87 @@
     "D7:4",
     "D7:5"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 8,
+  "response_count": 8,
+  "tool_call_count": 10,
+  "tool_call_sequence": [
+    {
+      "request_id": "fa1c3527a51e5493",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fa1c3527a51e5493",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fa1c3527a51e5493",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "aaa5775c8eef19df",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "aaa5775c8eef19df",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f6237884ed47fbe2",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f6237884ed47fbe2",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "efe8623df4f3cc60",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "efe8623df4f3cc60",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "bc6fe0bfef16b67b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 10,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 774.45
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "efe8623df4f3cc60",
+    "794123bb3386fe0b",
+    "60508647bc918470",
+    "aaa5775c8eef19df",
+    "e80ffb479fd8fe2a",
+    "fa1c3527a51e5493",
+    "bc6fe0bfef16b67b",
+    "f6237884ed47fbe2"
+  ]
 }

@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "What car did Calvin work on in the junkyard?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D21:4"
   ],
@@ -12,17 +12,51 @@
     "D21:3",
     "D21:4"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 8,
+  "response_count": 8,
+  "tool_call_count": 4,
+  "tool_call_sequence": [
+    {
+      "request_id": "fe2f5611d9686ba0",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fe2f5611d9686ba0",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "4fcafa388fcbe1e9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "0f65a38b95eb46e6",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 4,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1016.3
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "de6d585d2717ced3",
+    "8f30fa1601b4156f",
+    "aa1c5df36223a490",
+    "fe2f5611d9686ba0",
+    "0f65a38b95eb46e6",
+    "4fcafa388fcbe1e9",
+    "53267839b1956f18",
+    "285531660b2f5d4f"
+  ]
 }

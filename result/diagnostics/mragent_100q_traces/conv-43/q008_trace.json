@@ -11,17 +11,20 @@
   "prediction_context": [
     "D16:1"
   ],
-  "f1": 0.625,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 2,
+  "response_count": 2,
+  "tool_call_count": 0,
+  "tool_call_sequence": [],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 0,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 130.68
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "8a0e5bedd09a17f0",
+    "28a98af243a32436"
+  ]
 }

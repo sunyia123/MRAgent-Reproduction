@@ -16,17 +16,107 @@
     "D4:17",
     "D19:11"
   ],
-  "f1": 0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 10,
+  "response_count": 10,
+  "tool_call_count": 13,
+  "tool_call_sequence": [
+    {
+      "request_id": "f9578dabe379309e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f9578dabe379309e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f9578dabe379309e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d7d2bf1789b14e1d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d7d2bf1789b14e1d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "6e32fc3021704dcd",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "6e32fc3021704dcd",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "73a53f692ea3f280",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "73a53f692ea3f280",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "55958648f454d1b6",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "55958648f454d1b6",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "3e61ee730d7565a1",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "658f49db69f30067",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 13,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1735.77
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "da5f95682eeddf7a",
+    "f9578dabe379309e",
+    "55958648f454d1b6",
+    "6e32fc3021704dcd",
+    "3e61ee730d7565a1",
+    "13277b3cdb0fe9d6",
+    "e5da411e61a07687",
+    "658f49db69f30067",
+    "d7d2bf1789b14e1d",
+    "73a53f692ea3f280"
+  ]
 }

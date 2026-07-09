@@ -12,17 +12,76 @@
     "D21:2-1:Evan says 'got married last week' in a conversation on 2023-12-26, meaning the wedding was around December 19, 2023, which coincides with the Christmas holiday season.",
     "D21:2-1 conversation time is 2023-12-26, the day after Christmas."
   ],
-  "f1": 0.5,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 8,
+  "tool_call_sequence": [
+    {
+      "request_id": "87b3613deb1a7579",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "87b3613deb1a7579",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "87b3613deb1a7579",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e1bcf33451fba012",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e1bcf33451fba012",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "b5af0af5f2e16585",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "db6bd4da334122a9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7116fa71df03aa5b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'Request timed out.'}"
+  ],
   "metrics": {
     "tool_calls": 8,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 810.95
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "e1bcf33451fba012",
+    "571a12aa96241467",
+    "7116fa71df03aa5b",
+    "87b3613deb1a7579",
+    "b04c5ef793296ab2",
+    "b5af0af5f2e16585",
+    "db6bd4da334122a9"
+  ]
 }

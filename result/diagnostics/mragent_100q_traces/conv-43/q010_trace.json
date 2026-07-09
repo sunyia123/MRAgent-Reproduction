@@ -3,23 +3,177 @@
   "question_index": 10,
   "category": 5,
   "question": "What special memory does \"Fifty Shades of Grey\" bring to Tim?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D8:16"
   ],
   "prediction": "Not mentioned in the conversation",
   "prediction_context": [],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 413,
+  "response_count": 413,
+  "tool_call_count": 348,
+  "tool_call_sequence": [
+    {
+      "request_id": "9d8a022d7b4b01e4",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "28e743f3cc665474",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "28e743f3cc665474",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "28e743f3cc665474",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "28e743f3cc665474",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "15fa8706104020e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "15fa8706104020e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "15fa8706104020e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "15fa8706104020e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7ff6c39a3ca5f257",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7ff6c39a3ca5f257",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7ff6c39a3ca5f257",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7ff6c39a3ca5f257",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "8d28634c08bcbc03",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'request_id': '9f3e8b0518dae084', 'ts': '2026-07-08T22:07:25', 'attempt': 1, 'error': \"APITimeoutError('Request timed out.')\"}"
+  ],
   "metrics": {
     "tool_calls": 23,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 832.04
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "1d82a75aefbbe477",
+    "009e1f2db3c6d0e9",
+    "c80eb0cb4a00f3ce",
+    "b7862bae6cfac995",
+    "0020d01c39d4371a",
+    "d7d2bf1789b14e1d",
+    "c6cdacd6d6771807",
+    "02a66d93897700d1",
+    "1b25cebcc0f61edb",
+    "630267838cf0a8c9",
+    "9407b2ef4e275d73",
+    "f6e1561fa305b885",
+    "c0215c8062cc13c0",
+    "96d369fc474ddea8",
+    "3feea7ab9a5d1077",
+    "26f66284fcdb69a7",
+    "aa1c5df36223a490",
+    "8fc6ab97b53e5751",
+    "36d68fb245fac05c",
+    "561f1fc52ee711fd",
+    "e95d2dea2c5bb584",
+    "fc3fb3c8cd4346fc",
+    "e84383a668af1dcc",
+    "8eb6dd722fe52105",
+    "ee2273b1c1d37f46",
+    "a138765bfd75df4d",
+    "b7a68c04b38d5ef0",
+    "3a26a8f63fac7d2a",
+    "d77a23614c019e37",
+    "ee4b514a03bc3817"
+  ]
 }

@@ -13,17 +13,90 @@
     "D2:10",
     "D2:12"
   ],
-  "f1": 0.909,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 11,
+  "response_count": 11,
+  "tool_call_count": 10,
+  "tool_call_sequence": [
+    {
+      "request_id": "0d10a9543b2f8f48",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "0d10a9543b2f8f48",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "9e56c2a86a8dfb0b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "34f502e0b319002d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "71d31647b6f0275e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "71d31647b6f0275e",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "303f29c304ada4fa",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "5b4ef3ddb7a097d2",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "774b826c77402937",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "774b826c77402937",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 10,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1149.48
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "5b4ef3ddb7a097d2",
+    "0eaaad09d71bd4b7",
+    "303f29c304ada4fa",
+    "9e56c2a86a8dfb0b",
+    "d4c2a3617ae2055e",
+    "2ae06124db0c7126",
+    "71d31647b6f0275e",
+    "d26c61ed656a0148",
+    "774b826c77402937",
+    "0d10a9543b2f8f48",
+    "34f502e0b319002d"
+  ]
 }

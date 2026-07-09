@@ -13,17 +13,110 @@
     "D2:7",
     "D16:1"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 11,
+  "response_count": 11,
+  "tool_call_count": 13,
+  "tool_call_sequence": [
+    {
+      "request_id": "bc40c926e8f00c45",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "bc40c926e8f00c45",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "bc40c926e8f00c45",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "bc40c926e8f00c45",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d9d364323c921f3a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d9d364323c921f3a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d9d364323c921f3a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d9d364323c921f3a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "c0e08f29a40fdefa",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "e848fe0fead9fb55",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "bde8f0e7c2198460",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "ab9012b078b36fec",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "760c308abee21b7a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'Request timed out.'}"
+  ],
   "metrics": {
     "tool_calls": 13,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 963.86
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "c1d9fc37b3c628ba",
+    "e848fe0fead9fb55",
+    "760c308abee21b7a",
+    "c0e08f29a40fdefa",
+    "4a93d4ec8dbe8595",
+    "4c9f600e2b9f643f",
+    "d9d364323c921f3a",
+    "ab9012b078b36fec",
+    "bc40c926e8f00c45",
+    "f819fba9453634d0",
+    "bde8f0e7c2198460"
+  ]
 }

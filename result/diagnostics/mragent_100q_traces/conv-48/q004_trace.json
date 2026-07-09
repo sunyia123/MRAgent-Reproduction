@@ -16,17 +16,54 @@
     "D2:5-1:My husband and I are trying to be as good a family as my parents were!",
     "D2:7-1:It is love, and openness that have kept us close all these years. Being there for each other has made us both happy."
   ],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 5,
+  "response_count": 5,
+  "tool_call_count": 5,
+  "tool_call_sequence": [
+    {
+      "request_id": "54e59eb83a0485cc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "54e59eb83a0485cc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "54e59eb83a0485cc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "630267838cf0a8c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "630267838cf0a8c9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 5,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 478.49
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "c6cdacd6d6771807",
+    "88cb1bc94366cbf1",
+    "630267838cf0a8c9",
+    "cd0813f7398b7c26",
+    "54e59eb83a0485cc"
+  ]
 }

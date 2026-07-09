@@ -16,17 +16,44 @@
     "D8:16",
     "D11:20"
   ],
-  "f1": 0.439,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "34b2ea13fca60936",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "34b2ea13fca60936",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "37a4ae17fc528253",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 744.17
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "3478a3b4237a09aa",
+    "060518121cff9787",
+    "5897230ce889a401",
+    "34b2ea13fca60936",
+    "68cc47bca47a8b95",
+    "37a4ae17fc528253",
+    "7e0891df407da3ec"
+  ]
 }

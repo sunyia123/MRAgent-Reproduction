@@ -12,17 +12,38 @@
     "D11:2",
     "D13:1"
   ],
-  "f1": 1.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 2,
+  "tool_call_sequence": [
+    {
+      "request_id": "7548d75493204e75",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "0c4cca10e7bea04c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 2,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 595.06
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "b78ad4e21069d1f6",
+    "0c4cca10e7bea04c",
+    "7096f2eb5735903b",
+    "cb71bc29ba6459e0",
+    "7548d75493204e75",
+    "91b71a0e4cb63523",
+    "5b114538c5c90013"
+  ]
 }

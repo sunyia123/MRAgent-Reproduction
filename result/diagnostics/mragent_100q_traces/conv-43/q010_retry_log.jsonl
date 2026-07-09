@@ -1,1 +1,1 @@
-{"note": "no retries or errors"}
+{"request_id": "9f3e8b0518dae084", "ts": "2026-07-08T22:07:25", "attempt": 1, "error": "APITimeoutError('Request timed out.')"}

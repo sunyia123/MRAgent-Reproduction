@@ -12,17 +12,44 @@
     "D19:9",
     "D19:11"
   ],
-  "f1": 0.444,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "3a26a8f63fac7d2a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "3a26a8f63fac7d2a",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "009e1f2db3c6d0e9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 530.08
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "c010704e2a0ba615",
+    "3a26a8f63fac7d2a",
+    "009e1f2db3c6d0e9",
+    "33ea6b6cc8fe7af8",
+    "fb629823b6007260",
+    "fa18a8d9cba882d1",
+    "1b43f38cbe2428d2"
+  ]
 }

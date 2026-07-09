@@ -15,17 +15,43 @@
     "D6:15-3:John:Yeah! Winning a championship is my number one goal. But I also want to make a difference away from the court, like through charity or inspiring people. Basketball has been great to me, so I want to give something back.",
     "D26:21-5:John:I've been working on supporting youth sports and fighting for fair chances in sports for underserved communities. It's important to me that every kid has access to good sports programs. I've been collaborating with organizations to create more opportunities for young athletes and help them succeed. It's amazing to see the difference sports make in people's lives."
   ],
-  "f1": 0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "617786103f90edc6",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "617786103f90edc6",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "617786103f90edc6",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 831.63
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "fbfbc8a2f863a168",
+    "129c9de7f5bd3317",
+    "617786103f90edc6",
+    "e86b671cbfb397fd",
+    "9382cead5ecfed33",
+    "8055b1a5d9414bfd"
+  ]
 }

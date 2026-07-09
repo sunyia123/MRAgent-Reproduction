@@ -3,7 +3,7 @@
   "question_index": 10,
   "category": 5,
   "question": "Why does Maria think it's important for younger generations to visit art galleries?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D27:12"
   ],
@@ -12,17 +12,71 @@
     "D27:12",
     "D27:14"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 10,
+  "response_count": 10,
+  "tool_call_count": 7,
+  "tool_call_sequence": [
+    {
+      "request_id": "7a7a51dbe519d8a8",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "7a7a51dbe519d8a8",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "290db476943d6454",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "290db476943d6454",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "c0d261fd54886c8c",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d0bdb957de10c799",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "06a7f968ac74576b",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 7,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1426.93
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "290db476943d6454",
+    "f6b9c9dbe342fda6",
+    "b1474e9238b1dbcf",
+    "f2ba9ab6ec0dee85",
+    "3954fabfcfaeddab",
+    "c0d261fd54886c8c",
+    "7a7a51dbe519d8a8",
+    "d0bdb957de10c799",
+    "2a6dce6f53cd88b9",
+    "06a7f968ac74576b"
+  ]
 }

@@ -10,17 +10,24 @@
   ],
   "prediction": "ERROR",
   "prediction_context": [],
-  "f1": 0.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 4,
+  "response_count": 4,
+  "tool_call_count": 0,
+  "tool_call_sequence": [],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'chat_text: all 3 JSON parse attempts exhausted. stage=qa, raw_head=\\'{\\\\n  \"keyword\": \"Calvin\",\\\\n  \"tag_scores\": {\\\\n    \"support\": 1.0,\\\\n    \"support system\": 1.0,\\\\n    \"support network\": 1.0,\\\\n    \"support importance\": 1.0,\\\\n    \"mutual support\": 1.0,\\\\n    \"friendship\": 1.0,\\\\n   "
+  ],
   "metrics": {
     "tool_calls": 0,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 0
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "0904948b0e7832d4",
+    "36086a80e464174b",
+    "311964e77cd661f1",
+    "ef3a0672a6379cfa"
+  ]
 }

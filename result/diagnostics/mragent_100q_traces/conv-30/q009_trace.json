@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "What did Jon want his customers to feel in her store?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D3:6",
     "D3:8"
@@ -13,17 +13,43 @@
     "D3:7",
     "D3:9"
   ],
-  "f1": 0.0,
-  "evidence_hit": 0.0,
-  "errors": [],
+  "prompt_count": 6,
+  "response_count": 6,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "96c358dbc2a3efbc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "96c358dbc2a3efbc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "9b57606546be9867",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 471.56
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "e5a3f6093ce18f5c",
+    "dc002be521eac018",
+    "96c358dbc2a3efbc",
+    "fd82bb3cb427abc4",
+    "9b57606546be9867",
+    "bf863e688a6ecb26"
+  ]
 }

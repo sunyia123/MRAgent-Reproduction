@@ -13,17 +13,135 @@
     "D25:15",
     "D5:4"
   ],
-  "f1": 0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 12,
+  "response_count": 12,
+  "tool_call_count": 17,
+  "tool_call_sequence": [
+    {
+      "request_id": "f28824993f5b0660",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f28824993f5b0660",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "f28824993f5b0660",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "574040d8876f6a8d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "574040d8876f6a8d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "574040d8876f6a8d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "574040d8876f6a8d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "574040d8876f6a8d",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d3061325c74fa8a9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "d3061325c74fa8a9",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "fe8305c800eb9f80",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "14607947f99283cc",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "b7e93903f7ffbfe4",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "52c01fe66f8087e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "52c01fe66f8087e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "52c01fe66f8087e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "52c01fe66f8087e5",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'chat_text: all 3 JSON parse attempts exhausted. stage=qa, raw_head=\\'{\\\\n  \"keyword\": \"Calvin\",\\\\n  \"tag_scores\": {\\\\n    \"support\": 1.0,\\\\n    \"support system\": 1.0,\\\\n    \"support network\": 1.0,\\\\n    \"support importance\": 1.0,\\\\n    \"mutual support\": 1.0,\\\\n    \"friendship\": 1.0,\\\\n   "
+  ],
   "metrics": {
     "tool_calls": 17,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 1061.48
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "38d7eadf5ea3ef9a",
+    "73d1612a647c2329",
+    "52c01fe66f8087e5",
+    "f28824993f5b0660",
+    "14607947f99283cc",
+    "a35f386db72e9243",
+    "3ba58f6820c1ddf3",
+    "77e71810b21364c6",
+    "574040d8876f6a8d",
+    "d3061325c74fa8a9",
+    "fe8305c800eb9f80",
+    "b7e93903f7ffbfe4"
+  ]
 }

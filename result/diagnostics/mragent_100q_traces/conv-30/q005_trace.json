@@ -11,17 +11,43 @@
   "prediction_context": [
     "D5:15"
   ],
-  "f1": 0.316,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 4,
+  "response_count": 4,
+  "tool_call_count": 3,
+  "tool_call_sequence": [
+    {
+      "request_id": "22d5cbbc989211fe",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "22d5cbbc989211fe",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "9ea26d6b917c67cb",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 1,
+  "error_details": [
+    "{'error': 'Request timed out.'}"
+  ],
   "metrics": {
     "tool_calls": 3,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 252.33
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "9ea26d6b917c67cb",
+    "2d5b62e57b228fe4",
+    "7f8dbbe319c51254",
+    "22d5cbbc989211fe"
+  ]
 }

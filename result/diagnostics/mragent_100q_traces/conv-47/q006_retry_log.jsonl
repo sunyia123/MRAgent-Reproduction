@@ -1,1 +1,1 @@
-{"note": "no retries or errors"}
+{"error": "chat_text: all 3 JSON parse attempts exhausted. stage=qa, raw_head='{\\n  \"keyword\": \"Calvin\",\\n  \"tag_scores\": {\\n    \"support\": 1.0,\\n    \"support system\": 1.0,\\n    \"support network\": 1.0,\\n    \"support importance\": 1.0,\\n    \"mutual support\": 1.0,\\n    \"friendship\": 1.0,\\n    \"encouragement\": 0.8,\\n    \"reassurance\": 0.8,\\n    \"ongoing support\": 0.8,\\n    \"offer help\": 0.8,\\n'. Set ENABLE_JSON_REPAIR=1 to enable automatic repair, or check the raw response."}

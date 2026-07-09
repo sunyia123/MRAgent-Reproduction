@@ -3,7 +3,7 @@
   "question_index": 9,
   "category": 5,
   "question": "What does the smartwatch help Sam with?",
-  "gold_answer": null,
+  "gold_answer": "None",
   "gold_evidence": [
     "D5:9"
   ],
@@ -12,17 +12,50 @@
     "D5:8",
     "D5:9"
   ],
-  "f1": 1.0,
-  "evidence_hit": 1.0,
-  "errors": [],
+  "prompt_count": 7,
+  "response_count": 7,
+  "tool_call_count": 4,
+  "tool_call_sequence": [
+    {
+      "request_id": "b39772ca52d30ed1",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a71f0971e9297166",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "a71f0971e9297166",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    },
+    {
+      "request_id": "49df4efc69ba6aa4",
+      "tool_call_id": "",
+      "function_name": "",
+      "arguments": ""
+    }
+  ],
+  "error_count": 0,
+  "error_details": [],
   "metrics": {
     "tool_calls": 4,
     "schema_retries": 0,
     "forced_accepts": 0,
     "runtime_sec": 734.31
   },
-  "prompt_sections": 0,
-  "response_lines": 0,
-  "tool_call_lines": 0,
-  "retry_lines": 0
+  "raw_call_ids": [
+    "b39772ca52d30ed1",
+    "0cc0dc7d30f4e518",
+    "8bb966baa4f094c1",
+    "d70cf0f5469e7a08",
+    "a71f0971e9297166",
+    "0020d01c39d4371a",
+    "49df4efc69ba6aa4"
+  ]
 }
