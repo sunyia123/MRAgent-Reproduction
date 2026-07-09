@@ -50,6 +50,85 @@
 3. category 2 的时间推理仍明显优于普通 RAG，但仍存在日期归一化和相对时间解释错误。
 4. category 5 总体较好，但还有 3 个过度回答问题。
 
+### 2.1 与其他 baseline 的对比
+
+本报告必须和 baseline 一起看，否则只能说明 MRAgent 自身能跑通，不能说明“图记忆 + 主动检索”的改进是否 solid。
+
+四组实验使用同一批 10 个 LoCoMo conversation sample、同一批 100 个问题、同一批 rewrite/embedding/graph cache：
+
+| 方法 | 输入与检索方式 | 回答方式 |
+|---|---|---|
+| MRAgent | 图结构记忆 + 多步 LLM 检索/排序/推理 | agent 式多轮调用 |
+| RAG | rewrite sentence 向量 Top-k | 单轮 plain-text QA |
+| GraphRAG | 向量种子 + 局部图扩展 | 单轮 plain-text QA |
+| Oracle | gold evidence 对应 context | 单轮 plain-text QA |
+
+整体对比：
+
+| 方法 | 题数 | ERROR | 平均 F1 | Evidence Hit |
+|---|---:|---:|---:|---:|
+| MRAgent | 100 | 2 | 0.629 | 0.709 |
+| RAG | 100 | 0 | 0.430 | 0.612 |
+| GraphRAG | 100 | 0 | 0.366 | 0.596 |
+| Oracle | 100 | 0 | 0.408 | 0.990 |
+
+说明：
+
+1. F1 来自 `reports/core_validation_100q_per_question_compare_20260708.csv` 和修正后的 manifest。
+2. Evidence Hit 使用原始 JSONL 的 `prediction_context` 与 gold evidence 做 prefix matching，排除 null-gold 无证据题。
+3. Oracle 的 evidence hit 最高是预期结果，因为它直接使用 gold evidence；但 Oracle F1 仍低于 MRAgent，说明“给对证据”不等于“答对问题”。
+
+按类别对比：
+
+| 类别 | 含义 | MRAgent | RAG | GraphRAG | Oracle | 主要结论 |
+|---|---|---:|---:|---:|---:|---|
+| 1 | 多跳事实整合 | 0.554 | 0.417 | 0.292 | 0.476 | MRAgent 优于三个 baseline，但仍有较多 miss evidence |
+| 2 | 时间推理 | 0.600 | 0.177 | 0.170 | 0.252 | MRAgent 优势最明显 |
+| 3 | 偏好/假设/开放推理 | 0.345 | 0.088 | 0.065 | 0.099 | 全部方法都弱，但 MRAgent 仍明显更高 |
+| 4 | 单跳事实 | 0.752 | 0.525 | 0.506 | 0.609 | single-hop 并不低，MRAgent 最好 |
+| 5 | 对抗/不可回答 | 0.850 | 0.900 | 0.750 | 0.550 | RAG 略高，MRAgent 有过度回答风险 |
+
+成对比较：
+
+| 比较 | 题数 |
+|---|---:|
+| MRAgent F1 > RAG F1 | 38 |
+| RAG F1 > MRAgent F1 | 16 |
+| MRAgent 与 RAG 打平 | 46 |
+| MRAgent F1 > GraphRAG F1 | 49 |
+| GraphRAG F1 > MRAgent F1 | 10 |
+| MRAgent 近似正确而 RAG 基本错误 | 16 |
+| RAG 近似正确而 MRAgent 基本错误 | 2 |
+
+这里的关键不是 MRAgent 是否每题都赢，而是赢的题型是否符合论文机制预期。当前结果符合：
+
+1. 时间推理显著提升：RAG/Oracle 常停留在 `yesterday`、`last week`，MRAgent 更常归一化到具体日期。
+2. 单跳定位更稳：MRAgent category 4 F1 最高，说明图记忆不是只对复杂问题有效，对简单事实定位也有收益。
+3. 开放推理仍弱但相对更好：category 3 全部方法低，MRAgent 仍比 RAG / GraphRAG / Oracle 高。
+4. 对抗题不是 MRAgent 优势：category 5 中 RAG 略高，说明图检索越积极，越需要拒答/反证机制。
+
+### 2.2 为什么这些结果能支持“核心改进 solid”
+
+当前实验能够支持 MRAgent 核心改进，理由有三层。
+
+第一，和普通 RAG 相比，MRAgent 不是只提高 evidence hit，而是提高了答案质量。RAG 在一些题中也检索到了 gold evidence，但仍输出相对时间或错误实体。例如：
+
+| sample | question | gold | MRAgent | RAG | 说明 |
+|---|---|---|---|---|---|
+| conv-26 | When did Caroline go to the LGBTQ support group? | 7 May 2023 | 7 May 2023 | Yesterday | MRAgent 利用时间锚点完成归一化 |
+| conv-41 | What is the name of Maria's second puppy? | Shadow | Shadow | Coco | MRAgent 更好地处理实体顺序关系 |
+| conv-50 | When did Dave see Aerosmith perform live? | weekend before March 26, 2023 | weekend before 26 March 2023 | Last weekend | MRAgent 保留了会话日期上下文 |
+
+第二，和 GraphRAG 相比，MRAgent 的优势说明“简单图扩展 + 单轮回答”不够。GraphRAG 的 context 可能更大，但如果没有主动选择、排序、反思和时间/实体约束，仍会把相邻但错误的证据混进答案。
+
+第三，和 Oracle 相比，MRAgent 的优势说明“gold evidence 直接喂给模型”也不足以解决 long conversation QA。Oracle evidence hit 接近 1.0，但 F1 只有 0.408，典型原因是：
+
+1. gold evidence 是相对时间，需要 session date 才能回答。
+2. gold evidence 只是一条短句，需要邻近上下文。
+3. category 3/5 需要前提判断，而不是抽取式回答。
+
+因此，本轮更强的结论是：MRAgent 的核心收益来自“图结构记忆 + 主动检索/排序/上下文重建”的组合，而不是单独来自 embedding recall 或 gold evidence recall。
+
 ## 3. Raw trace 对两个 ERROR 的解释
 
 ### ERROR 1：conv-50 Q5
