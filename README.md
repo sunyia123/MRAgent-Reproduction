@@ -15,6 +15,7 @@ Before running experiments, read:
 - [docs/next_iteration_handoff.md](docs/next_iteration_handoff.md)
 - [docs/medium_core_validation_handoff.md](docs/medium_core_validation_handoff.md)
 - [docs/locomo_500q_ablation_protocol.md](docs/locomo_500q_ablation_protocol.md)
+- [docs/locomo_gate10_to_500_handoff.md](docs/locomo_gate10_to_500_handoff.md)
 - [docs/benchmark_reproduction_plan.md](docs/benchmark_reproduction_plan.md)
 - [docs/reproduction_plan.md](docs/reproduction_plan.md)
 - [reports/mragent_experiment_progress_20260703.md](reports/mragent_experiment_progress_20260703.md)
@@ -24,9 +25,9 @@ Before running experiments, read:
 Current server-side execution entry:
 
 ```bash
-cat docs/medium_core_validation_handoff.md
+cat docs/locomo_gate10_to_500_handoff.md
 python repro/update_server_directory_manifest.py --root /data/nishome/cuiwenjia/MRAgent-Reproduction
-python repro/audit_runtime_config.py --data locomo --sample_ids 26 --model deepseek --re_model v4flash --qa_model v4flash --file mragent_100q --subset_manifest data/subsets/locomo10_100q_seed42.json
+python repro/audit_runtime_config.py --data locomo --sample_ids 26 --model deepseek --re_model v4flash --qa_model v4flash --file mragent_full_gate10_qflash --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json
 ```
 
 For the current medium-core validation, do not run `run_stratified.py --sample_ids 26 --model deepseek` as a bare command. It omits the fixed subset manifest, uses the default result tag `0`, and leaves QA model routing implicit. In this workspace, `--model deepseek` resolves to `deepseek-ai/DeepSeek-V4-Pro`; graph-building rewrite/keyword should normally use `--re_model v4flash`, while QA must explicitly use `--qa_model v4flash` or `--qa_model deepseek`. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
@@ -102,7 +103,7 @@ The original upstream repository is preserved as read-only `upstream`.
 
 The current primary experiment is the paper-aligned `LoCoMo-10 / 500 questions / cat1-4` protocol described in [docs/locomo_500q_ablation_protocol.md](docs/locomo_500q_ablation_protocol.md). It keeps the historical 100-question results as diagnostics but does not treat them as paper-comparable because their QA-model routing, tool budget, category set, and passive-baseline time metadata differ.
 
-Before the 500-question run, build the native raw-turn RAG cache and complete the fixed `100q_core` pilot. Use an explicit `--qa_model` for every method; `--re_model` now controls rewrite/keyword only. The MRAgent full run must set `--max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80`.
+Before the 500-question run, complete the fixed conv-26 `gate10` with Full MRAgent, native RAG, GraphRAG, Oracle, A-Mem and Mem0. The 10 questions cover cat1-4 and validate the full interface; they are not used for statistical claims. Use an explicit `--qa_model` for every method; `--re_model` now controls rewrite/keyword only. The MRAgent full run must set `--max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80`.
 
 > This repository contains the code for the paper
 > **"Memory is Reconstructed, Not Retrieved: Graph Memory for LLM Agents"** ([arXiv:2606.06036](https://arxiv.org/abs/2606.06036)).

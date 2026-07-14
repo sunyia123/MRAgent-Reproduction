@@ -67,7 +67,7 @@ def avg(values: list[float]) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Summarize 100q core validation results.")
+    parser = argparse.ArgumentParser(description="Summarize fixed-subset core validation results.")
     parser.add_argument("--manifest", required=True)
     parser.add_argument("--data", default="locomo")
     parser.add_argument(

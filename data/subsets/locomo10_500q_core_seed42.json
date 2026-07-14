@@ -1,6 +1,6 @@
 {
   "name": "locomo10_500q_core_seed42",
-  "created_at": "2026-07-14T15:42:45",
+  "created_at": "2026-07-14T20:29:41",
   "data_path": "data/dataset_locomo.json",
   "sample_ids": [
     "conv-26",
@@ -23,7 +23,7 @@
     "3",
     "4"
   ],
-  "include_manifest": null,
+  "include_manifest": "data/subsets/locomo_conv26_10q_core_seed42.json",
   "n_questions": 500,
   "category_counts": {
     "1": 125,
@@ -47,6 +47,18 @@
     {
       "global_index": 1,
       "sample_id": "conv-26",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 2,
+      "question": "When did Caroline go to the LGBTQ support group?",
+      "answer": "7 May 2023",
+      "evidence": [
+        "D1:3"
+      ]
+    },
+    {
+      "global_index": 2,
+      "sample_id": "conv-26",
       "question_index": 1,
       "question_index_1based": 2,
       "category": 2,
@@ -57,7 +69,7 @@
       ]
     },
     {
-      "global_index": 2,
+      "global_index": 3,
       "sample_id": "conv-26",
       "question_index": 2,
       "question_index_1based": 3,
@@ -70,7 +82,7 @@
       ]
     },
     {
-      "global_index": 3,
+      "global_index": 4,
       "sample_id": "conv-26",
       "question_index": 3,
       "question_index_1based": 4,
@@ -82,39 +94,27 @@
       ]
     },
     {
-      "global_index": 4,
-      "sample_id": "conv-26",
-      "question_index": 5,
-      "question_index_1based": 6,
-      "category": 2,
-      "question": "When did Melanie run a charity race?",
-      "answer": "The sunday before 25 May 2023",
-      "evidence": [
-        "D2:1"
-      ]
-    },
-    {
       "global_index": 5,
       "sample_id": "conv-26",
-      "question_index": 8,
-      "question_index_1based": 9,
-      "category": 2,
-      "question": "When did Caroline give a speech at a school?",
-      "answer": "The week before 9 June 2023",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 1,
+      "question": "What is Caroline's identity?",
+      "answer": "Transgender woman",
       "evidence": [
-        "D3:1"
+        "D1:5"
       ]
     },
     {
       "global_index": 6,
       "sample_id": "conv-26",
-      "question_index": 10,
-      "question_index_1based": 11,
+      "question_index": 9,
+      "question_index_1based": 10,
       "category": 2,
-      "question": "How long has Caroline had her current group of friends for?",
-      "answer": "4 years",
+      "question": "When did Caroline meet up with her friends, family, and mentors?",
+      "answer": "The week before 9 June 2023",
       "evidence": [
-        "D3:13"
+        "D3:11"
       ]
     },
     {
@@ -146,6 +146,18 @@
     {
       "global_index": 9,
       "sample_id": "conv-26",
+      "question_index": 21,
+      "question_index_1based": 22,
+      "category": 2,
+      "question": "When did Caroline have a picnic?",
+      "answer": "The week before 6 July 2023",
+      "evidence": [
+        "D6:11"
+      ]
+    },
+    {
+      "global_index": 10,
+      "sample_id": "conv-26",
       "question_index": 22,
       "question_index_1based": 23,
       "category": 3,
@@ -156,20 +168,19 @@
       ]
     },
     {
-      "global_index": 10,
+      "global_index": 11,
       "sample_id": "conv-26",
-      "question_index": 24,
-      "question_index_1based": 25,
-      "category": 1,
-      "question": "What does Melanie do to destress?",
-      "answer": "Running, pottery",
+      "question_index": 26,
+      "question_index_1based": 27,
+      "category": 2,
+      "question": "When did Melanie read the book \"nothing is impossible\"?",
+      "answer": 2022,
       "evidence": [
-        "D7:22",
-        "D5:4"
+        "D7:8"
       ]
     },
     {
-      "global_index": 11,
+      "global_index": 12,
       "sample_id": "conv-26",
       "question_index": 27,
       "question_index_1based": 28,
@@ -182,7 +193,19 @@
       ]
     },
     {
-      "global_index": 12,
+      "global_index": 13,
+      "sample_id": "conv-26",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 2,
+      "question": "When did Caroline go to the adoption meeting?",
+      "answer": "The friday before 15 July 2023",
+      "evidence": [
+        "D8:9"
+      ]
+    },
+    {
+      "global_index": 14,
       "sample_id": "conv-26",
       "question_index": 30,
       "question_index_1based": 31,
@@ -192,7 +215,7 @@
       "evidence": []
     },
     {
-      "global_index": 13,
+      "global_index": 15,
       "sample_id": "conv-26",
       "question_index": 32,
       "question_index_1based": 33,
@@ -207,35 +230,20 @@
       ]
     },
     {
-      "global_index": 14,
-      "sample_id": "conv-26",
-      "question_index": 39,
-      "question_index_1based": 40,
-      "category": 1,
-      "question": "In what ways is Caroline participating in the LGBTQ community?",
-      "answer": "Joining activist group, going to pride parades, participating in an art show, mentoring program",
-      "evidence": [
-        "D10:3",
-        "D5:1",
-        "D9:12",
-        "D9:2"
-      ]
-    },
-    {
-      "global_index": 15,
-      "sample_id": "conv-26",
-      "question_index": 40,
-      "question_index_1based": 41,
-      "category": 1,
-      "question": "How many times has Melanie gone to the beach in 2023?",
-      "answer": 2,
-      "evidence": [
-        "D10:8",
-        "D6:16"
-      ]
-    },
-    {
       "global_index": 16,
+      "sample_id": "conv-26",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 1,
+      "question": "What events has Caroline participated in to help children?",
+      "answer": "Mentoring program, school speech",
+      "evidence": [
+        "D9:2",
+        "D3:3"
+      ]
+    },
+    {
+      "global_index": 17,
       "sample_id": "conv-26",
       "question_index": 42,
       "question_index_1based": 43,
@@ -248,7 +256,7 @@
       ]
     },
     {
-      "global_index": 17,
+      "global_index": 18,
       "sample_id": "conv-26",
       "question_index": 43,
       "question_index_1based": 44,
@@ -262,31 +270,7 @@
       ]
     },
     {
-      "global_index": 18,
-      "sample_id": "conv-26",
-      "question_index": 44,
-      "question_index_1based": 45,
-      "category": 2,
-      "question": "When is Melanie's daughter's birthday?",
-      "answer": "13 August",
-      "evidence": [
-        "D11:1"
-      ]
-    },
-    {
       "global_index": 19,
-      "sample_id": "conv-26",
-      "question_index": 45,
-      "question_index_1based": 46,
-      "category": 2,
-      "question": "When did Caroline attend a pride parade in August?",
-      "answer": "The Friday before 14 August 2023",
-      "evidence": [
-        "D11:4"
-      ]
-    },
-    {
-      "global_index": 20,
       "sample_id": "conv-26",
       "question_index": 46,
       "question_index_1based": 47,
@@ -296,21 +280,44 @@
       "evidence": []
     },
     {
+      "global_index": 20,
+      "sample_id": "conv-26",
+      "question_index": 47,
+      "question_index_1based": 48,
+      "category": 1,
+      "question": "Who supports Caroline when she has a negative experience?",
+      "answer": "Her mentors, family, and friends",
+      "evidence": [
+        "D12:1",
+        "D3:11"
+      ]
+    },
+    {
       "global_index": 21,
       "sample_id": "conv-26",
-      "question_index": 48,
-      "question_index_1based": 49,
-      "category": 1,
-      "question": "What types of pottery have Melanie and her kids made?",
-      "answer": "bowls, cup",
+      "question_index": 49,
+      "question_index_1based": 50,
+      "category": 2,
+      "question": "When did Caroline and Melanie go to a pride fesetival together?",
+      "answer": 2022,
       "evidence": [
-        "D12:14",
-        "D8:4",
-        "D5:6"
+        "D12:15"
       ]
     },
     {
       "global_index": 22,
+      "sample_id": "conv-26",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 3,
+      "question": "What would Caroline's political leaning likely be?",
+      "answer": "Liberal",
+      "evidence": [
+        "D12:1"
+      ]
+    },
+    {
+      "global_index": 23,
       "sample_id": "conv-26",
       "question_index": 51,
       "question_index_1based": 52,
@@ -324,7 +331,20 @@
       ]
     },
     {
-      "global_index": 23,
+      "global_index": 24,
+      "sample_id": "conv-26",
+      "question_index": 52,
+      "question_index_1based": 53,
+      "category": 1,
+      "question": "What are Melanie's pets' names?",
+      "answer": "Oliver, Luna, Bailey",
+      "evidence": [
+        "D13:4",
+        "D7:18"
+      ]
+    },
+    {
+      "global_index": 25,
       "sample_id": "conv-26",
       "question_index": 53,
       "question_index_1based": 54,
@@ -336,19 +356,20 @@
       ]
     },
     {
-      "global_index": 24,
+      "global_index": 26,
       "sample_id": "conv-26",
-      "question_index": 54,
-      "question_index_1based": 55,
-      "category": 2,
-      "question": "When did Caroline draw a self-portrait?",
-      "answer": "The week before 23 August 2023",
+      "question_index": 55,
+      "question_index_1based": 56,
+      "category": 1,
+      "question": "What subject have Caroline and Melanie both painted?",
+      "answer": "Sunsets",
       "evidence": [
-        "D13:11"
+        "D14:5",
+        "D8:6"
       ]
     },
     {
-      "global_index": 25,
+      "global_index": 27,
       "sample_id": "conv-26",
       "question_index": 56,
       "question_index_1based": 57,
@@ -361,7 +382,7 @@
       ]
     },
     {
-      "global_index": 26,
+      "global_index": 28,
       "sample_id": "conv-26",
       "question_index": 57,
       "question_index_1based": 58,
@@ -373,7 +394,7 @@
       ]
     },
     {
-      "global_index": 27,
+      "global_index": 29,
       "sample_id": "conv-26",
       "question_index": 59,
       "question_index_1based": 60,
@@ -386,19 +407,7 @@
       ]
     },
     {
-      "global_index": 28,
-      "sample_id": "conv-26",
-      "question_index": 62,
-      "question_index_1based": 63,
-      "category": 2,
-      "question": "When did Melanie go to the park?",
-      "answer": "27 August 2023",
-      "evidence": [
-        "D15:2"
-      ]
-    },
-    {
-      "global_index": 29,
+      "global_index": 30,
       "sample_id": "conv-26",
       "question_index": 64,
       "question_index_1based": 65,
@@ -410,34 +419,31 @@
       ]
     },
     {
-      "global_index": 30,
-      "sample_id": "conv-26",
-      "question_index": 66,
-      "question_index_1based": 67,
-      "category": 1,
-      "question": "What does Melanie do with her family on hikes?",
-      "answer": "Roast marshmallows, tell stories",
-      "evidence": [
-        "D16:4",
-        "D10:12"
-      ]
-    },
-    {
       "global_index": 31,
       "sample_id": "conv-26",
-      "question_index": 69,
-      "question_index_1based": 70,
-      "category": 3,
-      "question": "What personality traits might Melanie say Caroline has?",
-      "answer": "Thoughtful, authentic, driven",
+      "question_index": 67,
+      "question_index_1based": 68,
+      "category": 2,
+      "question": "When did Caroline go biking with friends?",
+      "answer": "The weekend before 13 September 2023",
       "evidence": [
-        "D16:18",
-        "D13:16",
-        "D7:4"
+        "D16:1"
       ]
     },
     {
       "global_index": 32,
+      "sample_id": "conv-26",
+      "question_index": 68,
+      "question_index_1based": 69,
+      "category": 2,
+      "question": "How long has Melanie been practicing art?",
+      "answer": "Since 2016",
+      "evidence": [
+        "D16:8"
+      ]
+    },
+    {
+      "global_index": 33,
       "sample_id": "conv-26",
       "question_index": 70,
       "question_index_1based": 71,
@@ -447,18 +453,6 @@
       "evidence": [
         "D17:19",
         "D15:13"
-      ]
-    },
-    {
-      "global_index": 33,
-      "sample_id": "conv-26",
-      "question_index": 72,
-      "question_index_1based": 73,
-      "category": 2,
-      "question": "When did Melanie's friend adopt a child?",
-      "answer": 2022,
-      "evidence": [
-        "D17:3"
       ]
     },
     {
@@ -502,6 +496,18 @@
     {
       "global_index": 37,
       "sample_id": "conv-26",
+      "question_index": 82,
+      "question_index_1based": 83,
+      "category": 4,
+      "question": "What did the charity race raise awareness for?",
+      "answer": "mental health",
+      "evidence": [
+        "D2:2"
+      ]
+    },
+    {
+      "global_index": 38,
+      "sample_id": "conv-26",
       "question_index": 84,
       "question_index_1based": 85,
       "category": 4,
@@ -512,27 +518,15 @@
       ]
     },
     {
-      "global_index": 38,
-      "sample_id": "conv-26",
-      "question_index": 89,
-      "question_index_1based": 90,
-      "category": 4,
-      "question": "What does Melanie think about Caroline's decision to adopt?",
-      "answer": "she thinks Caroline is doing something amazing and will be an awesome mom",
-      "evidence": [
-        "D2:15"
-      ]
-    },
-    {
       "global_index": 39,
       "sample_id": "conv-26",
-      "question_index": 100,
-      "question_index_1based": 101,
+      "question_index": 101,
+      "question_index_1based": 102,
       "category": 4,
-      "question": "What kind of place does Caroline want to create for people?",
-      "answer": "a safe and inviting place for people to grow",
+      "question": "Did Melanie make the black and white bowl in the photo?",
+      "answer": "Yes",
       "evidence": [
-        "D4:15"
+        "D5:8"
       ]
     },
     {
@@ -550,53 +544,65 @@
     {
       "global_index": 41,
       "sample_id": "conv-26",
-      "question_index": 113,
-      "question_index_1based": 114,
+      "question_index": 111,
+      "question_index_1based": 112,
       "category": 4,
-      "question": "What did Caroline see at the council meeting for adoption?",
-      "answer": "many people wanting to create loving homes for children in need",
+      "question": "What creative project do Mel and her kids do together besides pottery?",
+      "answer": "painting",
       "evidence": [
-        "D8:9"
+        "D8:5"
       ]
     },
     {
       "global_index": 42,
       "sample_id": "conv-26",
-      "question_index": 117,
-      "question_index_1based": 118,
+      "question_index": 115,
+      "question_index_1based": 116,
       "category": 4,
-      "question": "How often does Melanie go to the beach with her kids?",
-      "answer": "once or twice a year",
+      "question": "Why are flowers important to Melanie?",
+      "answer": "They remind her to appreciate the small moments and were a part of her wedding decor",
       "evidence": [
-        "D10:10"
+        "D8:12"
       ]
     },
     {
       "global_index": 43,
       "sample_id": "conv-26",
-      "question_index": 121,
-      "question_index_1based": 122,
+      "question_index": 122,
+      "question_index_1based": 123,
       "category": 4,
-      "question": "Who performed at the concert at Melanie's daughter's birthday?",
-      "answer": "Matt Patterson",
+      "question": "Why did Melanie choose to use colors and patterns in her pottery project?",
+      "answer": "She wanted to catch the eye and make people smile.",
       "evidence": [
-        "D11:3"
+        "D12:6"
       ]
     },
     {
       "global_index": 44,
       "sample_id": "conv-26",
-      "question_index": 128,
-      "question_index_1based": 129,
+      "question_index": 130,
+      "question_index_1based": 131,
       "category": 4,
-      "question": "What did Caroline find in her neighborhood during her walk?",
-      "answer": "a rainbow sidewalk",
+      "question": "Which  classical musicians does Melanie enjoy listening to?",
+      "answer": "Bach and Mozart",
       "evidence": [
-        "D14:23"
+        "D15:28"
       ]
     },
     {
       "global_index": 45,
+      "sample_id": "conv-26",
+      "question_index": 132,
+      "question_index_1based": 133,
+      "category": 4,
+      "question": "How long has Melanie been creating art?",
+      "answer": "7 years",
+      "evidence": [
+        "D16:7"
+      ]
+    },
+    {
+      "global_index": 46,
       "sample_id": "conv-26",
       "question_index": 133,
       "question_index_1based": 134,
@@ -608,31 +614,7 @@
       ]
     },
     {
-      "global_index": 46,
-      "sample_id": "conv-26",
-      "question_index": 134,
-      "question_index_1based": 135,
-      "category": 4,
-      "question": "What advice does Caroline give for getting started with adoption?",
-      "answer": "Do research, find an adoption agency or lawyer, gather necessary documents, and prepare emotionally.",
-      "evidence": [
-        "D17:7"
-      ]
-    },
-    {
       "global_index": 47,
-      "sample_id": "conv-26",
-      "question_index": 135,
-      "question_index_1based": 136,
-      "category": 4,
-      "question": "What setback did Melanie face in October 2023?",
-      "answer": "She got hurt and had to take a break from pottery.",
-      "evidence": [
-        "D17:8"
-      ]
-    },
-    {
-      "global_index": 48,
       "sample_id": "conv-26",
       "question_index": 137,
       "question_index_1based": 138,
@@ -644,28 +626,39 @@
       ]
     },
     {
+      "global_index": 48,
+      "sample_id": "conv-26",
+      "question_index": 143,
+      "question_index_1based": 144,
+      "category": 4,
+      "question": "What happened to Melanie's son on their road trip?",
+      "answer": "He got into an accident",
+      "evidence": [
+        "D18:1"
+      ]
+    },
+    {
       "global_index": 49,
       "sample_id": "conv-26",
-      "question_index": 139,
-      "question_index_1based": 140,
+      "question_index": 146,
+      "question_index_1based": 147,
       "category": 4,
-      "question": "What was the poetry reading that Caroline attended about?",
-      "answer": "It was a transgender poetry reading where transgender people shared their stories.",
+      "question": "How did Melanie's children handle the accident?",
+      "answer": "They were scared but resilient",
       "evidence": [
-        "D17:18"
+        "D18:7"
       ]
     },
     {
       "global_index": 50,
       "sample_id": "conv-26",
-      "question_index": 144,
-      "question_index_1based": 145,
+      "question_index": 148,
+      "question_index_1based": 149,
       "category": 4,
-      "question": "How did Melanie's son handle the accident?",
-      "answer": "He was scared but reassured by his family",
+      "question": "What was Melanie's reaction to her children enjoying the Grand Canyon?",
+      "answer": "She was happy and thankful",
       "evidence": [
-        "D18:6",
-        "D18:7"
+        "D18:5"
       ]
     },
     {

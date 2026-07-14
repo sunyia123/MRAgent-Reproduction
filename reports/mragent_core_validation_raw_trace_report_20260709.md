@@ -354,3 +354,9 @@ Raw trace 让结论更清楚：
 4. 旧 100 题 manifest 包含 cat5，而论文 LoCoMo 主比较排除了 adversarial questions。
 
 新的主实验协议见 `docs/locomo_500q_ablation_protocol.md`：先运行固定 cat1-4 的 100 题修复后 pilot，再运行固定 cat1-4 的 500 题 LoCoMo-10 主实验。新的比较包括 full MRAgent、实现级组件消融、含时间元数据的 native raw-turn RAG、修正后的 GraphRAG 和 Oracle。历史 all-category 结果继续用于 trace 与鲁棒性分析，但不再直接与论文 Table 1 的数值对齐。
+
+## 10. 2026-07-14 主实验范围确认
+
+后续执行顺序更新为固定 conv-26 10 题全方法闸门，然后直接进入固定 cat1-4 的 500 题主实验；修复后 100 题不再是必经阶段。10 题覆盖 cat1/2/3/4=3/2/2/3，用于跑通 Full MRAgent、native RAG、GraphRAG、Oracle、A-Mem 和 Mem0 的接口并展示逐题案例，不用于统计结论。
+
+500 题主命题固定为：在相同模型、相同题目、相同时间信息和可比检索预算下，主动图搜索是否显著优于被动向量检索。主对比优先于消融；消融随后分别检查 CTC 图上的多轮主动搜索，以及 CE/CTE/CTC 图结构差异。详细执行与交接见 `docs/locomo_gate10_to_500_handoff.md`。
