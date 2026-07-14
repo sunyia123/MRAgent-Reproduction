@@ -156,17 +156,31 @@ TOOLS= [
 
 
 class ToolBridge:
-    def __init__(self, memory_controller: MemoryController):
+    def __init__(self, memory_controller: MemoryController, disabled_tools=None):
         self.memory_controller = memory_controller
+        self.disabled_tools = set(disabled_tools or [])
+        self.trace = []
+
+    def reset_trace(self):
+        self.trace = []
+
+    @staticmethod
+    def _preview(value, limit=1000):
+        text = str(value)
+        return text if len(text) <= limit else text[:limit] + "...<truncated>"
 
     def call(self, tool_call: list) -> list:
         tool_results = []
         for item in tool_call:
-            args = json.loads(item["function"].get("arguments"))
             op = item["function"].get("name")
-            a = args
+            raw_arguments = item["function"].get("arguments")
+            a = None
+            error = None
             try:
-                if op == "edges_by_tag":
+                a = json.loads(raw_arguments)
+                if op in self.disabled_tools:
+                    out = {"error": f"tool disabled for this ablation: {op}"}
+                elif op == "edges_by_tag":
                     out, _, _ = self.memory_controller.event_by_tag(**a)
                 elif op == "query_conversation_time":
                     out = self.memory_controller.query_conversation_time(**a)
@@ -183,7 +197,14 @@ class ToolBridge:
                 else:
                     out = {"error": f"unknown op {op}"}
             except Exception as e:
-                out = {"error": str(e)}
+                error = str(e)
+                out = {"error": error}
+            self.trace.append({
+                "tool": op,
+                "arguments": a if a is not None else raw_arguments,
+                "result_preview": self._preview(out),
+                "error": error,
+            })
             tool_results.append({
                 "role": "tool",
                 "tool_call_id": item.get('id'),  # pair with the call

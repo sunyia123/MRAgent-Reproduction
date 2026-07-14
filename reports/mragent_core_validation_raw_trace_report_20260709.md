@@ -343,3 +343,14 @@ Raw trace 让结论更清楚：
 4. 下一阶段最值得做的是 CBR/Q-learning 检索策略优化、cat5 拒答机制、tag scoring 输出约束。
 
 如果后续要把本实验写成更强的研究论证，必须继续补齐工具层 trace，即每一步工具的名称、参数、返回节点和返回文本。目前 raw API trace 已经足够定位 LLM 调用问题，但还不足以完全解释图遍历策略的每一步选择。
+
+## 9. 2026-07-14 协议校正与 500 题扩展
+
+本报告与原有 100 题表格完整保留，并统一标记为 `pre-protocol diagnostic`；没有删除任何旧结果。后续代码与 trace 审计发现以下可比性问题，因此不能继续把旧数值当作论文主表级证据：
+
+1. MRAgent raw prompt 记录其 QA/tool 模型为 `deepseek-ai/DeepSeek-V4-Flash`，而 RAG/GraphRAG/Oracle runner 在 `--model deepseek` 下默认使用 `deepseek-ai/DeepSeek-V4-Pro`。后续每种方法均须显式传入同一个 `--qa_model`。
+2. 旧 RAG/GraphRAG/Oracle context builder 丢弃了 `event_time/conversation_time`。在旧 RAG 结果中，多个 temporal 题已经命中 evidence，却仍返回 `Yesterday` 或 `Last week`；这是 baseline runner 删除时间锚点造成的，不能解释为被动检索必然无法使用证据。
+3. 旧 MRAgent 只限制总工具数 50，没有实现论文的每轮 10 次工具调用上限。后续协议使用 `8 rounds x 10 calls`。
+4. 旧 100 题 manifest 包含 cat5，而论文 LoCoMo 主比较排除了 adversarial questions。
+
+新的主实验协议见 `docs/locomo_500q_ablation_protocol.md`：先运行固定 cat1-4 的 100 题修复后 pilot，再运行固定 cat1-4 的 500 题 LoCoMo-10 主实验。新的比较包括 full MRAgent、实现级组件消融、含时间元数据的 native raw-turn RAG、修正后的 GraphRAG 和 Oracle。历史 all-category 结果继续用于 trace 与鲁棒性分析，但不再直接与论文 Table 1 的数值对齐。

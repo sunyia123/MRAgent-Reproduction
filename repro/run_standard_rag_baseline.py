@@ -21,7 +21,6 @@ Usage:
 """
 
 import os, sys, json, pickle, argparse, logging, time, re
-from pathlib import Path
 from typing import List, Dict, Any, Optional
 
 import numpy as np
@@ -32,26 +31,13 @@ from llm.controller import LLM
 from common import config
 from data.get_data import get_data
 from common.logging_utils import per_sample_log
+from repro.baseline_utils import answer_system_prompt, format_question, load_subset_manifest
 
 logger = logging.getLogger("rag_baseline")
 
 RAG_SYSTEM_PROMPT = """Answer the question based ONLY on the provided conversation context.
 If the context does not contain enough information, answer "no information available".
 Give a concise answer — just the key fact, entity, date, or phrase asked for."""
-
-
-def load_subset_manifest(path: Optional[str]) -> Optional[dict[str, list[int]]]:
-    if not path:
-        return None
-    obj = json.loads(Path(path).read_text(encoding="utf-8"))
-    by_sample: dict[str, list[int]] = {}
-    for record in obj.get("records", []):
-        sample_id = record.get("sample_id")
-        qidx = record.get("question_index")
-        if sample_id is None or qidx is None:
-            continue
-        by_sample.setdefault(sample_id, []).append(int(qidx))
-    return {sample_id: sorted(set(indices)) for sample_id, indices in by_sample.items()}
 
 
 def cosine_similarity(a, b):
@@ -84,6 +70,8 @@ def load_rewrite_sentences(rewrite_path: str) -> List[Dict]:
                         "text": s.get("text", ""),
                         "origin": s.get("origin", "?"),
                         "tag": s.get("tag", ""),
+                        "event_time": s.get("time", ""),
+                        "session_date": data.get("conversation_time", ""),
                     })
     return sentences
 
@@ -103,6 +91,17 @@ def load_embeddings(embedding_path: str) -> dict:
         "topic_list": db.get("topic_list"),
         "sentence_ids": sentence_ids,
     }
+
+
+def load_native_raw_turns(cache_path: str) -> tuple[List[Dict], dict]:
+    with open(cache_path, "rb") as f:
+        payload = pickle.load(f)
+    units = payload.get("units") or []
+    embeddings = payload.get("embeddings") or []
+    if len(units) != len(embeddings):
+        raise ValueError(f"raw-turn cache count mismatch: {cache_path}")
+    id2emb = {row["sentence_id"]: embeddings[i] for i, row in enumerate(units)}
+    return units, id2emb
 
 
 def retrieve_top_k(question_emb, sentences: List[Dict], id2emb: dict, top_k: int = 20) -> List[Dict]:
@@ -126,19 +125,26 @@ def build_context(top_sentences: List[Dict]) -> str:
     """Build a context string from top-k sentences."""
     lines = []
     for s in top_sentences:
-        lines.append(f"[{s['sentence_id']}] ({s['tag']}) {s['text']}")
+        metadata = []
+        if s.get("event_time"):
+            metadata.append(f"event_date={s['event_time']}")
+        if s.get("session_date"):
+            metadata.append(f"session_date={s['session_date']}")
+        date_text = f" ({'; '.join(metadata)})" if metadata else ""
+        lines.append(f"[{s['sentence_id']}]{date_text} [{s['tag']}] {s['text']}")
     return "\n".join(lines)
 
 
-def answer_question_rag(llm: LLM, question: str, context: str) -> str:
+def answer_question_rag(llm: LLM, question: str, context: str, category: Any) -> str:
     """Simple single-turn RAG QA."""
     user_msg = f"Question: {question}\n\nContext:\n{context}\n\nAnswer:"
     try:
         result = llm.chat_plain_text(
             messages=[
-                {"role": "system", "content": RAG_SYSTEM_PROMPT},
+                {"role": "system", "content": answer_system_prompt(RAG_SYSTEM_PROMPT, category)},
                 {"role": "user", "content": user_msg},
             ],
+            model=config.QA_MODEL,
             max_tokens=config.QA_MAX_TOKENS,
         )
         return str(result or "no information available")
@@ -148,7 +154,8 @@ def answer_question_rag(llm: LLM, question: str, context: str) -> str:
 
 
 def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path: str,
-               llm: LLM, result_path: str, top_k: int, question_indices: Optional[list[int]] = None):
+               llm: LLM, result_path: str, top_k: int, question_indices: Optional[list[int]] = None,
+               source: str = "rewrite", raw_cache_path: Optional[str] = None):
     """Run RAG QA for all questions of one sample."""
     if question_indices is None:
         question_items = list(enumerate(qa_list))
@@ -157,9 +164,14 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
     logger.info(f"--- {sample_id} ({len(question_items)} questions, top_k={top_k}) ---")
 
     # Load rewrite sentences and embeddings
-    sentences = load_rewrite_sentences(rewrite_path)
     emb_data = load_embeddings(embedding_path)
-    id2emb = emb_data["id2emb"]
+    if source == "raw":
+        if not raw_cache_path or not os.path.exists(raw_cache_path):
+            raise FileNotFoundError(f"raw-turn cache not found: {raw_cache_path}")
+        sentences, id2emb = load_native_raw_turns(raw_cache_path)
+    else:
+        sentences = load_rewrite_sentences(rewrite_path)
+        id2emb = emb_data["id2emb"]
     question_embs = emb_data.get("question_embeddings")
     if question_embs is None:
         question_embs = []
@@ -184,17 +196,7 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
         gold = qa.get("answer")
         evidence = qa.get("evidence", [])
 
-        # For adversarial (cat 5): format the question with choices
-        if category == 5:
-            import random
-            q_text = question + " Select the correct answer: {} or {}. "
-            adv_ans = qa.get("adversarial_answer", "")
-            if random.random() < 0.5:
-                q_text = q_text.format("Not mentioned in the conversation", adv_ans)
-            else:
-                q_text = q_text.format(adv_ans, "Not mentioned in the conversation")
-        else:
-            q_text = question
+        q_text = format_question(qa, sample_id, orig_idx)
 
         # Get question embedding
         q_emb = question_embs[orig_idx] if orig_idx < len(question_embs) else None
@@ -205,7 +207,7 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
 
         # Answer
         _t0 = time.time()
-        prediction = answer_question_rag(llm, q_text, context)
+        prediction = answer_question_rag(llm, q_text, context, category)
         runtime = round(time.time() - _t0, 2)
 
         # Collect prediction_context (origin IDs)
@@ -227,6 +229,8 @@ def run_sample(sample_id: str, qa_list: list, rewrite_path: str, embedding_path:
                 "forced_accepts": 0,
                 "runtime_sec": runtime,
                 "rag_top_k": top_k,
+                "rag_source": source,
+                "qa_model": config.QA_MODEL,
             },
         }
         with open(result_path, "a", encoding="utf-8") as f:
@@ -244,6 +248,9 @@ def main():
     parser.add_argument("--top_k", type=int, default=20)
     parser.add_argument("--max_samples", type=int, default=None)
     parser.add_argument("--subset_manifest", default=None, help="Optional fixed subset manifest from repro/build_stratified_subset.py")
+    parser.add_argument("--qa_model", default=None, help="QA model; parsed by common.config before this runner starts")
+    parser.add_argument("--source", choices=["rewrite", "raw"], default="rewrite")
+    parser.add_argument("--raw_cache_dir", default="data/locomo/rag_native")
     args = parser.parse_args()
 
     dataset = args.data
@@ -278,7 +285,7 @@ def main():
         result_path = config.result_template.format(dataset=dataset, sample_id=sample_id).replace(
             f"result_{config.ADDITIONAL_RE}", f"result_{args.model}_{args.file}")
 
-        if not os.path.exists(rewrite_path):
+        if args.source == "rewrite" and not os.path.exists(rewrite_path):
             logger.warning(f"  {sample_id}: rewrite not found at {rewrite_path}, skipping")
             continue
         if not os.path.exists(embedding_path):
@@ -287,10 +294,11 @@ def main():
 
         qa_list = question_list.get(sample_id, [])
         q_indices = subset_by_sample.get(sample_id) if subset_by_sample is not None else None
+        raw_cache_path = os.path.join(args.raw_cache_dir, f"{sample_id}_raw_turn.pkl")
         with per_sample_log(sample_id=sample_id, dataset=dataset):
             llm = LLM()
             run_sample(sample_id, qa_list, rewrite_path, embedding_path,
-                       llm, result_path, args.top_k, q_indices)
+                       llm, result_path, args.top_k, q_indices, args.source, raw_cache_path)
 
 
 if __name__ == "__main__":

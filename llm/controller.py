@@ -402,6 +402,7 @@ class LLM:
             execute_tool: Optional[Callable] = None,
             max_rounds: int = config.MAX_ROUNDS,  # max rounds (assistant->tool->assistant is one round)
             max_tool_calls: int = config.MAX_TOOL_CALLS,  # max tool calls per session (safety cap)
+            max_tool_calls_per_round: int = config.MAX_TOOL_CALLS_PER_ROUND,
             max_tokens: Optional[int] = None,  # override default max_tokens per stage
             **extra
     ) -> Tuple[str, list]:
@@ -487,10 +488,20 @@ class LLM:
             # 3) if tools are needed and an executor is provided: run all tool_calls
             tool_calls = msg.get("tool_calls") or []
             if tool_calls and execute_tool:
+                skipped_tool_calls = []
+                if len(tool_calls) > max_tool_calls_per_round:
+                    logger.warning(
+                        "round %s emitted %s tool calls; truncating to per-round budget %s",
+                        round_id, len(tool_calls), max_tool_calls_per_round,
+                    )
+                    skipped_tool_calls.extend(tool_calls[max_tool_calls_per_round:])
+                    tool_calls = tool_calls[:max_tool_calls_per_round]
                 # accounting and safety cap
                 if tool_calls_used + len(tool_calls) > max_tool_calls:
                     # exceeded the safety cap; truncate
-                    tool_calls = tool_calls[: max(0, max_tool_calls - tool_calls_used)]
+                    remaining_budget = max(0, max_tool_calls - tool_calls_used)
+                    skipped_tool_calls.extend(tool_calls[remaining_budget:])
+                    tool_calls = tool_calls[:remaining_budget]
                 tool_calls_used += len(tool_calls)
 
                 tool_results_messages: List[Dict[str, Any]] = []
@@ -522,6 +533,17 @@ class LLM:
                             "name": (tc.get("function") or {}).get("name", "memory_dispatcher"),
                             "content": content
                         })
+
+                # OpenAI-compatible tool protocols require a response for every
+                # tool call in the preceding assistant message, including calls
+                # skipped by a configured budget.
+                for tc in skipped_tool_calls:
+                    tool_results_messages.append({
+                        "role": "tool",
+                        "tool_call_id": tc.get("id"),
+                        "name": (tc.get("function") or {}).get("name", "memory_dispatcher"),
+                        "content": json.dumps({"error": "tool call not executed: budget exhausted"}),
+                    })
 
                 # feed back all tool results, then continue to the next round
                 _append_if_list(messages, tool_results_messages)

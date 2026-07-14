@@ -20,8 +20,11 @@ class Agent:
         self.llm = llm
         self.memory = memory_system
         self.memory_controller = memory_controller
-        self.tools = TOOLS
-        self.tool_bridge = ToolBridge(memory_controller)
+        self.tools = [
+            tool for tool in TOOLS
+            if tool["function"]["name"] not in config.DISABLED_TOOLS
+        ]
+        self.tool_bridge = ToolBridge(memory_controller, config.DISABLED_TOOLS)
 
         self.episode_link_num = 0
         self.tags = set()
@@ -39,7 +42,7 @@ class Agent:
             execute_tool=self.tool_bridge.call,  # bind tool executor
             temperature=0.0,
             category=category,
-            model=config.RE_MODEL,
+            model=config.QA_MODEL,
             max_tokens=config.QA_MAX_TOKENS,
         )
 
@@ -260,7 +263,7 @@ class Agent:
             question_out = self.llm.chat_text(
                 messages=[{"role": "system", "content": Prompts.ANSWER_SORT_PROMPT2},
                           {"role": "user", "content": json.dumps(ans_input2, ensure_ascii=False)}],
-                model=config.RE_MODEL,
+                model=config.QA_MODEL,
                 max_tokens=config.QA_MAX_TOKENS,
             )
 
@@ -326,7 +329,7 @@ class Agent:
             question_out = self.llm.chat_text(
                 messages=[{"role": "system", "content": Prompts.ANSWER_SORT_PROMPT},
                           {"role": "user", "content": json.dumps(ans_input2, ensure_ascii=False)}],
-                model=config.RE_MODEL,
+                model=config.QA_MODEL,
                 max_tokens=config.QA_MAX_TOKENS,
             )
 
@@ -417,7 +420,7 @@ class Agent:
                             {"role": "system", "content": Prompts.EVENT_KEYWORDS_SYSTEM_PROMPT},
                             {"role": "user", "content": json.dumps(ans_input_tag, ensure_ascii=False)},
                         ],
-                        model=config.RE_MODEL,
+                        model=config.QA_MODEL,
                         max_tokens=config.QA_MAX_TOKENS,)
 
 
@@ -465,6 +468,7 @@ class Agent:
         self.schema_retries = 0
         self.forced_accepts = 0
         self.llm.last_tool_calls = 0
+        self.tool_bridge.reset_trace()
         self.memory_controller.question_emb = question_emb
         question_keys = self.extract_question_keys(question)
         self.memory_controller.set_queried_keywords(question_keys.get("keywords"))
@@ -585,6 +589,7 @@ class Agent:
             "schema_retries": self.schema_retries,
             "forced_accepts": self.forced_accepts,
             "runtime_sec": round(_time.time() - _t_start, 2),
+            "tool_trace": self.tool_bridge.trace,
         }
         return ans_messages, support_origin
 
@@ -593,7 +598,7 @@ class Agent:
         question_out = self.llm.chat_text(
             messages=[{"role": "system", "content": Prompts.QUESTION_KEY_SYSTEM_PROMPT},
                       {"role": "user", "content": question_prompt}],
-            model=config.RE_MODEL,
+            model=config.QA_MODEL,
             max_tokens=config.QA_MAX_TOKENS,
         )
         return question_out

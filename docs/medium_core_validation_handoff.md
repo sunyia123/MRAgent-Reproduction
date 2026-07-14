@@ -2,6 +2,8 @@
 
 更新时间：2026-07-06
 
+> 该文档保留 100q 历史执行背景。新的主实验请优先遵循 `docs/locomo_500q_ablation_protocol.md`；所有新命令必须显式传入 `--qa_model`。
+
 ## Context
 
 当前小样本诊断已经完成：

@@ -1,0 +1,6366 @@
+{
+  "name": "locomo10_500q_allcats_seed42",
+  "created_at": "2026-07-14T15:42:45",
+  "data_path": "data/dataset_locomo.json",
+  "sample_ids": [
+    "conv-26",
+    "conv-30",
+    "conv-41",
+    "conv-42",
+    "conv-43",
+    "conv-44",
+    "conv-47",
+    "conv-48",
+    "conv-49",
+    "conv-50"
+  ],
+  "per_sample": 50,
+  "per_category": 10,
+  "seed": 42,
+  "categories": "all",
+  "include_manifest": "data/subsets/locomo10_100q_seed42.json",
+  "n_questions": 500,
+  "category_counts": {
+    "1": 102,
+    "2": 101,
+    "3": 82,
+    "4": 111,
+    "5": 104
+  },
+  "sample_counts": {
+    "conv-26": 50,
+    "conv-30": 50,
+    "conv-41": 50,
+    "conv-42": 50,
+    "conv-43": 50,
+    "conv-44": 50,
+    "conv-47": 50,
+    "conv-48": 50,
+    "conv-49": 50,
+    "conv-50": 50
+  },
+  "records": [
+    {
+      "global_index": 1,
+      "sample_id": "conv-26",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 2,
+      "question": "When did Caroline go to the LGBTQ support group?",
+      "answer": "7 May 2023",
+      "evidence": [
+        "D1:3"
+      ]
+    },
+    {
+      "global_index": 2,
+      "sample_id": "conv-26",
+      "question_index": 2,
+      "question_index_1based": 3,
+      "category": 3,
+      "question": "What fields would Caroline be likely to pursue in her educaton?",
+      "answer": "Psychology, counseling certification",
+      "evidence": [
+        "D1:9",
+        "D1:11"
+      ]
+    },
+    {
+      "global_index": 3,
+      "sample_id": "conv-26",
+      "question_index": 3,
+      "question_index_1based": 4,
+      "category": 1,
+      "question": "What did Caroline research?",
+      "answer": "Adoption agencies",
+      "evidence": [
+        "D2:8"
+      ]
+    },
+    {
+      "global_index": 4,
+      "sample_id": "conv-26",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 1,
+      "question": "What is Caroline's identity?",
+      "answer": "Transgender woman",
+      "evidence": [
+        "D1:5"
+      ]
+    },
+    {
+      "global_index": 5,
+      "sample_id": "conv-26",
+      "question_index": 6,
+      "question_index_1based": 7,
+      "category": 2,
+      "question": "When is Melanie planning on going camping?",
+      "answer": "June 2023",
+      "evidence": [
+        "D2:7"
+      ]
+    },
+    {
+      "global_index": 6,
+      "sample_id": "conv-26",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 1,
+      "question": "Where did Caroline move from 4 years ago?",
+      "answer": "Sweden",
+      "evidence": [
+        "D3:13",
+        "D4:3"
+      ]
+    },
+    {
+      "global_index": 7,
+      "sample_id": "conv-26",
+      "question_index": 14,
+      "question_index_1based": 15,
+      "category": 3,
+      "question": "Would Caroline still want to pursue counseling as a career if she hadn't received support growing up?",
+      "answer": "Likely no",
+      "evidence": [
+        "D4:15",
+        "D3:5"
+      ]
+    },
+    {
+      "global_index": 8,
+      "sample_id": "conv-26",
+      "question_index": 21,
+      "question_index_1based": 22,
+      "category": 2,
+      "question": "When did Caroline have a picnic?",
+      "answer": "The week before 6 July 2023",
+      "evidence": [
+        "D6:11"
+      ]
+    },
+    {
+      "global_index": 9,
+      "sample_id": "conv-26",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 3,
+      "question": "Would Caroline likely have Dr. Seuss books on her bookshelf?",
+      "answer": "Yes, since she collects classic children's books",
+      "evidence": [
+        "D6:9"
+      ]
+    },
+    {
+      "global_index": 10,
+      "sample_id": "conv-26",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 3,
+      "question": "Would Caroline pursue writing as a career option?",
+      "answer": "LIkely no; though she likes reading, she wants to be a counselor",
+      "evidence": [
+        "D7:5",
+        "D7:9"
+      ]
+    },
+    {
+      "global_index": 11,
+      "sample_id": "conv-26",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 2,
+      "question": "When did Caroline go to the adoption meeting?",
+      "answer": "The friday before 15 July 2023",
+      "evidence": [
+        "D8:9"
+      ]
+    },
+    {
+      "global_index": 12,
+      "sample_id": "conv-26",
+      "question_index": 30,
+      "question_index_1based": 31,
+      "category": 3,
+      "question": "Would Melanie be considered a member of the LGBTQ community?",
+      "answer": "Likely no, she does not refer to herself as part of it",
+      "evidence": []
+    },
+    {
+      "global_index": 13,
+      "sample_id": "conv-26",
+      "question_index": 32,
+      "question_index_1based": 33,
+      "category": 1,
+      "question": "What LGBTQ+ events has Caroline participated in?",
+      "answer": "Pride parade, school speech, support group",
+      "evidence": [
+        "D5:1",
+        "D8:17",
+        "D3:1",
+        "D1:3"
+      ]
+    },
+    {
+      "global_index": 14,
+      "sample_id": "conv-26",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 1,
+      "question": "What events has Caroline participated in to help children?",
+      "answer": "Mentoring program, school speech",
+      "evidence": [
+        "D9:2",
+        "D3:3"
+      ]
+    },
+    {
+      "global_index": 15,
+      "sample_id": "conv-26",
+      "question_index": 41,
+      "question_index_1based": 42,
+      "category": 2,
+      "question": "When did Caroline join a new activist group?",
+      "answer": "The Tuesday before 20 July 2023",
+      "evidence": [
+        "D10:3"
+      ]
+    },
+    {
+      "global_index": 16,
+      "sample_id": "conv-26",
+      "question_index": 42,
+      "question_index_1based": 43,
+      "category": 3,
+      "question": "Would Melanie be more interested in going to a national park or a theme park?",
+      "answer": "National park; she likes the outdoors",
+      "evidence": [
+        "D10:12",
+        "D10:14"
+      ]
+    },
+    {
+      "global_index": 17,
+      "sample_id": "conv-26",
+      "question_index": 43,
+      "question_index_1based": 44,
+      "category": 1,
+      "question": "What kind of art does Caroline make?",
+      "answer": "abstract art",
+      "evidence": [
+        "D11:12",
+        "D11:8",
+        "D9:14"
+      ]
+    },
+    {
+      "global_index": 18,
+      "sample_id": "conv-26",
+      "question_index": 46,
+      "question_index_1based": 47,
+      "category": 3,
+      "question": "Would Melanie be considered an ally to the transgender community?",
+      "answer": "Yes, she is supportive",
+      "evidence": []
+    },
+    {
+      "global_index": 19,
+      "sample_id": "conv-26",
+      "question_index": 49,
+      "question_index_1based": 50,
+      "category": 2,
+      "question": "When did Caroline and Melanie go to a pride fesetival together?",
+      "answer": 2022,
+      "evidence": [
+        "D12:15"
+      ]
+    },
+    {
+      "global_index": 20,
+      "sample_id": "conv-26",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 3,
+      "question": "What would Caroline's political leaning likely be?",
+      "answer": "Liberal",
+      "evidence": [
+        "D12:1"
+      ]
+    },
+    {
+      "global_index": 21,
+      "sample_id": "conv-26",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 1,
+      "question": "What has Melanie painted?",
+      "answer": "Horse, sunset, sunrise",
+      "evidence": [
+        "D13:8",
+        "D8:6",
+        "D1:12"
+      ]
+    },
+    {
+      "global_index": 22,
+      "sample_id": "conv-26",
+      "question_index": 52,
+      "question_index_1based": 53,
+      "category": 1,
+      "question": "What are Melanie's pets' names?",
+      "answer": "Oliver, Luna, Bailey",
+      "evidence": [
+        "D13:4",
+        "D7:18"
+      ]
+    },
+    {
+      "global_index": 23,
+      "sample_id": "conv-26",
+      "question_index": 55,
+      "question_index_1based": 56,
+      "category": 1,
+      "question": "What subject have Caroline and Melanie both painted?",
+      "answer": "Sunsets",
+      "evidence": [
+        "D14:5",
+        "D8:6"
+      ]
+    },
+    {
+      "global_index": 24,
+      "sample_id": "conv-26",
+      "question_index": 64,
+      "question_index_1based": 65,
+      "category": 3,
+      "question": "Would Melanie likely enjoy the song \"The Four Seasons\" by Vivaldi?",
+      "answer": "Yes; it's classical music",
+      "evidence": [
+        "D15:28"
+      ]
+    },
+    {
+      "global_index": 25,
+      "sample_id": "conv-26",
+      "question_index": 67,
+      "question_index_1based": 68,
+      "category": 2,
+      "question": "When did Caroline go biking with friends?",
+      "answer": "The weekend before 13 September 2023",
+      "evidence": [
+        "D16:1"
+      ]
+    },
+    {
+      "global_index": 26,
+      "sample_id": "conv-26",
+      "question_index": 68,
+      "question_index_1based": 69,
+      "category": 2,
+      "question": "How long has Melanie been practicing art?",
+      "answer": "Since 2016",
+      "evidence": [
+        "D16:8"
+      ]
+    },
+    {
+      "global_index": 27,
+      "sample_id": "conv-26",
+      "question_index": 70,
+      "question_index_1based": 71,
+      "category": 1,
+      "question": "What transgender-specific events has Caroline attended?",
+      "answer": "Poetry reading, conference",
+      "evidence": [
+        "D17:19",
+        "D15:13"
+      ]
+    },
+    {
+      "global_index": 28,
+      "sample_id": "conv-26",
+      "question_index": 74,
+      "question_index_1based": 75,
+      "category": 2,
+      "question": "When did Melanie's family go on a roadtrip?",
+      "answer": "The weekend before 20 October 2023",
+      "evidence": [
+        "D18:1"
+      ]
+    },
+    {
+      "global_index": 29,
+      "sample_id": "conv-26",
+      "question_index": 77,
+      "question_index_1based": 78,
+      "category": 3,
+      "question": "Would Melanie go on another roadtrip soon?",
+      "answer": "Likely no; since this one went badly",
+      "evidence": [
+        "D18:3",
+        "D18:1"
+      ]
+    },
+    {
+      "global_index": 30,
+      "sample_id": "conv-26",
+      "question_index": 79,
+      "question_index_1based": 80,
+      "category": 2,
+      "question": "When did Caroline pass the adoption interview?",
+      "answer": "The Friday before 22 October 2023",
+      "evidence": [
+        "D19:1"
+      ]
+    },
+    {
+      "global_index": 31,
+      "sample_id": "conv-26",
+      "question_index": 82,
+      "question_index_1based": 83,
+      "category": 4,
+      "question": "What did the charity race raise awareness for?",
+      "answer": "mental health",
+      "evidence": [
+        "D2:2"
+      ]
+    },
+    {
+      "global_index": 32,
+      "sample_id": "conv-26",
+      "question_index": 83,
+      "question_index_1based": 84,
+      "category": 4,
+      "question": "What did Melanie realize after the charity race?",
+      "answer": "self-care is important",
+      "evidence": [
+        "D2:3"
+      ]
+    },
+    {
+      "global_index": 33,
+      "sample_id": "conv-26",
+      "question_index": 94,
+      "question_index_1based": 95,
+      "category": 4,
+      "question": "What is Melanie's hand-painted bowl a reminder of?",
+      "answer": "art and self-expression",
+      "evidence": [
+        "D4:5"
+      ]
+    },
+    {
+      "global_index": 34,
+      "sample_id": "conv-26",
+      "question_index": 96,
+      "question_index_1based": 97,
+      "category": 4,
+      "question": "What kind of counseling and mental health services is Caroline interested in pursuing?",
+      "answer": "working with trans people, helping them accept themselves and supporting their mental health",
+      "evidence": [
+        "D4:13"
+      ]
+    },
+    {
+      "global_index": 35,
+      "sample_id": "conv-26",
+      "question_index": 114,
+      "question_index_1based": 115,
+      "category": 4,
+      "question": "What do sunflowers represent according to Caroline?",
+      "answer": "warmth and happiness",
+      "evidence": [
+        "D8:11"
+      ]
+    },
+    {
+      "global_index": 36,
+      "sample_id": "conv-26",
+      "question_index": 116,
+      "question_index_1based": 117,
+      "category": 4,
+      "question": "What inspired Caroline's painting for the art show?",
+      "answer": "visiting an LGBTQ center and wanting to capture unity and strength",
+      "evidence": [
+        "D9:16"
+      ]
+    },
+    {
+      "global_index": 37,
+      "sample_id": "conv-26",
+      "question_index": 125,
+      "question_index_1based": 126,
+      "category": 4,
+      "question": "Where did Oliver hide his bone once?",
+      "answer": "In Melanie's slipper",
+      "evidence": [
+        "D13:6"
+      ]
+    },
+    {
+      "global_index": 38,
+      "sample_id": "conv-26",
+      "question_index": 127,
+      "question_index_1based": 128,
+      "category": 4,
+      "question": "What did Caroline make for a local church?",
+      "answer": "a stained glass window",
+      "evidence": [
+        "D14:17"
+      ]
+    },
+    {
+      "global_index": 39,
+      "sample_id": "conv-26",
+      "question_index": 129,
+      "question_index_1based": 130,
+      "category": 4,
+      "question": "Which song motivates Caroline to be courageous?",
+      "answer": "Brave by Sara Bareilles",
+      "evidence": [
+        "D15:23"
+      ]
+    },
+    {
+      "global_index": 40,
+      "sample_id": "conv-26",
+      "question_index": 148,
+      "question_index_1based": 149,
+      "category": 4,
+      "question": "What was Melanie's reaction to her children enjoying the Grand Canyon?",
+      "answer": "She was happy and thankful",
+      "evidence": [
+        "D18:5"
+      ]
+    },
+    {
+      "global_index": 41,
+      "sample_id": "conv-26",
+      "question_index": 161,
+      "question_index_1based": 162,
+      "category": 5,
+      "question": "What is Caroline's hand-painted bowl a reminder of?",
+      "answer": null,
+      "evidence": [
+        "D4:5"
+      ]
+    },
+    {
+      "global_index": 42,
+      "sample_id": "conv-26",
+      "question_index": 167,
+      "question_index_1based": 168,
+      "category": 5,
+      "question": "Did Caroline make the black and white bowl in the photo?",
+      "answer": "No",
+      "evidence": [
+        "D5:8"
+      ]
+    },
+    {
+      "global_index": 43,
+      "sample_id": "conv-26",
+      "question_index": 171,
+      "question_index_1based": 172,
+      "category": 5,
+      "question": "What did Melanie see at the council meeting for adoption?",
+      "answer": null,
+      "evidence": [
+        "D8:9"
+      ]
+    },
+    {
+      "global_index": 44,
+      "sample_id": "conv-26",
+      "question_index": 177,
+      "question_index_1based": 178,
+      "category": 5,
+      "question": "Why did Caroline choose to use colors and patterns in her pottery project?",
+      "answer": null,
+      "evidence": [
+        "D12:6"
+      ]
+    },
+    {
+      "global_index": 45,
+      "sample_id": "conv-26",
+      "question_index": 179,
+      "question_index_1based": 180,
+      "category": 5,
+      "question": "Where did Oscar hide his bone once?",
+      "answer": null,
+      "evidence": [
+        "D13:6"
+      ]
+    },
+    {
+      "global_index": 46,
+      "sample_id": "conv-26",
+      "question_index": 181,
+      "question_index_1based": 182,
+      "category": 5,
+      "question": "What did Melanie make for a local church?",
+      "answer": null,
+      "evidence": [
+        "D14:17"
+      ]
+    },
+    {
+      "global_index": 47,
+      "sample_id": "conv-26",
+      "question_index": 184,
+      "question_index_1based": 185,
+      "category": 5,
+      "question": "What type of instrument does Caroline play?",
+      "answer": null,
+      "evidence": [
+        "D15:26"
+      ]
+    },
+    {
+      "global_index": 48,
+      "sample_id": "conv-26",
+      "question_index": 188,
+      "question_index_1based": 189,
+      "category": 5,
+      "question": "What setback did Caroline face recently?",
+      "answer": null,
+      "evidence": [
+        "D17:8"
+      ]
+    },
+    {
+      "global_index": 49,
+      "sample_id": "conv-26",
+      "question_index": 192,
+      "question_index_1based": 193,
+      "category": 5,
+      "question": "How did Caroline's son handle the accident?",
+      "answer": null,
+      "evidence": [
+        "D18:6",
+        "D18:7"
+      ]
+    },
+    {
+      "global_index": 50,
+      "sample_id": "conv-26",
+      "question_index": 198,
+      "question_index_1based": 199,
+      "category": 5,
+      "question": "What does Caroline love most about camping with her family?",
+      "answer": null,
+      "evidence": [
+        "D18:21"
+      ]
+    },
+    {
+      "global_index": 51,
+      "sample_id": "conv-30",
+      "question_index": 1,
+      "question_index_1based": 2,
+      "category": 2,
+      "question": "When Gina has lost her job at Door Dash?",
+      "answer": "January, 2023",
+      "evidence": [
+        "D1:3"
+      ]
+    },
+    {
+      "global_index": 52,
+      "sample_id": "conv-30",
+      "question_index": 3,
+      "question_index_1based": 4,
+      "category": 1,
+      "question": "What do Jon and Gina both have in common?",
+      "answer": "They lost their jobs and decided to start their own businesses.",
+      "evidence": [
+        "D1:2",
+        "D1:3",
+        "D1:4",
+        "D2:1"
+      ]
+    },
+    {
+      "global_index": 53,
+      "sample_id": "conv-30",
+      "question_index": 5,
+      "question_index_1based": 6,
+      "category": 1,
+      "question": "What Jon thinks the ideal dance studio should look like?",
+      "answer": "By the water, with natural light and Marley flooring",
+      "evidence": [
+        "D1:20",
+        "D2:4",
+        "D2:8"
+      ]
+    },
+    {
+      "global_index": 54,
+      "sample_id": "conv-30",
+      "question_index": 9,
+      "question_index_1based": 10,
+      "category": 1,
+      "question": "Which city have both Jean and John visited?",
+      "answer": "Rome",
+      "evidence": [
+        "D2:5",
+        "D15:1"
+      ]
+    },
+    {
+      "global_index": 55,
+      "sample_id": "conv-30",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 2,
+      "question": "When did Gina get her tattoo?",
+      "answer": "A few years ago",
+      "evidence": [
+        "D5:15"
+      ]
+    },
+    {
+      "global_index": 56,
+      "sample_id": "conv-30",
+      "question_index": 12,
+      "question_index_1based": 13,
+      "category": 2,
+      "question": "When did Jon start to go to the gym?",
+      "answer": "March, 2023",
+      "evidence": [
+        "D6:1"
+      ]
+    },
+    {
+      "global_index": 57,
+      "sample_id": "conv-30",
+      "question_index": 13,
+      "question_index_1based": 14,
+      "category": 2,
+      "question": "When did Gina open her online clothing store?",
+      "answer": "16 March, 2023",
+      "evidence": [
+        "D6:6"
+      ]
+    },
+    {
+      "global_index": 58,
+      "sample_id": "conv-30",
+      "question_index": 17,
+      "question_index_1based": 18,
+      "category": 1,
+      "question": "Why did Gina decide to start her own clothing store?",
+      "answer": "She always loved fashion trends and finding unique pieces and she lost her job so decided it was time to start her own business.",
+      "evidence": [
+        "D6:8",
+        "D1:3"
+      ]
+    },
+    {
+      "global_index": 59,
+      "sample_id": "conv-30",
+      "question_index": 18,
+      "question_index_1based": 19,
+      "category": 1,
+      "question": "Do Jon and Gina start businesses out of what they love?",
+      "answer": "Yes",
+      "evidence": [
+        "D1:4",
+        "D6:8"
+      ]
+    },
+    {
+      "global_index": 60,
+      "sample_id": "conv-30",
+      "question_index": 19,
+      "question_index_1based": 20,
+      "category": 2,
+      "question": "When did Gina interview for a design internship?",
+      "answer": "10 May, 2023",
+      "evidence": [
+        "D11:14"
+      ]
+    },
+    {
+      "global_index": 61,
+      "sample_id": "conv-30",
+      "question_index": 21,
+      "question_index_1based": 22,
+      "category": 2,
+      "question": "When did Jon start reading \"The Lean Startup\"?",
+      "answer": "May, 2023",
+      "evidence": [
+        "D12:6"
+      ]
+    },
+    {
+      "global_index": 62,
+      "sample_id": "conv-30",
+      "question_index": 23,
+      "question_index_1based": 24,
+      "category": 1,
+      "question": "How did Gina promote her clothes store?",
+      "answer": "worked with an artist to make unique fashion pieces, made limited-edition sweatshirts, got some new offers and promotions for online store, developed a video presentation showing how to style her pieces",
+      "evidence": [
+        "D5:5",
+        "D16:3",
+        "D8:4",
+        "D13:4"
+      ]
+    },
+    {
+      "global_index": 63,
+      "sample_id": "conv-30",
+      "question_index": 24,
+      "question_index_1based": 25,
+      "category": 1,
+      "question": "Which events has Jon participated in to promote his business venture?",
+      "answer": "fair, networking events, dance competition",
+      "evidence": [
+        "D10:1",
+        "D16:6",
+        "D8:4"
+      ]
+    },
+    {
+      "global_index": 64,
+      "sample_id": "conv-30",
+      "question_index": 25,
+      "question_index_1based": 26,
+      "category": 1,
+      "question": "What does Jon's dance studio offer?",
+      "answer": "one-on-one metoring and training to dancers,  workshops and classes to local schools and centers",
+      "evidence": [
+        "D13:7",
+        "D8:13"
+      ]
+    },
+    {
+      "global_index": 65,
+      "sample_id": "conv-30",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 1,
+      "question": "Did Jon and Gina both participate in dance competitions?",
+      "answer": "Yes",
+      "evidence": [
+        "D1:14",
+        "D14:14",
+        "D1:16",
+        "D1:17",
+        "D9:10"
+      ]
+    },
+    {
+      "global_index": 66,
+      "sample_id": "conv-30",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 2,
+      "question": "When was Jon in Rome?",
+      "answer": "June 2023",
+      "evidence": [
+        "D15:1"
+      ]
+    },
+    {
+      "global_index": 67,
+      "sample_id": "conv-30",
+      "question_index": 30,
+      "question_index_1based": 31,
+      "category": 2,
+      "question": "When Jon is planning to open his dance studio?",
+      "answer": "20 June, 2023",
+      "evidence": [
+        "D15:5"
+      ]
+    },
+    {
+      "global_index": 68,
+      "sample_id": "conv-30",
+      "question_index": 31,
+      "question_index_1based": 32,
+      "category": 1,
+      "question": "How long did it take for Jon to open his studio?",
+      "answer": "six months",
+      "evidence": [
+        "D1:2",
+        "D15:13"
+      ]
+    },
+    {
+      "global_index": 69,
+      "sample_id": "conv-30",
+      "question_index": 33,
+      "question_index_1based": 34,
+      "category": 2,
+      "question": "When did Jon visit networking events for his store?",
+      "answer": "20 June, 2023",
+      "evidence": [
+        "D16:6"
+      ]
+    },
+    {
+      "global_index": 70,
+      "sample_id": "conv-30",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 2,
+      "question": "When did Gina start being recognized by fashion editors?",
+      "answer": "July 2023",
+      "evidence": [
+        "D17:1"
+      ]
+    },
+    {
+      "global_index": 71,
+      "sample_id": "conv-30",
+      "question_index": 35,
+      "question_index_1based": 36,
+      "category": 2,
+      "question": "When did Jon start learning marketing and analytics tools?",
+      "answer": "July, 2023",
+      "evidence": [
+        "D17:4"
+      ]
+    },
+    {
+      "global_index": 72,
+      "sample_id": "conv-30",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 4,
+      "question": "What is Jon's favorite style of dance?",
+      "answer": "Contemporary",
+      "evidence": [
+        "D1:8"
+      ]
+    },
+    {
+      "global_index": 73,
+      "sample_id": "conv-30",
+      "question_index": 43,
+      "question_index_1based": 44,
+      "category": 4,
+      "question": "What do the dancers in the photo represent?",
+      "answer": "They are performing at the festival",
+      "evidence": [
+        "D1:25"
+      ]
+    },
+    {
+      "global_index": 74,
+      "sample_id": "conv-30",
+      "question_index": 46,
+      "question_index_1based": 47,
+      "category": 4,
+      "question": "What kind of flooring is Jon looking for in his dance studio?",
+      "answer": "Marley flooring",
+      "evidence": [
+        "D2:8"
+      ]
+    },
+    {
+      "global_index": 75,
+      "sample_id": "conv-30",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 4,
+      "question": "What made Gina choose the furniture and decor for her store?",
+      "answer": "personal style and customer comfort",
+      "evidence": [
+        "D3:6"
+      ]
+    },
+    {
+      "global_index": 76,
+      "sample_id": "conv-30",
+      "question_index": 54,
+      "question_index_1based": 55,
+      "category": 4,
+      "question": "How is Gina's store doing?",
+      "answer": "The store is doing great.",
+      "evidence": [
+        "D4:2"
+      ]
+    },
+    {
+      "global_index": 77,
+      "sample_id": "conv-30",
+      "question_index": 55,
+      "question_index_1based": 56,
+      "category": 4,
+      "question": "What does Gina's tattoo symbolize?",
+      "answer": "Freedom and expressing herself through dance",
+      "evidence": [
+        "D5:15"
+      ]
+    },
+    {
+      "global_index": 78,
+      "sample_id": "conv-30",
+      "question_index": 56,
+      "question_index_1based": 57,
+      "category": 4,
+      "question": "What did Jon and Gina compare their entrepreneurial journeys to?",
+      "answer": "dancing together and supporting each other",
+      "evidence": [
+        "D6:15",
+        "D6:16"
+      ]
+    },
+    {
+      "global_index": 79,
+      "sample_id": "conv-30",
+      "question_index": 62,
+      "question_index_1based": 63,
+      "category": 4,
+      "question": "How does Gina stay confident in her business?",
+      "answer": "By reminding herself of her successes and progress, having a support system, and focusing on why she started",
+      "evidence": [
+        "D10:8"
+      ]
+    },
+    {
+      "global_index": 80,
+      "sample_id": "conv-30",
+      "question_index": 63,
+      "question_index_1based": 64,
+      "category": 4,
+      "question": "What kind of professional experience did Gina get accepted for on May 23, 2023?",
+      "answer": "fashion internship",
+      "evidence": [
+        "D12:1"
+      ]
+    },
+    {
+      "global_index": 81,
+      "sample_id": "conv-30",
+      "question_index": 66,
+      "question_index_1based": 67,
+      "category": 4,
+      "question": "What is Jon offering to the dancers at his dance studio?",
+      "answer": "One-on-one mentoring and training",
+      "evidence": [
+        "D13:7"
+      ]
+    },
+    {
+      "global_index": 82,
+      "sample_id": "conv-30",
+      "question_index": 71,
+      "question_index_1based": 72,
+      "category": 4,
+      "question": "How does Gina describe the studio that Jon has opened?",
+      "answer": "amazing",
+      "evidence": [
+        "D15:6"
+      ]
+    },
+    {
+      "global_index": 83,
+      "sample_id": "conv-30",
+      "question_index": 73,
+      "question_index_1based": 74,
+      "category": 4,
+      "question": "How does Gina describe the feeling that dance brings?",
+      "answer": "magical",
+      "evidence": [
+        "D15:8"
+      ]
+    },
+    {
+      "global_index": 84,
+      "sample_id": "conv-30",
+      "question_index": 74,
+      "question_index_1based": 75,
+      "category": 4,
+      "question": "What does Jon plan to do at the grand opening of his dance studio?",
+      "answer": "savor all the good vibes",
+      "evidence": [
+        "D15:9"
+      ]
+    },
+    {
+      "global_index": 85,
+      "sample_id": "conv-30",
+      "question_index": 75,
+      "question_index_1based": 76,
+      "category": 4,
+      "question": "What does Gina say to Jon about the grand opening?",
+      "answer": "Let's live it up and make some great memories",
+      "evidence": [
+        "D15:12"
+      ]
+    },
+    {
+      "global_index": 86,
+      "sample_id": "conv-30",
+      "question_index": 77,
+      "question_index_1based": 78,
+      "category": 4,
+      "question": "What did Gina make a limited edition line of?",
+      "answer": "Hoodies",
+      "evidence": [
+        "D16:3"
+      ]
+    },
+    {
+      "global_index": 87,
+      "sample_id": "conv-30",
+      "question_index": 79,
+      "question_index_1based": 80,
+      "category": 5,
+      "question": "What temporary job did Jon take to cover expenses?",
+      "answer": null,
+      "evidence": [
+        "D18:2"
+      ]
+    },
+    {
+      "global_index": 88,
+      "sample_id": "conv-30",
+      "question_index": 80,
+      "question_index_1based": 81,
+      "category": 4,
+      "question": "What plans does Jon have after receiving advice at the networking event?",
+      "answer": "Sprucing up his business plan, tweaking his pitch to investors, and working on an online platform.",
+      "evidence": [
+        "D18:10"
+      ]
+    },
+    {
+      "global_index": 89,
+      "sample_id": "conv-30",
+      "question_index": 82,
+      "question_index_1based": 83,
+      "category": 5,
+      "question": "What is Jon's favorite style of painting?",
+      "answer": null,
+      "evidence": [
+        "D1:8"
+      ]
+    },
+    {
+      "global_index": 90,
+      "sample_id": "conv-30",
+      "question_index": 83,
+      "question_index_1based": 84,
+      "category": 5,
+      "question": "What was Jon's favorite dancing memory?",
+      "answer": null,
+      "evidence": [
+        "D1:17"
+      ]
+    },
+    {
+      "global_index": 91,
+      "sample_id": "conv-30",
+      "question_index": 85,
+      "question_index_1based": 86,
+      "category": 5,
+      "question": "What is Gina's attitude towards participating in the dance festival?",
+      "answer": null,
+      "evidence": [
+        "D1:28"
+      ]
+    },
+    {
+      "global_index": 92,
+      "sample_id": "conv-30",
+      "question_index": 88,
+      "question_index_1based": 89,
+      "category": 5,
+      "question": "What did Jon design for his store?",
+      "answer": null,
+      "evidence": [
+        "D3:4"
+      ]
+    },
+    {
+      "global_index": 93,
+      "sample_id": "conv-30",
+      "question_index": 89,
+      "question_index_1based": 90,
+      "category": 5,
+      "question": "What did Jon want his customers to feel in her store?",
+      "answer": null,
+      "evidence": [
+        "D3:6",
+        "D3:8"
+      ]
+    },
+    {
+      "global_index": 94,
+      "sample_id": "conv-30",
+      "question_index": 91,
+      "question_index_1based": 92,
+      "category": 5,
+      "question": "How is Jon's store doing?",
+      "answer": null,
+      "evidence": [
+        "D4:2"
+      ]
+    },
+    {
+      "global_index": 95,
+      "sample_id": "conv-30",
+      "question_index": 92,
+      "question_index_1based": 93,
+      "category": 5,
+      "question": "What does Jon's tattoo symbolize?",
+      "answer": null,
+      "evidence": [
+        "D5:15"
+      ]
+    },
+    {
+      "global_index": 96,
+      "sample_id": "conv-30",
+      "question_index": 93,
+      "question_index_1based": 94,
+      "category": 5,
+      "question": "Why did Gina shut down her bank account?",
+      "answer": null,
+      "evidence": [
+        "D8:1"
+      ]
+    },
+    {
+      "global_index": 97,
+      "sample_id": "conv-30",
+      "question_index": 94,
+      "question_index_1based": 95,
+      "category": 5,
+      "question": "Why did Jon combine his clothing business with dance?",
+      "answer": null,
+      "evidence": [
+        "D8:8"
+      ]
+    },
+    {
+      "global_index": 98,
+      "sample_id": "conv-30",
+      "question_index": 100,
+      "question_index_1based": 101,
+      "category": 5,
+      "question": "How does Gina use the clipboard with a notepad attached to it?",
+      "answer": null,
+      "evidence": [
+        "D13:11"
+      ]
+    },
+    {
+      "global_index": 99,
+      "sample_id": "conv-30",
+      "question_index": 101,
+      "question_index_1based": 102,
+      "category": 5,
+      "question": "What did Jon take a trip to Barcelona for?",
+      "answer": null,
+      "evidence": [
+        "D15:1"
+      ]
+    },
+    {
+      "global_index": 100,
+      "sample_id": "conv-30",
+      "question_index": 102,
+      "question_index_1based": 103,
+      "category": 5,
+      "question": "What did Jon make a limited edition line of?",
+      "answer": null,
+      "evidence": [
+        "D16:3"
+      ]
+    },
+    {
+      "global_index": 101,
+      "sample_id": "conv-41",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 2,
+      "question": "Who did Maria have dinner with on May 3, 2023?",
+      "answer": "her mother",
+      "evidence": [
+        "D13:16"
+      ]
+    },
+    {
+      "global_index": 102,
+      "sample_id": "conv-41",
+      "question_index": 2,
+      "question_index_1based": 3,
+      "category": 1,
+      "question": "What martial arts has John done?",
+      "answer": "Kickboxing, Taekwondo",
+      "evidence": [
+        "D2:28",
+        "D1:4"
+      ]
+    },
+    {
+      "global_index": 103,
+      "sample_id": "conv-41",
+      "question_index": 5,
+      "question_index_1based": 6,
+      "category": 2,
+      "question": "When did Maria go to the beach?",
+      "answer": "December 2022",
+      "evidence": [
+        "D3:15"
+      ]
+    },
+    {
+      "global_index": 104,
+      "sample_id": "conv-41",
+      "question_index": 7,
+      "question_index_1based": 8,
+      "category": 1,
+      "question": "What items des John mention having as a child?",
+      "answer": "A doll, a film camera",
+      "evidence": [
+        "D5:13",
+        "D3:15"
+      ]
+    },
+    {
+      "global_index": 105,
+      "sample_id": "conv-41",
+      "question_index": 8,
+      "question_index_1based": 9,
+      "category": 3,
+      "question": "What might John's financial status be?",
+      "answer": "Middle-class or wealthy",
+      "evidence": [
+        "D5:5"
+      ]
+    },
+    {
+      "global_index": 106,
+      "sample_id": "conv-41",
+      "question_index": 9,
+      "question_index_1based": 10,
+      "category": 1,
+      "question": "Who gave Maria's family money when she was younger and her family was going through tough times?",
+      "answer": "Her aunt",
+      "evidence": [
+        "D6:9",
+        "D5:8"
+      ]
+    },
+    {
+      "global_index": 107,
+      "sample_id": "conv-41",
+      "question_index": 14,
+      "question_index_1based": 15,
+      "category": 3,
+      "question": "Would John be considered a patriotic person?",
+      "answer": "Yes",
+      "evidence": [
+        "D8:18",
+        "D8:20"
+      ]
+    },
+    {
+      "global_index": 108,
+      "sample_id": "conv-41",
+      "question_index": 15,
+      "question_index_1based": 16,
+      "category": 1,
+      "question": "What writing classes has Maria taken?",
+      "answer": "Poetry, creative writing",
+      "evidence": [
+        "D9:1",
+        "D7:1"
+      ]
+    },
+    {
+      "global_index": 109,
+      "sample_id": "conv-41",
+      "question_index": 17,
+      "question_index_1based": 18,
+      "category": 3,
+      "question": "What might John's degree be in?",
+      "answer": "Political science, Public administration, Public affairs",
+      "evidence": [
+        "D9:6"
+      ]
+    },
+    {
+      "global_index": 110,
+      "sample_id": "conv-41",
+      "question_index": 20,
+      "question_index_1based": 21,
+      "category": 2,
+      "question": "When did John take a road trip to the Pacific Northwest?",
+      "answer": "2022",
+      "evidence": [
+        "D11:3",
+        "D11:5"
+      ]
+    },
+    {
+      "global_index": 111,
+      "sample_id": "conv-41",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 2,
+      "question": "When did John go to a convention with colleagues?",
+      "answer": "March 2023",
+      "evidence": [
+        "D12:9"
+      ]
+    },
+    {
+      "global_index": 112,
+      "sample_id": "conv-41",
+      "question_index": 23,
+      "question_index_1based": 24,
+      "category": 1,
+      "question": "What desserts has Maria made?",
+      "answer": "Banana split sundae, Peach cobbler",
+      "evidence": [
+        "D2:25",
+        "D13:18"
+      ]
+    },
+    {
+      "global_index": 113,
+      "sample_id": "conv-41",
+      "question_index": 24,
+      "question_index_1based": 25,
+      "category": 2,
+      "question": "When did John start boot camp with his family?",
+      "answer": "April.2023",
+      "evidence": [
+        "D13:3"
+      ]
+    },
+    {
+      "global_index": 114,
+      "sample_id": "conv-41",
+      "question_index": 25,
+      "question_index_1based": 26,
+      "category": 1,
+      "question": "What European countries has Maria been to?",
+      "answer": "Spain, England",
+      "evidence": [
+        "D13:24",
+        "D8:15"
+      ]
+    },
+    {
+      "global_index": 115,
+      "sample_id": "conv-41",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 2,
+      "question": "When did Maria join a gym?",
+      "answer": "The week before 16 June 2023",
+      "evidence": [
+        "D19:1"
+      ]
+    },
+    {
+      "global_index": 116,
+      "sample_id": "conv-41",
+      "question_index": 37,
+      "question_index_1based": 38,
+      "category": 1,
+      "question": "What events for veterans has John participated in?",
+      "answer": "Petition, march, party, visiting veterans hospital, 5K charity run",
+      "evidence": [
+        "D15:1",
+        "D15:11",
+        "D21:22",
+        "D24:1",
+        "D29:4"
+      ]
+    },
+    {
+      "global_index": 117,
+      "sample_id": "conv-41",
+      "question_index": 39,
+      "question_index_1based": 40,
+      "category": 3,
+      "question": "Around which US holiday did Maria get into a car accident?",
+      "answer": "Independence Day",
+      "evidence": [
+        "D21:3"
+      ]
+    },
+    {
+      "global_index": 118,
+      "sample_id": "conv-41",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 1,
+      "question": "What are the names of John's children?",
+      "answer": "Kyle, Sara",
+      "evidence": [
+        "D8:4",
+        "D22:7"
+      ]
+    },
+    {
+      "global_index": 119,
+      "sample_id": "conv-41",
+      "question_index": 41,
+      "question_index_1based": 42,
+      "category": 3,
+      "question": "Does John live close to a beach or the mountains?",
+      "answer": "beach",
+      "evidence": [
+        "D22:15"
+      ]
+    },
+    {
+      "global_index": 120,
+      "sample_id": "conv-41",
+      "question_index": 43,
+      "question_index_1based": 44,
+      "category": 2,
+      "question": "When was John's old area hit with a flood?",
+      "answer": "The week before 7 July 2023",
+      "evidence": [
+        "D23:1"
+      ]
+    },
+    {
+      "global_index": 121,
+      "sample_id": "conv-41",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 1,
+      "question": "What activities has Maria done with her church friends?",
+      "answer": "Hiking, picnic, volunteer work",
+      "evidence": [
+        "D25:2",
+        "D24:6",
+        "D28:5"
+      ]
+    },
+    {
+      "global_index": 122,
+      "sample_id": "conv-41",
+      "question_index": 45,
+      "question_index_1based": 46,
+      "category": 3,
+      "question": "Would John be open to moving to another country?",
+      "answer": "No, he has goals specifically in the U.S. like joining the military and running for office.",
+      "evidence": [
+        "D24:3",
+        "D7:2"
+      ]
+    },
+    {
+      "global_index": 123,
+      "sample_id": "conv-41",
+      "question_index": 49,
+      "question_index_1based": 50,
+      "category": 1,
+      "question": "What food item did Maria drop off at the homeless shelter?",
+      "answer": "Cakes",
+      "evidence": [
+        "D26:1",
+        "D25:19"
+      ]
+    },
+    {
+      "global_index": 124,
+      "sample_id": "conv-41",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 3,
+      "question": "What attributes describe John?",
+      "answer": "Selfless, family-oriented, passionate, rational",
+      "evidence": [
+        "D26:6",
+        "D2:14",
+        "D3:5",
+        "D4:6"
+      ]
+    },
+    {
+      "global_index": 125,
+      "sample_id": "conv-41",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 2,
+      "question": "When did Maria start volunteering at the homeless shelter?",
+      "answer": "Around August 2022",
+      "evidence": [
+        "D27:4"
+      ]
+    },
+    {
+      "global_index": 126,
+      "sample_id": "conv-41",
+      "question_index": 53,
+      "question_index_1based": 54,
+      "category": 2,
+      "question": "When did John help renovate his hometown community center?",
+      "answer": "2022",
+      "evidence": [
+        "D28:11"
+      ]
+    },
+    {
+      "global_index": 127,
+      "sample_id": "conv-41",
+      "question_index": 64,
+      "question_index_1based": 65,
+      "category": 3,
+      "question": "What job might Maria pursue in the future?",
+      "answer": "Shelter coordinator, Counselor",
+      "evidence": [
+        "D32:14",
+        "D5:8",
+        "D11:10",
+        "D27:4"
+      ]
+    },
+    {
+      "global_index": 128,
+      "sample_id": "conv-41",
+      "question_index": 73,
+      "question_index_1based": 74,
+      "category": 4,
+      "question": "Who inspired Maria to start volunteering?",
+      "answer": "Her aunt",
+      "evidence": [
+        "D5:8"
+      ]
+    },
+    {
+      "global_index": 129,
+      "sample_id": "conv-41",
+      "question_index": 80,
+      "question_index_1based": 81,
+      "category": 4,
+      "question": "What did Maria make for her home to remind her of a trip to England?",
+      "answer": "painting of a castle on a hill",
+      "evidence": [
+        "D8:15"
+      ]
+    },
+    {
+      "global_index": 130,
+      "sample_id": "conv-41",
+      "question_index": 82,
+      "question_index_1based": 83,
+      "category": 4,
+      "question": "What did John receive a certificate for?",
+      "answer": "completion of a university degree",
+      "evidence": [
+        "D9:2"
+      ]
+    },
+    {
+      "global_index": 131,
+      "sample_id": "conv-41",
+      "question_index": 91,
+      "question_index_1based": 92,
+      "category": 2,
+      "question": "What did John attend with his colleagues in March 2023?",
+      "answer": "a tech-for-good convention",
+      "evidence": [
+        "D12:9"
+      ]
+    },
+    {
+      "global_index": 132,
+      "sample_id": "conv-41",
+      "question_index": 101,
+      "question_index_1based": 102,
+      "category": 4,
+      "question": "What event is Maria getting ready for at the shelter on May 25, 2023?",
+      "answer": "fundraiser",
+      "evidence": [
+        "D16:2"
+      ]
+    },
+    {
+      "global_index": 133,
+      "sample_id": "conv-41",
+      "question_index": 108,
+      "question_index_1based": 109,
+      "category": 4,
+      "question": "What did Maria say it was like being at the waterfall in Oregon?",
+      "answer": "Like being in a fairy tale",
+      "evidence": [
+        "D18:7"
+      ]
+    },
+    {
+      "global_index": 134,
+      "sample_id": "conv-41",
+      "question_index": 113,
+      "question_index_1based": 114,
+      "category": 4,
+      "question": "What was one of the biggest challenges John faced in his journey to becoming assistant manager?",
+      "answer": "self-doubt",
+      "evidence": [
+        "D19:12"
+      ]
+    },
+    {
+      "global_index": 135,
+      "sample_id": "conv-41",
+      "question_index": 115,
+      "question_index_1based": 116,
+      "category": 4,
+      "question": "What kind of event did John and his family attend in June 2023?",
+      "answer": "live music event",
+      "evidence": [
+        "D20:4"
+      ]
+    },
+    {
+      "global_index": 136,
+      "sample_id": "conv-41",
+      "question_index": 123,
+      "question_index_1based": 124,
+      "category": 4,
+      "question": "What did Maria plan to do later on the evening of 7 July, 2023?",
+      "answer": "have dinner with friends from the gym",
+      "evidence": [
+        "D23:14"
+      ]
+    },
+    {
+      "global_index": 137,
+      "sample_id": "conv-41",
+      "question_index": 128,
+      "question_index_1based": 129,
+      "category": 4,
+      "question": "In what activity did Maria and her church friends participate in July 2023?",
+      "answer": "hiking",
+      "evidence": [
+        "D25:2"
+      ]
+    },
+    {
+      "global_index": 138,
+      "sample_id": "conv-41",
+      "question_index": 130,
+      "question_index_1based": 131,
+      "category": 4,
+      "question": "Which activity has John done apart from yoga at the studio?",
+      "answer": "weight training",
+      "evidence": [
+        "D25:17"
+      ]
+    },
+    {
+      "global_index": 139,
+      "sample_id": "conv-41",
+      "question_index": 147,
+      "question_index_1based": 148,
+      "category": 4,
+      "question": "What is the name of Maria's second puppy?",
+      "answer": "Shadow",
+      "evidence": [
+        "D31:4"
+      ]
+    },
+    {
+      "global_index": 140,
+      "sample_id": "conv-41",
+      "question_index": 151,
+      "question_index_1based": 152,
+      "category": 4,
+      "question": "What did the donations help John's community acquire on 16 August, 2023?",
+      "answer": "a brand new fire truck",
+      "evidence": [
+        "D32:11"
+      ]
+    },
+    {
+      "global_index": 141,
+      "sample_id": "conv-41",
+      "question_index": 152,
+      "question_index_1based": 153,
+      "category": 5,
+      "question": "What is John's main focus in international politics?",
+      "answer": null,
+      "evidence": [
+        "D1:8"
+      ]
+    },
+    {
+      "global_index": 142,
+      "sample_id": "conv-41",
+      "question_index": 154,
+      "question_index_1based": 155,
+      "category": 5,
+      "question": "Who inspired John to start volunteering?",
+      "answer": null,
+      "evidence": [
+        "D5:8"
+      ]
+    },
+    {
+      "global_index": 143,
+      "sample_id": "conv-41",
+      "question_index": 161,
+      "question_index_1based": 162,
+      "category": 5,
+      "question": "What did Maria receive a certificate for?",
+      "answer": null,
+      "evidence": [
+        "D9:2"
+      ]
+    },
+    {
+      "global_index": 144,
+      "sample_id": "conv-41",
+      "question_index": 164,
+      "question_index_1based": 165,
+      "category": 5,
+      "question": "What was the focus of John's recent travel and photography blog?",
+      "answer": null,
+      "evidence": [
+        "D12:5"
+      ]
+    },
+    {
+      "global_index": 145,
+      "sample_id": "conv-41",
+      "question_index": 170,
+      "question_index_1based": 171,
+      "category": 5,
+      "question": "How long was Max a part of Maria's family?",
+      "answer": null,
+      "evidence": [
+        "D17:1"
+      ]
+    },
+    {
+      "global_index": 146,
+      "sample_id": "conv-41",
+      "question_index": 172,
+      "question_index_1based": 173,
+      "category": 5,
+      "question": "What important values does Maria want to teach her kids through adopting a rescue dog?",
+      "answer": null,
+      "evidence": [
+        "D17:11"
+      ]
+    },
+    {
+      "global_index": 147,
+      "sample_id": "conv-41",
+      "question_index": 184,
+      "question_index_1based": 185,
+      "category": 5,
+      "question": "Why does Maria think it's important for younger generations to visit art galleries?",
+      "answer": null,
+      "evidence": [
+        "D27:12"
+      ]
+    },
+    {
+      "global_index": 148,
+      "sample_id": "conv-41",
+      "question_index": 187,
+      "question_index_1based": 188,
+      "category": 5,
+      "question": "Who did John work with to raise awareness and funds for animal welfare?",
+      "answer": null,
+      "evidence": [
+        "D29:10"
+      ]
+    },
+    {
+      "global_index": 149,
+      "sample_id": "conv-41",
+      "question_index": 189,
+      "question_index_1based": 190,
+      "category": 5,
+      "question": "What is the name of John's puppy he got two weeks before August 11, 2023?",
+      "answer": null,
+      "evidence": [
+        "D30:1"
+      ]
+    },
+    {
+      "global_index": 150,
+      "sample_id": "conv-41",
+      "question_index": 192,
+      "question_index_1based": 193,
+      "category": 5,
+      "question": "How is John's new puppy adjusting to its new home?",
+      "answer": null,
+      "evidence": [
+        "D31:10"
+      ]
+    },
+    {
+      "global_index": 151,
+      "sample_id": "conv-42",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 3,
+      "question": "Is it likely that Nate has friends besides Joanna?",
+      "answer": "Yesteammates on hisvideo game team.",
+      "evidence": [
+        "D1:7"
+      ]
+    },
+    {
+      "global_index": 152,
+      "sample_id": "conv-42",
+      "question_index": 1,
+      "question_index_1based": 2,
+      "category": 1,
+      "question": "What kind of interests do Joanna and Nate share?",
+      "answer": "Watching movies, making desserts",
+      "evidence": [
+        "D1:10",
+        "D1:11",
+        "D1:12",
+        "D3:4",
+        "D4:9",
+        "D10:9",
+        "D20:2"
+      ]
+    },
+    {
+      "global_index": 153,
+      "sample_id": "conv-42",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 3,
+      "question": "What pets wouldn't cause any discomfort to Joanna?",
+      "answer": "Hairless cats or pigs,since they don't have fur, which is one of the main causes of Joanna's allergy.",
+      "evidence": [
+        "D2:23"
+      ]
+    },
+    {
+      "global_index": 154,
+      "sample_id": "conv-42",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 1,
+      "question": "What is Joanna allergic to?",
+      "answer": "Most reptiles,animals with fur,cockroaches, dairy",
+      "evidence": [
+        "D4:4",
+        "D5:11",
+        "D2:23"
+      ]
+    },
+    {
+      "global_index": 155,
+      "sample_id": "conv-42",
+      "question_index": 12,
+      "question_index_1based": 13,
+      "category": 3,
+      "question": "What underlying condition might Joanna have based on her allergies?",
+      "answer": "asthma",
+      "evidence": [
+        "D5:11",
+        "D2:23"
+      ]
+    },
+    {
+      "global_index": 156,
+      "sample_id": "conv-42",
+      "question_index": 14,
+      "question_index_1based": 15,
+      "category": 3,
+      "question": "What nickname does Nate use for Joanna?",
+      "answer": "Jo",
+      "evidence": [
+        "D7:1"
+      ]
+    },
+    {
+      "global_index": 157,
+      "sample_id": "conv-42",
+      "question_index": 16,
+      "question_index_1based": 17,
+      "category": 2,
+      "question": "What physical transformation did Nate undergo in April 2022?",
+      "answer": "dyed his hair purple",
+      "evidence": [
+        "D7:1",
+        "D7:3"
+      ]
+    },
+    {
+      "global_index": 158,
+      "sample_id": "conv-42",
+      "question_index": 17,
+      "question_index_1based": 18,
+      "category": 2,
+      "question": "What movie did Joanna watch on 1 May, 2022?",
+      "answer": "Lord of the Rings",
+      "evidence": [
+        "D10:1"
+      ]
+    },
+    {
+      "global_index": 159,
+      "sample_id": "conv-42",
+      "question_index": 20,
+      "question_index_1based": 21,
+      "category": 2,
+      "question": "When did Nate adopt Max?",
+      "answer": "May 2022",
+      "evidence": [
+        "D12:3"
+      ]
+    },
+    {
+      "global_index": 160,
+      "sample_id": "conv-42",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 2,
+      "question": "When did Joanna start writing her third screenplay?",
+      "answer": "May 2022",
+      "evidence": [
+        "D12:13",
+        "D12:14"
+      ]
+    },
+    {
+      "global_index": 161,
+      "sample_id": "conv-42",
+      "question_index": 24,
+      "question_index_1based": 25,
+      "category": 2,
+      "question": "When is Nate hosting a gaming party?",
+      "answer": "The weekend after 3June, 2022.",
+      "evidence": [
+        "D14:20"
+      ]
+    },
+    {
+      "global_index": 162,
+      "sample_id": "conv-42",
+      "question_index": 25,
+      "question_index_1based": 26,
+      "category": 2,
+      "question": "When did Joanna hike with her buddies?",
+      "answer": "The weekend after 3June, 2022.",
+      "evidence": [
+        "D14:19"
+      ]
+    },
+    {
+      "global_index": 163,
+      "sample_id": "conv-42",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 1,
+      "question": "What places has Joanna submitted her work to?",
+      "answer": "film contest, film festival.",
+      "evidence": [
+        "D2:7",
+        "D16:1"
+      ]
+    },
+    {
+      "global_index": 164,
+      "sample_id": "conv-42",
+      "question_index": 30,
+      "question_index_1based": 31,
+      "category": 1,
+      "question": "What kind of writings does Joanna do?",
+      "answer": "Screenplays,books, online blog posts, journal",
+      "evidence": [
+        "D2:3",
+        "D17:14",
+        "D18:1",
+        "D18:5"
+      ]
+    },
+    {
+      "global_index": 165,
+      "sample_id": "conv-42",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 1,
+      "question": "What book recommendations has Joanna given to Nate?",
+      "answer": "\"Little Women\",'A Court of Thorns andRoses'.",
+      "evidence": [
+        "D3:17",
+        "D19:14",
+        "D19:16"
+      ]
+    },
+    {
+      "global_index": 166,
+      "sample_id": "conv-42",
+      "question_index": 36,
+      "question_index_1based": 37,
+      "category": 2,
+      "question": "When did Joanna share her book with her writers group?",
+      "answer": "The week before 22August, 2022.",
+      "evidence": [
+        "D19:6"
+      ]
+    },
+    {
+      "global_index": 167,
+      "sample_id": "conv-42",
+      "question_index": 42,
+      "question_index_1based": 43,
+      "category": 1,
+      "question": "What movies have both Joanna and Nate seen?",
+      "answer": "\"Little Women\", \"Lord of the Rings\"",
+      "evidence": [
+        "D3:17",
+        "D10:1",
+        "D22:8"
+      ]
+    },
+    {
+      "global_index": 168,
+      "sample_id": "conv-42",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 2,
+      "question": "When did Nate win a lot of money in a video game tournament?",
+      "answer": "September 2022",
+      "evidence": [
+        "D22:2"
+      ]
+    },
+    {
+      "global_index": 169,
+      "sample_id": "conv-42",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 1,
+      "question": "When did Nate get Tilly for Joanna?",
+      "answer": "25 May, 2022",
+      "evidence": [
+        "D13:9",
+        "D24:2"
+      ]
+    },
+    {
+      "global_index": 170,
+      "sample_id": "conv-42",
+      "question_index": 52,
+      "question_index_1based": 53,
+      "category": 1,
+      "question": "How many of Joanna's writing have made it to the big screen?",
+      "answer": "two",
+      "evidence": [
+        "D15:1",
+        "D25:2"
+      ]
+    },
+    {
+      "global_index": 171,
+      "sample_id": "conv-42",
+      "question_index": 53,
+      "question_index_1based": 54,
+      "category": 1,
+      "question": "How many times has Nate taken his turtles on a walk?",
+      "answer": "Twice.",
+      "evidence": [
+        "D5:4",
+        "D25:15"
+      ]
+    },
+    {
+      "global_index": 172,
+      "sample_id": "conv-42",
+      "question_index": 56,
+      "question_index_1based": 57,
+      "category": 1,
+      "question": "What animal do both Nate and Joanna like?",
+      "answer": "Turtles.",
+      "evidence": [
+        "D5:6",
+        "D26:9"
+      ]
+    },
+    {
+      "global_index": 173,
+      "sample_id": "conv-42",
+      "question_index": 57,
+      "question_index_1based": 58,
+      "category": 2,
+      "question": "When did Joanna plan to go over to Nate's and share recipes?",
+      "answer": "5 November, 2022.",
+      "evidence": [
+        "D26:19"
+      ]
+    },
+    {
+      "global_index": 174,
+      "sample_id": "conv-42",
+      "question_index": 60,
+      "question_index_1based": 61,
+      "category": 3,
+      "question": "What Console does Nate own?",
+      "answer": "A Nintendo Switch; since the game \"Xenoblade 2\" is made for this console.",
+      "evidence": [
+        "D27:23"
+      ]
+    },
+    {
+      "global_index": 175,
+      "sample_id": "conv-42",
+      "question_index": 65,
+      "question_index_1based": 66,
+      "category": 2,
+      "question": "Which torunament did Nate win in the beginning of November 2022?",
+      "answer": "Valorant",
+      "evidence": [
+        "D27:1"
+      ]
+    },
+    {
+      "global_index": 176,
+      "sample_id": "conv-42",
+      "question_index": 66,
+      "question_index_1based": 67,
+      "category": 3,
+      "question": "What alternative career might Nate consider after gaming?",
+      "answer": "an animalkeeper at a localzoo and workingwith turtles; as heknows a great dealabout turtles andhow to care for them,and he enjoys it.",
+      "evidence": [
+        "D5:8",
+        "D19:3",
+        "D25:19",
+        "D28:25"
+      ]
+    },
+    {
+      "global_index": 177,
+      "sample_id": "conv-42",
+      "question_index": 73,
+      "question_index_1based": 74,
+      "category": 3,
+      "question": "What state did Joanna visit in summer 2021?",
+      "answer": "Indiana",
+      "evidence": [
+        "D28:22"
+      ]
+    },
+    {
+      "global_index": 178,
+      "sample_id": "conv-42",
+      "question_index": 84,
+      "question_index_1based": 85,
+      "category": 3,
+      "question": "Was the first half of September 2022 a good month career-wise for Nate and Joanna? Answer yes or no.",
+      "answer": "No; because both of them faced setbacks in their career",
+      "evidence": [
+        "D20:1",
+        "D21:1"
+      ]
+    },
+    {
+      "global_index": 179,
+      "sample_id": "conv-42",
+      "question_index": 85,
+      "question_index_1based": 86,
+      "category": 3,
+      "question": "What kind of job is Joanna beginning to preform the duties of because of her movie scripts?",
+      "answer": "filmmaker.",
+      "evidence": [
+        "D29:1"
+      ]
+    },
+    {
+      "global_index": 180,
+      "sample_id": "conv-42",
+      "question_index": 87,
+      "question_index_1based": 88,
+      "category": 3,
+      "question": "What state did Nate visit?",
+      "answer": "Florida",
+      "evidence": [
+        "D29:6"
+      ]
+    },
+    {
+      "global_index": 181,
+      "sample_id": "conv-42",
+      "question_index": 102,
+      "question_index_1based": 103,
+      "category": 4,
+      "question": "Which dairy-free dessert flavors does Nate enjoy?",
+      "answer": "chocolate and mixed berry",
+      "evidence": [
+        "D3:10"
+      ]
+    },
+    {
+      "global_index": 182,
+      "sample_id": "conv-42",
+      "question_index": 123,
+      "question_index_1based": 124,
+      "category": 4,
+      "question": "How does Nate describe the stuffed animal he got for Joanna?",
+      "answer": "A stuffed animal to remind you of the good vibes",
+      "evidence": [
+        "D13:11"
+      ]
+    },
+    {
+      "global_index": 183,
+      "sample_id": "conv-42",
+      "question_index": 124,
+      "question_index_1based": 125,
+      "category": 4,
+      "question": "What event is Nate organizing in June 2022?",
+      "answer": "A gaming party",
+      "evidence": [
+        "D14:20"
+      ]
+    },
+    {
+      "global_index": 184,
+      "sample_id": "conv-42",
+      "question_index": 128,
+      "question_index_1based": 129,
+      "category": 4,
+      "question": "What superhero is Joanna a fan of?",
+      "answer": "Spider-Man",
+      "evidence": [
+        "D15:3"
+      ]
+    },
+    {
+      "global_index": 185,
+      "sample_id": "conv-42",
+      "question_index": 141,
+      "question_index_1based": 142,
+      "category": 4,
+      "question": "What did Nate do while Joanna was on her road trip?",
+      "answer": "Won a video game tournament",
+      "evidence": [
+        "D17:2"
+      ]
+    },
+    {
+      "global_index": 186,
+      "sample_id": "conv-42",
+      "question_index": 149,
+      "question_index_1based": 150,
+      "category": 4,
+      "question": "What did Joanna share with her writers group in August 2022?",
+      "answer": "her book",
+      "evidence": [
+        "D19:6"
+      ]
+    },
+    {
+      "global_index": 187,
+      "sample_id": "conv-42",
+      "question_index": 163,
+      "question_index_1based": 164,
+      "category": 4,
+      "question": "What movie has Nate recently seen that blew his mind?",
+      "answer": "\"Inception\"",
+      "evidence": [
+        "D23:17"
+      ]
+    },
+    {
+      "global_index": 188,
+      "sample_id": "conv-42",
+      "question_index": 187,
+      "question_index_1based": 188,
+      "category": 4,
+      "question": "What project is Joanna working on in her notebook on November 9, 2022?",
+      "answer": "A suspenseful thriller set in a small Midwestern town",
+      "evidence": [
+        "D28:12"
+      ]
+    },
+    {
+      "global_index": 189,
+      "sample_id": "conv-42",
+      "question_index": 190,
+      "question_index_1based": 191,
+      "category": 4,
+      "question": "What new content is Nate creating for YouTube?",
+      "answer": "Gaming videos",
+      "evidence": [
+        "D28:13"
+      ]
+    },
+    {
+      "global_index": 190,
+      "sample_id": "conv-42",
+      "question_index": 197,
+      "question_index_1based": 198,
+      "category": 4,
+      "question": "What does Nate love most about having turtles?",
+      "answer": "They make him feel calm and don't require much looking after",
+      "evidence": [
+        "D29:8"
+      ]
+    },
+    {
+      "global_index": 191,
+      "sample_id": "conv-42",
+      "question_index": 209,
+      "question_index_1based": 210,
+      "category": 5,
+      "question": "What did Nate think of the caramel ice cream he made?",
+      "answer": null,
+      "evidence": [
+        "D3:6"
+      ]
+    },
+    {
+      "global_index": 192,
+      "sample_id": "conv-42",
+      "question_index": 212,
+      "question_index_1based": 213,
+      "category": 5,
+      "question": "Why did Joanna choose the hair color she did?",
+      "answer": null,
+      "evidence": [
+        "D7:5"
+      ]
+    },
+    {
+      "global_index": 193,
+      "sample_id": "conv-42",
+      "question_index": 214,
+      "question_index_1based": 215,
+      "category": 5,
+      "question": "What is Nate's project called in the writers group?",
+      "answer": null,
+      "evidence": [
+        "D9:3"
+      ]
+    },
+    {
+      "global_index": 194,
+      "sample_id": "conv-42",
+      "question_index": 216,
+      "question_index_1based": 217,
+      "category": 5,
+      "question": "What filling did Nate use in the cake he made recently in May 2022?",
+      "answer": null,
+      "evidence": [
+        "D10:11"
+      ]
+    },
+    {
+      "global_index": 195,
+      "sample_id": "conv-42",
+      "question_index": 217,
+      "question_index_1based": 218,
+      "category": 5,
+      "question": "Who did Joanna plan to invite to her gaming party in June 2022?",
+      "answer": null,
+      "evidence": [
+        "D14:22"
+      ]
+    },
+    {
+      "global_index": 196,
+      "sample_id": "conv-42",
+      "question_index": 229,
+      "question_index_1based": 230,
+      "category": 5,
+      "question": "How did Nate celebrate after sharing his book with a writers group?",
+      "answer": null,
+      "evidence": [
+        "D19:8"
+      ]
+    },
+    {
+      "global_index": 197,
+      "sample_id": "conv-42",
+      "question_index": 233,
+      "question_index_1based": 234,
+      "category": 5,
+      "question": "What is Joanna's favorite dish from the cooking show she hosted?",
+      "answer": null,
+      "evidence": [
+        "D21:6"
+      ]
+    },
+    {
+      "global_index": 198,
+      "sample_id": "conv-42",
+      "question_index": 234,
+      "question_index_1based": 235,
+      "category": 5,
+      "question": "What dessert did Nate share a photo of that has an almond flour crust, chocolate ganache, and fresh raspberries?",
+      "answer": null,
+      "evidence": [
+        "D21:11"
+      ]
+    },
+    {
+      "global_index": 199,
+      "sample_id": "conv-42",
+      "question_index": 235,
+      "question_index_1based": 236,
+      "category": 5,
+      "question": "What two main ingredients are part of the dessert Nate shared a photo of with blueberries, coconut milk, and a gluten-free crust?",
+      "answer": null,
+      "evidence": [
+        "D21:17"
+      ]
+    },
+    {
+      "global_index": 200,
+      "sample_id": "conv-42",
+      "question_index": 238,
+      "question_index_1based": 239,
+      "category": 5,
+      "question": "What game has Joanna been playing nonstop with a futuristic setting and gameplay on October 9, 2022?",
+      "answer": null,
+      "evidence": [
+        "D23:17"
+      ]
+    },
+    {
+      "global_index": 201,
+      "sample_id": "conv-43",
+      "question_index": 2,
+      "question_index_1based": 3,
+      "category": 1,
+      "question": "What items does John collect?",
+      "answer": "sneakers, fantasy movie DVDs, jerseys",
+      "evidence": [
+        "D1:15",
+        "D12:18",
+        "D27:20"
+      ]
+    },
+    {
+      "global_index": 202,
+      "sample_id": "conv-43",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 1,
+      "question": "What books has Tim read?",
+      "answer": "Harry Potter, Game of Thrones, the Name of the Wind, The Alchemist, The Hobbit, A Dance with Dragons, and the Wheel of Time.",
+      "evidence": [
+        "D1:14",
+        "D2:7",
+        "D6:8",
+        "D11:26",
+        "D20:21",
+        "D26:36",
+        "D22:13"
+      ]
+    },
+    {
+      "global_index": 203,
+      "sample_id": "conv-43",
+      "question_index": 8,
+      "question_index_1based": 9,
+      "category": 3,
+      "question": "Which outdoor gear company likely signed up John for an endorsement deal?",
+      "answer": "Under Armour",
+      "evidence": [
+        "D3:15",
+        "D25:2"
+      ]
+    },
+    {
+      "global_index": 204,
+      "sample_id": "conv-43",
+      "question_index": 12,
+      "question_index_1based": 13,
+      "category": 2,
+      "question": "What year did John start surfing?",
+      "answer": "2018",
+      "evidence": [
+        "D3:27"
+      ]
+    },
+    {
+      "global_index": 205,
+      "sample_id": "conv-43",
+      "question_index": 15,
+      "question_index_1based": 16,
+      "category": 3,
+      "question": "Who is Anthony?",
+      "answer": "likely John's friend, colleague or family",
+      "evidence": [
+        "D4:8"
+      ]
+    },
+    {
+      "global_index": 206,
+      "sample_id": "conv-43",
+      "question_index": 19,
+      "question_index_1based": 20,
+      "category": 3,
+      "question": "What is a prominent charity organization that John might want to work with and why?",
+      "answer": "Good Sports, because they work with Nike, Gatorade, and Under Armour and they aim toprovide youth sports opportunities for kids ages 3-18 in high-need communities.",
+      "evidence": [
+        "D3:13",
+        "D3:15",
+        "D6:15"
+      ]
+    },
+    {
+      "global_index": 207,
+      "sample_id": "conv-43",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 2,
+      "question": "When did John meet with his teammates after returning from Chicago?",
+      "answer": "August 15, 2023",
+      "evidence": [
+        "D7:1"
+      ]
+    },
+    {
+      "global_index": 208,
+      "sample_id": "conv-43",
+      "question_index": 25,
+      "question_index_1based": 26,
+      "category": 1,
+      "question": "What similar sports collectible do Tim and John own?",
+      "answer": "signed basketball",
+      "evidence": [
+        "D7:7",
+        "D7:9",
+        "D16:7",
+        "D16:9"
+      ]
+    },
+    {
+      "global_index": 209,
+      "sample_id": "conv-43",
+      "question_index": 26,
+      "question_index_1based": 27,
+      "category": 1,
+      "question": "Which TV series does Tim mention watching?",
+      "answer": "That, Wheel of Time",
+      "evidence": [
+        "D17:1",
+        "D17:11",
+        "D26:36"
+      ]
+    },
+    {
+      "global_index": 210,
+      "sample_id": "conv-43",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 3,
+      "question": "Which popular time management technique does Tim use to prepare for exams?",
+      "answer": "Pomodoro technique",
+      "evidence": [
+        "D18:3",
+        "D18:7"
+      ]
+    },
+    {
+      "global_index": 211,
+      "sample_id": "conv-43",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 3,
+      "question": "Which popular music composer's tunes does Tim enjoy playing on the piano?",
+      "answer": "John Williams",
+      "evidence": [
+        "D8:14",
+        "D8:16"
+      ]
+    },
+    {
+      "global_index": 212,
+      "sample_id": "conv-43",
+      "question_index": 30,
+      "question_index_1based": 31,
+      "category": 1,
+      "question": "Which cities has John been to?",
+      "answer": "Seattle, Chicago, New York, and Paris.",
+      "evidence": [
+        "D3:19",
+        "D6:3",
+        "D9:6",
+        "D27:36"
+      ]
+    },
+    {
+      "global_index": 213,
+      "sample_id": "conv-43",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 3,
+      "question": "What could John do after his basketball career?",
+      "answer": "become a basketball coach since he likes giving back and leadership",
+      "evidence": [
+        "D11:19",
+        "D26:1",
+        "D27:26"
+      ]
+    },
+    {
+      "global_index": 214,
+      "sample_id": "conv-43",
+      "question_index": 38,
+      "question_index_1based": 39,
+      "category": 1,
+      "question": "which country has Tim visited most frequently in his travels?",
+      "answer": "UK",
+      "evidence": [
+        "D1:18",
+        "D13:1",
+        "D18:1"
+      ]
+    },
+    {
+      "global_index": 215,
+      "sample_id": "conv-43",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 2,
+      "question": "When did John and his wife go on a European vacation?",
+      "answer": "November, 2023.",
+      "evidence": [
+        "D16:14"
+      ]
+    },
+    {
+      "global_index": 216,
+      "sample_id": "conv-43",
+      "question_index": 46,
+      "question_index_1based": 47,
+      "category": 2,
+      "question": "Where was Tim in the week before 16 November 2023?",
+      "answer": "UK",
+      "evidence": [
+        "D18:1"
+      ]
+    },
+    {
+      "global_index": 217,
+      "sample_id": "conv-43",
+      "question_index": 47,
+      "question_index_1based": 48,
+      "category": 2,
+      "question": "When did John get married at a greenhouse?",
+      "answer": "last week of September 2023",
+      "evidence": [
+        "D12:2"
+      ]
+    },
+    {
+      "global_index": 218,
+      "sample_id": "conv-43",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 1,
+      "question": "Which book was John reading during his recovery from an ankle injury?",
+      "answer": "The Alchemist",
+      "evidence": [
+        "D19:20",
+        "D18:2"
+      ]
+    },
+    {
+      "global_index": 219,
+      "sample_id": "conv-43",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 3,
+      "question": "What kind of yoga for building core strength might John benefit from?",
+      "answer": "Hatha Yoga",
+      "evidence": [
+        "D20:2"
+      ]
+    },
+    {
+      "global_index": 220,
+      "sample_id": "conv-43",
+      "question_index": 54,
+      "question_index_1based": 55,
+      "category": 2,
+      "question": "When did John take a trip to the Rocky Mountains?",
+      "answer": "2022",
+      "evidence": [
+        "D20:40"
+      ]
+    },
+    {
+      "global_index": 221,
+      "sample_id": "conv-43",
+      "question_index": 56,
+      "question_index_1based": 57,
+      "category": 2,
+      "question": "When did Tim start playing the violin?",
+      "answer": "August 2023",
+      "evidence": [
+        "D21:13"
+      ]
+    },
+    {
+      "global_index": 222,
+      "sample_id": "conv-43",
+      "question_index": 57,
+      "question_index_1based": 58,
+      "category": 1,
+      "question": "What instruments does Tim play?",
+      "answer": "piano, violin",
+      "evidence": [
+        "D8:12",
+        "D21:11"
+      ]
+    },
+    {
+      "global_index": 223,
+      "sample_id": "conv-43",
+      "question_index": 58,
+      "question_index_1based": 59,
+      "category": 2,
+      "question": "When did John attend the Harry Potter trivia?",
+      "answer": "August 2023.",
+      "evidence": [
+        "D4:8",
+        "D22:2"
+      ]
+    },
+    {
+      "global_index": 224,
+      "sample_id": "conv-43",
+      "question_index": 61,
+      "question_index_1based": 62,
+      "category": 1,
+      "question": "What books has John read?",
+      "answer": "inpsiring book on dreaming big, The Alchemist, fantasy series, non-fiction books on personal development, Dune",
+      "evidence": [
+        "D4:10",
+        "D11:26",
+        "D17:9",
+        "D19:16",
+        "D19:20",
+        "D22:12"
+      ]
+    },
+    {
+      "global_index": 225,
+      "sample_id": "conv-43",
+      "question_index": 63,
+      "question_index_1based": 64,
+      "category": 2,
+      "question": "When did John organize a basketball camp for kids?",
+      "answer": "summer 2023",
+      "evidence": [
+        "D26:23"
+      ]
+    },
+    {
+      "global_index": 226,
+      "sample_id": "conv-43",
+      "question_index": 65,
+      "question_index_1based": 66,
+      "category": 1,
+      "question": "What fantasy movies does Tim like?",
+      "answer": "Lord of the Rings, Harry Potter, and Star Wars.",
+      "evidence": [
+        "D8:16",
+        "D8:18",
+        "D26:28",
+        "D26:32",
+        "D27:21"
+      ]
+    },
+    {
+      "global_index": 227,
+      "sample_id": "conv-43",
+      "question_index": 66,
+      "question_index_1based": 67,
+      "category": 3,
+      "question": "What is a Star Wars book that Tim might enjoy?",
+      "answer": "Star Wars: Jedi Apprentice by Judy Blundell and David Farland. It is a highly rated and immersive series about his favorite movies.",
+      "evidence": [
+        "D27:19",
+        "D27:21"
+      ]
+    },
+    {
+      "global_index": 228,
+      "sample_id": "conv-43",
+      "question_index": 67,
+      "question_index_1based": 68,
+      "category": 3,
+      "question": "What would be a good hobby related to his travel dreams for Tim to pick up?",
+      "answer": "Writing a travel blog.",
+      "evidence": [
+        "D4:1",
+        "D6:6",
+        "D15:3",
+        "D27:37"
+      ]
+    },
+    {
+      "global_index": 229,
+      "sample_id": "conv-43",
+      "question_index": 69,
+      "question_index_1based": 70,
+      "category": 2,
+      "question": "When will Tim leave for Ireland?",
+      "answer": "February, 2024",
+      "evidence": [
+        "D28:1"
+      ]
+    },
+    {
+      "global_index": 230,
+      "sample_id": "conv-43",
+      "question_index": 70,
+      "question_index_1based": 71,
+      "category": 3,
+      "question": "Which Star Wars-related locations would Tim enjoy during his visit to Ireland?",
+      "answer": "Skellig Michael, Malin Head, Loop Head, Ceann Sibéal, and Brow Head because they are Star Wars filming locations.",
+      "evidence": [
+        "D1:18",
+        "D27:21",
+        "D28:1"
+      ]
+    },
+    {
+      "global_index": 231,
+      "sample_id": "conv-43",
+      "question_index": 71,
+      "question_index_1based": 72,
+      "category": 4,
+      "question": "Which team did John sign with on 21 May, 2023?",
+      "answer": "The Minnesota Wolves",
+      "evidence": [
+        "D1:5"
+      ]
+    },
+    {
+      "global_index": 232,
+      "sample_id": "conv-43",
+      "question_index": 73,
+      "question_index_1based": 74,
+      "category": 4,
+      "question": "What challenge did John encounter during pre-season training?",
+      "answer": "fitting into the new team's style of play",
+      "evidence": [
+        "D1:11"
+      ]
+    },
+    {
+      "global_index": 233,
+      "sample_id": "conv-43",
+      "question_index": 85,
+      "question_index_1based": 86,
+      "category": 4,
+      "question": "What did Anthony and John end up playing during the charity event?",
+      "answer": "an intense Harry Potter trivia contest",
+      "evidence": [
+        "D4:8"
+      ]
+    },
+    {
+      "global_index": 234,
+      "sample_id": "conv-43",
+      "question_index": 96,
+      "question_index_1based": 97,
+      "category": 4,
+      "question": "Which movie's theme is Tim's favorite to play on the piano?",
+      "answer": "\"Harry Potter and the Philosopher's Stone\"",
+      "evidence": [
+        "D8:14",
+        "D8:16"
+      ]
+    },
+    {
+      "global_index": 235,
+      "sample_id": "conv-43",
+      "question_index": 116,
+      "question_index_1based": 117,
+      "category": 4,
+      "question": "How does John say his team handles tough opponents?",
+      "answer": "by backing each other up and not quitting",
+      "evidence": [
+        "D13:6"
+      ]
+    },
+    {
+      "global_index": 236,
+      "sample_id": "conv-43",
+      "question_index": 120,
+      "question_index_1based": 121,
+      "category": 4,
+      "question": "How does John feel about being seen as a mentor by some of the younger players?",
+      "answer": "It feels great",
+      "evidence": [
+        "D14:11"
+      ]
+    },
+    {
+      "global_index": 237,
+      "sample_id": "conv-43",
+      "question_index": 130,
+      "question_index_1based": 131,
+      "category": 4,
+      "question": "What was Tim's huge writing issue last week,as mentioned on November 6, 2023?",
+      "answer": "He got stuck on a plot twist",
+      "evidence": [
+        "D16:1"
+      ]
+    },
+    {
+      "global_index": 238,
+      "sample_id": "conv-43",
+      "question_index": 131,
+      "question_index_1based": 132,
+      "category": 4,
+      "question": "What does Tim have that serves as a reminder of hard work and is his prized possession?",
+      "answer": "a basketball signed by his favorite player",
+      "evidence": [
+        "D16:7"
+      ]
+    },
+    {
+      "global_index": 239,
+      "sample_id": "conv-43",
+      "question_index": 137,
+      "question_index_1based": 138,
+      "category": 4,
+      "question": "What was the setback Tim faced in his writing project on 21 November, 2023?",
+      "answer": "Story based on experiences in the UK didn't go as planned",
+      "evidence": [
+        "D19:3"
+      ]
+    },
+    {
+      "global_index": 240,
+      "sample_id": "conv-43",
+      "question_index": 138,
+      "question_index_1based": 139,
+      "category": 4,
+      "question": "How did John overcome his ankle injury from last season?",
+      "answer": "stayed focused on recovery and worked hard to strengthen his body",
+      "evidence": [
+        "D19:6"
+      ]
+    },
+    {
+      "global_index": 241,
+      "sample_id": "conv-43",
+      "question_index": 180,
+      "question_index_1based": 181,
+      "category": 5,
+      "question": "What challenge did Tim encounter during pre-season training?",
+      "answer": null,
+      "evidence": [
+        "D1:11"
+      ]
+    },
+    {
+      "global_index": 242,
+      "sample_id": "conv-43",
+      "question_index": 183,
+      "question_index_1based": 184,
+      "category": 5,
+      "question": "What did Tim celebrate at a restaurant with teammates?",
+      "answer": null,
+      "evidence": [
+        "D3:5"
+      ]
+    },
+    {
+      "global_index": 243,
+      "sample_id": "conv-43",
+      "question_index": 190,
+      "question_index_1based": 191,
+      "category": 5,
+      "question": "What is Tim's number one goal in his basketball career?",
+      "answer": null,
+      "evidence": [
+        "D6:15"
+      ]
+    },
+    {
+      "global_index": 244,
+      "sample_id": "conv-43",
+      "question_index": 195,
+      "question_index_1based": 196,
+      "category": 5,
+      "question": "What new activity has John started learning in August 2023?",
+      "answer": null,
+      "evidence": [
+        "D8:12"
+      ]
+    },
+    {
+      "global_index": 245,
+      "sample_id": "conv-43",
+      "question_index": 196,
+      "question_index_1based": 197,
+      "category": 5,
+      "question": "What special memory does \"Fifty Shades of Grey\" bring to Tim?",
+      "answer": null,
+      "evidence": [
+        "D8:16"
+      ]
+    },
+    {
+      "global_index": 246,
+      "sample_id": "conv-43",
+      "question_index": 197,
+      "question_index_1based": 198,
+      "category": 5,
+      "question": "Which movie does John mention they enjoy watching during Thanksgiving?",
+      "answer": null,
+      "evidence": [
+        "D8:24"
+      ]
+    },
+    {
+      "global_index": 247,
+      "sample_id": "conv-43",
+      "question_index": 219,
+      "question_index_1based": 220,
+      "category": 5,
+      "question": "How did Tim overcome his ankle injury from last season?",
+      "answer": null,
+      "evidence": [
+        "D19:6"
+      ]
+    },
+    {
+      "global_index": 248,
+      "sample_id": "conv-43",
+      "question_index": 220,
+      "question_index_1based": 221,
+      "category": 5,
+      "question": "What motivated John to keep pushing himself to get better in writing and reading?",
+      "answer": null,
+      "evidence": [
+        "D19:9"
+      ]
+    },
+    {
+      "global_index": 249,
+      "sample_id": "conv-43",
+      "question_index": 228,
+      "question_index_1based": 229,
+      "category": 5,
+      "question": "What was Tim's way of dealing with doubts and stress when he was younger?",
+      "answer": null,
+      "evidence": [
+        "D23:9"
+      ]
+    },
+    {
+      "global_index": 250,
+      "sample_id": "conv-43",
+      "question_index": 230,
+      "question_index_1based": 231,
+      "category": 5,
+      "question": "In which area has Tim's team seen the most growth during training?",
+      "answer": null,
+      "evidence": [
+        "D25:14"
+      ]
+    },
+    {
+      "global_index": 251,
+      "sample_id": "conv-44",
+      "question_index": 2,
+      "question_index_1based": 3,
+      "category": 1,
+      "question": "What kind of indoor activities has Andrew pursued with his girlfriend?",
+      "answer": "boardgames, volunteering at pet shelter, wine tasting, growing flowers",
+      "evidence": [
+        "D13:1",
+        "D23:1",
+        "D25:1",
+        "D19:15"
+      ]
+    },
+    {
+      "global_index": 252,
+      "sample_id": "conv-44",
+      "question_index": 3,
+      "question_index_1based": 4,
+      "category": 1,
+      "question": "What kind of places have Andrew and his girlfriend checked out around the city?",
+      "answer": "cafes, new places to eat, open space for hikes, pet shelter, wine tasting event, park",
+      "evidence": [
+        "D3:1",
+        "D3:11",
+        "D4:2",
+        "D6:1",
+        "D13:1",
+        "D23:3",
+        "D25:1",
+        "D27:1"
+      ]
+    },
+    {
+      "global_index": 253,
+      "sample_id": "conv-44",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 2,
+      "question": "When did Audrey make muffins for herself?",
+      "answer": "The week of April 3rd to 9th",
+      "evidence": [
+        "D3:18"
+      ]
+    },
+    {
+      "global_index": 254,
+      "sample_id": "conv-44",
+      "question_index": 8,
+      "question_index_1based": 9,
+      "category": 2,
+      "question": "Did Andrew have a pet dog during March 2023?",
+      "answer": "No",
+      "evidence": [
+        "D2:8"
+      ]
+    },
+    {
+      "global_index": 255,
+      "sample_id": "conv-44",
+      "question_index": 9,
+      "question_index_1based": 10,
+      "category": 1,
+      "question": "What kind of classes or groups has Audrey joined to take better care of her dogs?",
+      "answer": "positive reinforcement training workshop to bond with pets, dog training course, agility training course, grooming course, dog-owners group",
+      "evidence": [
+        "D6:2",
+        "D10:1",
+        "D14:2",
+        "D16:6",
+        "D27:2"
+      ]
+    },
+    {
+      "global_index": 256,
+      "sample_id": "conv-44",
+      "question_index": 16,
+      "question_index_1based": 17,
+      "category": 2,
+      "question": "When is Andrew going to go hiking with Audrey?",
+      "answer": "August",
+      "evidence": [
+        "D11:7"
+      ]
+    },
+    {
+      "global_index": 257,
+      "sample_id": "conv-44",
+      "question_index": 17,
+      "question_index_1based": 18,
+      "category": 1,
+      "question": "How many times did Audrey and Andew plan to hike together?",
+      "answer": "three times",
+      "evidence": [
+        "D11:7",
+        "D24:13",
+        "D26:20"
+      ]
+    },
+    {
+      "global_index": 258,
+      "sample_id": "conv-44",
+      "question_index": 19,
+      "question_index_1based": 20,
+      "category": 3,
+      "question": "What is an indoor activity that Andrew would enjoy doing while make his dog happy?",
+      "answer": "cook dog treats",
+      "evidence": [
+        "D10:12",
+        "D12:1"
+      ]
+    },
+    {
+      "global_index": 259,
+      "sample_id": "conv-44",
+      "question_index": 20,
+      "question_index_1based": 21,
+      "category": 3,
+      "question": "Which meat does Audrey prefer eating more than others?",
+      "answer": "chicken",
+      "evidence": [
+        "D10:13",
+        "D10:23"
+      ]
+    },
+    {
+      "global_index": 260,
+      "sample_id": "conv-44",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 2,
+      "question": "Where did Andrew go during the first weekend of August 2023?",
+      "answer": "camping with girlfriend",
+      "evidence": [
+        "D14:1"
+      ]
+    },
+    {
+      "global_index": 261,
+      "sample_id": "conv-44",
+      "question_index": 24,
+      "question_index_1based": 25,
+      "category": 1,
+      "question": "Did Audrey and Andrew grow up with a pet dog?",
+      "answer": "Yes",
+      "evidence": [
+        "D2:16",
+        "D13:10"
+      ]
+    },
+    {
+      "global_index": 262,
+      "sample_id": "conv-44",
+      "question_index": 26,
+      "question_index_1based": 27,
+      "category": 1,
+      "question": "What is the biggest stressor in Andrew's life besides not being able to hike frequently?",
+      "answer": "work",
+      "evidence": [
+        "D12:3",
+        "D16:1",
+        "D18:1",
+        "D10:16"
+      ]
+    },
+    {
+      "global_index": 263,
+      "sample_id": "conv-44",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 1,
+      "question": "How does Andrew feel about his current work?",
+      "answer": "Stressful",
+      "evidence": [
+        "D12:3",
+        "D16:1",
+        "D18:1",
+        "D10:16"
+      ]
+    },
+    {
+      "global_index": 264,
+      "sample_id": "conv-44",
+      "question_index": 30,
+      "question_index_1based": 31,
+      "category": 2,
+      "question": "When is Andrew planning to go to the beach with his girlfriend?",
+      "answer": "November 2023",
+      "evidence": [
+        "D20:1"
+      ]
+    },
+    {
+      "global_index": 265,
+      "sample_id": "conv-44",
+      "question_index": 32,
+      "question_index_1based": 33,
+      "category": 1,
+      "question": "What kind of tattoo does Audrey have on her arm?",
+      "answer": "Tattoos of her four dogs.",
+      "evidence": [
+        "D3:26",
+        "D15:1",
+        "D23:20"
+      ]
+    },
+    {
+      "global_index": 266,
+      "sample_id": "conv-44",
+      "question_index": 33,
+      "question_index_1based": 34,
+      "category": 3,
+      "question": "What can Andrew potentially do to improve his stress and accomodate his living situation with his dogs?",
+      "answer": "Change to a hybrid or remote job so he can move away from the city to the suburbs to have a larger living space and be closer to nature.",
+      "evidence": [
+        "D12:3",
+        "D18:1",
+        "D21:5"
+      ]
+    },
+    {
+      "global_index": 267,
+      "sample_id": "conv-44",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 2,
+      "question": "How many months passed between Andrew adopting Toby and Buddy?",
+      "answer": "three months",
+      "evidence": [
+        "D12:1",
+        "D24:2"
+      ]
+    },
+    {
+      "global_index": 268,
+      "sample_id": "conv-44",
+      "question_index": 35,
+      "question_index_1based": 36,
+      "category": 1,
+      "question": "What are the names of Andrew's dogs?",
+      "answer": "Toby, Scout, Buddy",
+      "evidence": [
+        "D12:1",
+        "D24:6",
+        "D28:8"
+      ]
+    },
+    {
+      "global_index": 269,
+      "sample_id": "conv-44",
+      "question_index": 37,
+      "question_index_1based": 38,
+      "category": 2,
+      "question": "When did Audrey get into an accident in the park?",
+      "answer": "between October 19 and 24, 2023",
+      "evidence": [
+        "D25:2"
+      ]
+    },
+    {
+      "global_index": 270,
+      "sample_id": "conv-44",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 1,
+      "question": "What is a good place for dogs to run around freely and meet new friends?",
+      "answer": "The dog park",
+      "evidence": [
+        "D4:25",
+        "D14:2",
+        "D23:10"
+      ]
+    },
+    {
+      "global_index": 271,
+      "sample_id": "conv-44",
+      "question_index": 41,
+      "question_index_1based": 42,
+      "category": 1,
+      "question": "What are the breeds of Audrey's dogs?",
+      "answer": "Mongrel mixed with Lab for Pepper and Panda. Mongrel mixed with Chihuahua for Precious and Pixie.",
+      "evidence": [
+        "D19:12",
+        "D26:13"
+      ]
+    },
+    {
+      "global_index": 272,
+      "sample_id": "conv-44",
+      "question_index": 43,
+      "question_index_1based": 44,
+      "category": 3,
+      "question": "Which US state do Audrey and Andrew potentially live in?",
+      "answer": "Minnesota",
+      "evidence": [
+        "D11:9"
+      ]
+    },
+    {
+      "global_index": 273,
+      "sample_id": "conv-44",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 3,
+      "question": "Which national park could Audrey and Andrew be referring to in their conversations?",
+      "answer": "Voyageurs National Park",
+      "evidence": [
+        "D5:8",
+        "D11:9"
+      ]
+    },
+    {
+      "global_index": 274,
+      "sample_id": "conv-44",
+      "question_index": 45,
+      "question_index_1based": 46,
+      "category": 2,
+      "question": "How many pets will Andrew have, as of December 2023?",
+      "answer": "three",
+      "evidence": [
+        "D12:1",
+        "D24:2",
+        "D28:6"
+      ]
+    },
+    {
+      "global_index": 275,
+      "sample_id": "conv-44",
+      "question_index": 46,
+      "question_index_1based": 47,
+      "category": 2,
+      "question": "How many pets did Andrew have, as of September 2023?",
+      "answer": "one",
+      "evidence": [
+        "D12:1",
+        "D24:2"
+      ]
+    },
+    {
+      "global_index": 276,
+      "sample_id": "conv-44",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 1,
+      "question": "What is a skill that Audrey learned to take care of her dogs?",
+      "answer": "Grooming",
+      "evidence": [
+        "D16:2",
+        "D17:4"
+      ]
+    },
+    {
+      "global_index": 277,
+      "sample_id": "conv-44",
+      "question_index": 52,
+      "question_index_1based": 53,
+      "category": 3,
+      "question": "What is something that Andrew could do to make birdwatching hobby to fit in his city schedule?",
+      "answer": "Install a bird feeder outside where he can see the birds without going outdoors.",
+      "evidence": [
+        "D20:5",
+        "D20:21",
+        "D23:1",
+        "D1:14"
+      ]
+    },
+    {
+      "global_index": 278,
+      "sample_id": "conv-44",
+      "question_index": 53,
+      "question_index_1based": 54,
+      "category": 3,
+      "question": "What is a career that Andrew could potentially pursue with his love for animals and nature?",
+      "answer": "Park ranger or a similar position working for the National Park Services.",
+      "evidence": [
+        "D2:18",
+        "D3:1",
+        "D5:7",
+        "D8:27"
+      ]
+    },
+    {
+      "global_index": 279,
+      "sample_id": "conv-44",
+      "question_index": 59,
+      "question_index_1based": 60,
+      "category": 2,
+      "question": "How long has it been since Andrew adopted his first pet, as of November 2023?",
+      "answer": "4 months",
+      "evidence": [
+        "D12:1"
+      ]
+    },
+    {
+      "global_index": 280,
+      "sample_id": "conv-44",
+      "question_index": 61,
+      "question_index_1based": 62,
+      "category": 4,
+      "question": "Which specific type of bird mesmerizes Andrew?",
+      "answer": "Eagles",
+      "evidence": [
+        "D1:16"
+      ]
+    },
+    {
+      "global_index": 281,
+      "sample_id": "conv-44",
+      "question_index": 67,
+      "question_index_1based": 68,
+      "category": 4,
+      "question": "Where does Andrew want to live to give their dog a large, open space to run around?",
+      "answer": "near a park or woods",
+      "evidence": [
+        "D5:7"
+      ]
+    },
+    {
+      "global_index": 282,
+      "sample_id": "conv-44",
+      "question_index": 78,
+      "question_index_1based": 79,
+      "category": 4,
+      "question": "What did Audrey and her friends stumble across during a hike a few years back, as mentioned on June 26, 2023?",
+      "answer": "a stunning lake in the mountains",
+      "evidence": [
+        "D9:23"
+      ]
+    },
+    {
+      "global_index": 283,
+      "sample_id": "conv-44",
+      "question_index": 79,
+      "question_index_1based": 80,
+      "category": 4,
+      "question": "What is Audrey's favorite recipe that she shares with Andrew on 3 July, 2023?",
+      "answer": "Chicken Pot Pie",
+      "evidence": [
+        "D10:13"
+      ]
+    },
+    {
+      "global_index": 284,
+      "sample_id": "conv-44",
+      "question_index": 84,
+      "question_index_1based": 85,
+      "category": 4,
+      "question": "What are some of the personalities of Audrey's four fur babies?",
+      "answer": "oldest is relaxed, second is playful, third can be naughty but loves cuddles, youngest is full of life",
+      "evidence": [
+        "D13:6"
+      ]
+    },
+    {
+      "global_index": 285,
+      "sample_id": "conv-44",
+      "question_index": 85,
+      "question_index_1based": 86,
+      "category": 4,
+      "question": "What type of classes did Audrey start with her pups recently on 4 August, 2023?",
+      "answer": "Agility classes",
+      "evidence": [
+        "D14:2"
+      ]
+    },
+    {
+      "global_index": 286,
+      "sample_id": "conv-44",
+      "question_index": 86,
+      "question_index_1based": 87,
+      "category": 4,
+      "question": "How often does Audrey take her pups to the park for practice?",
+      "answer": "Twice a week",
+      "evidence": [
+        "D14:4"
+      ]
+    },
+    {
+      "global_index": 287,
+      "sample_id": "conv-44",
+      "question_index": 93,
+      "question_index_1based": 94,
+      "category": 4,
+      "question": "How did Audrey calm down her dog after the leash incident?",
+      "answer": "Petted, hugged, spoke calmly and slowly walked the dog",
+      "evidence": [
+        "D19:4"
+      ]
+    },
+    {
+      "global_index": 288,
+      "sample_id": "conv-44",
+      "question_index": 100,
+      "question_index_1based": 101,
+      "category": 4,
+      "question": "What was the reason Audrey couldn't walk her dogs for a period of time?",
+      "answer": "Knee injury",
+      "evidence": [
+        "D22:1"
+      ]
+    },
+    {
+      "global_index": 289,
+      "sample_id": "conv-44",
+      "question_index": 102,
+      "question_index_1based": 103,
+      "category": 4,
+      "question": "Why does Audrey make jewelry out of recycled objects?",
+      "answer": "To show love for creativity and sustainability",
+      "evidence": [
+        "D22:5"
+      ]
+    },
+    {
+      "global_index": 290,
+      "sample_id": "conv-44",
+      "question_index": 112,
+      "question_index_1based": 113,
+      "category": 4,
+      "question": "What cuisine did Andrew recently try at a new spot in town?",
+      "answer": "sushi",
+      "evidence": [
+        "D25:3"
+      ]
+    },
+    {
+      "global_index": 291,
+      "sample_id": "conv-44",
+      "question_index": 123,
+      "question_index_1based": 124,
+      "category": 5,
+      "question": "Which specific type of bird mesmerizes Audrey?",
+      "answer": null,
+      "evidence": [
+        "D1:16"
+      ]
+    },
+    {
+      "global_index": 292,
+      "sample_id": "conv-44",
+      "question_index": 136,
+      "question_index_1based": 137,
+      "category": 5,
+      "question": "What are some of the personalities of Andrew's four fur babies?",
+      "answer": null,
+      "evidence": [
+        "D13:6"
+      ]
+    },
+    {
+      "global_index": 293,
+      "sample_id": "conv-44",
+      "question_index": 138,
+      "question_index_1based": 139,
+      "category": 5,
+      "question": "What is essential to keep the dogs looking good according to Andrew?",
+      "answer": null,
+      "evidence": [
+        "D17:4"
+      ]
+    },
+    {
+      "global_index": 294,
+      "sample_id": "conv-44",
+      "question_index": 142,
+      "question_index_1based": 143,
+      "category": 5,
+      "question": "How did Andrew calm down his dog after the leash incident?",
+      "answer": null,
+      "evidence": [
+        "D19:4"
+      ]
+    },
+    {
+      "global_index": 295,
+      "sample_id": "conv-44",
+      "question_index": 147,
+      "question_index_1based": 148,
+      "category": 5,
+      "question": "What type of jewelry does Andrew make?",
+      "answer": null,
+      "evidence": [
+        "D22:5"
+      ]
+    },
+    {
+      "global_index": 296,
+      "sample_id": "conv-44",
+      "question_index": 149,
+      "question_index_1based": 150,
+      "category": 5,
+      "question": "What type of games do Andrew's dogs like to play at the park?",
+      "answer": null,
+      "evidence": [
+        "D23:14"
+      ]
+    },
+    {
+      "global_index": 297,
+      "sample_id": "conv-44",
+      "question_index": 150,
+      "question_index_1based": 151,
+      "category": 5,
+      "question": "What did Andrew make to thank his neighbors?",
+      "answer": null,
+      "evidence": [
+        "D23:2"
+      ]
+    },
+    {
+      "global_index": 298,
+      "sample_id": "conv-44",
+      "question_index": 152,
+      "question_index_1based": 153,
+      "category": 5,
+      "question": "How does Andrew describe his dogs' response to snow?",
+      "answer": null,
+      "evidence": [
+        "D23:12"
+      ]
+    },
+    {
+      "global_index": 299,
+      "sample_id": "conv-44",
+      "question_index": 153,
+      "question_index_1based": 154,
+      "category": 5,
+      "question": "What kind of experiences are Audrey's cats the best companions for?",
+      "answer": null,
+      "evidence": [
+        "D23:24"
+      ]
+    },
+    {
+      "global_index": 300,
+      "sample_id": "conv-44",
+      "question_index": 156,
+      "question_index_1based": 157,
+      "category": 5,
+      "question": "Which type of pizza did Audrey suggest trying first to someone new to Italian cuisine?",
+      "answer": null,
+      "evidence": [
+        "D25:8"
+      ]
+    },
+    {
+      "global_index": 301,
+      "sample_id": "conv-47",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 3,
+      "question": "What are John's suspected health problems?",
+      "answer": "Obesity",
+      "evidence": [
+        "D1:27"
+      ]
+    },
+    {
+      "global_index": 302,
+      "sample_id": "conv-47",
+      "question_index": 1,
+      "question_index_1based": 2,
+      "category": 2,
+      "question": "Which recreational activity was James pursuing on March 16, 2022?",
+      "answer": "bowling",
+      "evidence": [
+        "D1:26"
+      ]
+    },
+    {
+      "global_index": 303,
+      "sample_id": "conv-47",
+      "question_index": 2,
+      "question_index_1based": 3,
+      "category": 1,
+      "question": "Which places or events have John and James planned to meet at?",
+      "answer": "VR Club, McGee's, baseball game",
+      "evidence": [
+        "D1:36",
+        "D21:15",
+        "D23:5",
+        "D23:6"
+      ]
+    },
+    {
+      "global_index": 304,
+      "sample_id": "conv-47",
+      "question_index": 3,
+      "question_index_1based": 4,
+      "category": 1,
+      "question": "Do both James and John have pets?",
+      "answer": "No",
+      "evidence": [
+        "D1:12",
+        "D2:18"
+      ]
+    },
+    {
+      "global_index": 305,
+      "sample_id": "conv-47",
+      "question_index": 7,
+      "question_index_1based": 8,
+      "category": 3,
+      "question": "In which state is the shelter from which James adopted the puppy?",
+      "answer": "Connecticut.",
+      "evidence": [
+        "D5:1"
+      ]
+    },
+    {
+      "global_index": 306,
+      "sample_id": "conv-47",
+      "question_index": 9,
+      "question_index_1based": 10,
+      "category": 1,
+      "question": "What are the names of James's dogs?",
+      "answer": "Ned, Daisy, Max",
+      "evidence": [
+        "D1:14",
+        "D5:1"
+      ]
+    },
+    {
+      "global_index": 307,
+      "sample_id": "conv-47",
+      "question_index": 10,
+      "question_index_1based": 11,
+      "category": 2,
+      "question": "When did James adopt Ned?",
+      "answer": "first week of April 2022",
+      "evidence": [
+        "D5:1"
+      ]
+    },
+    {
+      "global_index": 308,
+      "sample_id": "conv-47",
+      "question_index": 12,
+      "question_index_1based": 13,
+      "category": 3,
+      "question": "Did James have a girlfriend during April 2022?",
+      "answer": "Presumably not",
+      "evidence": [
+        "D6:6"
+      ]
+    },
+    {
+      "global_index": 309,
+      "sample_id": "conv-47",
+      "question_index": 16,
+      "question_index_1based": 17,
+      "category": 3,
+      "question": "What is the game with different colored cards that was John talking about with James?",
+      "answer": "UNO",
+      "evidence": [
+        "D8:34"
+      ]
+    },
+    {
+      "global_index": 310,
+      "sample_id": "conv-47",
+      "question_index": 17,
+      "question_index_1based": 18,
+      "category": 3,
+      "question": "What is the board game where you have to find the imposter that John mentions to James?",
+      "answer": "Mafia",
+      "evidence": [
+        "D8:36"
+      ]
+    },
+    {
+      "global_index": 311,
+      "sample_id": "conv-47",
+      "question_index": 21,
+      "question_index_1based": 22,
+      "category": 2,
+      "question": "When did John first organize a charity tournament with his friends?",
+      "answer": "May 7, 2022",
+      "evidence": [
+        "D10:2"
+      ]
+    },
+    {
+      "global_index": 312,
+      "sample_id": "conv-47",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 1,
+      "question": "Who or which organizations have been the beneficiaries of John's charity tournaments?",
+      "answer": "animal shelter, homeless, children's hospital",
+      "evidence": [
+        "D10:10",
+        "D10:12",
+        "D29:1"
+      ]
+    },
+    {
+      "global_index": 313,
+      "sample_id": "conv-47",
+      "question_index": 23,
+      "question_index_1based": 24,
+      "category": 2,
+      "question": "When will John start his new job?",
+      "answer": "In July, 2022",
+      "evidence": [
+        "D13:5"
+      ]
+    },
+    {
+      "global_index": 314,
+      "sample_id": "conv-47",
+      "question_index": 24,
+      "question_index_1based": 25,
+      "category": 1,
+      "question": "What kind of games has James tried to develop?",
+      "answer": "football simulator, virtual world inspired by Witcher 3",
+      "evidence": [
+        "D13:7",
+        "D1:4",
+        "D27:2"
+      ]
+    },
+    {
+      "global_index": 315,
+      "sample_id": "conv-47",
+      "question_index": 25,
+      "question_index_1based": 26,
+      "category": 3,
+      "question": "Are John and James fans of the same football team?",
+      "answer": "No, James is a Liverpool fan and John is a Manchester City fan.",
+      "evidence": [
+        "D13:12",
+        "D13:15"
+      ]
+    },
+    {
+      "global_index": 316,
+      "sample_id": "conv-47",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 1,
+      "question": "What kind of classes has James joined?",
+      "answer": "game design course, cooking classes",
+      "evidence": [
+        "D13:6",
+        "D23:13"
+      ]
+    },
+    {
+      "global_index": 317,
+      "sample_id": "conv-47",
+      "question_index": 29,
+      "question_index_1based": 30,
+      "category": 2,
+      "question": "When did James depart for his trip to Canada?",
+      "answer": "July 11, 2022",
+      "evidence": [
+        "D16:9"
+      ]
+    },
+    {
+      "global_index": 318,
+      "sample_id": "conv-47",
+      "question_index": 30,
+      "question_index_1based": 31,
+      "category": 3,
+      "question": "Which country did James book tickets for in July 2022?",
+      "answer": "Canada",
+      "evidence": [
+        "D16:9",
+        "D16:11"
+      ]
+    },
+    {
+      "global_index": 319,
+      "sample_id": "conv-47",
+      "question_index": 33,
+      "question_index_1based": 34,
+      "category": 3,
+      "question": "Did John and James study together?",
+      "answer": "Yes",
+      "evidence": [
+        "D17:13"
+      ]
+    },
+    {
+      "global_index": 320,
+      "sample_id": "conv-47",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 1,
+      "question": "Which countries did James visit in July 2022?",
+      "answer": "Canada, Greenland",
+      "evidence": [
+        "D16:9",
+        "D17:22"
+      ]
+    },
+    {
+      "global_index": 321,
+      "sample_id": "conv-47",
+      "question_index": 36,
+      "question_index_1based": 37,
+      "category": 3,
+      "question": "Who is Jill?",
+      "answer": "Most likely John's partner.",
+      "evidence": [
+        "D17:24"
+      ]
+    },
+    {
+      "global_index": 322,
+      "sample_id": "conv-47",
+      "question_index": 37,
+      "question_index_1based": 38,
+      "category": 2,
+      "question": "When did John spend time with his sister and dogs?",
+      "answer": "July 21, 2022",
+      "evidence": [
+        "D17:28"
+      ]
+    },
+    {
+      "global_index": 323,
+      "sample_id": "conv-47",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 1,
+      "question": "What kind of tricks do James's pets know?",
+      "answer": "swimming, catching frisbees, balancing on a skateboard, sit, stay, paw, and rollover",
+      "evidence": [
+        "D2:17",
+        "D14:17",
+        "D14:23",
+        "D17:16"
+      ]
+    },
+    {
+      "global_index": 324,
+      "sample_id": "conv-47",
+      "question_index": 41,
+      "question_index_1based": 42,
+      "category": 2,
+      "question": "When did James meet Samantha?",
+      "answer": "August 9, 2022",
+      "evidence": [
+        "D19:12"
+      ]
+    },
+    {
+      "global_index": 325,
+      "sample_id": "conv-47",
+      "question_index": 42,
+      "question_index_1based": 43,
+      "category": 2,
+      "question": "When did James take his 3 dogs to the beach?",
+      "answer": "August 9, 2022",
+      "evidence": [
+        "D19:12"
+      ]
+    },
+    {
+      "global_index": 326,
+      "sample_id": "conv-47",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 3,
+      "question": "Why didn't John want to go to Starbucks?",
+      "answer": "Possibly because he likes to drink beer on his days off.",
+      "evidence": [
+        "D21:12",
+        "D21:14"
+      ]
+    },
+    {
+      "global_index": 327,
+      "sample_id": "conv-47",
+      "question_index": 49,
+      "question_index_1based": 50,
+      "category": 1,
+      "question": "What gaming equipments did John buy or refurbish?",
+      "answer": "Sennheiser headphones, Logitech mouse, gaming desk",
+      "evidence": [
+        "D23:8",
+        "D23:10",
+        "D20:9"
+      ]
+    },
+    {
+      "global_index": 328,
+      "sample_id": "conv-47",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 2,
+      "question": "When did James start taking cooking classes?",
+      "answer": "September 2, 2022",
+      "evidence": [
+        "D23:13"
+      ]
+    },
+    {
+      "global_index": 329,
+      "sample_id": "conv-47",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 1,
+      "question": "Which new games did John start play during the course of the conversation with James?",
+      "answer": "AC Valhalla, Witcher 3, FIFA 23, Dungeons of the Dragons, futuristic dystopian game",
+      "evidence": [
+        "D5:4",
+        "D19:7",
+        "D30:14",
+        "D24:1",
+        "D24:3",
+        "D8:20"
+      ]
+    },
+    {
+      "global_index": 330,
+      "sample_id": "conv-47",
+      "question_index": 52,
+      "question_index_1based": 53,
+      "category": 2,
+      "question": "When did John start working on his 2D Adventure mobile game?",
+      "answer": "approximately summer of 2022",
+      "evidence": [
+        "D25:9"
+      ]
+    },
+    {
+      "global_index": 331,
+      "sample_id": "conv-47",
+      "question_index": 71,
+      "question_index_1based": 72,
+      "category": 4,
+      "question": "What did James offer to do for John regarding pets?",
+      "answer": "help find the perfect pet",
+      "evidence": [
+        "D2:19"
+      ]
+    },
+    {
+      "global_index": 332,
+      "sample_id": "conv-47",
+      "question_index": 77,
+      "question_index_1based": 78,
+      "category": 4,
+      "question": "What advice did James receive from the famous players he met at the tournament?",
+      "answer": "never put your ego above team success",
+      "evidence": [
+        "D4:12"
+      ]
+    },
+    {
+      "global_index": 333,
+      "sample_id": "conv-47",
+      "question_index": 80,
+      "question_index_1based": 81,
+      "category": 4,
+      "question": "Why did James embody the appearance of the game character from the woman he saw during a walk?",
+      "answer": "He found her appearance and eyes amazing.",
+      "evidence": [
+        "D6:6"
+      ]
+    },
+    {
+      "global_index": 334,
+      "sample_id": "conv-47",
+      "question_index": 87,
+      "question_index_1based": 88,
+      "category": 4,
+      "question": "What type of pizza is John's favorite?",
+      "answer": "Hawaiian",
+      "evidence": [
+        "D9:19"
+      ]
+    },
+    {
+      "global_index": 335,
+      "sample_id": "conv-47",
+      "question_index": 88,
+      "question_index_1based": 89,
+      "category": 4,
+      "question": "What did John organize with his friends on May 8, 2022?",
+      "answer": "A tournament for CS:GO",
+      "evidence": [
+        "D10:4"
+      ]
+    },
+    {
+      "global_index": 336,
+      "sample_id": "conv-47",
+      "question_index": 92,
+      "question_index_1based": 93,
+      "category": 4,
+      "question": "What did John create for the charitable foundation that helped generate reports for analysis?",
+      "answer": "computer application on smartphones",
+      "evidence": [
+        "D11:3"
+      ]
+    },
+    {
+      "global_index": 337,
+      "sample_id": "conv-47",
+      "question_index": 94,
+      "question_index_1based": 95,
+      "category": 4,
+      "question": "What project is James working on in his game design course?",
+      "answer": "a new part of the football simulator, collecting player databases",
+      "evidence": [
+        "D13:8"
+      ]
+    },
+    {
+      "global_index": 338,
+      "sample_id": "conv-47",
+      "question_index": 104,
+      "question_index_1based": 105,
+      "category": 4,
+      "question": "Where did James plan to visit after Toronto?",
+      "answer": "Vancouver",
+      "evidence": [
+        "D16:11"
+      ]
+    },
+    {
+      "global_index": 339,
+      "sample_id": "conv-47",
+      "question_index": 126,
+      "question_index_1based": 127,
+      "category": 4,
+      "question": "What is the name of the board game John tried in September 2022?",
+      "answer": "Dungeons of the Dragon",
+      "evidence": [
+        "D24:3"
+      ]
+    },
+    {
+      "global_index": 340,
+      "sample_id": "conv-47",
+      "question_index": 147,
+      "question_index_1based": 148,
+      "category": 4,
+      "question": "What did John suggest James practice before playing FIFA 23 together?",
+      "answer": "Control with a gamepad and timing",
+      "evidence": [
+        "D30:18"
+      ]
+    },
+    {
+      "global_index": 341,
+      "sample_id": "conv-47",
+      "question_index": 150,
+      "question_index_1based": 151,
+      "category": 5,
+      "question": "What did John adopt in April 2022?",
+      "answer": null,
+      "evidence": [
+        "D5:1"
+      ]
+    },
+    {
+      "global_index": 342,
+      "sample_id": "conv-47",
+      "question_index": 161,
+      "question_index_1based": 162,
+      "category": 5,
+      "question": "Will there be a background check required to volunteer with the organization James volunteered for?",
+      "answer": null,
+      "evidence": [
+        "D15:15"
+      ]
+    },
+    {
+      "global_index": 343,
+      "sample_id": "conv-47",
+      "question_index": 167,
+      "question_index_1based": 168,
+      "category": 5,
+      "question": "What happened to James's kitten during the recent visit to the clinic?",
+      "answer": null,
+      "evidence": [
+        "D18:16"
+      ]
+    },
+    {
+      "global_index": 344,
+      "sample_id": "conv-47",
+      "question_index": 171,
+      "question_index_1based": 172,
+      "category": 5,
+      "question": "How much does James pay per dance class?",
+      "answer": null,
+      "evidence": [
+        "D23:15"
+      ]
+    },
+    {
+      "global_index": 345,
+      "sample_id": "conv-47",
+      "question_index": 173,
+      "question_index_1based": 174,
+      "category": 5,
+      "question": "Why did James sign up for a ballet class?",
+      "answer": null,
+      "evidence": [
+        "D23:13"
+      ]
+    },
+    {
+      "global_index": 346,
+      "sample_id": "conv-47",
+      "question_index": 179,
+      "question_index_1based": 180,
+      "category": 5,
+      "question": "What kind of gig was James offered at the game dev non-profit organization?",
+      "answer": null,
+      "evidence": [
+        "D26:3"
+      ]
+    },
+    {
+      "global_index": 347,
+      "sample_id": "conv-47",
+      "question_index": 183,
+      "question_index_1based": 184,
+      "category": 5,
+      "question": "What was the purpose of the gaming tournament organized by James on 31 October, 2022?",
+      "answer": null,
+      "evidence": [
+        "D29:1",
+        "D29:3"
+      ]
+    },
+    {
+      "global_index": 348,
+      "sample_id": "conv-47",
+      "question_index": 184,
+      "question_index_1based": 185,
+      "category": 5,
+      "question": "What decision did John and Samantha make on 31 October, 2022?",
+      "answer": null,
+      "evidence": [
+        "D29:8",
+        "D29:10"
+      ]
+    },
+    {
+      "global_index": 349,
+      "sample_id": "conv-47",
+      "question_index": 185,
+      "question_index_1based": 186,
+      "category": 5,
+      "question": "Where did John and Samantha decide to live together on 31 October, 2022?",
+      "answer": null,
+      "evidence": [
+        "D29:10"
+      ]
+    },
+    {
+      "global_index": 350,
+      "sample_id": "conv-47",
+      "question_index": 188,
+      "question_index_1based": 189,
+      "category": 5,
+      "question": "What project did James work on with a game developer by 7 November, 2022?",
+      "answer": null,
+      "evidence": [
+        "D31:4"
+      ]
+    },
+    {
+      "global_index": 351,
+      "sample_id": "conv-48",
+      "question_index": 1,
+      "question_index_1based": 2,
+      "category": 1,
+      "question": "Which of Deborah`s family and friends have passed away?",
+      "answer": "mother, father, her friend Karlie",
+      "evidence": [
+        "D1:5",
+        "D2:1",
+        "D6:4"
+      ]
+    },
+    {
+      "global_index": 352,
+      "sample_id": "conv-48",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 2,
+      "question": "When did Jolene's mom gift her a pendant?",
+      "answer": "in 2010",
+      "evidence": [
+        "D1:8"
+      ]
+    },
+    {
+      "global_index": 353,
+      "sample_id": "conv-48",
+      "question_index": 5,
+      "question_index_1based": 6,
+      "category": 3,
+      "question": "In what country did Jolene's mother buy her the pendant?",
+      "answer": "In France",
+      "evidence": [
+        "D1:8"
+      ]
+    },
+    {
+      "global_index": 354,
+      "sample_id": "conv-48",
+      "question_index": 6,
+      "question_index_1based": 7,
+      "category": 1,
+      "question": "What symbolic gifts do Deborah and Jolene have from their mothers?",
+      "answer": "pendants",
+      "evidence": [
+        "D1:8",
+        "D1:9"
+      ]
+    },
+    {
+      "global_index": 355,
+      "sample_id": "conv-48",
+      "question_index": 8,
+      "question_index_1based": 9,
+      "category": 1,
+      "question": "What helped Deborah find peace when grieving deaths of her loved ones?",
+      "answer": "yoga, old photos, the roses and dahlias in a flower garden, nature",
+      "evidence": [
+        "D1:15",
+        "D2:3",
+        "D6:4",
+        "D15:29"
+      ]
+    },
+    {
+      "global_index": 356,
+      "sample_id": "conv-48",
+      "question_index": 10,
+      "question_index_1based": 11,
+      "category": 2,
+      "question": "When was Deborah's parents' wedding?",
+      "answer": "in 1993",
+      "evidence": [
+        "D2:3"
+      ]
+    },
+    {
+      "global_index": 357,
+      "sample_id": "conv-48",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 3,
+      "question": "Is Deborah married?",
+      "answer": "yes",
+      "evidence": [
+        "D2:5",
+        "D19:11",
+        "D23:4",
+        "D28:11"
+      ]
+    },
+    {
+      "global_index": 358,
+      "sample_id": "conv-48",
+      "question_index": 16,
+      "question_index_1based": 17,
+      "category": 4,
+      "question": "What are the names of Jolene's snakes?",
+      "answer": "Susie, Seraphim",
+      "evidence": [
+        "D2:20",
+        "D2:22"
+      ]
+    },
+    {
+      "global_index": 359,
+      "sample_id": "conv-48",
+      "question_index": 18,
+      "question_index_1based": 19,
+      "category": 3,
+      "question": "In what country did Jolene buy snake Seraphim?",
+      "answer": "In France",
+      "evidence": [
+        "D2:24"
+      ]
+    },
+    {
+      "global_index": 360,
+      "sample_id": "conv-48",
+      "question_index": 20,
+      "question_index_1based": 21,
+      "category": 1,
+      "question": "Which games have Jolene and her partner played together?",
+      "answer": "Detroit, Walking Dead, Battlefield 1, It Takes Two, Overcooked 2",
+      "evidence": [
+        "D2:26",
+        "D2:30",
+        "D20:1",
+        "D15:10",
+        "D19:10"
+      ]
+    },
+    {
+      "global_index": 361,
+      "sample_id": "conv-48",
+      "question_index": 23,
+      "question_index_1based": 24,
+      "category": 3,
+      "question": "Why did Jolene sometimes put off doing yoga?",
+      "answer": "She's more interested in playing video games",
+      "evidence": [
+        "D3:11",
+        "D2:30"
+      ]
+    },
+    {
+      "global_index": 362,
+      "sample_id": "conv-48",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 2,
+      "question": "When was Jolene in Bogota?",
+      "answer": "in summer 2022",
+      "evidence": [
+        "D4:33"
+      ]
+    },
+    {
+      "global_index": 363,
+      "sample_id": "conv-48",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 3,
+      "question": "In what country was Jolene during summer 2022?",
+      "answer": "Colombia",
+      "evidence": [
+        "D4:33"
+      ]
+    },
+    {
+      "global_index": 364,
+      "sample_id": "conv-48",
+      "question_index": 29,
+      "question_index_1based": 30,
+      "category": 2,
+      "question": "When did Jolene have a mini-retreat to reflect on her career?",
+      "answer": "Wednesday before 9 February, 2023",
+      "evidence": [
+        "D5:1"
+      ]
+    },
+    {
+      "global_index": 365,
+      "sample_id": "conv-48",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 2,
+      "question": "Which year did Jolene and her partner start dating?",
+      "answer": "2020",
+      "evidence": [
+        "D7:7"
+      ]
+    },
+    {
+      "global_index": 366,
+      "sample_id": "conv-48",
+      "question_index": 36,
+      "question_index_1based": 37,
+      "category": 3,
+      "question": "How old is Jolene?",
+      "answer": "likely no more than 30; since she's in school",
+      "evidence": [
+        "D8:2",
+        "D13:5",
+        "D21:6",
+        "D21:8",
+        "D22:6",
+        "D22:14",
+        "D24:2",
+        "D24:14",
+        "D25:5",
+        "D26:6"
+      ]
+    },
+    {
+      "global_index": 367,
+      "sample_id": "conv-48",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 3,
+      "question": "Does Deborah live close to the beach or the mountains?",
+      "answer": "beach",
+      "evidence": [
+        "D10:17"
+      ]
+    },
+    {
+      "global_index": 368,
+      "sample_id": "conv-48",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 2,
+      "question": "When did Deborah go to an art show with Anna?",
+      "answer": "on 9 April, 2023",
+      "evidence": [
+        "D12:1"
+      ]
+    },
+    {
+      "global_index": 369,
+      "sample_id": "conv-48",
+      "question_index": 48,
+      "question_index_1based": 49,
+      "category": 3,
+      "question": "Which US state did Jolene visit during her internship?",
+      "answer": "Alaska",
+      "evidence": [
+        "D13:15"
+      ]
+    },
+    {
+      "global_index": 370,
+      "sample_id": "conv-48",
+      "question_index": 52,
+      "question_index_1based": 53,
+      "category": 2,
+      "question": "When did Jolene lose a lot of progress in her work?",
+      "answer": "last week of July 2023",
+      "evidence": [
+        "D16:2"
+      ]
+    },
+    {
+      "global_index": 371,
+      "sample_id": "conv-48",
+      "question_index": 54,
+      "question_index_1based": 55,
+      "category": 2,
+      "question": "Which pet did Jolene adopt first - Susie or Seraphim?",
+      "answer": "Susie",
+      "evidence": [
+        "D2:24",
+        "D2:28",
+        "D16:6"
+      ]
+    },
+    {
+      "global_index": 372,
+      "sample_id": "conv-48",
+      "question_index": 60,
+      "question_index_1based": 61,
+      "category": 2,
+      "question": "When did Deborah go to a yoga retreat near her mom's place?",
+      "answer": "a week before 24 August,2023",
+      "evidence": [
+        "D21:1"
+      ]
+    },
+    {
+      "global_index": 373,
+      "sample_id": "conv-48",
+      "question_index": 70,
+      "question_index_1based": 71,
+      "category": 3,
+      "question": "Is the friend who wrote Deborah the motivational quote no longer alive?",
+      "answer": "likely yes",
+      "evidence": [
+        "D23:22"
+      ]
+    },
+    {
+      "global_index": 374,
+      "sample_id": "conv-48",
+      "question_index": 72,
+      "question_index_1based": 73,
+      "category": 4,
+      "question": "When did Jolene's parents give her first console?",
+      "answer": "when she was 10",
+      "evidence": [
+        "D24:6"
+      ]
+    },
+    {
+      "global_index": 375,
+      "sample_id": "conv-48",
+      "question_index": 75,
+      "question_index_1based": 76,
+      "category": 3,
+      "question": "What card game is Deborah talking about?",
+      "answer": "Exploding Kittens",
+      "evidence": [
+        "D27:12"
+      ]
+    },
+    {
+      "global_index": 376,
+      "sample_id": "conv-48",
+      "question_index": 76,
+      "question_index_1based": 77,
+      "category": 2,
+      "question": "When did Jolene and her partner try scuba diving lessons?",
+      "answer": "Friday before 17 September, 2023",
+      "evidence": [
+        "D29:4"
+      ]
+    },
+    {
+      "global_index": 377,
+      "sample_id": "conv-48",
+      "question_index": 77,
+      "question_index_1based": 78,
+      "category": 1,
+      "question": "Where did Jolene and her partner find a cool diving spot?",
+      "answer": "Phuket",
+      "evidence": [
+        "D27:1",
+        "D29:4"
+      ]
+    },
+    {
+      "global_index": 378,
+      "sample_id": "conv-48",
+      "question_index": 80,
+      "question_index_1based": 81,
+      "category": 1,
+      "question": "Has Jolene tried surfing?",
+      "answer": "no",
+      "evidence": [
+        "D10:20",
+        "D29:26",
+        "D29:30"
+      ]
+    },
+    {
+      "global_index": 379,
+      "sample_id": "conv-48",
+      "question_index": 84,
+      "question_index_1based": 85,
+      "category": 1,
+      "question": "What kind of engineering projects has Jolene worked on?",
+      "answer": "electrical engineering, robotics, sustainable water purifier, productive and affordable aerial surveillance system",
+      "evidence": [
+        "D1:2",
+        "D3:1",
+        "D4:5",
+        "D17:10",
+        "D17:12"
+      ]
+    },
+    {
+      "global_index": 380,
+      "sample_id": "conv-48",
+      "question_index": 86,
+      "question_index_1based": 87,
+      "category": 1,
+      "question": "What gifts has Deborah received?",
+      "answer": "an appreciate letter from her community, a flower bouqet from her friend, a motivational quote from a friend",
+      "evidence": [
+        "D2:7",
+        "D2:9",
+        "D4:26",
+        "D23:20",
+        "D23:22"
+      ]
+    },
+    {
+      "global_index": 381,
+      "sample_id": "conv-48",
+      "question_index": 87,
+      "question_index_1based": 88,
+      "category": 1,
+      "question": "Which countries has Deborah traveled to?",
+      "answer": "Thailand, Brazil",
+      "evidence": [
+        "D6:10",
+        "D23:18"
+      ]
+    },
+    {
+      "global_index": 382,
+      "sample_id": "conv-48",
+      "question_index": 88,
+      "question_index_1based": 89,
+      "category": 1,
+      "question": "What activities does Deborah pursue besides practicing and teaching yoga?",
+      "answer": "biking, going to art shows, running, organizing workshops to practice mindfulness and self-care, surfing, gardening",
+      "evidence": [
+        "D12:1",
+        "D15:1",
+        "D15:11",
+        "D28:11",
+        "D29:1"
+      ]
+    },
+    {
+      "global_index": 383,
+      "sample_id": "conv-48",
+      "question_index": 96,
+      "question_index_1based": 97,
+      "category": 4,
+      "question": "What was Jolene doing with her partner in Rio de Janeiro?",
+      "answer": "they went on excursions, checked out some cool yoga classes, visited a lot of delicious cafes, visited an old temple",
+      "evidence": [
+        "D23:15",
+        "D23:1",
+        "D23:3",
+        "D23:17"
+      ]
+    },
+    {
+      "global_index": 384,
+      "sample_id": "conv-48",
+      "question_index": 97,
+      "question_index_1based": 98,
+      "category": 4,
+      "question": "Have Deborah and Jolene been to Rio de Janeiro?",
+      "answer": "yes",
+      "evidence": [
+        "D23:1",
+        "D23:3",
+        "D23:18"
+      ]
+    },
+    {
+      "global_index": 385,
+      "sample_id": "conv-48",
+      "question_index": 105,
+      "question_index_1based": 106,
+      "category": 4,
+      "question": "What milestone did Jolene achieve recently on 4 February, 2023?",
+      "answer": "Design and build a sustainable water purifier for a rural community",
+      "evidence": [
+        "D4:3"
+      ]
+    },
+    {
+      "global_index": 386,
+      "sample_id": "conv-48",
+      "question_index": 119,
+      "question_index_1based": 120,
+      "category": 4,
+      "question": "What picture did Jolene share related to feeling overwhelmed?",
+      "answer": "a photo of a desk with a notebook and a computer monitor",
+      "evidence": [
+        "D8:16"
+      ]
+    },
+    {
+      "global_index": 387,
+      "sample_id": "conv-48",
+      "question_index": 125,
+      "question_index_1based": 126,
+      "category": 4,
+      "question": "What did Deborah buy to enhance her yoga practice besides the props?",
+      "answer": "candle",
+      "evidence": [
+        "D11:4"
+      ]
+    },
+    {
+      "global_index": 388,
+      "sample_id": "conv-48",
+      "question_index": 155,
+      "question_index_1based": 156,
+      "category": 4,
+      "question": "What habits does Jolene practice to feel balanced?",
+      "answer": "yoga, meditation, walks, and mindfulness",
+      "evidence": [
+        "D20:12"
+      ]
+    },
+    {
+      "global_index": 389,
+      "sample_id": "conv-48",
+      "question_index": 162,
+      "question_index_1based": 163,
+      "category": 4,
+      "question": "What type of projects is Jolene interested in getting involved in the future?",
+      "answer": "Sustainable initiatives and developing innovative solutions for environmental issues",
+      "evidence": [
+        "D22:8"
+      ]
+    },
+    {
+      "global_index": 390,
+      "sample_id": "conv-48",
+      "question_index": 163,
+      "question_index_1based": 164,
+      "category": 4,
+      "question": "How did Deborah get Luna, one of her cats?",
+      "answer": "From the shelter",
+      "evidence": [
+        "D22:25"
+      ]
+    },
+    {
+      "global_index": 391,
+      "sample_id": "conv-48",
+      "question_index": 192,
+      "question_index_1based": 193,
+      "category": 5,
+      "question": "What are Deborah's favorite books?",
+      "answer": null,
+      "evidence": [
+        "D4:21",
+        "D4:23"
+      ]
+    },
+    {
+      "global_index": 392,
+      "sample_id": "conv-48",
+      "question_index": 197,
+      "question_index_1based": 198,
+      "category": 5,
+      "question": "Where did Jolene meet her new friend Anna?",
+      "answer": null,
+      "evidence": [
+        "D3:6"
+      ]
+    },
+    {
+      "global_index": 393,
+      "sample_id": "conv-48",
+      "question_index": 200,
+      "question_index_1based": 201,
+      "category": 5,
+      "question": "How does Deborah plan to involve local engineers in her idea of teaching STEM to underprivileged kids?",
+      "answer": null,
+      "evidence": [
+        "D5:9"
+      ]
+    },
+    {
+      "global_index": 394,
+      "sample_id": "conv-48",
+      "question_index": 202,
+      "question_index_1based": 203,
+      "category": 5,
+      "question": "Why did Jolene spend time in the garden?",
+      "answer": null,
+      "evidence": [
+        "D6:4"
+      ]
+    },
+    {
+      "global_index": 395,
+      "sample_id": "conv-48",
+      "question_index": 203,
+      "question_index_1based": 204,
+      "category": 5,
+      "question": "How did Jolene and her rival initially meet?",
+      "answer": null,
+      "evidence": [
+        "D7:9"
+      ]
+    },
+    {
+      "global_index": 396,
+      "sample_id": "conv-48",
+      "question_index": 205,
+      "question_index_1based": 206,
+      "category": 5,
+      "question": "What method does Jolene suggest Deborah to try for organizing tasks based on importance and urgency?",
+      "answer": null,
+      "evidence": [
+        "D10:13"
+      ]
+    },
+    {
+      "global_index": 397,
+      "sample_id": "conv-48",
+      "question_index": 215,
+      "question_index_1based": 216,
+      "category": 5,
+      "question": "How did Deborah come to have her pet, Susie?",
+      "answer": null,
+      "evidence": [
+        "D16:6"
+      ]
+    },
+    {
+      "global_index": 398,
+      "sample_id": "conv-48",
+      "question_index": 218,
+      "question_index_1based": 219,
+      "category": 5,
+      "question": "What game did Jolene recommend to Deborah for being thrilling and intense?",
+      "answer": null,
+      "evidence": [
+        "D19:8"
+      ]
+    },
+    {
+      "global_index": 399,
+      "sample_id": "conv-48",
+      "question_index": 233,
+      "question_index_1based": 234,
+      "category": 5,
+      "question": "What did Jolene do with their mom's old friends?",
+      "answer": null,
+      "evidence": [
+        "D28:7"
+      ]
+    },
+    {
+      "global_index": 400,
+      "sample_id": "conv-48",
+      "question_index": 234,
+      "question_index_1based": 235,
+      "category": 5,
+      "question": "Where did Jolene get married?",
+      "answer": null,
+      "evidence": [
+        "D28:11"
+      ]
+    },
+    {
+      "global_index": 401,
+      "sample_id": "conv-49",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 1,
+      "question": "What kind of car does Evan drive?",
+      "answer": "Prius",
+      "evidence": [
+        "D1:2",
+        "D1:4",
+        "D18:1",
+        "D18:3",
+        "D22:2"
+      ]
+    },
+    {
+      "global_index": 402,
+      "sample_id": "conv-49",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 2,
+      "question": "Which hobby did Sam take up in May 2023?",
+      "answer": "painting",
+      "evidence": [
+        "D1:11"
+      ]
+    },
+    {
+      "global_index": 403,
+      "sample_id": "conv-49",
+      "question_index": 5,
+      "question_index_1based": 6,
+      "category": 3,
+      "question": "Which country was Evan visiting in May 2023?",
+      "answer": "Canada",
+      "evidence": [
+        "D2:1"
+      ]
+    },
+    {
+      "global_index": 404,
+      "sample_id": "conv-49",
+      "question_index": 10,
+      "question_index_1based": 11,
+      "category": 3,
+      "question": "Which type of vacation would Evan prefer with his family, walking tours in metropolitan cities or camping trip in the outdoors?",
+      "answer": "camping trip in the outdoors",
+      "evidence": [
+        "D2:1",
+        "D2:3",
+        "D19:1",
+        "D19:3"
+      ]
+    },
+    {
+      "global_index": 405,
+      "sample_id": "conv-49",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 1,
+      "question": "What health issue did Sam face that motivated him to change his lifestyle?",
+      "answer": "Weight problem",
+      "evidence": [
+        "D2:6",
+        "D3:4",
+        "D24:12",
+        "D24:14",
+        "D5:5",
+        "D6:2",
+        "D7:2",
+        "D7:12",
+        "D8:1",
+        "D10:6",
+        "D12:1",
+        "D13:2",
+        "D14:1",
+        "D15:1",
+        "D16:3",
+        "D17:3",
+        "D24:20",
+        "D25:1",
+        "D25:3"
+      ]
+    },
+    {
+      "global_index": 406,
+      "sample_id": "conv-49",
+      "question_index": 14,
+      "question_index_1based": 15,
+      "category": 1,
+      "question": "What is Evan's favorite food?",
+      "answer": "Ginger snaps",
+      "evidence": [
+        "D3:3",
+        "D5:5",
+        "D23:15",
+        "D22:12"
+      ]
+    },
+    {
+      "global_index": 407,
+      "sample_id": "conv-49",
+      "question_index": 15,
+      "question_index_1based": 16,
+      "category": 1,
+      "question": "What kind of unhealthy snacks does Sam enjoy eating?",
+      "answer": "soda, candy",
+      "evidence": [
+        "D3:4"
+      ]
+    },
+    {
+      "global_index": 408,
+      "sample_id": "conv-49",
+      "question_index": 19,
+      "question_index_1based": 20,
+      "category": 3,
+      "question": "Considering their conversations and personal growth, what advice might Evan and Sam give to someone facing a major life transition or challenge?",
+      "answer": "Evan and Sam would likely advise embracing small, consistent changes​​, finding stress-relieving activities like hiking​​, painting, and road trips​​, and the importance of friendship and support in navigating challenges​​.",
+      "evidence": [
+        "D3:10",
+        "D3:15",
+        "D22:1",
+        "D8:17",
+        "D8:22",
+        "D9:8",
+        "D9:11",
+        "D14:7",
+        "D14:12",
+        "D12:7",
+        "D12:11"
+      ]
+    },
+    {
+      "global_index": 409,
+      "sample_id": "conv-49",
+      "question_index": 22,
+      "question_index_1based": 23,
+      "category": 2,
+      "question": "When Evan did meet his future wife?",
+      "answer": "week before August 7, 2023.",
+      "evidence": [
+        "D5:1"
+      ]
+    },
+    {
+      "global_index": 410,
+      "sample_id": "conv-49",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 3,
+      "question": "What electronic device could Evan gift Sam to help him keep up with his fitness goals?",
+      "answer": "fitness tracker",
+      "evidence": [
+        "D5:7"
+      ]
+    },
+    {
+      "global_index": 411,
+      "sample_id": "conv-49",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 1,
+      "question": "What kind of writing does Sam do to relax and cope with his health issues?",
+      "answer": "journalling, creative writing",
+      "evidence": [
+        "D6:4",
+        "D11:7"
+      ]
+    },
+    {
+      "global_index": 412,
+      "sample_id": "conv-49",
+      "question_index": 32,
+      "question_index_1based": 33,
+      "category": 1,
+      "question": "What recurring frustration does Evan experience?",
+      "answer": "Evan consistently misplaces his keys every week.",
+      "evidence": [
+        "D6:13",
+        "D21:20"
+      ]
+    },
+    {
+      "global_index": 413,
+      "sample_id": "conv-49",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 1,
+      "question": "What accidents has Evan's son faced lately?",
+      "answer": "injured at a soccer game, fell off his bike",
+      "evidence": [
+        "D7:1",
+        "D20:3"
+      ]
+    },
+    {
+      "global_index": 414,
+      "sample_id": "conv-49",
+      "question_index": 38,
+      "question_index_1based": 39,
+      "category": 3,
+      "question": "What role does nature and the outdoors play in Evan and Sam's mental well-being?",
+      "answer": "Nature and outdoor activities seem to be significant stress relievers and sources of joy for both Evan and Sam. These activities likely contribute positively to their mental well-being.",
+      "evidence": [
+        "D22:1 D22:2 D9:10 D9:11"
+      ]
+    },
+    {
+      "global_index": 415,
+      "sample_id": "conv-49",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 2,
+      "question": "When did Evan start taking painting classes?",
+      "answer": "Few days before 19 August, 2023.",
+      "evidence": [
+        "D8:12"
+      ]
+    },
+    {
+      "global_index": 416,
+      "sample_id": "conv-49",
+      "question_index": 41,
+      "question_index_1based": 42,
+      "category": 2,
+      "question": "Which classes did Evan join in mid-August 2023?",
+      "answer": "painting classes",
+      "evidence": [
+        "D8:12"
+      ]
+    },
+    {
+      "global_index": 417,
+      "sample_id": "conv-49",
+      "question_index": 46,
+      "question_index_1based": 47,
+      "category": 3,
+      "question": "How do Evan and Sam use creative outlets to cope with life's challenges?",
+      "answer": "Evan and Sam use creative activities, like painting and writing, as therapeutic tools to express themselves and cope with stress.",
+      "evidence": [
+        "D21:18 D21:22 D11:15 D11:19"
+      ]
+    },
+    {
+      "global_index": 418,
+      "sample_id": "conv-49",
+      "question_index": 51,
+      "question_index_1based": 52,
+      "category": 3,
+      "question": "What challenges does Sam face in his quest for a healthier lifestyle, and how does he address them?",
+      "answer": "Sam faces challenges like maintaining motivation and making dietary changes. He addresses them by enrolling in cooking classes and seeking support from friends like Evan.",
+      "evidence": [
+        "D4:2",
+        "D4:6",
+        "D14:1",
+        "D14:2"
+      ]
+    },
+    {
+      "global_index": 419,
+      "sample_id": "conv-49",
+      "question_index": 53,
+      "question_index_1based": 54,
+      "category": 2,
+      "question": "When did Evan and Sam decide to paint together?",
+      "answer": "Saturday after 11 September, 2023.",
+      "evidence": [
+        "D10:12",
+        "D10:13",
+        "D10:14"
+      ]
+    },
+    {
+      "global_index": 420,
+      "sample_id": "conv-49",
+      "question_index": 56,
+      "question_index_1based": 57,
+      "category": 1,
+      "question": "What is Sam's persistent problem with his phone?",
+      "answer": "His new phone malfunctioning, particularly with the navigation app.",
+      "evidence": [
+        "D11:15",
+        "D14:1"
+      ]
+    },
+    {
+      "global_index": 421,
+      "sample_id": "conv-49",
+      "question_index": 57,
+      "question_index_1based": 58,
+      "category": 3,
+      "question": "Which US state was Sam travelling in during October 2023?",
+      "answer": "California",
+      "evidence": [
+        "D13:14"
+      ]
+    },
+    {
+      "global_index": 422,
+      "sample_id": "conv-49",
+      "question_index": 58,
+      "question_index_1based": 59,
+      "category": 2,
+      "question": "When did Evan start lifting weights?",
+      "answer": "October 2022",
+      "evidence": [
+        "D12:2"
+      ]
+    },
+    {
+      "global_index": 423,
+      "sample_id": "conv-49",
+      "question_index": 64,
+      "question_index_1based": 65,
+      "category": 1,
+      "question": "Which ailment does Sam have to face due to his weight?",
+      "answer": "gastritis",
+      "evidence": [
+        "D2:6",
+        "D7:2",
+        "D12:1",
+        "D14:1"
+      ]
+    },
+    {
+      "global_index": 424,
+      "sample_id": "conv-49",
+      "question_index": 65,
+      "question_index_1based": 66,
+      "category": 3,
+      "question": "Does Evan live close to a beach or mountains?",
+      "answer": "beach",
+      "evidence": [
+        "D16:16",
+        "D16:18",
+        "D16:20"
+      ]
+    },
+    {
+      "global_index": 425,
+      "sample_id": "conv-49",
+      "question_index": 68,
+      "question_index_1based": 69,
+      "category": 2,
+      "question": "What was Sam doing on December 4, 2023?",
+      "answer": "Attending a Weight Watchers meeting",
+      "evidence": [
+        "D18:6"
+      ]
+    },
+    {
+      "global_index": 426,
+      "sample_id": "conv-49",
+      "question_index": 69,
+      "question_index_1based": 70,
+      "category": 1,
+      "question": "Which two significant life events occur in Evan's life in December 2023 with his partner?",
+      "answer": "his partner gets pregnant and they get married",
+      "evidence": [
+        "D19:1",
+        "D21:2"
+      ]
+    },
+    {
+      "global_index": 427,
+      "sample_id": "conv-49",
+      "question_index": 71,
+      "question_index_1based": 72,
+      "category": 3,
+      "question": "Which major holiday season conincides with Evan's wedding?",
+      "answer": "Christmas",
+      "evidence": [
+        "D21:2"
+      ]
+    },
+    {
+      "global_index": 428,
+      "sample_id": "conv-49",
+      "question_index": 74,
+      "question_index_1based": 75,
+      "category": 2,
+      "question": "When did Evan's son fall off his bike?",
+      "answer": "Thursday before December 17, 2023.",
+      "evidence": [
+        "D20:3"
+      ]
+    },
+    {
+      "global_index": 429,
+      "sample_id": "conv-49",
+      "question_index": 75,
+      "question_index_1based": 76,
+      "category": 2,
+      "question": "When did Evan announce his marriage to his extended family?",
+      "answer": "January 5, 2024",
+      "evidence": [
+        "D23:1"
+      ]
+    },
+    {
+      "global_index": 430,
+      "sample_id": "conv-49",
+      "question_index": 79,
+      "question_index_1based": 80,
+      "category": 2,
+      "question": "When will Evan and his partner have their honeymoon in Canada?",
+      "answer": "February 2024",
+      "evidence": [
+        "D23:23"
+      ]
+    },
+    {
+      "global_index": 431,
+      "sample_id": "conv-49",
+      "question_index": 88,
+      "question_index_1based": 89,
+      "category": 4,
+      "question": "What did Evan find relaxing about his road trip to Jasper?",
+      "answer": "fresh air, peacefulness, cozy cabin surrounded by mountains and forests",
+      "evidence": [
+        "D2:3"
+      ]
+    },
+    {
+      "global_index": 432,
+      "sample_id": "conv-49",
+      "question_index": 90,
+      "question_index_1based": 91,
+      "category": 4,
+      "question": "What new suggestion did Evan give to Sam regarding his soda and candy consumption?",
+      "answer": "try flavored seltzer water and dark chocolate with high cocoa content",
+      "evidence": [
+        "D3:5"
+      ]
+    },
+    {
+      "global_index": 433,
+      "sample_id": "conv-49",
+      "question_index": 99,
+      "question_index_1based": 100,
+      "category": 4,
+      "question": "What did Evan suggest Sam to check out for insights into his dream?",
+      "answer": "dream interpretation book",
+      "evidence": [
+        "D6:15"
+      ]
+    },
+    {
+      "global_index": 434,
+      "sample_id": "conv-49",
+      "question_index": 107,
+      "question_index_1based": 108,
+      "category": 4,
+      "question": "What nature concept do watercolor painting classes emphasize according to Evan?",
+      "answer": "observing nature and painting what is seen",
+      "evidence": [
+        "D8:18"
+      ]
+    },
+    {
+      "global_index": 435,
+      "sample_id": "conv-49",
+      "question_index": 111,
+      "question_index_1based": 112,
+      "category": 4,
+      "question": "What sports activity has Evan been doing to stay active while dealing with the knee injury?",
+      "answer": "Swimming",
+      "evidence": [
+        "D9:6"
+      ]
+    },
+    {
+      "global_index": 436,
+      "sample_id": "conv-49",
+      "question_index": 113,
+      "question_index_1based": 114,
+      "category": 4,
+      "question": "What did Evan suggest Sam try as a calming hobby?",
+      "answer": "Painting",
+      "evidence": [
+        "D10:8"
+      ]
+    },
+    {
+      "global_index": 437,
+      "sample_id": "conv-49",
+      "question_index": 140,
+      "question_index_1based": 141,
+      "category": 4,
+      "question": "How did Evan feel when he painted the piece with the bird flying over it?",
+      "answer": "a sense of joy and freedom",
+      "evidence": [
+        "D21:16"
+      ]
+    },
+    {
+      "global_index": 438,
+      "sample_id": "conv-49",
+      "question_index": 145,
+      "question_index_1based": 146,
+      "category": 4,
+      "question": "What did Evan offer to share with Sam after talking about healthy snacks?",
+      "answer": "the recipes for cookies",
+      "evidence": [
+        "D22:12"
+      ]
+    },
+    {
+      "global_index": 439,
+      "sample_id": "conv-49",
+      "question_index": 149,
+      "question_index_1based": 150,
+      "category": 4,
+      "question": "What advice did Evan suggest Sam seek from a doctor?",
+      "answer": "diet plan and low-impact exercises",
+      "evidence": [
+        "D24:11",
+        "D24:14"
+      ]
+    },
+    {
+      "global_index": 440,
+      "sample_id": "conv-49",
+      "question_index": 152,
+      "question_index_1based": 153,
+      "category": 4,
+      "question": "What activity helped Evan with stress and flexibility?",
+      "answer": "Yoga",
+      "evidence": [
+        "D24:19"
+      ]
+    },
+    {
+      "global_index": 441,
+      "sample_id": "conv-49",
+      "question_index": 159,
+      "question_index_1based": 160,
+      "category": 5,
+      "question": "Where did Sam take his family for a road trip on 24 May, 2023?",
+      "answer": null,
+      "evidence": [
+        "D2:1"
+      ]
+    },
+    {
+      "global_index": 442,
+      "sample_id": "conv-49",
+      "question_index": 164,
+      "question_index_1based": 165,
+      "category": 5,
+      "question": "What does the smartwatch help Sam with?",
+      "answer": null,
+      "evidence": [
+        "D5:9"
+      ]
+    },
+    {
+      "global_index": 443,
+      "sample_id": "conv-49",
+      "question_index": 165,
+      "question_index_1based": 166,
+      "category": 5,
+      "question": "Why did Sam decide to get the bonsai tree?",
+      "answer": null,
+      "evidence": [
+        "D5:17"
+      ]
+    },
+    {
+      "global_index": 444,
+      "sample_id": "conv-49",
+      "question_index": 171,
+      "question_index_1based": 172,
+      "category": 5,
+      "question": "What nature concept do watercolor painting classes emphasize according to Sam?",
+      "answer": null,
+      "evidence": [
+        "D8:18"
+      ]
+    },
+    {
+      "global_index": 445,
+      "sample_id": "conv-49",
+      "question_index": 173,
+      "question_index_1based": 174,
+      "category": 5,
+      "question": "What sports activity has Sam been doing to stay active while dealing with the knee injury?",
+      "answer": null,
+      "evidence": [
+        "D9:6"
+      ]
+    },
+    {
+      "global_index": 446,
+      "sample_id": "conv-49",
+      "question_index": 176,
+      "question_index_1based": 177,
+      "category": 5,
+      "question": "What electronics issue has been frustrating Evan lately?",
+      "answer": null,
+      "evidence": [
+        "D11:15"
+      ]
+    },
+    {
+      "global_index": 447,
+      "sample_id": "conv-49",
+      "question_index": 180,
+      "question_index_1based": 181,
+      "category": 5,
+      "question": "How did Sam start his transformation journey two years ago?",
+      "answer": null,
+      "evidence": [
+        "D15:8"
+      ]
+    },
+    {
+      "global_index": 448,
+      "sample_id": "conv-49",
+      "question_index": 184,
+      "question_index_1based": 185,
+      "category": 5,
+      "question": "What family event is Sam planning for next summer?",
+      "answer": null,
+      "evidence": [
+        "D19:11"
+      ]
+    },
+    {
+      "global_index": 449,
+      "sample_id": "conv-49",
+      "question_index": 189,
+      "question_index_1based": 190,
+      "category": 5,
+      "question": "What did Evan and his partner keep from their extended family on January 5, 2024?",
+      "answer": null,
+      "evidence": [
+        "D23:1"
+      ]
+    },
+    {
+      "global_index": 450,
+      "sample_id": "conv-49",
+      "question_index": 190,
+      "question_index_1based": 191,
+      "category": 5,
+      "question": "What was Sam limiting himself to on his new diet?",
+      "answer": null,
+      "evidence": [
+        "D23:15"
+      ]
+    },
+    {
+      "global_index": 451,
+      "sample_id": "conv-50",
+      "question_index": 0,
+      "question_index_1based": 1,
+      "category": 2,
+      "question": "When did Calvin first travel to Tokyo?",
+      "answer": "between 26 March and 20 April 2023",
+      "evidence": [
+        "D3:1"
+      ]
+    },
+    {
+      "global_index": 452,
+      "sample_id": "conv-50",
+      "question_index": 1,
+      "question_index_1based": 2,
+      "category": 1,
+      "question": "What items did Calvin buy in March 2023?",
+      "answer": "mansion in Japan, luxury car Ferrari 488 GTB",
+      "evidence": [
+        "D1:3",
+        "D2:1"
+      ]
+    },
+    {
+      "global_index": 453,
+      "sample_id": "conv-50",
+      "question_index": 2,
+      "question_index_1based": 3,
+      "category": 2,
+      "question": "When did Dave see Aerosmith perform live?",
+      "answer": "on the weekend before March 26, 2023",
+      "evidence": [
+        "D2:10"
+      ]
+    },
+    {
+      "global_index": 454,
+      "sample_id": "conv-50",
+      "question_index": 4,
+      "question_index_1based": 5,
+      "category": 3,
+      "question": "Which country do Calvin and Dave want to meet in?",
+      "answer": "United States",
+      "evidence": [
+        "D3:9",
+        "D3:10"
+      ]
+    },
+    {
+      "global_index": 455,
+      "sample_id": "conv-50",
+      "question_index": 6,
+      "question_index_1based": 7,
+      "category": 1,
+      "question": "Which types of cars does Dave like the most?",
+      "answer": "classic vintage cars",
+      "evidence": [
+        "D4:5",
+        "D1:2",
+        "D3:12",
+        "D4:7"
+      ]
+    },
+    {
+      "global_index": 456,
+      "sample_id": "conv-50",
+      "question_index": 7,
+      "question_index_1based": 8,
+      "category": 3,
+      "question": "Does Dave's shop employ a lot of people?",
+      "answer": "Yes",
+      "evidence": [
+        "D4:17"
+      ]
+    },
+    {
+      "global_index": 457,
+      "sample_id": "conv-50",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 1,
+      "question": "What mishaps has Calvin run into?",
+      "answer": "flooding of his mansion, car accident",
+      "evidence": [
+        "D6:1",
+        "D9:1"
+      ]
+    },
+    {
+      "global_index": 458,
+      "sample_id": "conv-50",
+      "question_index": 13,
+      "question_index_1based": 14,
+      "category": 3,
+      "question": "Would Calvin enjoy performing at the Hollywood Bowl?",
+      "answer": "Yes; because he enjoys the rush of performing onstage to large crowds",
+      "evidence": [
+        "D7:11"
+      ]
+    },
+    {
+      "global_index": 459,
+      "sample_id": "conv-50",
+      "question_index": 16,
+      "question_index_1based": 17,
+      "category": 2,
+      "question": "When did Dave take a trip to mountainous regions?",
+      "answer": "July 2023",
+      "evidence": [
+        "D8:10"
+      ]
+    },
+    {
+      "global_index": 460,
+      "sample_id": "conv-50",
+      "question_index": 19,
+      "question_index_1based": 20,
+      "category": 1,
+      "question": "Which places or events has Calvin visited in Tokyo?",
+      "answer": "music festival, car museum, Shibuya crossing, Shinjuku",
+      "evidence": [
+        "D3:1",
+        "D12:7",
+        "D24:19"
+      ]
+    },
+    {
+      "global_index": 461,
+      "sample_id": "conv-50",
+      "question_index": 20,
+      "question_index_1based": 21,
+      "category": 1,
+      "question": "Who inspired Dave's passion for car engineering?",
+      "answer": "His Dad",
+      "evidence": [
+        "D12:2",
+        "D12:4",
+        "D26:6"
+      ]
+    },
+    {
+      "global_index": 462,
+      "sample_id": "conv-50",
+      "question_index": 21,
+      "question_index_1based": 22,
+      "category": 3,
+      "question": "Does Calvin wish to become more popular?",
+      "answer": "Yes; he want's to grow his fanbase",
+      "evidence": [
+        "D12:11",
+        "D27:1"
+      ]
+    },
+    {
+      "global_index": 463,
+      "sample_id": "conv-50",
+      "question_index": 27,
+      "question_index_1based": 28,
+      "category": 2,
+      "question": "Which city was Calvin visiting in August 2023?",
+      "answer": "Miami",
+      "evidence": [
+        "D16:6"
+      ]
+    },
+    {
+      "global_index": 464,
+      "sample_id": "conv-50",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 1,
+      "question": "What does Calvin do to relax?",
+      "answer": "take long drives in his car, embrace nature, fixing cars",
+      "evidence": [
+        "D5:8",
+        "D5:10",
+        "D7:5"
+      ]
+    },
+    {
+      "global_index": 465,
+      "sample_id": "conv-50",
+      "question_index": 34,
+      "question_index_1based": 35,
+      "category": 2,
+      "question": "When did Dave return from San Francisco?",
+      "answer": "September 1, 2023",
+      "evidence": [
+        "D17:1"
+      ]
+    },
+    {
+      "global_index": 466,
+      "sample_id": "conv-50",
+      "question_index": 35,
+      "question_index_1based": 36,
+      "category": 2,
+      "question": "When did Calvin book flight tickets to Boston?",
+      "answer": "last week of August 2023",
+      "evidence": [
+        "D17:6"
+      ]
+    },
+    {
+      "global_index": 467,
+      "sample_id": "conv-50",
+      "question_index": 37,
+      "question_index_1based": 38,
+      "category": 3,
+      "question": "Does Calvin love music tours?",
+      "answer": "yes",
+      "evidence": [
+        "D18:7",
+        "D16:2",
+        "D7:1"
+      ]
+    },
+    {
+      "global_index": 468,
+      "sample_id": "conv-50",
+      "question_index": 39,
+      "question_index_1based": 40,
+      "category": 3,
+      "question": "Would Dave prefer working on a Dodge Charger or a Subaru Forester?",
+      "answer": "Dodge Charger",
+      "evidence": []
+    },
+    {
+      "global_index": 469,
+      "sample_id": "conv-50",
+      "question_index": 42,
+      "question_index_1based": 43,
+      "category": 3,
+      "question": "Based on the conversation, did Calvin and Dave have a meeting in Boston between August and November 2023? Answer in yes or no.",
+      "answer": "No",
+      "evidence": []
+    },
+    {
+      "global_index": 470,
+      "sample_id": "conv-50",
+      "question_index": 43,
+      "question_index_1based": 44,
+      "category": 2,
+      "question": "Which city was Calvin at on October 3, 2023?",
+      "answer": "Boston",
+      "evidence": [
+        "D21:1"
+      ]
+    },
+    {
+      "global_index": 471,
+      "sample_id": "conv-50",
+      "question_index": 44,
+      "question_index_1based": 45,
+      "category": 2,
+      "question": "When did Calvin met with local artists in Boston?",
+      "answer": "October 3, 2023",
+      "evidence": [
+        "D21:1"
+      ]
+    },
+    {
+      "global_index": 472,
+      "sample_id": "conv-50",
+      "question_index": 47,
+      "question_index_1based": 48,
+      "category": 1,
+      "question": "How many car shows has Dave attended?",
+      "answer": "two",
+      "evidence": [
+        "D3:12",
+        "D22:1"
+      ]
+    },
+    {
+      "global_index": 473,
+      "sample_id": "conv-50",
+      "question_index": 49,
+      "question_index_1based": 50,
+      "category": 1,
+      "question": "When Dave was a child, what did he and his father do in the garage?",
+      "answer": "tinkering with car engines, restoration and refurbishing cars",
+      "evidence": [
+        "D12:2",
+        "D12:4",
+        "D22:5"
+      ]
+    },
+    {
+      "global_index": 474,
+      "sample_id": "conv-50",
+      "question_index": 53,
+      "question_index_1based": 54,
+      "category": 1,
+      "question": "Who supports Calvin in tough times?",
+      "answer": "friends and team",
+      "evidence": [
+        "D25:6",
+        "D29:7"
+      ]
+    },
+    {
+      "global_index": 475,
+      "sample_id": "conv-50",
+      "question_index": 57,
+      "question_index_1based": 58,
+      "category": 2,
+      "question": "Which hobby did Dave pick up in October 2023?",
+      "answer": "photography",
+      "evidence": [
+        "D27:2"
+      ]
+    },
+    {
+      "global_index": 476,
+      "sample_id": "conv-50",
+      "question_index": 58,
+      "question_index_1based": 59,
+      "category": 1,
+      "question": "Which events in Dave's life inspired him to take up auto engineering?",
+      "answer": "attending a car show with Dad, working on an old car in a neighbor's garage when he was young, spent a summer restoring an old car with Dad",
+      "evidence": [
+        "D26:6",
+        "D25:12",
+        "D12:2",
+        "D12:4"
+      ]
+    },
+    {
+      "global_index": 477,
+      "sample_id": "conv-50",
+      "question_index": 62,
+      "question_index_1based": 63,
+      "category": 2,
+      "question": "How long was the car modification workshop in San Francisco?",
+      "answer": "two weeks",
+      "evidence": [
+        "D14:1",
+        "D17:1"
+      ]
+    },
+    {
+      "global_index": 478,
+      "sample_id": "conv-50",
+      "question_index": 71,
+      "question_index_1based": 72,
+      "category": 4,
+      "question": "How long did Calvin plan to stay in Japan?",
+      "answer": "A few months",
+      "evidence": [
+        "D1:15"
+      ]
+    },
+    {
+      "global_index": 479,
+      "sample_id": "conv-50",
+      "question_index": 79,
+      "question_index_1based": 80,
+      "category": 4,
+      "question": "What does Dave do when he feels his creativity is frozen?",
+      "answer": "immerse himself in something he loves",
+      "evidence": [
+        "D5:11"
+      ]
+    },
+    {
+      "global_index": 480,
+      "sample_id": "conv-50",
+      "question_index": 80,
+      "question_index_1based": 81,
+      "category": 4,
+      "question": "How does Calvin plan to jumpstart his inspiration?",
+      "answer": "explore other things and have some fun",
+      "evidence": [
+        "D5:11"
+      ]
+    },
+    {
+      "global_index": 481,
+      "sample_id": "conv-50",
+      "question_index": 81,
+      "question_index_1based": 82,
+      "category": 4,
+      "question": "What did Calvin manage to save during the flood incident?",
+      "answer": "music gear and favorite microphone",
+      "evidence": [
+        "D6:3"
+      ]
+    },
+    {
+      "global_index": 482,
+      "sample_id": "conv-50",
+      "question_index": 86,
+      "question_index_1based": 87,
+      "category": 4,
+      "question": "What sports activity is Calvin planning to try after the tour with Frank Ocean?",
+      "answer": "Skiing",
+      "evidence": [
+        "D9:15"
+      ]
+    },
+    {
+      "global_index": 483,
+      "sample_id": "conv-50",
+      "question_index": 94,
+      "question_index_1based": 95,
+      "category": 4,
+      "question": "What workshop did Dave get picked for on 11 August, 2023?",
+      "answer": "Car mod workshop",
+      "evidence": [
+        "D13:1"
+      ]
+    },
+    {
+      "global_index": 484,
+      "sample_id": "conv-50",
+      "question_index": 112,
+      "question_index_1based": 113,
+      "category": 4,
+      "question": "How does Dave feel about the reactions of people when they see the finished restoration project?",
+      "answer": "satisfying and worth the hard work",
+      "evidence": [
+        "D19:9"
+      ]
+    },
+    {
+      "global_index": 485,
+      "sample_id": "conv-50",
+      "question_index": 118,
+      "question_index_1based": 119,
+      "category": 4,
+      "question": "What do Calvin and Dave use to reach their goals?",
+      "answer": "Hard work and determination",
+      "evidence": [
+        "D21:15"
+      ]
+    },
+    {
+      "global_index": 486,
+      "sample_id": "conv-50",
+      "question_index": 128,
+      "question_index_1based": 129,
+      "category": 4,
+      "question": "What dish does Dave recommend Calvin to try in Tokyo?",
+      "answer": "ramen",
+      "evidence": [
+        "D24:20"
+      ]
+    },
+    {
+      "global_index": 487,
+      "sample_id": "conv-50",
+      "question_index": 133,
+      "question_index_1based": 134,
+      "category": 4,
+      "question": "Why did Dave start working on cars?",
+      "answer": "Fascinated with how machines work",
+      "evidence": [
+        "D25:15"
+      ]
+    },
+    {
+      "global_index": 488,
+      "sample_id": "conv-50",
+      "question_index": 137,
+      "question_index_1based": 138,
+      "category": 4,
+      "question": "When did Calvin first get interested in cars?",
+      "answer": "at an early age",
+      "evidence": [
+        "D26:6"
+      ]
+    },
+    {
+      "global_index": 489,
+      "sample_id": "conv-50",
+      "question_index": 152,
+      "question_index_1based": 153,
+      "category": 4,
+      "question": "What new item did Dave buy recently?",
+      "answer": "A vintage camera",
+      "evidence": [
+        "D30:5"
+      ]
+    },
+    {
+      "global_index": 490,
+      "sample_id": "conv-50",
+      "question_index": 160,
+      "question_index_1based": 161,
+      "category": 5,
+      "question": "What is Calvin's new business venture as of 1 May, 2023?",
+      "answer": null,
+      "evidence": [
+        "D4:1"
+      ]
+    },
+    {
+      "global_index": 491,
+      "sample_id": "conv-50",
+      "question_index": 167,
+      "question_index_1based": 168,
+      "category": 5,
+      "question": "How does Calvin describe his process of adding acoustic elements to his songs?",
+      "answer": null,
+      "evidence": [
+        "D11:6"
+      ]
+    },
+    {
+      "global_index": 492,
+      "sample_id": "conv-50",
+      "question_index": 170,
+      "question_index_1based": 171,
+      "category": 5,
+      "question": "What kind of modifications has Calvin been working on in the car mod workshop?",
+      "answer": null,
+      "evidence": [
+        "D13:7"
+      ]
+    },
+    {
+      "global_index": 493,
+      "sample_id": "conv-50",
+      "question_index": 175,
+      "question_index_1based": 176,
+      "category": 5,
+      "question": "Why did Dave get his guitar customized with a shiny finish?",
+      "answer": null,
+      "evidence": [
+        "D16:20"
+      ]
+    },
+    {
+      "global_index": 494,
+      "sample_id": "conv-50",
+      "question_index": 176,
+      "question_index_1based": 177,
+      "category": 5,
+      "question": "What color glow did Dave customize his guitar with?",
+      "answer": null,
+      "evidence": [
+        "D16:20"
+      ]
+    },
+    {
+      "global_index": 495,
+      "sample_id": "conv-50",
+      "question_index": 182,
+      "question_index_1based": 183,
+      "category": 5,
+      "question": "What car did Calvin work on in the junkyard?",
+      "answer": null,
+      "evidence": [
+        "D21:4"
+      ]
+    },
+    {
+      "global_index": 496,
+      "sample_id": "conv-50",
+      "question_index": 188,
+      "question_index_1based": 189,
+      "category": 5,
+      "question": "Which part of Tokyo is described as Tokyo's Times Square by Dave?",
+      "answer": null,
+      "evidence": [
+        "D24:19"
+      ]
+    },
+    {
+      "global_index": 497,
+      "sample_id": "conv-50",
+      "question_index": 190,
+      "question_index_1based": 191,
+      "category": 5,
+      "question": "When did Calvin sell the car he restored last year?",
+      "answer": null,
+      "evidence": [
+        "D25:17"
+      ]
+    },
+    {
+      "global_index": 498,
+      "sample_id": "conv-50",
+      "question_index": 191,
+      "question_index_1based": 192,
+      "category": 5,
+      "question": "When did Calvin first get interested in motorcycles?",
+      "answer": null,
+      "evidence": [
+        "D26:6"
+      ]
+    },
+    {
+      "global_index": 499,
+      "sample_id": "conv-50",
+      "question_index": 193,
+      "question_index_1based": 194,
+      "category": 5,
+      "question": "What did Dave do recently at his Japanese house?",
+      "answer": null,
+      "evidence": [
+        "D28:1"
+      ]
+    },
+    {
+      "global_index": 500,
+      "sample_id": "conv-50",
+      "question_index": 195,
+      "question_index_1based": 196,
+      "category": 5,
+      "question": "What type of videos does Dave usually watch on his television?",
+      "answer": null,
+      "evidence": [
+        "D28:31"
+      ]
+    }
+  ]
+}
