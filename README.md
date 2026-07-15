@@ -105,6 +105,68 @@ The current primary experiment is the paper-aligned `LoCoMo-10 / 500 questions /
 
 Before the 500-question run, complete the fixed conv-26 `gate10` with Full MRAgent, native RAG, GraphRAG, Oracle, A-Mem and Mem0. The 10 questions cover cat1-4 and validate the full interface; they are not used for statistical claims. Use an explicit `--qa_model` for every method; `--re_model` now controls rewrite/keyword only. The MRAgent full run must set `--max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80`.
 
+### External baseline adapters
+
+A-Mem and Mem0 are implemented under `repro/external_baselines/`. Prepare the pinned source trees and dependencies once:
+
+```bash
+python repro/external_baselines/prepare_sources.py --root external
+pip install -r requirements-external-baselines.txt
+pip install --no-deps -e external/mem0
+```
+
+Pinned sources:
+
+- A-Mem: `WujiangXu/A-mem@0c8039f28fdcc08189a23c07a3437d9d2482f9c2` (MIT).
+- Mem0: `mem0ai/mem0@ccbe5861a138c7583e01bb3a3aa6168e52526a23` (Apache-2.0).
+
+The Mem0 `memory-benchmarks` Docker requirement referenced the removed branch `feat/v3-pipeline`. This workspace therefore uses the pinned, currently retrievable OSS Mem0 implementation. Reports must label it as an OSS engineering reproduction, not a bit-identical reproduction of the paper-era Mem0 service.
+
+Run the two adapters on the fixed conv-26 gate:
+
+```bash
+export ENABLE_THINKING=0
+export RAW_API_LOG=1
+export RAW_API_LOG_MAX_CHARS=0
+export EMBED_MODEL=Qwen/Qwen3-Embedding-4B
+
+export RUN_ID=gate10_amem_$(date +%Y%m%d_%H%M%S)
+python repro/external_baselines/run_amem_adapter.py \
+  --external_repo external/A-mem \
+  --data locomo --sample_ids 26 --model deepseek \
+  --re_model v4flash --qa_model v4flash \
+  --file amem_gate10_qflash --retrieve_k 10 --max_context_memories 30 \
+  --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json
+
+export RUN_ID=gate10_mem0_$(date +%Y%m%d_%H%M%S)
+python repro/external_baselines/run_mem0_adapter.py \
+  --external_repo external/mem0 \
+  --data locomo --sample_ids 26 --model deepseek \
+  --re_model v4flash --qa_model v4flash \
+  --file mem0_gate10_qflash --retrieve_k 10 \
+  --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json
+```
+
+The conv-26 gate contains 10 QA items but 419 dialogue turns. A-Mem and Mem0 must ingest all 419 turns before those 10 questions are comparable; “gate10” does not mean “build memory from only 10 turns.” Run the adapters sequentially to avoid API pressure.
+
+Both runners checkpoint ingestion after every turn and are resumable. Their memory stores stay under `data/locomo/external_cache/` and are ignored by Git. A-Mem internal calls use the standard `raw_api_calls_${RUN_ID}.jsonl`; Mem0 writes `mem0_raw_api_calls_${RUN_ID}.jsonl`. Each result row includes retrieved memories and source IDs; full per-question traces remain under `result/diagnostics/external_baselines/`. Validate both outputs before running the other four methods or expanding to 500 questions:
+
+```bash
+python repro/validate_baseline_results.py \
+  --manifest data/subsets/locomo_conv26_10q_core_seed42.json \
+  --result_glob 'result/locomo/conv-26_result_deepseek_amem_gate10_qflash.jsonl' \
+  --method amem \
+  --provenance reports/external_baselines/amem_gate10_qflash_provenance.md \
+  --output reports/external_baselines/amem_gate10_validation.md
+
+python repro/validate_baseline_results.py \
+  --manifest data/subsets/locomo_conv26_10q_core_seed42.json \
+  --result_glob 'result/locomo/conv-26_result_deepseek_mem0_gate10_qflash.jsonl' \
+  --method mem0 \
+  --provenance reports/external_baselines/mem0_gate10_qflash_provenance.md \
+  --output reports/external_baselines/mem0_gate10_validation.md
+```
+
 > This repository contains the code for the paper
 > **"Memory is Reconstructed, Not Retrieved: Graph Memory for LLM Agents"** ([arXiv:2606.06036](https://arxiv.org/abs/2606.06036)).
 

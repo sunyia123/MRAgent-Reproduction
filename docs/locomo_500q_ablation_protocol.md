@@ -115,9 +115,13 @@ python repro/run_oracle_evidence_qa.py \
 
 ### 5.5 A-Mem 与 Mem0
 
-A-Mem 使用论文复现仓库 `WujiangXu/A-mem`，Mem0 使用 `mem0ai/memory-benchmarks` 的 LoCoMo runner。二者必须先固定 commit，再增加本项目 manifest 过滤和统一输出适配；不能直接采用各自仓库默认题集、默认 OpenAI 模型或最新在线分数。
+A-Mem adapter 位于 `repro/external_baselines/run_amem_adapter.py`，固定 `WujiangXu/A-mem@0c8039f28fdcc08189a23c07a3437d9d2482f9c2`。它保留官方逐 turn 记忆分析、演化判断、相似度种子检索和邻居扩展，但将默认 MiniLM/OpenAI 调用替换为本实验的 Qwen3-Embedding-4B 与 V4-Flash，并使用统一 QA prompt。
 
-当前仓库只有外部结果校验器，尚未完成这两个 adapter。因此 10 题闸门的第一个开发 checkpoint 是：A-Mem/Mem0 分别输出 10 行统一 JSONL，并通过 `repro/validate_baseline_results.py`。在 adapter 完成前，不得声称“六种方法已跑通”。
+Mem0 adapter 位于 `repro/external_baselines/run_mem0_adapter.py`，固定 `mem0ai/mem0@ccbe5861a138c7583e01bb3a3aa6168e52526a23`。`mem0ai/memory-benchmarks` 当前依赖的 `feat/v3-pipeline` 分支已经删除，无法做 bit-identical checkout；因此本结果必须标为“固定当前 OSS Mem0 的公开可验收工程复现”，不能写成论文时期 Mem0 服务的完全复刻。
+
+两个 adapter 都只读取 manifest 中的题，逐 turn 保留 speaker、绝对 session date、source id 和已有图像 caption；memory cache 可断点续跑。每题输出统一 JSONL、retrieved memories 和独立 trace，且 provenance 会记录源码 commit、数据/manifest 哈希、实际 memory/embedding/QA model 和 top-k。
+
+安装与 10 题命令以 README 的 `External baseline adapters` 为唯一规范。A-Mem 与 Mem0 各完成 10/10 并通过 `repro/validate_baseline_results.py` 后，才进入六方法闸门汇总。
 
 ### 5.6 闸门验收
 

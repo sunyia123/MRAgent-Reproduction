@@ -21,8 +21,8 @@
 | 固定 10 题 manifest | 已有 | `conv-26`，cat1/2/3/4=3/2/2/3 |
 | 固定 500 题 manifest | 已有 | LoCoMo-10，cat1-4=125/130/91/154 |
 | badcase 自动归因 | 已有 | 支持 F1、judge、人工语义复核三种证据 |
-| A-Mem adapter | 待 Codex 实现 | 不能让服务器临时改写后直接进入主表 |
-| Mem0 adapter | 待 Codex 实现 | 需要固定 OSS benchmark commit 与本地模型配置 |
+| A-Mem adapter | 已实现，待服务器 gate10 | 固定 A-Mem commit，逐 turn 演化 + Qwen embedding |
+| Mem0 adapter | 已实现，待服务器 gate10 | 固定当前 OSS Mem0 commit；旧 benchmark 分支已删除 |
 | 严格 CE memory view | 待 Codex 实现 | cue 直接索引 episode |
 | 严格 no-reasoning CTC | 待 Codex 实现 | 一次性固定检索，不等于 `max_rounds=1` |
 
@@ -50,9 +50,9 @@
 
 ### 阶段 1：完成 A-Mem 与 Mem0 adapter
 
-该阶段是 Codex 开发任务。服务器执行者只负责在 adapter 推送后安装、运行和反馈，不自行发明新的数据转换或评测口径。
+代码阶段已完成。服务器执行者只负责安装固定依赖、运行、验证和反馈，不自行发明新的数据转换或评测口径。规范命令见 README 的 `External baseline adapters`。
 
-A-Mem adapter 以 `WujiangXu/A-mem` 论文复现仓库为源；Mem0 adapter 以 `mem0ai/memory-benchmarks` 的 LoCoMo OSS runner 为源。每个 adapter 必须：
+A-Mem adapter 以 `WujiangXu/A-mem@0c8039f...` 为源；Mem0 adapter 以 `mem0ai/mem0@ccbe586...` 为源。旧 `memory-benchmarks` 指向的 `feat/v3-pipeline` 已删除，所以 Mem0 只能声明为固定当前 OSS 实现的公开工程复现。每个 adapter 必须：
 
 1. 记录官方仓库 URL、固定 commit、依赖版本和 license。
 2. 读取本项目 manifest，只处理指定 `sample_id + question_index`。
@@ -63,6 +63,10 @@ A-Mem adapter 以 `WujiangXu/A-mem` 论文复现仓库为源；Mem0 adapter 以 
 7. memory cache 可复用但不提交 Git；provenance、结果摘要和小型 10 题结果提交 Git。
 
 达成效果：A-Mem 与 Mem0 均能在固定 10 题上输出 10 行，并通过 `repro/validate_baseline_results.py`。
+
+执行顺序固定为：先运行 `prepare_sources.py` 并安装 `requirements-external-baselines.txt`，再分别运行 A-Mem 和 Mem0 adapter。不要先重跑四个已有方法；外部 adapter 的 10/10、provenance、模型路由、时间字段和 trace 均通过后，再运行阶段 2 的其余方法并汇总六方法结果。
+
+注意：`gate10` 只表示 QA 数量为 10。`conv-26` 实际有 419 个 dialogue turns，A-Mem 与 Mem0 都必须先完整摄取 419 条输入，不能为了缩短时间只建立与 10 道题相关的局部 memory。两种 adapter 都逐 turn checkpoint，发生 timeout 后应从 cache 恢复；二者应串行运行，避免同时压迫 SiliconFlow API。
 
 ### 阶段 2：运行固定 10 题全方法闸门
 

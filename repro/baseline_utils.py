@@ -62,12 +62,14 @@ def raw_turns(raw_conversation: dict[str, Any]) -> list[dict[str, str]]:
             continue
         session_date = str(raw_conversation.get(f"{session_key}_date_time", ""))
         for turn in turns:
-            if not isinstance(turn, dict) or not turn.get("text"):
+            if not isinstance(turn, dict):
                 continue
             caption = str(turn.get("blip_caption") or "")
-            text = str(turn["text"])
+            text = str(turn.get("text") or "")
+            if not text and not caption:
+                continue
             if caption:
-                text = f"{text} [image caption: {caption}]"
+                text = f"{text} [image caption: {caption}]".strip()
             rows.append(
                 {
                     "sentence_id": str(turn.get("dia_id", "")),

@@ -36,3 +36,4 @@ result_judge_*.jsonl
 compare_*.json
 _b10test.py
 data/external/
+external/
