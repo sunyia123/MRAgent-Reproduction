@@ -290,6 +290,7 @@ def answer_questions(dataset, agent, selected_qa, sample_id, memory, result_path
                 "answer": qa.get("answer"), "prediction": "ERROR", "category": category,
                 "evidence": evidence_labels, "question": qa.get("question"),
                 "prediction_context": [], "sample": sample_id,
+                "question_index": orig_idx, "question_index_1based": orig_idx + 1,
                 "_metrics": {"tool_calls": 0, "schema_retries": 0, "forced_accepts": 0, "runtime_sec": 0},
             }
 
@@ -298,6 +299,7 @@ def answer_questions(dataset, agent, selected_qa, sample_id, memory, result_path
             "answer": qa.get("answer"), "prediction": results, "category": category,
             "evidence": evidence_labels, "question": qa.get("question"),
             "prediction_context": evidence_support, "sample": sample_id,
+            "question_index": orig_idx, "question_index_1based": orig_idx + 1,
             "_metrics": _metrics,
         }
         return seq, evaluation

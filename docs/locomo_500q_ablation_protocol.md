@@ -1,256 +1,248 @@
-# LoCoMo 500 题主实验与消融协议
+# LoCoMo 500 题主实验与严格消融协议
 
-更新时间：2026-07-14
+更新时间：2026-07-15
 
-## 1. 目标与边界
+## 1. 研究问题
 
-本轮唯一主命题是：**在相同模型、相同题目、相同时间信息和可比检索预算下，MRAgent 的主动图搜索是否显著优于被动向量检索。**
+本阶段只回答一个主命题：
 
-围绕主命题，再拆成两个机制问题：
+> 在相同问答模型、相同题目、相同时间信息和可审计运行条件下，MRAgent 的多轮主动图搜索是否稳定优于被动向量检索与固定图扩展？
 
-1. Cue-Tag-Content 图结构是否比被动检索更容易找回证据。
-2. 基于中间证据的多轮主动重建是否比一次性检索更有效。
+主命题拆成三项可证伪问题：
 
-主实验使用 `LoCoMo-10` 中已有完整图 cache 的 10 个 conversation，而不是论文的完整 50 个 conversation。因此它是**中型、可审计验证**，不能直接声称复现论文 Table 1 的绝对数值。
+1. **主效果**：Full MRAgent 是否优于 native RAG、GraphRAG、A-Mem 和 Mem0。
+2. **图层效果**：Cue-Episode（CE）、Cue-Tag-Episode（CTE）和 Cue-Tag-Content（CTC）逐层增加时，证据命中和回答正确率是否提高。
+3. **主动搜索效果**：在同一个图视图上，多轮工具调用是否优于一次性读取。
 
-论文主表使用 Gemini-2.5-Flash 与 Claude-Sonnet-4.5，排除了 adversarial 的 cat5；每种方法运行三次，并使用 GPT-4o-mini judge。论文同时限制最多 8 个 reasoning turns、每轮最多 10 次工具调用。当前没有这些同一模型与 judge，所以只能比较机制趋势，不能将绝对分数与论文表格混写。
+Memento 的 CBR/soft-Q 路径学习不进入本轮主效果。必须先证明原始 MRAgent 的主动图搜索有效，再在固定基线上增加路径学习，避免同时改变记忆、检索和评估而无法归因。
 
-## 2. 旧 100 题结果的状态
+## 2. 当前事实与解释边界
 
-旧结果必须保留，但标签为 `pre-protocol diagnostic`，不能作为新的主结论。原因：
-
-- MRAgent QA 实际使用 `DeepSeek-V4-Flash`，而 RAG/GraphRAG/Oracle 直接使用 `DeepSeek-V4-Pro`；模型不一致。
-- 旧 RAG、GraphRAG、Oracle 在构造 context 时丢弃了 `event_time/session_date`。例如 RAG 已命中 `D1:3`，仍回答 `Yesterday` 而不是 `7 May 2023`。旧 RAG temporal 中 evidence hit 很高但 F1 很低，说明其主要问题是时间锚点被 runner 删除，而不能直接解释成“图一定更强”。
-- 旧 MRAgent 使用总工具上限 50，没有论文所述的每轮 10 次工具调用限制。
-- 旧 100 题包含 cat5；论文 LoCoMo 主比较排除了 cat5。
-
-旧 100 题仍适合定位问题、对照修复前后差异、检查 trace；新的主结论以本协议指定的 core manifest 为准。
+- 10 个 LoCoMo conversation 的 rewrite、keyword、Qwen3-Embedding-4B 和 MRAgent 图 cache 已构建完成。
+- A-Mem 与 Mem0 已在 conv-26 的 10 题闸门完成 10/10；闸门只证明 adapter、模型路由、缓存、输出与 trace 可运行，不提供统计结论。
+- 旧 100 题结果保留为 `pre-protocol diagnostic`。其模型路由、时间字段、工具预算和题类口径不完全一致，不能进入新主表。
+- 当前只覆盖 LoCoMo-10，而论文完整设置使用更多 conversation 和不同模型。因此可验证机制趋势，不能把本地绝对分数写成论文 Table 1 的完全复现。
 
 ## 3. 固定题集
 
-| manifest | 用途 | 题数 | 类别 | 与旧 100 题关系 |
-| --- | --- | ---: | --- | --- |
-| `data/subsets/locomo10_100q_seed42.json` | 历史诊断 | 100 | cat1-5 | 已完成，不改写 |
-| `data/subsets/locomo_conv26_10q_core_seed42.json` | 全方法闸门 | 10 | cat1-4 | conv-26，cat1/2/3/4=3/2/2/3 |
-| `data/subsets/locomo10_100q_core_seed42.json` | 可选调试集 | 100 | cat1-4 | 不再是进入 500 题的必经阶段 |
-| `data/subsets/locomo10_500q_core_seed42.json` | 正式 500 题主实验 | 500 | cat1-4 | 主报告唯一口径 |
-| `data/subsets/locomo10_500q_allcats_seed42.json` | 附录鲁棒性 | 500 | cat1-5 | 完整包含历史 100 题 |
+题集由 `repro/build_main_experiment_manifests.py` 从原始 `data/dataset_locomo.json` 确定性生成。
 
-`500q_core` 的类别分布为 cat1=125、cat2=130、cat3=91、cat4=154，cat3 在这 10 个 conversation 中可用题较少；报告必须展示真实计数而不是把类别平均化。`500q_allcats` 完整包含旧 100 题，但不得用于论文主表比较。
+| Manifest | 题数 | 分布 | 用途 |
+|---|---:|---|---|
+| `data/subsets/locomo_conv26_10q_core_seed42.json` | 10 | cat1-4 | 新 runner/adapter 的接口闸门，不做统计 |
+| `data/subsets/locomo10_500q_main_seed42.json` | 500 | cat1=102, cat2=101, cat3=96, cat4=101, cat5=100 | 五方法主实验 |
+| `data/subsets/locomo10_200q_ablation_seed42.json` | 200 | cat1=100, cat2=100 | 图层与主动搜索消融 |
 
-## 4. 公平运行条件
+主实验的普通题共 400 道，类别尽可能均衡。cat3 在这 10 个 conversation 中只有 96 道，因此短缺的 4 道被确定性分配给其他普通类别。cat5 固定 100 道并单独报告，不与论文排除 adversarial 的主指标混算。
 
-所有新的 core 实验必须满足：
+消融 200 题全部属于主实验 500 题，避免 Full MRAgent 为消融额外选择一批更有利的问题。
 
-- 图构建 cache namespace 保持 `--model deepseek --re_model v4flash`，复用现有 `rewrite_deepseek`、`keyword_deepseek`、`embedding/gpt_deepseek` cache。
-- QA 必须显式传 `--qa_model v4flash`，让 MRAgent 与所有内部 baseline 使用相同问答模型；`ENABLE_THINKING=0`。
-- A-Mem 与 Mem0 的记忆抽取/更新也必须路由到同一个 V4-Flash endpoint，并使用 Qwen3-Embedding-4B；若官方实现无法替换默认模型，该结果只能进入附录，不能进入主公平对比。
-- MRAgent 使用 `--max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80`。
-- 被动 baseline 使用相同 Qwen3-Embedding-4B 向量模型；native RAG 以原始 dialogue turn（含 session 时间与已有 BLIP caption）作为 unit，不使用 MRAgent 的 rewrite 内容。
-- 所有方法严格读取同一个 manifest。结果 JSONL 必须保留 `sample`、`question_index`、`prediction_context`、`_metrics`。
-- core 主实验只包括 cat1-4。cat5 只运行 `allcats` 附录，并单独报告 “Not mentioned” 判定。
-
-## 5. 先做 10 题全方法闸门
-
-先在 `locomo_conv26_10q_core_seed42.json` 上运行 Full MRAgent、native RAG、GraphRAG、Oracle、A-Mem 和 Mem0。该集合直接取自固定 100 题 core manifest，覆盖四个非对抗类别，并且只需要 A-Mem/Mem0 为一个 conversation 构建记忆。
-
-10 题只用于验证接口、模型路由、时间字段、输出 schema、日志和具体案例，不用于显著性结论。六种方法均完成 10/10 后直接进入 500 题，不再强制跑修复后 100 题。
-
-### 5.1 构建 native RAG cache
+重新生成并验证：
 
 ```bash
-python repro/build_native_rag_cache.py \
-  --sample_ids 26
+python repro/build_main_experiment_manifests.py
 ```
 
-预期：每个 sample 在 `data/locomo/rag_native/` 产生一个 `*_raw_turn.pkl`。该文件可断点续写，不能提交 Git。
+预期输出必须严格为 `500: 102/101/96/101/100` 和 `200: 100/100`。生成后不得人工改题。
+
+## 4. 公平条件
+
+所有方法必须满足：
+
+- QA：`deepseek-ai/DeepSeek-V4-Flash`，显式传 `--qa_model v4flash`。
+- 记忆构建/抽取：V4-Flash；embedding：`Qwen/Qwen3-Embedding-4B`。
+- `ENABLE_THINKING=0`，并在 raw request 中验证 `enable_thinking=false`。
+- 同一题目必须保留相同 `sample_id + question_index`、原始 session date、speaker、已有图像 caption。
+- 不允许从 gold answer 或 gold evidence 构造检索 query、记忆或 case。
+- 每题保存 prediction、prediction_context、模型路由、token、耗时、错误、重试和完整 trace。
+- MRAgent 上限为 8 轮、每轮 10 次工具调用、总计 80 次。
+- 结果按题对齐；缺题和 ERROR 单列，不能从分母静默删除。
+
+## 5. 五方法主实验
+
+| 方法 | 固定设置 | 主要回答的问题 |
+|---|---|---|
+| Full MRAgent | CTC + 8 轮主动工具调用 | 完整主动图重建是否有效 |
+| Native RAG | 原始 turn 上一次性向量 top-k，保留日期 | 主动图搜索是否优于被动向量检索 |
+| GraphRAG | 固定 seed、hop 和上下文上限 | 自适应遍历是否优于预定义图扩展 |
+| A-Mem | 官方图记忆演化 + 被动检索 adapter | MRAgent 是否优于另一种演化图记忆 |
+| Mem0 | 官方事实压缩记忆 + 被动检索 adapter | 图重建是否优于紧凑事实记忆 |
+
+Oracle 不进入主表。它只保留为历史答案生成诊断，因为直接读取 gold evidence，不是可部署 baseline。
+
+### 5.1 两个 250 题检查点
+
+- Batch A：`26,30,41,42,43`，固定共 250 题。
+- Batch B：`44,47,48,49,50`，固定共 250 题。
+
+每批完成后先验证行数、模型路由和错误，再继续下一批。每个 sample 独立结果文件，因此两批使用同一个 file tag 不会互相覆盖。
 
 ### 5.2 Full MRAgent
 
 ```bash
-export RUN_ID=gate10_full_$(date +%Y%m%d_%H%M%S)
-export ENABLE_THINKING=0
+export ENABLE_THINKING=0 RAW_API_LOG=1 RAW_API_LOG_MAX_CHARS=0
+export RUN_ID=main500_mragent_A_$(date +%Y%m%d_%H%M%S)
 python run_stratified.py \
-  --data locomo --sample_ids 26 \
+  --data locomo --sample_ids 26,30,41,42,43 \
   --model deepseek --re_model v4flash --qa_model v4flash \
-  --file mragent_full_gate10_qflash \
-  --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json \
+  --file mragent_full_main500_qflash \
+  --subset_manifest data/subsets/locomo10_500q_main_seed42.json \
+  --memory_view ctc --retrieval_mode active \
   --max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80
 ```
 
-预期：结果文件 10 行；每题 `_metrics.tool_trace` 有实际工具名、参数和结果摘要；`raw_api_calls_${RUN_ID}.jsonl` 显示 `enable_thinking:false`。
+Batch B 只替换 `RUN_ID` 和 `--sample_ids 44,47,48,49,50`。
 
-### 5.3 Native RAG
+### 5.3 Native RAG 与 GraphRAG
+
+先为 10 个 sample 补齐 native raw-turn embedding cache：
 
 ```bash
-export RUN_ID=gate10_rag_native_$(date +%Y%m%d_%H%M%S)
-export ENABLE_THINKING=0
+python repro/build_native_rag_cache.py --sample_ids 26,30,41,42,43,44,47,48,49,50
+```
+
+按两个 batch 分别运行：
+
+```bash
 python repro/run_standard_rag_baseline.py \
-  --data locomo --sample_ids 26 \
+  --data locomo --sample_ids 26,30,41,42,43 \
   --model deepseek --qa_model v4flash \
-  --file rag_native_gate10_qflash --source raw --top_k 20 \
-  --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json
-```
+  --file rag_native_main500_qflash --source raw --top_k 20 \
+  --subset_manifest data/subsets/locomo10_500q_main_seed42.json
 
-预期：context 每行均含 `session_date`；temporal 输出不能再只返回 `Yesterday/last week`。旧 `--source rewrite` 仅作为修复前诊断保留，不作为主 baseline。
-
-### 5.4 GraphRAG 与 Oracle
-
-```bash
 python repro/run_graphrag_baseline.py \
-  --data locomo --sample_ids 26 \
+  --data locomo --sample_ids 26,30,41,42,43 \
   --model deepseek --qa_model v4flash \
-  --file graphrag_gate10_qflash \
-  --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json \
+  --file graphrag_main500_qflash \
+  --subset_manifest data/subsets/locomo10_500q_main_seed42.json \
   --seed_k 10 --hops 1 --max_context_sentences 30
-
-python repro/run_oracle_evidence_qa.py \
-  --data locomo --sample_ids 26 \
-  --model deepseek --qa_model v4flash \
-  --file oracle_gate10_qflash \
-  --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json
 ```
 
-预期：两者 context 也必须含日期元数据。Oracle 仍低分时，不能再归因成检索失败，应检查 gold evidence 粒度、答案综合和指标。
+随后对 Batch B 使用相同 tag 运行。
 
-### 5.5 A-Mem 与 Mem0
+### 5.4 A-Mem 与 Mem0
 
-A-Mem adapter 位于 `repro/external_baselines/run_amem_adapter.py`，固定 `WujiangXu/A-mem@0c8039f28fdcc08189a23c07a3437d9d2482f9c2`。它保留官方逐 turn 记忆分析、演化判断、相似度种子检索和邻居扩展，但将默认 MiniLM/OpenAI 调用替换为本实验的 Qwen3-Embedding-4B 与 V4-Flash，并使用统一 QA prompt。
-
-Mem0 adapter 位于 `repro/external_baselines/run_mem0_adapter.py`，固定 `mem0ai/mem0@ccbe5861a138c7583e01bb3a3aa6168e52526a23`。`mem0ai/memory-benchmarks` 当前依赖的 `feat/v3-pipeline` 分支已经删除，无法做 bit-identical checkout；因此本结果必须标为“固定当前 OSS Mem0 的公开可验收工程复现”，不能写成论文时期 Mem0 服务的完全复刻。
-
-两个 adapter 都只读取 manifest 中的题，逐 turn 保留 speaker、绝对 session date、source id 和已有图像 caption；memory cache 可断点续跑。每题输出统一 JSONL、retrieved memories 和独立 trace，且 provenance 会记录源码 commit、数据/manifest 哈希、实际 memory/embedding/QA model 和 top-k。
-
-安装与 10 题命令以 README 的 `External baseline adapters` 为唯一规范。A-Mem 与 Mem0 各完成 10/10 并通过 `repro/validate_baseline_results.py` 后，才进入六方法闸门汇总。
-
-### 5.6 闸门验收
+两个 adapter 必须逐个运行，避免同时压 SiliconFlow API。它们按 turn 构建记忆，500 题增加的是 QA 数，不会为同一 conversation 重建已经完成的 cache。
 
 ```bash
-python repro/summarize_core_validation.py \
-  --manifest data/subsets/locomo_conv26_10q_core_seed42.json \
-  --methods mragent_full_gate10_qflash,rag_native_gate10_qflash,graphrag_gate10_qflash,oracle_gate10_qflash,amem_gate10_qflash,mem0_gate10_qflash \
-  --model deepseek \
-  --output reports/gate10_protocol_validation.md
+python repro/external_baselines/run_amem_adapter.py \
+  --external_repo external/A-mem \
+  --data locomo --sample_ids 26,30,41,42,43 --model deepseek \
+  --re_model v4flash --qa_model v4flash \
+  --file amem_main500_qflash --retrieve_k 10 --max_context_memories 30 \
+  --subset_manifest data/subsets/locomo10_500q_main_seed42.json
+
+python repro/external_baselines/run_mem0_adapter.py \
+  --external_repo external/mem0 \
+  --data locomo --sample_ids 26,30,41,42,43 --model deepseek \
+  --re_model v4flash --qa_model v4flash \
+  --file mem0_main500_qflash --retrieve_k 10 \
+  --subset_manifest data/subsets/locomo10_500q_main_seed42.json
 ```
 
-报告还必须选择至少一个 Full MRAgent 好例和一个坏例，展示原始问题、gold、主动搜索每步工具与返回节点、最终上下文、预测，以及同题 RAG/A-Mem/Mem0 的检索内容。
+conv-26 的 gate cache 可复用，但必须由 provenance 证明 namespace、模型与数据哈希一致。若不一致，应创建新 namespace，不能把不同设置混在一个 cache 中。
 
-停止条件：有任何方法少于 10 题、QA model 不一致、context 不含时间元数据、外部 baseline 未固定版本、或 raw trace 显示 thinking 被打开时，先修复，不扩大到 500。
+## 6. 严格消融
 
-## 6. 500 题主实验
+`--max_rounds 1` 仍包含一次 LLM 路由，不等于“无主动推理”。本仓库新增两个正交开关：
 
-10 题闸门通过后，在 `data/subsets/locomo10_500q_core_seed42.json` 上运行正式实验。不得覆盖闸门结果。
+- `--memory_view ce|cte|ctc`：控制可见图层和工具。
+- `--retrieval_mode passive|active`：一次性确定读取或多轮工具搜索。
 
-主对比优先于消融，顺序固定为：Full MRAgent -> native RAG -> GraphRAG -> A-Mem -> Mem0 -> Oracle。Oracle 只诊断“给定 gold evidence 后能否回答”，不属于与 MRAgent 竞争的 baseline。
+运行五组 200 题消融：
 
-| 方法 | 关键差异 | 回答的问题 |
-| --- | --- | --- |
-| Full MRAgent | CTC 图 + 多轮自适应工具调用 | 完整主动图搜索效果 |
-| native RAG | 原始 turn 上一次性向量 top-k | 主动图搜索是否优于被动向量检索 |
-| GraphRAG | 固定 seed + 固定邻居扩展 | 自适应遍历是否优于预定义图扩展 |
-| A-Mem | 图记忆 + 相似度 seed + 邻居扩展 | MRAgent 的主动搜索是否超过另一种图记忆 |
-| Mem0 | 紧凑事实记忆 + 被动相似度检索 | 完整图重建是否超过事实压缩记忆 |
-| Oracle | 直接提供 gold evidence | 检索失败与答案生成失败的上界诊断 |
+| Tag | 图视图 | 检索 | 作用 |
+|---|---|---|---|
+| `ab200_ce_passive` | CE | 单次 | cue 直接到 episode 的最低结构 |
+| `ab200_cte_passive` | CTE | 单次 | 检验 tag 层的增益 |
+| `ab200_ctc_passive` | CTC | 单次 | 检验 topic/person content 层的增益 |
+| `ab200_cte_active` | CTE | 多轮 | 在相同 CTE 上检验主动搜索 |
+| `ab200_ctc_active` | CTC | 多轮 | 完整方法在同题子集上的结果 |
 
-正式报告以逐题对齐的 F1、LLM Judge、Evidence Recall 为核心，同时报告 completed/error、平均工具数、平均轮数、输入/输出 token、延迟和检索上下文长度。只有 500 题用于统计性结论；10 题只展示流程案例。
+被动组仍执行一次问题 key 提取，但不会进入 agent tool loop。CTC 被动组会一次性展开命中的 topic/person content；结果 `_metrics` 记录 `memory_view`、`retrieval_mode` 和 `initial_context_units`，避免把少给上下文误称为主动搜索增益。
 
-## 7. 消融：图结构与主动搜索分别是否有效
-
-论文 Figure 5 在 LoCoMo multi-hop 问题上沿两条轴消融：
-
-1. 结构轴：CE（Cue-Episode，直接索引）-> CTE（Cue-Tag-Episode）-> CTC（Cue-Tag-Content，包含完整 episodic/semantic/topic 内容层）。
-2. 搜索轴：不带 reasoning 的一次性访问 -> 带 reasoning 的多轮主动重建。
-
-因此，“图构建是否有用”应由 CE/CTE/CTC 回答；“迭代扩展是否有用”应由相同 CTC 图上的一次性访问与多轮主动搜索回答。论文还单独比较 reasoning turns 与单轮并行检索预算，结论是增加搜索宽度不能替代增加重建深度。
-
-当前先执行以下实现级消融：
-
-| tag | 设置 | 检验的机制 | 解释边界 |
-| --- | --- | --- | --- |
-| `mragent_full_core500_qflash` | 8 rounds，CTC 全工具 | 完整方法 | 主结果 |
-| `mragent_1round_core500_qflash` | `--max_rounds 1 --max_tool_calls 10` | 主动多步重建 | 仍保留一次 LLM 路由，不等于完全无 reasoning |
-| `mragent_cte_view_core500_qflash` | 禁用 semantic 与 topic 工具，只允许 episodic CTE 路径 | CTE/CTC 内容层 | 从完整 cache 派生的运行时视图，不是重新 population |
-
-`CTE runtime view` 示例：
+先在固定 10 题上运行五组接口闸门。确认每组 10/10、被动组 `tool_calls=0`、主动组有 trace、输出标记正确后，再把 manifest 换成 200 题。统一命令模板：
 
 ```bash
-python run_stratified.py ... \
-  --file mragent_cte_view_core500_qflash \
-  --disabled_tools query_personal_information,query_personal_aspect,query_topic_events \
-  --subset_manifest data/subsets/locomo10_500q_core_seed42.json \
+python run_stratified.py \
+  --data locomo --sample_ids 26,30,41,42,43,44,47,48,49,50 \
+  --model deepseek --re_model v4flash --qa_model v4flash \
+  --file <tag> \
+  --subset_manifest data/subsets/locomo10_200q_ablation_seed42.json \
+  --memory_view <ce|cte|ctc> --retrieval_mode <passive|active> \
   --max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80
 ```
 
-`1round` 示例：
+主要配对：
+
+- CTE passive - CE passive：tag 层效果。
+- CTC passive - CTE passive：content 层效果。
+- CTE active - CTE passive：CTE 上主动搜索效果。
+- CTC active - CTC passive：完整图上主动搜索效果。
+
+## 7. 评估与统计
+
+每种方法先运行官方评估入口，生成 F1 与 Judge：
 
 ```bash
-python run_stratified.py ... \
-  --file mragent_1round_core500_qflash \
-  --subset_manifest data/subsets/locomo10_500q_core_seed42.json \
-  --max_rounds 1 --max_tool_calls_per_round 10 --max_tool_calls 10
+python eval/evaluate_reasoning.py \
+  --data locomo --model deepseek --file <tag> --allfile
 ```
 
-严格 CE 仍需实现“cue 直接索引 episode”的独立 memory view；严格 no-reasoning 仍需实现一次性固定检索而不是 `max_rounds=1`。这两项先在同一个 10 题 manifest 上验证，再决定是否进入 500 题。报告必须把 `CTE runtime view`、`1round approximation` 与论文严格消融分开命名。
+主表使用：
 
-## 8. Badcase 归因与人工复核
+- cat1-4：逐题 F1、LLM Judge、Evidence hit。
+- cat5：`Not mentioned` accuracy，单列。
+- 工程指标：completed/error、平均工具数、轮数、token、耗时、上下文条数。
 
-每个完成的 MRAgent run 都必须生成：
+五方法对比和 conversation-clustered bootstrap 95% CI：
 
 ```bash
-python repro/attribute_badcases.py \
-  --manifest data/subsets/locomo10_500q_core_seed42.json \
-  --result_tag mragent_full_core500_qflash \
-  --model deepseek \
-  --judge_results result_judge_locomo_deepseek_core500.jsonl \
-  --manual_review reports/mragent_full_core500_manual_review.csv \
-  --output_prefix reports/mragent_full_core500_badcase_attribution
+python repro/compare_main_experiment.py \
+  --manifest data/subsets/locomo10_500q_main_seed42.json \
+  --methods 'FullMRAgent=mragent_full_main500_qflash,RAG=rag_native_main500_qflash,GraphRAG=graphrag_main500_qflash,A-Mem=amem_main500_qflash,Mem0=mem0_main500_qflash' \
+  --output_prefix reports/locomo_main500_comparison_20260715
 ```
 
-输出 CSV 和 Markdown。其中 primary causes 互斥，分母是 F1 小于阈值的坏例总数：
+Full MRAgent 相对 baseline 的 95% CI 不跨 0，才称为当前 LoCoMo-10 上的稳定优势。还必须同时检查 Evidence hit：若答案分数提高但证据命中不提高，结论更可能来自回答模型差异或格式，而不是检索机制。
 
-- `execution_error`：API/JSON/runner 在回答前失败。
-- `retrieval_miss`：gold evidence 不在 `prediction_context`。
-- `temporal_normalization_failure`：命中证据但回答仍保留相对日期。
-- `evidence_utilization_failure`：命中证据却回答无信息。
-- `adversarial_overanswer`：只用于 allcats 的 cat5。
-- `likely_metric_or_format_mismatch`：答案包含关系正确但 token F1 不利，必须人工/LLM judge 复核。
-- `semantic_correct_lexical_false_negative`：F1 低，但 LLM Judge 或人工复核确认语义正确。
-- `semantic_correct_judge_false_negative`：Judge 判错，但人工复核确认语义正确；必须保留人工说明。
-- `answer_synthesis_or_semantic_error`：证据命中但仍答错，必须复核。
+## 8. MRAgent 全量判错归因
 
-最终报告必须同时给出自动归因比例、CSV 中的原始输入输出、gold/predicted evidence、工具数、工具 trace 是否存在，以及人工复核后的最终比例。自动标签不能被写成最终语义事实。
+归因范围不是“F1 低于阈值”，而是：
 
-## 9. 与论文其他 baseline 的比较
-
-论文列出的外部 baseline 是 RAG、A-Mem、MemoryOS、LangMem、Mem0。上游 `Ji-shuo/MRAgent` 仓库未包含这些 baseline 的 runner；因此目前唯一可运行的内部比较是 RAG/GraphRAG/Oracle，不能把论文表中的其他数值复制到本项目表格中充当本地结果。
-
-外部 baseline 的有效比较需要按以下顺序进行：
-
-1. 固定一个官方仓库 commit，并写入 provenance 文件：仓库 URL、commit、依赖版本、LLM、embedding、QA prompt、top-k、是否使用 time metadata。
-2. 在该方法官方实现中只运行 `locomo10_500q_core_seed42.json` 的 500 个键，排除 cat5。
-3. 将输出适配为本项目 JSONL schema：`sample`、`question_index`、`question`、`answer`、`prediction`、`prediction_context`、`_metrics`。
-4. 用下列检查阻止不完整或不同题集的输出进入总表：
+- cat1-4 中 LLM Judge 判错的全部题；
+- cat5 判定错误的全部题；
+- 任意类别的缺行、API、JSON、schema 或 runner ERROR。
 
 ```bash
-python repro/validate_baseline_results.py \
-  --manifest data/subsets/locomo10_500q_core_seed42.json \
-  --result_glob 'result/external/amem/*.jsonl' \
-  --method amem \
-  --provenance reports/external_baselines/amem_provenance.md \
-  --output reports/external_baselines/amem_validation.md
+python repro/audit_mragent_judged_errors.py \
+  --manifest data/subsets/locomo10_500q_main_seed42.json \
+  --result_glob 'result/locomo/*_result_deepseek_mragent_full_main500_qflash.jsonl' \
+  --judge_glob 'result_judge_locomo_deepseek_mragent_full_main500_qflash.jsonl' \
+  --trace_dir result/diagnostics/mragent_main500_traces \
+  --output_prefix reports/mragent_main500_judged_errors
 ```
 
-本阶段优先级固定为 native RAG -> GraphRAG -> A-Mem -> Mem0。MemoryOS 与 LangMem 暂不进入本轮主实验。A-Mem 和 Mem0 必须先通过 10 题闸门，再运行 500 题。
+第一遍自动标签只是假设，`manual_review_needed=true` 必须逐题看原始输入输出。主因互斥：执行/schema、图构建缺失、初始 key、工具/路径、过早停止、命中未利用、时间推理、多跳组合、视觉缺失、答案综合、Judge 假阴性、gold/evidence 标注问题。secondary tags 可以多选。
 
-## 10. 提交要求
+每个错例必须能定位：原始 question/gold/prediction、gold/prediction evidence、图中证据是否存在、每步 tool call 和返回、最终 prompt/response、retry/error、日志路径。最终报告同时给出主因占全部错例比例、占 500 题比例、分类别比例和代表性案例。
 
-提交 manifest、代码、协议、汇总报告、badcase CSV/Markdown、小型结果 JSONL 与外部 baseline provenance。不要提交 raw cache、embedding、完整 raw API payload、完整 log 或 API key。
+## 9. 停止条件
 
-每次服务器推送前仍需更新：
+出现以下任一情况时停止扩大实验并修复：
 
-```bash
-python repro/update_server_directory_manifest.py \
-  --root /data/nishome/cuiwenjia/MRAgent-Reproduction
-```
+- manifest 行数、哈希或题目键不一致；
+- QA/embedding/memory model 路由不一致或 thinking 被打开；
+- 任一方法缺题、重复题或覆盖旧结果；
+- passive 组出现 agent tool calls，或 active 组没有 trace；
+- native RAG context 丢失 session date；
+- raw request/response/retry 日志缺失；
+- Judge 缺失却被当作正确，或低 F1 被自动当作语义错误。
 
-并在反馈中给出 commit、manifest、每种方法的 completed/expected、QA/rewrite/embedding model、RUN_ID、日志路径、任何 timeout/parse error，以及是否满足本协议的停止条件。
+## 10. 下一阶段：CBR 与 soft-Q
+
+只有主实验与消融完成后才进入路径学习。下一阶段以独立模块读取“问题状态 + 图状态”，输出一个不含答案事实的检索策略 case；MRAgent 原始工具接口不改。具体设计见 `docs/mragent_cbr_qlearning_module_plan.md`。
+
+## 11. 提交范围
+
+提交代码、manifest、协议、provenance、指标摘要、逐题对比 CSV、badcase 包和服务器目录清单。不要提交 API key、raw cache、embedding、完整 checkpoint 和包含敏感请求的全量日志。全量日志留服务器，报告记录绝对路径、RUN_ID、大小和校验信息。

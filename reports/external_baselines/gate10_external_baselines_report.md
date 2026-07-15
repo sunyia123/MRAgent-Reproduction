@@ -132,7 +132,7 @@ Generated: 2026-07-15
 **A-Mem** (prediction: Luna and Oliver — missing Bailey):
 - Retrieved 30 memories across multiple sessions
 - Key hits: `[D7:18]` "Luna and Oliver!" from 12 July, `[D13:4]` "Bailey" from 23 Aug
-- Missed Bailey (later session, lower retrieval rank)
+- Both gold evidence turns were retrieved, but the final answer omitted Bailey; this is evidence-utilization/answer-synthesis failure, not a retrieval miss.
 
 **Mem0** (prediction: Luna, Oliver, and Bailey ✓):
 - Top memory correctly compressed: "Melanie's dog is named Luna and her cat is named Oliver as of July 12, 2023"
@@ -155,7 +155,7 @@ Generated: 2026-07-15
 ## 8. Key Observations
 
 1. **Mem0 temporal hallucination**: For Q01, Mem0 fabricated "July 14, 2026" (likely from system date leakage). This is a known risk with LLM-based memory compression without anchor-date enforcement.
-2. **A-Mem retrieval noise**: Many irrelevant LGBTQ-related memories retrieved for Q01 (charity race question), showing weak keyword separation.
+2. **A-Mem retrieval noise**: Many irrelevant LGBTQ-related memories were retrieved for Q01 (the LGBTQ support-group question), showing weak keyword separation.
 3. **Multi-hop advantage Mem0**: Mem0's compressed memory representation correctly fused information from multiple sessions (Bailey appeared in a later session than Luna/Oliver).
 4. **Both methods miss "Sweden"**: Q12 ("Where did Caroline move from 4 years ago?") — both fail. The temporal offset computation is too complex for passive retrieval.
 

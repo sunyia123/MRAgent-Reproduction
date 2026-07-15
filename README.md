@@ -101,9 +101,31 @@ The original upstream repository is preserved as read-only `upstream`.
 
 ## Current LoCoMo Core Protocol
 
-The current primary experiment is the paper-aligned `LoCoMo-10 / 500 questions / cat1-4` protocol described in [docs/locomo_500q_ablation_protocol.md](docs/locomo_500q_ablation_protocol.md). It keeps the historical 100-question results as diagnostics but does not treat them as paper-comparable because their QA-model routing, tool budget, category set, and passive-baseline time metadata differ.
+The current primary experiment is the fixed `LoCoMo-10 / 500 questions` protocol in [docs/locomo_500q_ablation_protocol.md](docs/locomo_500q_ablation_protocol.md). It compares Full MRAgent, native RAG, GraphRAG, A-Mem, and Mem0 on 400 ordinary questions plus 100 separately reported adversarial questions. Oracle is retained only as a historical diagnostic and is not a main baseline.
 
-Before the 500-question run, complete the fixed conv-26 `gate10` with Full MRAgent, native RAG, GraphRAG, Oracle, A-Mem and Mem0. The 10 questions cover cat1-4 and validate the full interface; they are not used for statistical claims. Use an explicit `--qa_model` for every method; `--re_model` now controls rewrite/keyword only. The MRAgent full run must set `--max_rounds 8 --max_tool_calls_per_round 10 --max_tool_calls 80`.
+Generate the committed manifests with:
+
+```bash
+python repro/build_main_experiment_manifests.py
+```
+
+Expected distributions are:
+
+- `locomo10_500q_main_seed42.json`: cat1/2/3/4/5 = `102/101/96/101/100`.
+- `locomo10_200q_ablation_seed42.json`: cat1/2 = `100/100` and every key is contained in the 500-question manifest.
+
+The graph/retrieval ablation uses two explicit switches instead of approximating no-reasoning with one LLM round:
+
+```text
+--memory_view ce|cte|ctc
+--retrieval_mode passive|active
+```
+
+`passive` performs one deterministic graph read and no agent tool loop. `active` uses the original multi-round tool-calling loop. Every result row records both settings and the initial context size. Run the five-mode 10-question interface gate before the 200-question ablation.
+
+The external A-Mem and Mem0 conv-26 gate has completed 10/10 and verifies only engineering readiness, not statistical performance. The next server work is listed in [docs/locomo_gate10_to_500_handoff.md](docs/locomo_gate10_to_500_handoff.md): strict-ablation gate, two 250-question main checkpoints, 200-question ablation, paired bootstrap comparison, and full MRAgent judged-error attribution.
+
+The proposed CBR/soft-Q retrieval-path module is deliberately separated from this validation. Its leakage controls, case schema, pretraining idea, and future experiment sequence are in [docs/mragent_cbr_qlearning_module_plan.md](docs/mragent_cbr_qlearning_module_plan.md).
 
 ### External baseline adapters
 

@@ -290,6 +290,7 @@ class LLM:
         self.model = config.MODEL
         # metrics instrumentation
         self.last_tool_calls = 0
+        self.last_reasoning_rounds = 0
         self._current_stage = None  # set by agent: "rewrite" / "keyword" / "qa"
 
     def chat_with_tool(
@@ -436,6 +437,7 @@ class LLM:
 
         # -------- multi-round loop: assistant -> (tools) -> assistant --------
         for round_id in range(1, max_rounds + 1):
+            self.last_reasoning_rounds = round_id
             # 1) get the model reply (collect the full message before executing any tool_call)
 
             if round_id == max_rounds:
@@ -462,9 +464,11 @@ class LLM:
                 **_extra
             )
             if comp == "400":
+                self.last_tool_calls = tool_calls_used
                 return "no information available", []
             if comp is None or not getattr(comp, "choices", None):
                 logger.warning(f"LLM returned empty/None choices at round {round_id}, treating as no answer.")
+                self.last_tool_calls = tool_calls_used
                 return "no information available", []
             msg = comp.choices[0].message.model_dump()
             messages.append(msg)

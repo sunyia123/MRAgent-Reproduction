@@ -12,6 +12,7 @@ from common import config
 from llm.controller import LLM
 from memory.controller import MemoryController
 from memory.system import MemorySystem, KeyNode, EpisodeEvent, Link
+from agent.ablation import disabled_tools_for_view, support_ids_from_payload, uses_content, uses_tags
 from agent.tools import TOOLS, ToolBridge
 import logging
 logger = logging.getLogger(__name__)
@@ -20,11 +21,12 @@ class Agent:
         self.llm = llm
         self.memory = memory_system
         self.memory_controller = memory_controller
+        disabled_tools = disabled_tools_for_view(config.MEMORY_VIEW, config.DISABLED_TOOLS)
         self.tools = [
             tool for tool in TOOLS
-            if tool["function"]["name"] not in config.DISABLED_TOOLS
+            if tool["function"]["name"] not in disabled_tools
         ]
-        self.tool_bridge = ToolBridge(memory_controller, config.DISABLED_TOOLS)
+        self.tool_bridge = ToolBridge(memory_controller, disabled_tools)
 
         self.episode_link_num = 0
         self.tags = set()
@@ -45,6 +47,58 @@ class Agent:
             model=config.QA_MODEL,
             max_tokens=config.QA_MAX_TOKENS,
         )
+
+    def _chat_without_tools(self, user_obj: dict):
+        """Answer once from the already reconstructed context without graph navigation."""
+        answer = self.llm.chat_text(
+            messages=[
+                {"role": "system", "content": Prompts.ANSWER_SYSTEM_PROMPT_FINAL},
+                {"role": "user", "content": json.dumps(user_obj, ensure_ascii=False)},
+            ],
+            model=config.QA_MODEL,
+            max_tokens=config.QA_MAX_TOKENS,
+        )
+        if isinstance(answer, dict):
+            return str(answer.get("answer") or "no information available")
+        return str(answer or "no information available")
+
+    def _expand_passive_content(self, topic_texts, question_keys):
+        """Expose CTC content in one deterministic read, without agent tool calls."""
+        content = []
+        origin_ids = []
+        seen_origins = set()
+
+        for topic_text in topic_texts:
+            match = re.match(r"^(D\d+:t\d+):", str(topic_text))
+            if not match or match.group(1) not in self.memory.topic_dict:
+                continue
+            event_text, event_origins = self.memory_controller.query_topic_events(match.group(1))
+            content.append({"topic": str(topic_text), "events": json.loads(event_text)})
+            for origin_id in event_origins:
+                if origin_id not in seen_origins:
+                    seen_origins.add(origin_id)
+                    origin_ids.append(origin_id)
+
+        people = {person.lower(): person for person in self.memory.persona_list}
+        query_terms = []
+        for keyword in question_keys.get("keywords") or []:
+            query_terms.append(str(keyword.get("id", "")))
+            query_terms.extend(str(value) for value in keyword.get("alternatives") or [])
+        for term in query_terms:
+            person = people.get(term.lower())
+            if not person:
+                continue
+            aspects = []
+            for aspect in self.memory.persona_list[person].tag_list:
+                texts, aspect_origins = self.memory_controller.query_personal_aspect(person, aspect)
+                aspects.append({"aspect": aspect, "events": texts})
+                for origin_id in aspect_origins:
+                    if origin_id not in seen_origins:
+                        seen_origins.add(origin_id)
+                        origin_ids.append(origin_id)
+            content.append({"person": person, "aspects": aspects})
+
+        return content, origin_ids
 
     @staticmethod
     def question_format(dataset, qa):
@@ -402,13 +456,29 @@ class Agent:
         key_candidates = []
         key_tag_sentences = []
         key_tag_sentences_id = []
-        for s in question_keys.get("keywords"):
+        for s in question_keys.get("keywords") or []:
             # [fix] use the raw key (consistent with stored keys and qmap); lemmatize lowercases + stems,
             # which would mismatch the raw-stored keys (proper nouns / plurals / past tense missed).
             key = s["id"]
             tag = self.memory.get_tag_list(key)
             if len(tag) != 0:
-                if len(tag) > config.TAG_MAX:
+                if config.RETRIEVAL_MODE == "passive":
+                    selected_tags = tag[:config.TAG_LIMIT]
+                    key_candidates.append({"key": key, "tags": selected_tags})
+                    for selected_tag in selected_tags:
+                        text_queried, origin_ids, _ = self.memory_controller.event_by_tag(
+                            key, selected_tag, "passive one-shot ablation")
+                        selected_sentences = []
+                        for origin_id, text in zip(origin_ids, text_queried):
+                            if origin_id in queried_similar_sentence_ids:
+                                continue
+                            selected_sentences.append(text)
+                            queried_similar_sentence_ids.append(origin_id)
+                            key_tag_sentences_id.append(origin_id)
+                        if selected_sentences:
+                            key_tag_sentences.append(
+                                f"key:{key},tag:{selected_tag}:{selected_sentences}")
+                elif len(tag) > config.TAG_MAX:
                     ans_input_tag = {
                         "question": question,
                         "keyword": key,
@@ -468,7 +538,10 @@ class Agent:
         self.schema_retries = 0
         self.forced_accepts = 0
         self.llm.last_tool_calls = 0
+        self.llm.last_reasoning_rounds = 0
         self.tool_bridge.reset_trace()
+        initial_support_ids = []
+        passive_content = []
         self.memory_controller.question_emb = question_emb
         question_keys = self.extract_question_keys(question)
         self.memory_controller.set_queried_keywords(question_keys.get("keywords"))
@@ -538,23 +611,38 @@ class Agent:
                     deduplicated_embs.append(top_embs[idx])
             top_ids, top_texts, top_embs = deduplicated_ids, deduplicated_texts, deduplicated_embs
 
-            top_topic_texts = self.select_topic(question_emb)
+            top_topic_texts = self.select_topic(question_emb) if uses_content(config.MEMORY_VIEW) else []
 
             if len(top_ids) > config.K2:
-                top_ids, top_embs, top_texts = self.select_finegrained_sentence(question, question_emb, top_texts, top_ids, top_embs)
-                top_ids2, top_embs2, top_texts2 = self.select_finegrained_sentence_sort(question, question_emb, top_texts, top_ids, top_embs)
-                all_ids = top_ids + top_ids2
-                all_texts = top_texts + top_texts2
+                if config.RETRIEVAL_MODE == "passive":
+                    top_embs = np.vstack(top_embs)
+                    top_ids, _, top_embs, top_texts = topk_answers_by_similarity(
+                        question_emb, top_embs, top_ids, k=config.K2, answer_texts=top_texts)
+                else:
+                    top_ids, top_embs, top_texts = self.select_finegrained_sentence(question, question_emb, top_texts, top_ids, top_embs)
+                    top_ids2, top_embs2, top_texts2 = self.select_finegrained_sentence_sort(question, question_emb, top_texts, top_ids, top_embs)
+                    all_ids = top_ids + top_ids2
+                    all_texts = top_texts + top_texts2
 
-                # dedup via dict (key = id), keeping the first occurrence
-                merged = {}
-                for i, t in zip(all_ids, all_texts):
-                    merged.setdefault(i, t)
-                top_ids = list(merged.keys())
-                top_texts = list(merged.values())
+                    # dedup via dict (key = id), keeping the first occurrence
+                    merged = {}
+                    for i, t in zip(all_ids, all_texts):
+                        merged.setdefault(i, t)
+                    top_ids = list(merged.keys())
+                    top_texts = list(merged.values())
 
             queried_similar_sentence_ids = self.extract_id_prefixes(top_ids)
-            key_candidates, _, key_tag_sentences = self.select_key_tag(question,question_keys,queried_similar_sentence_ids)
+            if uses_tags(config.MEMORY_VIEW):
+                key_candidates, key_tag_ids, key_tag_sentences = self.select_key_tag(
+                    question, question_keys, queried_similar_sentence_ids)
+            else:
+                key_candidates, key_tag_ids, key_tag_sentences = [], [], []
+            initial_support_ids = self.extract_id_prefixes(top_ids + key_tag_ids)
+
+            if config.RETRIEVAL_MODE == "passive" and uses_content(config.MEMORY_VIEW):
+                passive_content, passive_content_ids = self._expand_passive_content(
+                    top_topic_texts, question_keys)
+                initial_support_ids.extend(passive_content_ids)
 
             self.memory_controller.set_queried_events(top_ids)
             ans_input = {
@@ -562,8 +650,10 @@ class Agent:
                 "key_sentences": top_texts,
                 "keys_candidates": key_candidates,
                 "key_tag_sentences": key_tag_sentences,
-                "similar_topic": top_topic_texts
+                "similar_topic": top_topic_texts,
             }
+            if passive_content:
+                ans_input["passive_content"] = passive_content
             # inject current_date (=question_date) on the main path as the "now" anchor for temporal questions
             if lm_current_date:
                 ans_input["current_date"] = lm_current_date
@@ -579,17 +669,26 @@ class Agent:
             ans_input["question"] = ans_input["question"] + (" No extra explanations in 'answer'. Give reasons with original text in 'reason'. ")
         # LM uses the LM ANSWER system prompt (how-many/temporal rules + tool navigation); locomo uses the default one
         _answer_prompt = Prompts.ANSWER_SYSTEM_TOOL_PROMPT_LM if config.dataset == "LM" else Prompts.ANSWER_SYSTEM_TOOL_PROMPT
-        ans_messages, evidence_support = self._chat_with_tools(
-            _answer_prompt, ans_input, category)
-        support_origin = self.memory.get_support_origin(evidence_support)
+        if config.RETRIEVAL_MODE == "passive":
+            ans_messages = self._chat_without_tools(ans_input)
+            support_origin = list(dict.fromkeys(
+                initial_support_ids or support_ids_from_payload(ans_input)))
+        else:
+            ans_messages, evidence_support = self._chat_with_tools(
+                _answer_prompt, ans_input, category)
+            support_origin = self.memory.get_support_origin(evidence_support)
 
         # store per-question metrics on the agent for the caller to read
         self._last_question_metrics = {
             "tool_calls": self.llm.last_tool_calls,
+            "reasoning_rounds": self.llm.last_reasoning_rounds,
             "schema_retries": self.schema_retries,
             "forced_accepts": self.forced_accepts,
             "runtime_sec": round(_time.time() - _t_start, 2),
             "tool_trace": self.tool_bridge.trace,
+            "memory_view": config.MEMORY_VIEW,
+            "retrieval_mode": config.RETRIEVAL_MODE,
+            "initial_context_units": len(set(initial_support_ids)),
         }
         return ans_messages, support_origin
 

@@ -24,6 +24,18 @@ parser.add_argument("--max_rounds", type=int, default=None, help="Override the m
 parser.add_argument("--max_tool_calls", type=int, default=None, help="Override the total MRAgent tool-call budget for ablations")
 parser.add_argument("--max_tool_calls_per_round", type=int, default=None, help="Override the per-round MRAgent tool-call budget")
 parser.add_argument("--disabled_tools", type=str, default="", help="Comma-separated tool names disabled for an ablation")
+parser.add_argument(
+    "--memory_view",
+    choices=("ce", "cte", "ctc"),
+    default="ctc",
+    help="Graph view for ablation: cue-episode, cue-tag-episode, or full cue-tag-content",
+)
+parser.add_argument(
+    "--retrieval_mode",
+    choices=("active", "passive"),
+    default="active",
+    help="Active multi-round graph traversal or passive one-shot graph access",
+)
 
 # parse_known_args (not parse_args) so importing this module under a foreign argv
 # (pytest, notebooks, helper scripts) does not crash on unrecognized arguments.
@@ -105,6 +117,8 @@ if args.sample_ids:
         SAMPLE_IDS.append(_sid if _sid.startswith("conv-") else f"conv-{_sid}")
 SUBSET_MANIFEST = args.subset_manifest
 DISABLED_TOOLS = frozenset(name.strip() for name in args.disabled_tools.split(",") if name.strip())
+MEMORY_VIEW = args.memory_view
+RETRIEVAL_MODE = args.retrieval_mode
 
 dataset = args.data
 DATASET = dataset
