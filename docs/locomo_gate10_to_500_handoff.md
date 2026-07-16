@@ -11,9 +11,9 @@
 - A-Mem：54/500；Mem0：145/500；
 - CTE active：40/200；CTC active：60/200；
 - 三个主方法的 Judge 文件均为 0 字节；
-- 主实验统一比较报告、逐题 CSV、Full MRAgent 5 个执行 ERROR 的原始证据和全量判错归因。
+- 主实验逐题 CSV、非空 Judge 和全量判错归因；5 个执行 ERROR 已有摘要 trace，但仍缺 request-linked 原始 prompt/response/retry。
 
-严格审计与已算出的中期指标见 `reports/locomo_main500_interim_audit_20260716.md`。后续从现有 checkpoint 续跑，不删除已有结果、不重建已完成 cache。新增逐题结果、Judge 和脱敏 trace 已由 `.gitignore` 精确放行；完整 raw API 日志和运行日志继续只保存在服务器。
+严格审计与已算出的中期指标见 `reports/locomo_main500_interim_audit_20260716.md`。后续从现有 checkpoint 续跑，不删除已有结果、不重建已完成 cache。新增逐题结果、Judge 和脱敏 trace 已由 `.gitignore` 精确放行；完整 raw API 日志和运行日志继续只保存在服务器。当前 trace 中名为 `raw_prompts/raw_responses` 的文件仍是日志摘要，不得把它们报告为完整原始调用。
 
 ## 1. 交接目标
 

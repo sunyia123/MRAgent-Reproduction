@@ -2,7 +2,7 @@
 
 更新时间：2026-07-16  
 审计分支基线：`exp/20260716-gate10-500q-main-results`  
-审计提交：`3845cb77e3775e576e091a5103272eb840e2e881`  
+审计提交：`a4e59fe8715bf58ed93f6fc663a8a8170f756589`
 实验协议：`docs/locomo_500q_ablation_protocol.md`
 
 ## 1. 审计结论
@@ -12,8 +12,8 @@
 - 500 题主实验的 Full MRAgent、RAG、GraphRAG 已完整提交，逐题键对齐，无重复或额外行。
 - A-Mem 仅完成 54/500，Mem0 仅完成 145/500，不能进入五方法公平比较。
 - 200 题被动消融已完整；两组主动消融分别只完成 40/200 和 60/200。
-- 三个主方法的 Judge 文件在服务器清单中均为 0 字节；统一 Judge、逐题对比表、正式置信区间报告和 MRAgent 全量 badcase 归因尚未提交。
-- Full MRAgent 有 5 个执行级 `ERROR`，但对应 raw prompt、raw response、retry/error 和阶段定位尚未进入仓库，因此当前不能给出真实根因。
+- 三个主方法的 Judge 文件在服务器清单中均为 0 字节；统一 Judge 和基于 Judge 的全量 badcase 归因尚未完成。
+- Full MRAgent 的 5 个执行级 `ERROR` 已提交摘要 trace。代码与日志可以确认它们都发生在初始 tag-score 排序，但上传的 raw prompt/response 仍是占位摘要，不是可按 request id 串联的原始调用记录。
 
 因此，目前已有较强的中期信号支持“主动图搜索优于被动检索”，但还不足以宣称 MRAgent 的每个组成机制都已被独立验证，也不足以完成与 A-Mem、Mem0 的正式比较。
 
@@ -101,15 +101,29 @@ A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 
 
 ## 6. Full MRAgent 的 5 个执行错误
 
-| Sample | 题号（1-based） | 类别 | 问题 | 当前可确认阶段 |
+| Sample | 题号 | 类别 | 直接异常 | 证据支持的原因 |
 |---|---:|---:|---|---|
-| conv-41 | 54 | 2 | When did John help renovate his hometown community center? | 未进入 agent loop |
-| conv-43 | 68 | 3 | What would be a good hobby related to his travel dreams for Tim to pick up? | 未进入 agent loop |
-| conv-44 | 29 | 1 | What is something that Audrey often dresses up her dogs with? | 未进入 agent loop |
-| conv-47 | 190 | 5 | What is the name of James's cousin's dog? | 未进入 agent loop |
-| conv-48 | 24 | 3 | Why did Jolene sometimes put off doing yoga? | 未进入 agent loop |
+| conv-41 | 54 | 2 | `'str' object has no attribute 'get'` | 3 次 JSON 解析失败后返回 raw string |
+| conv-43 | 68 | 3 | `'str' object has no attribute 'get'` | 3 次 JSON 解析失败后返回 raw string |
+| conv-44 | 29 | 1 | `'list' object has no attribute 'get'` | JSON 根类型为 list；缺完整 traceback，无法确定具体 caller |
+| conv-47 | 190 | 5 | `'str' object has no attribute 'get'` | 3 次 JSON 解析失败后返回 raw string |
+| conv-48 | 24 | 3 | `'str' object has no attribute 'get'` | 3 次 JSON 解析失败后返回 raw string |
 
-五行均为 `tool_calls=0`、`runtime_sec=0`。这只能证明失败发生在 agent loop 之前或错误被上层统一吞并，不能据此猜测是 timeout、JSON parse、问题键抽取还是数据错误。服务器 manifest 显示本轮 raw API 日志存在，但 108.7 MB 的全量文件未提交。应从它和主日志中抽取这 5 题的 request id、raw prompt、raw response、finish reason、usage、每次 retry 和原始异常，形成脱敏逐题 trace。
+其中四题可以由日志中的 `tag_scores` 输出头和解析警告定位到 `Agent.select_key_tag()`：该阶段调用 `chat_text()` 生成 `{"keyword": ..., "tag_scores": {...}}`，随后直接执行 `key_out.get("tag_scores")`。`chat_text()` 在 3 次解析失败后按当前策略返回 raw string，导致 `.get()` 崩溃。`conv-44 Q029` 只保留了 list 类型异常，没有原始响应和完整 traceback；它可能发生在 question-key 或 tag-score caller，不能进一步确定。五题都没有进入主 agent tool loop，因此 `tool_calls=0`。
+
+这不是 HTTP/API transport failure：现有日志片段显示请求返回 HTTP 200。更准确的共同根因是“结构化输出契约没有在调用边界执行”：`chat_text()` 允许返回任意 JSON 类型或 raw string，而下游 caller 假定必然得到 dict。
+
+### 6.1 Trace 完整性审计
+
+本次提交包含 500 行 manifest，5 个 ERROR 均标记 `has_trace=true`，并为每题提供五类文件。但是证据包只达到“摘要 trace”，没有达到此前约定的“完整 raw trace”：
+
+- `raw_prompts.jsonl` 没有 `request_id`、messages、model、max_tokens、temperature 或 response_format；
+- `raw_responses.jsonl` 没有原始 content、finish_reason、usage、reasoning_content 或 request_id；
+- `retry_log.jsonl` 没有 attempt 编号，`ts` 字段被错误写成异常文本；
+- 5 份 trace 都缺完整 traceback，4 份 `log_context` 混入了上一道题的日志；
+- 因此目前不能验证输出是否真的因 `max_tokens` 截断，也不能重建每一次失败重试的原始输出。
+
+当前已经足以定位代码缺陷和失败阶段，但不足以支持远端报告中的“模型输出被截断”这一更强结论。后者必须由 `finish_reason`、usage 和完整 response 证明。
 
 ## 7. 与协议的偏离和缺失产物
 
@@ -118,9 +132,10 @@ A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 
 | 五方法各 500 题 | A-Mem 54，Mem0 145 | 未完成 |
 | 五组消融各 200 题 | 两组 active 仅 40/60 | 未完成 |
 | 普通题 Judge | 三个主方法 Judge 文件均 0 字节 | 未完成 |
-| 主实验 Markdown/JSON/逐题 CSV | 未提交 | 未完成 |
-| MRAgent 全量判错归因 | 未提交；仅结果行可见 | 未完成 |
-| Full MRAgent 模型/thinking provenance | 结果行未记录 | 证据不足 |
+| 主实验 Markdown | 已提交三方法对比；JSON/逐题 CSV 仍缺 | 部分完成 |
+| 5 个 MRAgent 执行错误摘要 | 5/5 trace + 500 行 manifest | 已提交但 raw 证据不完整 |
+| MRAgent 全量判错归因 | Judge 尚未运行 | 未完成 |
+| Full MRAgent 模型/thinking provenance | trace 摘要记录 V4-Flash、thinking=false；无原始请求佐证 | 部分完成 |
 | 大体积 raw API 日志 | 服务器存在 | 正确地未直接提交 |
 
 服务器清单中的三个空 Judge 文件不能算“已生成”。空文件应保留现场并先做 2 题 Judge smoke，确认输出 schema、模型路由和断点写入后再跑全量。
@@ -142,8 +157,10 @@ A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 
 1. A-Mem 500/500、Mem0 500/500 的结果文件和完成度验证。
 2. CTE active 200/200、CTC active 200/200，同题键对齐。
 3. 非空 Judge 文件；先报告 2 题 smoke，再报告完整数量。
-4. `compare_main_experiment.py` 生成的 `.md/.json/.csv`，不得只给手写汇总。
-5. 5 个执行 ERROR 的脱敏 trace，以及所有 Judge 错题的自动归因和人工复核状态。
-6. Full MRAgent 的紧凑 provenance：实际 QA/embedding 模型、thinking、commit、manifest SHA256、RUN_ID。
+4. `compare_main_experiment.py` 生成的 `.json/.csv`；Markdown 已提交。
+5. 修复 tag-score schema 边界后只重跑这 5 个 ERROR，并保留修复前后逐题差异。
+6. 从 per-run raw API 日志重新抽取 5 题真实 request/response/retry；不得用 `note` 占位，也不得混入相邻题日志。
+7. 所有 Judge 错题的自动归因和人工复核状态。
+8. Full MRAgent 的紧凑 provenance：实际 QA/embedding 模型、thinking、commit、manifest SHA256、RUN_ID。
 
 完成上述项目后，才进入“核心改进是否 solid”的正式结论。当前可接受的表述是：Full MRAgent 相对 RAG/GraphRAG 的主效果已经得到 500 题支持，图内容视图的被动增益得到 200 题支持；主动检索的独立因果增益、外部 baseline 优势和语义 Judge 结果仍待完成。

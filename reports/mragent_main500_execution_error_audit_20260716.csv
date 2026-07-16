@@ -1,6 +1,6 @@
 sample,question_index_1based,question,category,failure_type,tool_calls,runtime_sec
 conv-41,54,When did John help renovate his hometown community center?,2,schema_parse_exhaustion,0,0
 conv-43,68,What would be a good hobby related to his travel dreams for Tim to pick up?,3,schema_parse_exhaustion,0,0
-conv-44,29,What is something that Audrey often dresses up her dogs with?,1,schema_parse_exhaustion,0,0
+conv-44,29,What is something that Audrey often dresses up her dogs with?,1,schema_type_mismatch,0,0
 conv-47,190,What is the name of James's cousin's dog?,5,schema_parse_exhaustion,0,0
 conv-48,24,Why did Jolene sometimes put off doing yoga?,3,schema_parse_exhaustion,0,0
