@@ -30,6 +30,26 @@
 
 主实验结果均包含 `sample` 和 `question_index`，可以做严格逐题配对。RAG 与 GraphRAG 行内记录的 QA 模型为 `deepseek-ai/DeepSeek-V4-Flash`；A-Mem/Mem0 provenance 记录了 V4-Flash、Qwen3-Embedding-4B 和 `enable_thinking=False`。Full MRAgent 行内没有保存 QA 模型、embedding 模型和 thinking 状态，仍需从本轮配置日志提取为紧凑 provenance，才能由 GitHub 独立验证同模型条件。
 
+### 2.1 缩写和实验变量
+
+| 缩写/设置 | 完整含义 | 当前代码中的可见记忆和行为 |
+|---|---|---|
+| CE | Cue-Episode，线索-事件 | query cue/key 直接检索 episode；禁用 tag 边和 topic/person content 工具 |
+| CTE | Cue-Tag-Episode，线索-标签-事件 | 在 CE 上加入 tag 层，可由 key/tag 找到 episode；禁用 topic/person content 工具 |
+| CTC | Cue-Tag-Content，线索-标签-内容 | 在 CTE 上再开放 topic event、person information、person aspect 等内容工具；episode 仍然可用 |
+| passive | 被动、一次性读取 | 仍执行问题 key 提取和固定初始检索，但不进入 agent tool loop，`tool_calls=0` |
+| active | 主动、多轮搜索 | 在初始检索后，由 LLM 根据当前状态选择图工具，最多 8 轮、总计 80 次工具调用 |
+| Full MRAgent | 完整方法 | CTC + active |
+
+五组消融是两个正交变量的组合，不是五种互不相关的方法：
+
+- `CTE passive - CE passive`：tag 层的增量作用；
+- `CTC passive - CTE passive`：topic/person content 层的增量作用；
+- `CTE active - CTE passive`：在 CTE 视图上，多轮主动搜索的作用；
+- `CTC active - CTC passive`：在完整 CTC 视图上，多轮主动搜索的作用。
+
+`passive` 不等于完全不调用 LLM，也不等于普通向量 RAG；它共享 MRAgent 的问题 key、图和初始上下文，只去掉多轮工具决策。因此它适合做 MRAgent 内部因果消融，而 RAG/GraphRAG 适合做外部检索范式对比。
+
 ## 3. 500 题主实验进度
 
 | 方法 | 完成 | ERROR | 状态 | 是否可正式比较 |
@@ -79,9 +99,46 @@ A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 
 
 两个区间均不跨 0。这是当前最扎实的中期证据：在同一批 10 个 conversation、同一批题目和已提交结果上，Full MRAgent 明显优于两种被动基线。不过这个差值同时混合了图表示、主动工具迭代、上下文预算和额外推理计算，不能直接解释为“主动搜索”单一机制的因果效果。
 
+这里的 95% CI 是“配对方法差值的不确定性区间”，不是单个方法分数的波动范围。计算时先对齐同一道题的 Full MRAgent 与 baseline F1，再以 conversation 为 cluster 有放回抽样，重复计算平均差值，取 bootstrap 分布的 2.5% 和 97.5% 分位数。按频率学派口径，它不表示“真实差值有 95% 概率在区间内”；更合适的解释是：若重复从类似 conversation 总体抽样并按同样程序构造区间，约 95% 的区间会覆盖总体差值。
+
+CI 不跨 0 表示当前 LoCoMo-10 上的优势对 conversation 重采样较稳定；跨 0 则不能排除无差异或反向差异。当前只有 10 个独立 conversation cluster，因此即使题目有 400 道，外推力度仍受 cluster 数限制。
+
+### 4.3 F1、Judge 和 Evidence hit 的区别
+
+- F1 衡量 prediction 与 gold answer 的词元重叠，便宜、确定、可复算，但会惩罚同义改写和长答案。
+- LLM Judge 读取 question、gold answer、prediction，判断语义是否正确，能识别同义表达，但受 judge 模型偏差、prompt 和随机性影响。
+- Evidence hit 只判断 gold evidence 是否进入最终检索上下文，衡量检索而不是答案生成。命中证据仍答错属于利用/推理问题；未命中但答对可能来自猜测或模型先验。
+- 类别 5 是不可回答/对抗题，当前按 `Not mentioned` 规则单列，不调用普通题 Judge。
+
+完整 500 题主实验中，每个方法需要 Judge 的是类别 1-4 共 400 题。五方法完成后共 2000 次 Judge；五组 200 题消融再需要 1000 次。完全相同的 question/gold/prediction 三元组可以按哈希复用，但不能只因题号相同就复制 Judge。
+
+当前 `eval/judge.py` 默认 judge 是 `openai/gpt-4o-mini`，且 `evaluate_reasoning.py` 会先删除旧 Judge 文件、没有断点续跑，也没有保存完整 judge raw response。用户当前没有 OpenAI/Claude/Gemini API，因此不能直接按默认配置全量运行。公开可验收方案应固定使用独立于回答模型的 `Qwen/Qwen3.5-397B-A17B` 作为文本 Judge，并明确标注它与论文 Judge 的差异；不建议让 DeepSeek-V4-Flash 自评自己的答案。
+
+全量 Judge 前应先修改 runner：显式传 `JUDGE_BASE_URL`、`JUDGE_MODEL`、`JUDGE_ENABLE_THINKING=0` 和较小输出上限；按 `sample + question_index` 断点续跑而不是删除旧文件；记录 model、prompt version、request id、content、finish_reason、usage、retry 和解析错误。先在每类抽题完成 smoke，确认每行都有唯一题目键和 0/1 label，再运行三个已完成主方法；A-Mem/Mem0 完成 500 题后再进入同一主表。
+
+runner 修复并通过 smoke 后，主实验的运行形态应为：
+
+```bash
+export JUDGE_BASE_URL=https://api.siliconflow.cn/v1
+export JUDGE_MODEL=Qwen/Qwen3.5-397B-A17B
+export JUDGE_ENABLE_THINKING=0
+# JUDGE_API_KEY 仅在服务器环境中设置，不写入命令、文档或 Git。
+
+for tag in mragent_500q_main rag_500q_main graphrag_500q_main; do
+  python eval/evaluate_reasoning.py \
+    --data locomo --model deepseek --file "$tag" --allfile
+done
+```
+
+验收不是“命令退出为 0”，而是每个已完成主方法得到 400 条普通题 Judge，题目键无缺失/重复，cat5 没有混入，三份文件均非空且可以由比较脚本读出 `judge_count=400`。A-Mem/Mem0 补齐后使用同一 judge 配置运行；消融五组使用 200 题 manifest 验证各 200 条。
+
 ## 5. 消融进度与当前含义
 
 10 题 gate 的五条路径均已跑通，只证明接口、memory view 和 active/passive 路由工作，不用于统计结论。
+
+消融只选 200 题是有意的成本/效力折中，不是从 500 题中挑“最容易提升”的题：它由固定 seed 从主实验子集中确定性抽取，包含 100 道多跳和 100 道时间推理，并在 10 个 conversation 间平衡。这两类最直接需要跨事件组合、时间定位和图路径探索，因而最适合检验图层与主动搜索。类别 3 主观开放、类别 4 多为单跳、类别 5 检验拒答，都不是本轮机制消融的首要对象。
+
+每个条件 200 题可以提供逐题配对信号，并把五组消融从 2500 次 QA 降为 1000 次 QA；但结论只能写成“对多跳和时间题有效”，不能外推到全部题型。更重要的是独立统计单位仍只有 10 个 conversation。若 200 题结果显示 active 增益稳定且 CI 不跨 0，再扩展到 400 道普通题验证泛化，比一开始把所有消融都跑满 500 更有效率。
 
 | 200 题消融 | 完成 | F1 | 证据命中 | 状态 |
 |---|---:|---:|---:|---|
@@ -124,6 +181,20 @@ A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 
 - 因此目前不能验证输出是否真的因 `max_tokens` 截断，也不能重建每一次失败重试的原始输出。
 
 当前已经足以定位代码缺陷和失败阶段，但不足以支持远端报告中的“模型输出被截断”这一更强结论。后者必须由 `finish_reason`、usage 和完整 response 证明。
+
+### 6.2 Schema 问题的修复方案
+
+只增加 `CHAT_TEXT_PARSE_MAX_ATTEMPTS` 或打开通用 `ENABLE_JSON_REPAIR` 不能根治问题：前者会重复生成同样的大对象，后者增加调用成本且可能改写 tag 分数。正确修复应放在结构化输出边界：
+
+1. 为 question-key 和 tag-score 分别定义 validator；tag-score 必须是 dict，且 `tag_scores` 必须是键为字符串、值为有限数值的 dict。
+2. `chat_text()` 不得在要求 JSON object 的 caller 中返回 raw string；解析或 schema 失败时抛出带 stage、request id 和 raw response 的 typed error，或进入显式 fallback。
+3. list、缺少 `tag_scores`、非法分数和截断字符串都算 schema failure，并计入 `_metrics.schema_retries`；当前内部三次解析没有反映到该指标，需要修正。
+4. 重试时使用同一 schema 和更短的错误反馈。若仍失败，采用确定性的安全 fallback，例如 embedding/string 预排序后的前 `TAG_LIMIT` 个 tag；必须记录 `forced_accept=true`，不能静默伪装成正常输出。
+5. tag 数量很大时，先用非生成式相似度预筛到固定候选数，再让 LLM rerank，可降低长 JSON 风险；这是检索策略变化，必须单独记录版本并做小规模回归，不与纯 bug fix 混为一谈。
+6. 增加单元测试覆盖：正确 dict、JSON list、缺字段、非法数值、截断 JSON、全部重试失败和 fallback；任何情况都不得再出现对 str/list 直接 `.get()`。
+7. 修复后只重跑当前 5 个 ERROR，保留修复前后逐题结果并重算主表。若修改了 tag 候选预筛策略，则需要在固定小样本回归后重新运行 Full MRAgent，而不能只替换 5 行。
+
+`response_format={"type":"json_object"}` 可以作为第一层约束，但不能替代本地 schema validation；OpenAI-compatible 服务仍可能返回错误根类型、截断文本或不满足业务字段的合法 JSON。
 
 ## 7. 与协议的偏离和缺失产物
 
