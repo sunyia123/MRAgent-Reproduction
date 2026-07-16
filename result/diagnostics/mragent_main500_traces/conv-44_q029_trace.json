@@ -1,0 +1,46 @@
+{
+  "sample": "conv-44",
+  "question_index": 28,
+  "question_index_1based": 29,
+  "question": "What is something that Audrey often dresses up her dogs with?",
+  "gold_answer": "Hats",
+  "gold_evidence": [
+    "D4:23",
+    "D4:25",
+    "D19:6"
+  ],
+  "prediction": "ERROR",
+  "prediction_context": [],
+  "failure_stage": "pre-agent (keyword/tag/embedding selection or answer_question init)",
+  "failure_type": "schema_parse_exhaustion",
+  "failure_detail": "'list' object has no attribute 'get'",
+  "metrics": {
+    "tool_calls": 0,
+    "schema_retries": 0,
+    "forced_accepts": 0,
+    "runtime_sec": 0
+  },
+  "model_config": {
+    "memory_view": "ctc",
+    "retrieval_mode": "active",
+    "max_rounds": 8,
+    "max_tool_calls_per_round": 10,
+    "max_tool_calls": 80,
+    "rewrite_model": "deepseek-ai/DeepSeek-V4-Flash",
+    "qa_model": "deepseek-ai/DeepSeek-V4-Flash",
+    "enable_thinking": false
+  },
+  "log_context": [
+    "[2026-07-16 00:21:42] [INFO] [llm.controller] ---------- input (round 3) ---------",
+    "[2026-07-16 00:21:45] [INFO] [httpx] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions \"HTTP/1.1 200 OK\"",
+    "[2026-07-16 00:21:45] [INFO] [llm.controller] ---------- output (round 3) ---------",
+    "[2026-07-16 00:21:45] [INFO] [llm.controller] {'content': \"Let me look at the events related to Audrey's cooking and recipes more closely.\", 'refusal': None, 'role': 'assistant', 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': [{'id': '019f66958e43c39ab9df10dbca9aab5e', 'function': {'arguments': '{\"event_id\": \"D10:13-2\"}', 'name': 'query_event_keywords'}, 'type': 'function', 'index': 0}, {'id': '019f66958e43c39ab9df10dbca9aab5f', 'function': {'arguments': '{\"event_id\": \"D10:25-3\"}', 'name': 'query_event_keywords'}, 'type': 'function', 'index': 1}]}",
+    "[2026-07-16 00:21:51] [INFO] [httpx] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions \"HTTP/1.1 200 OK\"",
+    "[2026-07-16 00:21:52] [ERROR] [__main__] question11 (orig idx 28) failed: 'list' object has no attribute 'get'",
+    "Traceback (most recent call last):"
+  ],
+  "attribution": {
+    "primary_cause": "execution/API/schema_failure",
+    "detail": "LLM chat_text returned non-dict type after 3 failed JSON parse attempts (CHAT_TEXT_PARSE_MAX_ATTEMPTS=3). The LLM output was truncated or malformed JSON."
+  }
+}
