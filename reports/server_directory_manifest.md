@@ -1,6 +1,6 @@
 # Server Directory Manifest
 
-Generated: `2026-07-15T19:13:35`
+Generated: `2026-07-16T10:59:55`
 Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 
 ## Scan Policy
@@ -10,7 +10,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 
 ## Summary
 
-- Files listed: `2719`
+- Files listed: `3123`
 
 ### Top-Level Counts
 
@@ -21,81 +21,85 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `.env` | 1 |
 | `.env.example` | 1 |
 | `.gitignore` | 1 |
+| `.nfs0000000018d522ab00006853` | 1 |
 | `README.md` | 1 |
 | `README_REPRODUCTION.md` | 1 |
-| `agent` | 3 |
+| `agent` | 4 |
 | `build_mragent_traces.py` | 1 |
 | `common` | 4 |
 | `compare_100q.py` | 1 |
-| `data` | 56 |
+| `data` | 74 |
 | `diagnose_rewrite.py` | 1 |
-| `docs` | 12 |
+| `docs` | 13 |
 | `eval` | 5 |
 | `eval_100q.py` | 1 |
 | `external` | 1817 |
 | `llm` | 4 |
-| `log` | 72 |
+| `log` | 147 |
 | `memory` | 3 |
 | `prompts` | 3 |
-| `reports` | 52 |
-| `repro` | 28 |
+| `reports` | 54 |
+| `repro` | 31 |
 | `requirements-external-baselines.txt` | 1 |
 | `requirements.txt` | 1 |
-| `result` | 642 |
+| `result` | 939 |
+| `result_judge_locomo_deepseek_graphrag_500q_main.jsonl` | 1 |
+| `result_judge_locomo_deepseek_mragent_500q_main.jsonl` | 1 |
+| `result_judge_locomo_deepseek_rag_500q_main.jsonl` | 1 |
 | `result_judge_locomo_deepseek_stratified.jsonl` | 1 |
 | `run.py` | 1 |
 | `run_stratified.py` | 1 |
-| `tests` | 1 |
+| `tests` | 4 |
 
 ### Suffix Counts
 
 | suffix | files |
 |---|---:|
-| `.jsonl` | 479 |
-| `.py` | 450 |
+| `.jsonl` | 590 |
+| `.json` | 466 |
+| `.py` | 457 |
 | `.ts` | 423 |
-| `.json` | 269 |
 | `.mdx` | 243 |
 | `.tsx` | 227 |
-| `.md` | 170 |
+| `.md` | 173 |
+| `.log` | 147 |
 | `.svg` | 83 |
-| `.log` | 72 |
 | `.png` | 54 |
-| `[no suffix]` | 50 |
+| `[no suffix]` | 54 |
 | `.yml` | 35 |
 | `.sh` | 30 |
 | `.js` | 16 |
 | `.yaml` | 16 |
 | `.css` | 12 |
-| `.pkl` | 11 |
+| `.pkl` | 12 |
 | `.ttf` | 9 |
 | `.txt` | 8 |
 | `.example` | 7 |
 | `.ipynb` | 7 |
 | `.jpg` | 7 |
 | `.mjs` | 6 |
+| `.db` | 4 |
 | `.html` | 4 |
 | `.jpeg` | 4 |
+| `.sqlite` | 4 |
 | `.ico` | 3 |
 | `.lock` | 3 |
 | `.ini` | 2 |
-| `.mako` | 2 |
-| `.toml` | 2 |
 
 ## Per-Sample Cache Summary
 
 | sample | sessions | rewrite | keyword | embedding | results | graph | logs |
 |---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| conv-26 | 19 | deepseek: 19/19 | deepseek: 19 lines | gpt_deepseek: 24205 KB | 9 files | 2 files | ❌ |
-| conv-30 | 19 | deepseek: 19/19<br>deepseek_vlm: 3/19 | deepseek: 19 lines | gpt_deepseek: 22605 KB | 15 files | 2 files | ❌ |
-| conv-41 | 32 | deepseek: 32/32 | deepseek: 32 lines | gpt_deepseek: 31970 KB | 7 files | 2 files | ❌ |
-| conv-42 | 29 | deepseek: 29/29 | deepseek: 29 lines | gpt_deepseek: 26462 KB | 7 files | 2 files | ❌ |
-| conv-43 | 29 | deepseek: 29/29 | deepseek: 29 lines | gpt_deepseek: 30561 KB | 7 files | 2 files | ❌ |
-| conv-44 | 28 | deepseek: 28/28 | deepseek: 28 lines | gpt_deepseek: 27296 KB | 7 files | 2 files | ❌ |
-| conv-47 | 31 | deepseek: 31/31 | deepseek: 31 lines | gpt_deepseek: 30129 KB | 7 files | 2 files | ❌ |
-| conv-48 | 30 | deepseek: 30/30 | deepseek: 30 lines | gpt_deepseek: 29104 KB | 7 files | 2 files | ❌ |
-| conv-49 | 25 | deepseek: 25/25 | deepseek: 25 lines | gpt_deepseek: 22268 KB | 7 files | 2 files | ❌ |
-| conv-50 | 30 | deepseek: 30/30 | deepseek: 30 lines | gpt_deepseek: 30753 KB | 7 files | 2 files | ❌ |
+| conv-26 | 19 | deepseek: 19/19 | deepseek: 19 lines | gpt_deepseek: 24205 KB | 24 files | 2 files | ❌ |
+| conv-30 | 19 | deepseek: 19/19<br>deepseek_vlm: 3/19 | deepseek: 19 lines | gpt_deepseek: 22605 KB | 24 files | 2 files | ❌ |
+| conv-41 | 32 | deepseek: 32/32 | deepseek: 32 lines | gpt_deepseek: 31970 KB | 15 files | 2 files | ❌ |
+| conv-42 | 29 | deepseek: 29/29 | deepseek: 29 lines | gpt_deepseek: 26462 KB | 13 files | 2 files | ❌ |
+| conv-43 | 29 | deepseek: 29/29 | deepseek: 29 lines | gpt_deepseek: 30561 KB | 13 files | 2 files | ❌ |
+| conv-44 | 28 | deepseek: 28/28 | deepseek: 28 lines | gpt_deepseek: 27296 KB | 13 files | 2 files | ❌ |
+| conv-47 | 31 | deepseek: 31/31 | deepseek: 31 lines | gpt_deepseek: 30129 KB | 13 files | 2 files | ❌ |
+| conv-48 | 30 | deepseek: 30/30 | deepseek: 30 lines | gpt_deepseek: 29104 KB | 13 files | 2 files | ❌ |
+| conv-49 | 25 | deepseek: 25/25 | deepseek: 25 lines | gpt_deepseek: 22268 KB | 13 files | 2 files | ❌ |
+| conv-50 | 30 | deepseek: 30/30 | deepseek: 30 lines | gpt_deepseek: 30753 KB | 13 files | 2 files | ❌ |
 
 ### Cache Completeness
 
@@ -122,21 +126,23 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `.env` | 403 | `2026-07-01T15:36:59` |
 | `.env.example` | 753 | `2026-07-07T19:50:07` |
 | `.gitignore` | 692 | `2026-07-15T18:57:31` |
-| `README.md` | 17061 | `2026-07-15T18:57:31` |
+| `.nfs0000000018d522ab00006853` | 0 | `2026-07-16T09:38:31` |
+| `README.md` | 18074 | `2026-07-15T20:23:36` |
 | `README_REPRODUCTION.md` | 2316 | `2026-07-01T22:25:26` |
 | `agent/__init__.py` | 0 | `2026-06-30T21:42:53` |
-| `agent/agent.py` | 45516 | `2026-07-15T10:22:42` |
+| `agent/ablation.py` | 1292 | `2026-07-15T20:23:36` |
+| `agent/agent.py` | 50858 | `2026-07-15T20:23:36` |
 | `agent/tools.py` | 6925 | `2026-07-15T10:22:42` |
 | `build_mragent_traces.py` | 19410 | `2026-07-15T10:22:42` |
 | `common/__init__.py` | 0 | `2026-06-30T21:42:53` |
-| `common/config.py` | 8961 | `2026-07-15T10:22:42` |
+| `common/config.py` | 9401 | `2026-07-15T20:23:36` |
 | `common/logging_utils.py` | 2885 | `2026-07-07T19:50:07` |
 | `common/utils.py` | 4472 | `2026-06-30T21:42:53` |
 | `compare_100q.py` | 8679 | `2026-07-08T23:58:47` |
 | `data/README.md` | 978 | `2026-07-02T11:20:10` |
 | `data/__init__.py` | 0 | `2026-06-30T21:42:53` |
 | `data/conversation_list_LM.json` | 34524611 | `2026-07-02T11:25:19` |
-| `data/conversation_list_locomo.json` | 948789 | `2026-07-15T17:21:46` |
+| `data/conversation_list_locomo.json` | 948789 | `2026-07-16T10:09:48` |
 | `data/dataset_LM.json` | 274933366 | `2026-07-02T11:25:06` |
 | `data/dataset_locomo.json` | 2805274 | `2026-06-30T21:42:53` |
 | `data/embed_rewrite.py` | 2943 | `2026-07-01T06:31:52` |
@@ -153,11 +159,27 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `data/locomo/embedding/gpt_deepseek/conv-49_embedding.pkl` | 22802188 | `2026-07-08T00:09:12` |
 | `data/locomo/embedding/gpt_deepseek/conv-50_embedding.pkl` | 31491121 | `2026-07-08T11:28:43` |
 | `data/locomo/external_cache/amem/conv-26_state.pkl` | 10496143 | `2026-07-15T17:15:00` |
+| `data/locomo/external_cache/amem/conv-30_state.pkl` | 5148884 | `2026-07-16T11:00:57` |
 | `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-26/history.db` | 167936 | `2026-07-15T18:28:13` |
 | `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-26/ingestion_progress.json` | 5769 | `2026-07-15T18:28:13` |
 | `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-26/qdrant/.lock` | 13 | `2026-07-15T17:21:47` |
 | `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-26/qdrant/collection/mragent_v4flash-qwen4b-v1_conv-26/storage.sqlite` | 9928704 | `2026-07-15T18:28:13` |
 | `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-26/qdrant/meta.json` | 575 | `2026-07-15T17:21:47` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-30/history.db` | 81920 | `2026-07-16T09:04:09` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-30/ingestion_progress.json` | 5084 | `2026-07-16T09:04:09` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-30/qdrant/.lock` | 13 | `2026-07-16T08:39:55` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-30/qdrant/collection/mragent_v4flash-qwen4b-v1_conv-30/storage.sqlite` | 3760128 | `2026-07-16T09:03:31` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-30/qdrant/meta.json` | 575 | `2026-07-16T08:39:55` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-41/history.db` | 151552 | `2026-07-16T10:16:47` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-41/ingestion_progress.json` | 9073 | `2026-07-16T10:16:47` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-41/qdrant/.lock` | 13 | `2026-07-16T09:06:36` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-41/qdrant/collection/mragent_v4flash-qwen4b-v1_conv-41/storage.sqlite` | 9035776 | `2026-07-16T10:16:47` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-41/qdrant/meta.json` | 575 | `2026-07-16T09:06:36` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-42/history.db` | 77824 | `2026-07-16T11:01:14` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-42/ingestion_progress.json` | 3751 | `2026-07-16T11:01:14` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-42/qdrant/.lock` | 13 | `2026-07-16T10:23:13` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-42/qdrant/collection/mragent_v4flash-qwen4b-v1_conv-42/storage.sqlite` | 3784704 | `2026-07-16T11:01:04` |
+| `data/locomo/external_cache/mem0/v4flash-qwen4b-v1/conv-42/qdrant/meta.json` | 575 | `2026-07-16T10:23:13` |
 | `data/locomo/keyword_deepseek/conv-26_keyword.json` | 105210 | `2026-07-08T01:23:05` |
 | `data/locomo/keyword_deepseek/conv-30_keyword.json` | 99767 | `2026-07-02T04:59:07` |
 | `data/locomo/keyword_deepseek/conv-41_keyword.json` | 144355 | `2026-07-08T16:03:14` |
@@ -183,11 +205,13 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `data/locomo/rewrite_deepseek/conv-50_rewrite.json` | 331546 | `2026-07-08T10:39:05` |
 | `data/locomo/rewrite_deepseek_vlm/conv-30_rewrite.json` | 38468 | `2026-07-03T10:07:25` |
 | `data/question_list_LM.json` | 182958 | `2026-07-02T11:25:19` |
-| `data/question_list_locomo.json` | 427821 | `2026-07-15T17:21:46` |
+| `data/question_list_locomo.json` | 427821 | `2026-07-16T10:09:48` |
 | `data/subsets/locomo10_100q_core_seed42.json` | 33824 | `2026-07-15T10:22:42` |
 | `data/subsets/locomo10_100q_seed42.json` | 32935 | `2026-07-06T22:57:31` |
+| `data/subsets/locomo10_200q_ablation_seed42.json` | 68849 | `2026-07-15T20:24:19` |
 | `data/subsets/locomo10_500q_allcats_seed42.json` | 166140 | `2026-07-15T10:22:42` |
 | `data/subsets/locomo10_500q_core_seed42.json` | 169569 | `2026-07-15T10:22:42` |
+| `data/subsets/locomo10_500q_main_seed42.json` | 168056 | `2026-07-15T20:24:19` |
 | `data/subsets/locomo_conv26_10q_core_seed42.json` | 3612 | `2026-07-15T10:22:42` |
 | `diagnose_rewrite.py` | 15057 | `2026-07-03T09:36:37` |
 | `docs/benchmark_reproduction_plan.md` | 9498 | `2026-07-02T11:20:10` |
@@ -197,9 +221,10 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `docs/goal.md` | 1545 | `2026-07-01T15:57:27` |
 | `docs/handoff.md` | 21161 | `2026-07-03T09:36:32` |
 | `docs/intermediate_artifact_checklist.md` | 10120 | `2026-07-07T19:50:07` |
-| `docs/locomo_500q_ablation_protocol.md` | 15701 | `2026-07-15T18:57:31` |
-| `docs/locomo_gate10_to_500_handoff.md` | 9993 | `2026-07-15T18:57:31` |
+| `docs/locomo_500q_ablation_protocol.md` | 12311 | `2026-07-15T20:23:36` |
+| `docs/locomo_gate10_to_500_handoff.md` | 5455 | `2026-07-15T20:23:36` |
 | `docs/medium_core_validation_handoff.md` | 16388 | `2026-07-15T10:22:42` |
+| `docs/mragent_cbr_qlearning_module_plan.md` | 4499 | `2026-07-15T20:23:36` |
 | `docs/next_iteration_handoff.md` | 8695 | `2026-07-06T22:13:14` |
 | `docs/reproduction_plan.md` | 8099 | `2026-07-01T15:57:27` |
 | `eval/__init__.py` | 0 | `2026-06-30T21:42:54` |
@@ -2026,66 +2051,139 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `external/mem0/tests/vector_stores/test_vertex_ai_vector_search.py` | 6125 | `2026-07-15T11:48:13` |
 | `external/mem0/tests/vector_stores/test_weaviate.py` | 9583 | `2026-07-15T11:48:13` |
 | `llm/__init__.py` | 0 | `2026-06-30T21:42:54` |
-| `llm/controller.py` | 31528 | `2026-07-15T10:22:42` |
+| `llm/controller.py` | 31727 | `2026-07-15T20:23:36` |
 | `llm/embeddings.py` | 6307 | `2026-07-07T19:50:07` |
 | `llm/rag_utils.py` | 1202 | `2026-06-30T21:42:54` |
 | `log/locomo/conv-26_deepseek_0.log` | 731 | `2026-07-07T19:39:47` |
 | `log/locomo/conv-26_deepseek_0_20260707_201858.log` | 929 | `2026-07-07T20:27:44` |
+| `log/locomo/conv-26_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T09:57:20` |
+| `log/locomo/conv-26_deepseek_ablation_200q_ctc_active_20260716_101111.log` | 310979 | `2026-07-16T10:25:58` |
+| `log/locomo/conv-26_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T09:57:27` |
+| `log/locomo/conv-26_deepseek_ablation_200q_cte_active_20260716_101110.log` | 290171 | `2026-07-16T10:25:51` |
+| `log/locomo/conv-26_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T09:58:14` |
+| `log/locomo/conv-26_deepseek_ablation_gate10_ce_passive_20260715_202507.log` | 5008 | `2026-07-15T20:25:34` |
+| `log/locomo/conv-26_deepseek_ablation_gate10_ctc_active_20260715_203220.log` | 119959 | `2026-07-15T20:42:28` |
+| `log/locomo/conv-26_deepseek_ablation_gate10_ctc_passive_20260715_202616.log` | 5010 | `2026-07-15T20:26:37` |
+| `log/locomo/conv-26_deepseek_ablation_gate10_cte_active_20260715_202653.log` | 124652 | `2026-07-15T20:32:02` |
+| `log/locomo/conv-26_deepseek_ablation_gate10_cte_passive_20260715_202547.log` | 5010 | `2026-07-15T20:26:12` |
 | `log/locomo/conv-26_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 142822 | `2026-07-08T18:34:26` |
 | `log/locomo/conv-26_deepseek_graphbuild_100q_conv26_graphbuild_v4flash_20260707_01.log` | 987 | `2026-07-07T20:58:37` |
 | `log/locomo/conv-26_deepseek_graphbuild_100q_conv26_graphbuild_v4flash_20260707_02.log` | 1103 | `2026-07-07T22:12:54` |
 | `log/locomo/conv-26_deepseek_graphbuild_100q_conv26_graphbuild_v4flash_no_think_20260707_01.log` | 2035 | `2026-07-07T22:49:25` |
 | `log/locomo/conv-26_deepseek_graphbuild_100q_conv26_graphbuild_v4flash_no_think_20260708_01.log` | 42526 | `2026-07-08T01:26:10` |
 | `log/locomo/conv-26_deepseek_mragent_100q.log` | 5874 | `2026-07-07T17:16:23` |
+| `log/locomo/conv-26_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 874888 | `2026-07-15T22:46:30` |
+| `log/locomo/conv-26_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 12378 | `2026-07-16T08:36:28` |
+| `log/locomo/conv-26_deepseek_rag_500q_main_rag_500q_main_20260716_020010.log` | 2538 | `2026-07-16T01:59:43` |
 | `log/locomo/conv-26_deepseek_rag_graphbuild_100q_20260708_222351.log` | 11613 | `2026-07-08T22:24:52` |
 | `log/locomo/conv-26_deepseek_rag_graphbuild_100q_20260708_225834.log` | 10983 | `2026-07-08T22:59:36` |
 | `log/locomo/conv-26_deepseek_rag_plain_100q_20260708_234623.log` | 2615 | `2026-07-08T23:46:12` |
+| `log/locomo/conv-30_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T09:58:28` |
+| `log/locomo/conv-30_deepseek_ablation_200q_ctc_active_20260716_101111.log` | 249704 | `2026-07-16T10:35:22` |
+| `log/locomo/conv-30_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T09:58:25` |
+| `log/locomo/conv-30_deepseek_ablation_200q_cte_active_20260716_101110.log` | 236811 | `2026-07-16T10:52:22` |
+| `log/locomo/conv-30_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T09:58:56` |
 | `log/locomo/conv-30_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 107934 | `2026-07-08T18:48:47` |
 | `log/locomo/conv-30_deepseek_graphbuild_100q_conv30_mragent_100q_20260708.log` | 26045 | `2026-07-08T18:12:36` |
+| `log/locomo/conv-30_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 521639 | `2026-07-15T23:04:29` |
+| `log/locomo/conv-30_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 9722 | `2026-07-16T08:37:34` |
 | `log/locomo/conv-30_deepseek_rag_graphbuild_100q_20260708_222351.log` | 12149 | `2026-07-08T22:25:52` |
 | `log/locomo/conv-30_deepseek_rag_graphbuild_100q_20260708_225834.log` | 12029 | `2026-07-08T23:00:56` |
 | `log/locomo/conv-30_deepseek_rag_plain_100q_20260708_234623.log` | 2701 | `2026-07-08T23:46:34` |
+| `log/locomo/conv-41_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T09:59:11` |
+| `log/locomo/conv-41_deepseek_ablation_200q_ctc_active_20260716_101111.log` | 417764 | `2026-07-16T10:51:58` |
+| `log/locomo/conv-41_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T09:59:14` |
+| `log/locomo/conv-41_deepseek_ablation_200q_cte_active_20260716_101110.log` | 286462 | `2026-07-16T11:01:23` |
+| `log/locomo/conv-41_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T09:59:55` |
 | `log/locomo/conv-41_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 238541 | `2026-07-08T19:12:47` |
 | `log/locomo/conv-41_deepseek_graphbuild_100q_conv41_graphbuild_v4flash_no_think_20260708_01.log` | 52577 | `2026-07-08T16:08:16` |
+| `log/locomo/conv-41_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 896991 | `2026-07-15T23:31:29` |
+| `log/locomo/conv-41_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 11138 | `2026-07-16T08:38:43` |
 | `log/locomo/conv-41_deepseek_rag_graphbuild_100q_20260708_222351.log` | 11800 | `2026-07-08T22:27:15` |
 | `log/locomo/conv-41_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11305 | `2026-07-08T23:01:51` |
 | `log/locomo/conv-41_deepseek_rag_plain_100q_20260708_234623.log` | 2641 | `2026-07-08T23:46:50` |
+| `log/locomo/conv-42_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T10:00:19` |
+| `log/locomo/conv-42_deepseek_ablation_200q_ctc_active_20260716_101111.log` | 269572 | `2026-07-16T11:01:18` |
+| `log/locomo/conv-42_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T10:00:42` |
+| `log/locomo/conv-42_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T10:02:10` |
 | `log/locomo/conv-42_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 171205 | `2026-07-08T19:30:41` |
 | `log/locomo/conv-42_deepseek_graphbuild_100q_conv42_graphbuild_v4flash_no_think_20260708_01.log` | 49315 | `2026-07-08T05:20:33` |
+| `log/locomo/conv-42_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 823430 | `2026-07-15T23:56:06` |
+| `log/locomo/conv-42_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 11699 | `2026-07-16T08:40:30` |
 | `log/locomo/conv-42_deepseek_rag_graphbuild_100q_20260708_222351.log` | 11627 | `2026-07-08T22:28:17` |
 | `log/locomo/conv-42_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11128 | `2026-07-08T23:02:56` |
 | `log/locomo/conv-42_deepseek_rag_plain_100q_20260708_234623.log` | 2598 | `2026-07-08T23:47:05` |
+| `log/locomo/conv-43_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T10:03:00` |
+| `log/locomo/conv-43_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T10:02:23` |
+| `log/locomo/conv-43_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T10:03:53` |
 | `log/locomo/conv-43_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 207780 | `2026-07-08T19:52:28` |
 | `log/locomo/conv-43_deepseek_graphbuild_100q_conv43_graphbuild_v4flash_no_think_20260708_01.log` | 51040 | `2026-07-08T07:14:45` |
+| `log/locomo/conv-43_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 952390 | `2026-07-16T00:19:11` |
+| `log/locomo/conv-43_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 12395 | `2026-07-16T08:42:34` |
 | `log/locomo/conv-43_deepseek_rag_graphbuild_100q_20260708_222351.log` | 12738 | `2026-07-08T22:29:23` |
 | `log/locomo/conv-43_deepseek_rag_graphbuild_100q_20260708_225834.log` | 12313 | `2026-07-08T23:03:57` |
 | `log/locomo/conv-43_deepseek_rag_plain_100q_20260708_234623.log` | 2784 | `2026-07-08T23:47:37` |
+| `log/locomo/conv-44_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T10:05:01` |
+| `log/locomo/conv-44_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T10:03:37` |
+| `log/locomo/conv-44_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T10:05:38` |
 | `log/locomo/conv-44_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 195031 | `2026-07-08T20:33:01` |
 | `log/locomo/conv-44_deepseek_graphbuild_100q_conv44_graphbuild_v4flash_no_think_20260708_01.log` | 49236 | `2026-07-08T03:31:15` |
+| `log/locomo/conv-44_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 829215 | `2026-07-16T00:42:55` |
+| `log/locomo/conv-44_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 10741 | `2026-07-16T08:43:59` |
 | `log/locomo/conv-44_deepseek_rag_graphbuild_100q_20260708_222351.log` | 12174 | `2026-07-08T22:30:24` |
 | `log/locomo/conv-44_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11446 | `2026-07-08T23:04:52` |
 | `log/locomo/conv-44_deepseek_rag_plain_100q_20260708_234623.log` | 2616 | `2026-07-08T23:47:58` |
+| `log/locomo/conv-47_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T10:06:05` |
+| `log/locomo/conv-47_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T10:05:27` |
+| `log/locomo/conv-47_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T10:06:23` |
 | `log/locomo/conv-47_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 186278 | `2026-07-08T21:04:28` |
 | `log/locomo/conv-47_deepseek_graphbuild_100q_conv47_graphbuild_v4flash_no_think_20260708_01.log` | 51719 | `2026-07-08T13:52:24` |
+| `log/locomo/conv-47_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 976178 | `2026-07-16T01:04:01` |
+| `log/locomo/conv-47_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 12089 | `2026-07-16T08:46:22` |
 | `log/locomo/conv-47_deepseek_rag_graphbuild_100q_20260708_222351.log` | 11841 | `2026-07-08T22:31:26` |
 | `log/locomo/conv-47_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11492 | `2026-07-08T23:05:45` |
 | `log/locomo/conv-47_deepseek_rag_plain_100q_20260708_234623.log` | 2623 | `2026-07-08T23:48:14` |
+| `log/locomo/conv-48_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T10:06:53` |
+| `log/locomo/conv-48_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T10:06:52` |
+| `log/locomo/conv-48_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T10:07:21` |
 | `log/locomo/conv-48_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 192101 | `2026-07-08T21:36:10` |
 | `log/locomo/conv-48_deepseek_graphbuild_100q_conv48_graphbuild_v4flash_no_think_20260708_01.log` | 51581 | `2026-07-08T09:29:58` |
+| `log/locomo/conv-48_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 775722 | `2026-07-16T01:26:37` |
+| `log/locomo/conv-48_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 11565 | `2026-07-16T08:48:20` |
 | `log/locomo/conv-48_deepseek_rag_graphbuild_100q_20260708_222351.log` | 11948 | `2026-07-08T22:32:27` |
 | `log/locomo/conv-48_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11451 | `2026-07-08T23:06:42` |
 | `log/locomo/conv-48_deepseek_rag_plain_100q_20260708_234623.log` | 2635 | `2026-07-08T23:48:45` |
+| `log/locomo/conv-49_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8352 | `2026-07-16T10:07:52` |
+| `log/locomo/conv-49_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8354 | `2026-07-16T10:07:54` |
+| `log/locomo/conv-49_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8354 | `2026-07-16T10:08:23` |
 | `log/locomo/conv-49_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 130813 | `2026-07-08T21:54:04` |
 | `log/locomo/conv-49_deepseek_graphbuild_100q_conv49_graphbuild_v4flash_no_think_20260707_01.log` | 45323 | `2026-07-08T00:10:19` |
+| `log/locomo/conv-49_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 751042 | `2026-07-16T01:41:18` |
+| `log/locomo/conv-49_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 12394 | `2026-07-16T08:50:51` |
 | `log/locomo/conv-49_deepseek_rag_graphbuild_100q_20260708_222351.log` | 12029 | `2026-07-08T22:33:24` |
 | `log/locomo/conv-49_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11505 | `2026-07-08T23:07:43` |
 | `log/locomo/conv-49_deepseek_rag_plain_100q_20260708_234623.log` | 2610 | `2026-07-08T23:49:08` |
+| `log/locomo/conv-50_deepseek_ablation_200q_ce_passive_20260716_095639.log` | 8354 | `2026-07-16T10:09:00` |
+| `log/locomo/conv-50_deepseek_ablation_200q_ctc_passive_20260716_095652.log` | 8356 | `2026-07-16T10:08:47` |
+| `log/locomo/conv-50_deepseek_ablation_200q_cte_passive_20260716_095650.log` | 8356 | `2026-07-16T10:09:27` |
 | `log/locomo/conv-50_deepseek_graphbuild_100q_all10_mragent_100q_fix_20260708.log` | 191657 | `2026-07-08T22:23:01` |
 | `log/locomo/conv-50_deepseek_graphbuild_100q_conv50_graphbuild_v4flash_no_think_20260708_01.log` | 51437 | `2026-07-08T11:29:39` |
+| `log/locomo/conv-50_deepseek_mragent_500q_main_mragent_500q_main_20260715_220124.log` | 814826 | `2026-07-16T01:58:58` |
+| `log/locomo/conv-50_deepseek_rag_500q_main_rag_500q_20260716_083452.log` | 10793 | `2026-07-16T08:52:53` |
 | `log/locomo/conv-50_deepseek_rag_graphbuild_100q_20260708_222351.log` | 11983 | `2026-07-08T22:34:28` |
 | `log/locomo/conv-50_deepseek_rag_graphbuild_100q_20260708_225834.log` | 11468 | `2026-07-08T23:08:43` |
 | `log/locomo/conv-50_deepseek_rag_plain_100q_20260708_234623.log` | 2643 | `2026-07-08T23:49:27` |
 | `log/locomo/runs/20260707_201858_deepseek_0.log` | 5857 | `2026-07-07T20:27:44` |
+| `log/locomo/runs/20260715_202507_deepseek_ablation_gate10_ce_passive.log` | 10452 | `2026-07-15T20:25:34` |
+| `log/locomo/runs/20260715_202547_deepseek_ablation_gate10_cte_passive.log` | 10460 | `2026-07-15T20:26:12` |
+| `log/locomo/runs/20260715_202616_deepseek_ablation_gate10_ctc_passive.log` | 10460 | `2026-07-15T20:26:37` |
+| `log/locomo/runs/20260715_202653_deepseek_ablation_gate10_cte_active.log` | 130096 | `2026-07-15T20:32:02` |
+| `log/locomo/runs/20260715_203220_deepseek_ablation_gate10_ctc_active.log` | 125403 | `2026-07-15T20:42:28` |
+| `log/locomo/runs/20260716_095639_deepseek_ablation_200q_ce_passive.log` | 90780 | `2026-07-16T10:09:00` |
+| `log/locomo/runs/20260716_095650_deepseek_ablation_200q_cte_passive.log` | 90806 | `2026-07-16T10:09:27` |
+| `log/locomo/runs/20260716_095652_deepseek_ablation_200q_ctc_passive.log` | 90806 | `2026-07-16T10:08:47` |
+| `log/locomo/runs/20260716_101110_deepseek_ablation_200q_cte_active.log` | 819105 | `2026-07-16T11:01:23` |
+| `log/locomo/runs/20260716_101111_deepseek_ablation_200q_ctc_active.log` | 1253896 | `2026-07-16T11:01:18` |
 | `log/locomo/runs/all10_mragent_100q_fix_20260708_deepseek_graphbuild_100q.log` | 1772883 | `2026-07-08T22:23:01` |
 | `log/locomo/runs/conv26_graphbuild_v4flash_20260707_01_deepseek_graphbuild_100q.log` | 5403 | `2026-07-07T20:58:37` |
 | `log/locomo/runs/conv26_graphbuild_v4flash_20260707_02_deepseek_graphbuild_100q.log` | 5858 | `2026-07-07T22:12:54` |
@@ -2101,6 +2199,8 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `log/locomo/runs/conv49_graphbuild_v4flash_20260707_01_deepseek_graphbuild_100q.log` | 5645 | `2026-07-07T21:17:23` |
 | `log/locomo/runs/conv49_graphbuild_v4flash_no_think_20260707_01_deepseek_graphbuild_100q.log` | 50379 | `2026-07-08T00:10:19` |
 | `log/locomo/runs/conv50_graphbuild_v4flash_no_think_20260708_01_deepseek_graphbuild_100q.log` | 56493 | `2026-07-08T11:29:39` |
+| `log/locomo/runs/mragent_500q_main_20260715_220124_deepseek_mragent_500q_main.log` | 8225376 | `2026-07-16T01:58:58` |
+| `log/locomo/runs/rag_500q_main_20260716_020010_deepseek_rag_500q_main.log` | 7943 | `2026-07-16T01:59:43` |
 | `memory/__init__.py` | 0 | `2026-06-30T21:42:54` |
 | `memory/controller.py` | 18135 | `2026-06-30T21:42:54` |
 | `memory/system.py` | 13817 | `2026-07-01T06:32:35` |
@@ -2120,9 +2220,11 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `reports/dataset_task_audit_locomo_20260706_server.md` | 1659 | `2026-07-06T14:47:09` |
 | `reports/diagnose_conv26_D9_20260707.md` | 6660 | `2026-07-07T16:04:22` |
 | `reports/experiment_status_20260707.md` | 6217 | `2026-07-07T18:58:21` |
+| `reports/external_baselines/amem_500q_main_provenance.md` | 690 | `2026-07-16T08:38:11` |
 | `reports/external_baselines/amem_gate10_qflash_provenance.md` | 698 | `2026-07-15T12:04:48` |
 | `reports/external_baselines/amem_gate10_validation.md` | 358 | `2026-07-15T17:21:22` |
-| `reports/external_baselines/gate10_external_baselines_report.md` | 8642 | `2026-07-15T19:12:37` |
+| `reports/external_baselines/gate10_external_baselines_report.md` | 8761 | `2026-07-15T20:23:36` |
+| `reports/external_baselines/mem0_500q_main_provenance.md` | 843 | `2026-07-16T08:38:13` |
 | `reports/external_baselines/mem0_gate10_qflash_provenance.md` | 851 | `2026-07-15T17:21:47` |
 | `reports/external_baselines/mem0_gate10_validation.md` | 358 | `2026-07-15T18:28:49` |
 | `reports/external_baselines/sanitized_amem_gate10.jsonl` | 75212 | `2026-07-15T19:10:30` |
@@ -2149,8 +2251,8 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `reports/rag_vs_mragent_conv30_stratified_20260706.md` | 4735 | `2026-07-06T22:56:19` |
 | `reports/reproduction_audit_20260701.md` | 12714 | `2026-07-01T15:57:27` |
 | `reports/runtime_model_config_audit_20260707.md` | 3107 | `2026-07-07T19:50:07` |
-| `reports/server_directory_manifest.jsonl` | 42100 | `2026-07-08T16:08:33` |
-| `reports/server_directory_manifest.md` | 31144 | `2026-07-08T16:08:33` |
+| `reports/server_directory_manifest.jsonl` | 378666 | `2026-07-15T19:13:01` |
+| `reports/server_directory_manifest.md` | 259677 | `2026-07-15T19:13:01` |
 | `reports/stage_b_clean_conv30_20260702.md` | 10209 | `2026-07-02T09:33:02` |
 | `reports/stage_b_eval_audit_20260701.md` | 16758 | `2026-07-02T09:12:13` |
 | `reports/standard_rag_baseline_20260702.md` | 2956 | `2026-07-02T13:08:40` |
@@ -2163,11 +2265,14 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `repro/attribute_badcases.py` | 11385 | `2026-07-15T10:22:42` |
 | `repro/audit_api_models.py` | 1981 | `2026-07-07T16:18:49` |
 | `repro/audit_dataset_tasks.py` | 5207 | `2026-07-06T14:47:09` |
+| `repro/audit_mragent_judged_errors.py` | 13224 | `2026-07-15T20:23:37` |
 | `repro/audit_rewrite_cache.py` | 3750 | `2026-07-07T19:08:19` |
 | `repro/audit_runtime_config.py` | 2623 | `2026-07-07T19:50:07` |
 | `repro/baseline_utils.py` | 3255 | `2026-07-15T18:57:31` |
+| `repro/build_main_experiment_manifests.py` | 8638 | `2026-07-15T20:23:37` |
 | `repro/build_native_rag_cache.py` | 3652 | `2026-07-15T10:22:42` |
 | `repro/build_stratified_subset.py` | 6031 | `2026-07-15T10:22:42` |
+| `repro/compare_main_experiment.py` | 12658 | `2026-07-15T20:23:37` |
 | `repro/compare_rag_to_mragent_subset.py` | 9687 | `2026-07-06T22:57:43` |
 | `repro/convert_longmemeval_to_mragent.py` | 5318 | `2026-07-02T11:24:53` |
 | `repro/diagnose_rewrite_session.py` | 6221 | `2026-07-07T16:03:36` |
@@ -2189,7 +2294,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `repro/validate_vlm_tool.py` | 11002 | `2026-07-02T11:20:10` |
 | `requirements-external-baselines.txt` | 251 | `2026-07-15T18:57:31` |
 | `requirements.txt` | 470 | `2026-06-30T21:42:54` |
-| `result/diagnostics/api_call_log.jsonl` | 2915924 | `2026-07-15T18:28:41` |
+| `result/diagnostics/api_call_log.jsonl` | 8381849 | `2026-07-16T11:01:25` |
 | `result/diagnostics/api_call_log_20260707_201858.jsonl` | 608 | `2026-07-07T20:34:40` |
 | `result/diagnostics/api_call_log_20260708_001147.jsonl` | 0 | `2026-07-08T00:11:02` |
 | `result/diagnostics/api_call_log_20260708_012631.jsonl` | 0 | `2026-07-08T01:26:31` |
@@ -2209,7 +2314,18 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `result/diagnostics/api_call_log_20260708_234623.jsonl` | 57618 | `2026-07-08T23:49:27` |
 | `result/diagnostics/api_call_log_20260708_235033.jsonl` | 57824 | `2026-07-08T23:53:03` |
 | `result/diagnostics/api_call_log_20260708_235411.jsonl` | 57618 | `2026-07-08T23:56:45` |
+| `result/diagnostics/api_call_log_20260715_202507.jsonl` | 12241 | `2026-07-15T20:25:34` |
+| `result/diagnostics/api_call_log_20260715_202547.jsonl` | 12252 | `2026-07-15T20:26:12` |
+| `result/diagnostics/api_call_log_20260715_202616.jsonl` | 12261 | `2026-07-15T20:26:37` |
+| `result/diagnostics/api_call_log_20260715_202653.jsonl` | 40072 | `2026-07-15T20:32:02` |
+| `result/diagnostics/api_call_log_20260715_203220.jsonl` | 38829 | `2026-07-15T20:42:28` |
+| `result/diagnostics/api_call_log_20260716_095639.jsonl` | 245101 | `2026-07-16T10:09:00` |
+| `result/diagnostics/api_call_log_20260716_095650.jsonl` | 245182 | `2026-07-16T10:09:27` |
+| `result/diagnostics/api_call_log_20260716_095652.jsonl` | 245469 | `2026-07-16T10:08:47` |
+| `result/diagnostics/api_call_log_20260716_101110.jsonl` | 245219 | `2026-07-16T11:01:25` |
+| `result/diagnostics/api_call_log_20260716_101111.jsonl` | 400620 | `2026-07-16T11:01:25` |
 | `result/diagnostics/api_call_log_all10_mragent_100q_fix_20260708.jsonl` | 532617 | `2026-07-08T22:23:01` |
+| `result/diagnostics/api_call_log_amem_500q_20260716_083806.jsonl` | 581149 | `2026-07-16T11:01:25` |
 | `result/diagnostics/api_call_log_conv26_graphbuild_v4flash_20260707_01.jsonl` | 656 | `2026-07-07T21:01:50` |
 | `result/diagnostics/api_call_log_conv26_graphbuild_v4flash_20260707_02.jsonl` | 1306 | `2026-07-07T22:12:54` |
 | `result/diagnostics/api_call_log_conv26_graphbuild_v4flash_no_think_20260707_01.jsonl` | 4446 | `2026-07-07T22:50:54` |
@@ -2228,27 +2344,223 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `result/diagnostics/api_call_log_gate10_amem_20260715_120134.jsonl` | 1593 | `2026-07-15T12:04:10` |
 | `result/diagnostics/api_call_log_gate10_amem_20260715_120449.jsonl` | 1026075 | `2026-07-15T17:20:44` |
 | `result/diagnostics/api_call_log_gate10_mem0_20260715_172157.jsonl` | 6702 | `2026-07-15T18:28:40` |
+| `result/diagnostics/api_call_log_graphrag_500q_20260716_083748.jsonl` | 305118 | `2026-07-16T08:58:17` |
+| `result/diagnostics/api_call_log_mem0_500q_20260716_083826.jsonl` | 96615 | `2026-07-16T10:43:47` |
+| `result/diagnostics/api_call_log_mragent_500q_main_20260715_220124.jsonl` | 2678086 | `2026-07-16T01:58:58` |
+| `result/diagnostics/api_call_log_rag_500q_20260716_083429.jsonl` | 0 | `2026-07-16T08:34:30` |
+| `result/diagnostics/api_call_log_rag_500q_20260716_083452.jsonl` | 299811 | `2026-07-16T08:52:53` |
+| `result/diagnostics/api_call_log_rag_500q_main_20260716_020010.jsonl` | 7900 | `2026-07-16T01:59:44` |
 | `result/diagnostics/external_baselines/amem/conv-26/q001.json` | 63163 | `2026-07-15T17:15:12` |
-| `result/diagnostics/external_baselines/amem/conv-26/q012.json` | 65823 | `2026-07-15T17:15:19` |
-| `result/diagnostics/external_baselines/amem/conv-26/q031.json` | 75332 | `2026-07-15T17:15:56` |
-| `result/diagnostics/external_baselines/amem/conv-26/q053.json` | 54862 | `2026-07-15T17:16:22` |
+| `result/diagnostics/external_baselines/amem/conv-26/q003.json` | 62270 | `2026-07-16T08:38:17` |
+| `result/diagnostics/external_baselines/amem/conv-26/q006.json` | 71348 | `2026-07-16T08:38:20` |
+| `result/diagnostics/external_baselines/amem/conv-26/q009.json` | 29531 | `2026-07-16T08:38:25` |
+| `result/diagnostics/external_baselines/amem/conv-26/q011.json` | 54503 | `2026-07-16T08:38:28` |
+| `result/diagnostics/external_baselines/amem/conv-26/q012.json` | 65823 | `2026-07-16T08:38:31` |
+| `result/diagnostics/external_baselines/amem/conv-26/q013.json` | 56813 | `2026-07-16T08:38:34` |
+| `result/diagnostics/external_baselines/amem/conv-26/q014.json` | 57688 | `2026-07-16T08:38:36` |
+| `result/diagnostics/external_baselines/amem/conv-26/q015.json` | 46827 | `2026-07-16T08:38:44` |
+| `result/diagnostics/external_baselines/amem/conv-26/q016.json` | 55872 | `2026-07-16T08:38:45` |
+| `result/diagnostics/external_baselines/amem/conv-26/q017.json` | 58657 | `2026-07-16T08:38:48` |
+| `result/diagnostics/external_baselines/amem/conv-26/q023.json` | 70154 | `2026-07-16T08:38:51` |
+| `result/diagnostics/external_baselines/amem/conv-26/q026.json` | 68116 | `2026-07-16T08:38:53` |
+| `result/diagnostics/external_baselines/amem/conv-26/q027.json` | 57644 | `2026-07-16T08:38:56` |
+| `result/diagnostics/external_baselines/amem/conv-26/q028.json` | 50199 | `2026-07-16T08:38:59` |
+| `result/diagnostics/external_baselines/amem/conv-26/q029.json` | 49402 | `2026-07-16T08:39:04` |
+| `result/diagnostics/external_baselines/amem/conv-26/q031.json` | 71678 | `2026-07-16T08:39:10` |
+| `result/diagnostics/external_baselines/amem/conv-26/q035.json` | 73799 | `2026-07-16T08:39:14` |
+| `result/diagnostics/external_baselines/amem/conv-26/q038.json` | 58454 | `2026-07-16T08:39:17` |
+| `result/diagnostics/external_baselines/amem/conv-26/q040.json` | 63217 | `2026-07-16T08:39:26` |
+| `result/diagnostics/external_baselines/amem/conv-26/q043.json` | 55282 | `2026-07-16T08:39:33` |
+| `result/diagnostics/external_baselines/amem/conv-26/q047.json` | 86829 | `2026-07-16T08:39:39` |
+| `result/diagnostics/external_baselines/amem/conv-26/q048.json` | 62562 | `2026-07-16T08:39:48` |
+| `result/diagnostics/external_baselines/amem/conv-26/q049.json` | 44589 | `2026-07-16T08:39:52` |
+| `result/diagnostics/external_baselines/amem/conv-26/q051.json` | 64902 | `2026-07-16T08:39:57` |
+| `result/diagnostics/external_baselines/amem/conv-26/q053.json` | 54871 | `2026-07-16T08:39:59` |
+| `result/diagnostics/external_baselines/amem/conv-26/q056.json` | 62858 | `2026-07-16T08:40:09` |
 | `result/diagnostics/external_baselines/amem/conv-26/q057.json` | 56133 | `2026-07-15T17:16:41` |
-| `result/diagnostics/external_baselines/amem/conv-26/q065.json` | 33405 | `2026-07-15T17:17:24` |
+| `result/diagnostics/external_baselines/amem/conv-26/q060.json` | 61610 | `2026-07-16T08:40:13` |
+| `result/diagnostics/external_baselines/amem/conv-26/q065.json` | 33413 | `2026-07-16T08:40:16` |
+| `result/diagnostics/external_baselines/amem/conv-26/q068.json` | 47620 | `2026-07-16T08:40:20` |
 | `result/diagnostics/external_baselines/amem/conv-26/q069.json` | 68824 | `2026-07-15T17:18:04` |
+| `result/diagnostics/external_baselines/amem/conv-26/q070.json` | 63545 | `2026-07-16T08:40:24` |
+| `result/diagnostics/external_baselines/amem/conv-26/q072.json` | 52155 | `2026-07-16T08:40:26` |
+| `result/diagnostics/external_baselines/amem/conv-26/q073.json` | 46571 | `2026-07-16T08:40:29` |
+| `result/diagnostics/external_baselines/amem/conv-26/q078.json` | 49850 | `2026-07-16T08:40:33` |
+| `result/diagnostics/external_baselines/amem/conv-26/q082.json` | 62021 | `2026-07-16T08:40:37` |
 | `result/diagnostics/external_baselines/amem/conv-26/q083.json` | 70302 | `2026-07-15T17:20:08` |
+| `result/diagnostics/external_baselines/amem/conv-26/q091.json` | 61166 | `2026-07-16T08:40:39` |
+| `result/diagnostics/external_baselines/amem/conv-26/q092.json` | 60248 | `2026-07-16T08:40:44` |
+| `result/diagnostics/external_baselines/amem/conv-26/q098.json` | 58935 | `2026-07-16T08:40:48` |
 | `result/diagnostics/external_baselines/amem/conv-26/q102.json` | 51484 | `2026-07-15T17:20:36` |
-| `result/diagnostics/external_baselines/amem/conv-26/q149.json` | 53915 | `2026-07-15T17:20:44` |
+| `result/diagnostics/external_baselines/amem/conv-26/q106.json` | 72781 | `2026-07-16T08:40:53` |
+| `result/diagnostics/external_baselines/amem/conv-26/q120.json` | 53177 | `2026-07-16T08:40:56` |
+| `result/diagnostics/external_baselines/amem/conv-26/q129.json` | 47725 | `2026-07-16T08:41:05` |
+| `result/diagnostics/external_baselines/amem/conv-26/q132.json` | 34114 | `2026-07-16T08:41:09` |
+| `result/diagnostics/external_baselines/amem/conv-26/q142.json` | 61357 | `2026-07-16T08:41:14` |
+| `result/diagnostics/external_baselines/amem/conv-26/q147.json` | 53702 | `2026-07-16T08:41:16` |
+| `result/diagnostics/external_baselines/amem/conv-26/q149.json` | 53901 | `2026-07-16T08:41:24` |
+| `result/diagnostics/external_baselines/amem/conv-26/q161.json` | 58161 | `2026-07-16T08:41:26` |
+| `result/diagnostics/external_baselines/amem/conv-26/q163.json` | 38349 | `2026-07-16T08:41:29` |
+| `result/diagnostics/external_baselines/amem/conv-26/q172.json` | 61547 | `2026-07-16T08:41:35` |
+| `result/diagnostics/external_baselines/amem/conv-26/q174.json` | 67882 | `2026-07-16T08:41:41` |
+| `result/diagnostics/external_baselines/amem/conv-26/q178.json` | 59557 | `2026-07-16T08:41:49` |
+| `result/diagnostics/external_baselines/amem/conv-26/q187.json` | 37154 | `2026-07-16T08:41:51` |
+| `result/diagnostics/external_baselines/amem/conv-26/q190.json` | 59095 | `2026-07-16T08:41:54` |
+| `result/diagnostics/external_baselines/amem/conv-26/q192.json` | 56500 | `2026-07-16T08:42:01` |
+| `result/diagnostics/external_baselines/amem/conv-26/q194.json` | 53548 | `2026-07-16T08:42:03` |
+| `result/diagnostics/external_baselines/amem/conv-26/q197.json` | 53814 | `2026-07-16T08:42:07` |
 | `result/diagnostics/external_baselines/mem0/conv-26/q001.json` | 15381 | `2026-07-15T18:28:15` |
-| `result/diagnostics/external_baselines/mem0/conv-26/q012.json` | 15243 | `2026-07-15T18:28:17` |
-| `result/diagnostics/external_baselines/mem0/conv-26/q031.json` | 14822 | `2026-07-15T18:28:17` |
-| `result/diagnostics/external_baselines/mem0/conv-26/q053.json` | 14034 | `2026-07-15T18:28:19` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q003.json` | 15137 | `2026-07-16T08:38:15` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q006.json` | 14746 | `2026-07-16T08:38:16` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q009.json` | 15088 | `2026-07-16T08:38:20` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q011.json` | 15855 | `2026-07-16T08:38:23` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q012.json` | 15235 | `2026-07-16T08:38:27` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q013.json` | 15690 | `2026-07-16T08:38:31` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q014.json` | 15220 | `2026-07-16T08:38:32` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q015.json` | 16078 | `2026-07-16T08:38:34` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q016.json` | 15248 | `2026-07-16T08:38:35` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q017.json` | 14704 | `2026-07-16T08:38:36` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q023.json` | 15282 | `2026-07-16T08:38:37` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q026.json` | 15725 | `2026-07-16T08:38:39` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q027.json` | 15267 | `2026-07-16T08:38:40` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q028.json` | 14577 | `2026-07-16T08:38:42` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q029.json` | 15732 | `2026-07-16T08:38:43` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q031.json` | 14824 | `2026-07-16T08:38:44` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q035.json` | 16570 | `2026-07-16T08:38:49` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q038.json` | 15039 | `2026-07-16T08:38:50` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q040.json` | 16259 | `2026-07-16T08:38:53` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q043.json` | 15163 | `2026-07-16T08:38:54` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q047.json` | 15144 | `2026-07-16T08:38:57` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q048.json` | 16246 | `2026-07-16T08:38:59` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q049.json` | 14790 | `2026-07-16T08:39:00` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q051.json` | 15873 | `2026-07-16T08:39:00` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q053.json` | 14032 | `2026-07-16T08:39:01` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q056.json` | 15700 | `2026-07-16T08:39:02` |
 | `result/diagnostics/external_baselines/mem0/conv-26/q057.json` | 16615 | `2026-07-15T18:28:28` |
-| `result/diagnostics/external_baselines/mem0/conv-26/q065.json` | 15238 | `2026-07-15T18:28:32` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q060.json` | 15976 | `2026-07-16T08:39:03` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q065.json` | 15241 | `2026-07-16T08:39:05` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q068.json` | 14878 | `2026-07-16T08:39:07` |
 | `result/diagnostics/external_baselines/mem0/conv-26/q069.json` | 15204 | `2026-07-15T18:28:35` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q070.json` | 14995 | `2026-07-16T08:39:08` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q072.json` | 15320 | `2026-07-16T08:39:08` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q073.json` | 15618 | `2026-07-16T08:39:11` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q078.json` | 15394 | `2026-07-16T08:39:20` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q082.json` | 15216 | `2026-07-16T08:39:21` |
 | `result/diagnostics/external_baselines/mem0/conv-26/q083.json` | 15644 | `2026-07-15T18:28:37` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q091.json` | 15302 | `2026-07-16T08:39:23` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q092.json` | 16187 | `2026-07-16T08:39:25` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q098.json` | 15207 | `2026-07-16T08:39:30` |
 | `result/diagnostics/external_baselines/mem0/conv-26/q102.json` | 15237 | `2026-07-15T18:28:38` |
-| `result/diagnostics/external_baselines/mem0/conv-26/q149.json` | 15585 | `2026-07-15T18:28:40` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q106.json` | 16671 | `2026-07-16T08:39:31` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q120.json` | 16072 | `2026-07-16T08:39:33` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q129.json` | 15943 | `2026-07-16T08:39:34` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q132.json` | 15187 | `2026-07-16T08:39:36` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q142.json` | 16437 | `2026-07-16T08:39:39` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q147.json` | 16099 | `2026-07-16T08:39:40` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q149.json` | 15583 | `2026-07-16T08:39:42` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q161.json` | 15625 | `2026-07-16T08:39:43` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q163.json` | 15673 | `2026-07-16T08:39:44` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q172.json` | 16093 | `2026-07-16T08:39:45` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q174.json` | 14911 | `2026-07-16T08:39:47` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q178.json` | 15597 | `2026-07-16T08:39:49` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q187.json` | 14097 | `2026-07-16T08:39:50` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q190.json` | 14671 | `2026-07-16T08:39:51` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q192.json` | 16171 | `2026-07-16T08:39:52` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q194.json` | 16539 | `2026-07-16T08:39:53` |
+| `result/diagnostics/external_baselines/mem0/conv-26/q197.json` | 15853 | `2026-07-16T08:39:55` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q001.json` | 15421 | `2026-07-16T09:04:12` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q003.json` | 14744 | `2026-07-16T09:04:17` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q004.json` | 14745 | `2026-07-16T09:04:21` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q006.json` | 15592 | `2026-07-16T09:04:25` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q008.json` | 14917 | `2026-07-16T09:04:29` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q010.json` | 14184 | `2026-07-16T09:04:33` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q011.json` | 14252 | `2026-07-16T09:04:36` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q013.json` | 14630 | `2026-07-16T09:04:37` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q017.json` | 15088 | `2026-07-16T09:04:40` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q018.json` | 15407 | `2026-07-16T09:04:45` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q019.json` | 15196 | `2026-07-16T09:04:46` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q021.json` | 14563 | `2026-07-16T09:04:55` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q023.json` | 15341 | `2026-07-16T09:04:56` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q024.json` | 16005 | `2026-07-16T09:04:57` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q025.json` | 15300 | `2026-07-16T09:04:59` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q026.json` | 15292 | `2026-07-16T09:05:05` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q027.json` | 15028 | `2026-07-16T09:05:07` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q028.json` | 15175 | `2026-07-16T09:05:13` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q030.json` | 14434 | `2026-07-16T09:05:15` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q032.json` | 14661 | `2026-07-16T09:05:18` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q034.json` | 15010 | `2026-07-16T09:05:20` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q035.json` | 15135 | `2026-07-16T09:05:23` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q043.json` | 15199 | `2026-07-16T09:05:25` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q045.json` | 15538 | `2026-07-16T09:05:27` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q046.json` | 14617 | `2026-07-16T09:05:49` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q047.json` | 14859 | `2026-07-16T09:05:51` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q055.json` | 15418 | `2026-07-16T09:05:55` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q060.json` | 15165 | `2026-07-16T09:06:02` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q061.json` | 14592 | `2026-07-16T09:06:04` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q062.json` | 15115 | `2026-07-16T09:06:05` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q065.json` | 15137 | `2026-07-16T09:06:07` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q079.json` | 15456 | `2026-07-16T09:06:09` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q083.json` | 14440 | `2026-07-16T09:06:17` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q085.json` | 14829 | `2026-07-16T09:06:20` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q087.json` | 15053 | `2026-07-16T09:06:21` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q088.json` | 14937 | `2026-07-16T09:06:25` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q090.json` | 15205 | `2026-07-16T09:06:27` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q094.json` | 14502 | `2026-07-16T09:06:29` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q096.json` | 15185 | `2026-07-16T09:06:30` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q099.json` | 15125 | `2026-07-16T09:06:31` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q101.json` | 15267 | `2026-07-16T09:06:32` |
+| `result/diagnostics/external_baselines/mem0/conv-30/q105.json` | 16109 | `2026-07-16T09:06:36` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q007.json` | 14983 | `2026-07-16T10:16:51` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q008.json` | 14575 | `2026-07-16T10:17:29` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q009.json` | 14545 | `2026-07-16T10:17:47` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q013.json` | 14591 | `2026-07-16T10:17:50` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q015.json` | 15098 | `2026-07-16T10:18:09` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q016.json` | 15151 | `2026-07-16T10:18:26` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q017.json` | 14268 | `2026-07-16T10:18:29` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q018.json` | 14443 | `2026-07-16T10:18:30` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q021.json` | 14942 | `2026-07-16T10:18:32` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q023.json` | 15566 | `2026-07-16T10:18:34` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q025.json` | 15053 | `2026-07-16T10:18:37` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q027.json` | 15046 | `2026-07-16T10:18:38` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q030.json` | 15070 | `2026-07-16T10:18:49` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q032.json` | 15217 | `2026-07-16T10:19:00` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q036.json` | 15297 | `2026-07-16T10:19:16` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q039.json` | 14284 | `2026-07-16T10:19:17` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q040.json` | 14118 | `2026-07-16T10:19:35` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q041.json` | 14634 | `2026-07-16T10:19:43` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q042.json` | 14442 | `2026-07-16T10:20:10` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q044.json` | 14894 | `2026-07-16T10:20:12` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q046.json` | 14245 | `2026-07-16T10:20:13` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q047.json` | 14907 | `2026-07-16T10:20:30` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q048.json` | 13969 | `2026-07-16T10:20:33` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q051.json` | 14626 | `2026-07-16T10:20:39` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q052.json` | 14880 | `2026-07-16T10:20:40` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q054.json` | 15728 | `2026-07-16T10:20:46` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q057.json` | 16317 | `2026-07-16T10:20:55` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q058.json` | 14977 | `2026-07-16T10:21:25` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q065.json` | 14741 | `2026-07-16T10:21:31` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q078.json` | 14727 | `2026-07-16T10:21:47` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q098.json` | 14852 | `2026-07-16T10:21:49` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q120.json` | 15030 | `2026-07-16T10:21:51` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q121.json` | 15736 | `2026-07-16T10:21:55` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q122.json` | 15591 | `2026-07-16T10:21:57` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q123.json` | 15673 | `2026-07-16T10:22:01` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q130.json` | 14982 | `2026-07-16T10:22:09` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q131.json` | 14565 | `2026-07-16T10:22:17` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q133.json` | 14949 | `2026-07-16T10:22:33` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q148.json` | 14491 | `2026-07-16T10:22:35` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q154.json` | 14685 | `2026-07-16T10:22:37` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q157.json` | 14549 | `2026-07-16T10:22:48` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q159.json` | 15005 | `2026-07-16T10:22:54` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q161.json` | 15271 | `2026-07-16T10:22:56` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q164.json` | 15374 | `2026-07-16T10:22:57` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q165.json` | 15649 | `2026-07-16T10:22:59` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q176.json` | 14940 | `2026-07-16T10:23:01` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q181.json` | 16697 | `2026-07-16T10:23:03` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q182.json` | 15690 | `2026-07-16T10:23:04` |
+| `result/diagnostics/external_baselines/mem0/conv-41/q190.json` | 15015 | `2026-07-16T10:23:12` |
 | `result/diagnostics/mem0_raw_api_calls_gate10_mem0_20260715_172157.jsonl` | 17253909 | `2026-07-15T18:28:13` |
+| `result/diagnostics/mem0_raw_api_calls_mem0_500q_20260716_083826.jsonl` | 53172235 | `2026-07-16T11:01:22` |
 | `result/diagnostics/mragent_100q_traces/conv-26/q001_raw_prompts.jsonl` | 49565 | `2026-07-09T08:33:22` |
 | `result/diagnostics/mragent_100q_traces/conv-26/q001_raw_responses.jsonl` | 16764 | `2026-07-09T08:33:22` |
 | `result/diagnostics/mragent_100q_traces/conv-26/q001_retry_log.jsonl` | 51 | `2026-07-09T08:33:22` |
@@ -2649,7 +2961,7 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `result/diagnostics/mragent_100q_traces/conv-50/q010_raw_responses.jsonl` | 17351 | `2026-07-09T08:33:27` |
 | `result/diagnostics/mragent_100q_traces/conv-50/q010_retry_log.jsonl` | 51 | `2026-07-09T08:33:27` |
 | `result/diagnostics/mragent_100q_traces/conv-50/q010_trace.json` | 1734 | `2026-07-15T10:22:45` |
-| `result/diagnostics/raw_api_calls.jsonl` | 51487558 | `2026-07-15T18:28:40` |
+| `result/diagnostics/raw_api_calls.jsonl` | 236776439 | `2026-07-16T11:01:23` |
 | `result/diagnostics/raw_api_calls_20260708_222351.jsonl` | 1838764 | `2026-07-08T22:34:28` |
 | `result/diagnostics/raw_api_calls_20260708_223357.jsonl` | 2930852 | `2026-07-08T22:44:08` |
 | `result/diagnostics/raw_api_calls_20260708_224408.jsonl` | 707019 | `2026-07-08T22:52:51` |
@@ -2659,7 +2971,18 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `result/diagnostics/raw_api_calls_20260708_234623.jsonl` | 612851 | `2026-07-08T23:49:27` |
 | `result/diagnostics/raw_api_calls_20260708_235033.jsonl` | 976904 | `2026-07-08T23:53:03` |
 | `result/diagnostics/raw_api_calls_20260708_235411.jsonl` | 297913 | `2026-07-08T23:56:45` |
+| `result/diagnostics/raw_api_calls_20260715_202507.jsonl` | 137043 | `2026-07-15T20:25:34` |
+| `result/diagnostics/raw_api_calls_20260715_202547.jsonl` | 245441 | `2026-07-15T20:26:12` |
+| `result/diagnostics/raw_api_calls_20260715_202616.jsonl` | 777722 | `2026-07-15T20:26:36` |
+| `result/diagnostics/raw_api_calls_20260715_202653.jsonl` | 1272847 | `2026-07-15T20:32:01` |
+| `result/diagnostics/raw_api_calls_20260715_203220.jsonl` | 1388975 | `2026-07-15T20:42:27` |
+| `result/diagnostics/raw_api_calls_20260716_095639.jsonl` | 3048197 | `2026-07-16T10:08:59` |
+| `result/diagnostics/raw_api_calls_20260716_095650.jsonl` | 5152762 | `2026-07-16T10:09:27` |
+| `result/diagnostics/raw_api_calls_20260716_095652.jsonl` | 18633203 | `2026-07-16T10:08:47` |
+| `result/diagnostics/raw_api_calls_20260716_101110.jsonl` | 8214067 | `2026-07-16T11:01:23` |
+| `result/diagnostics/raw_api_calls_20260716_101111.jsonl` | 15794083 | `2026-07-16T11:01:17` |
 | `result/diagnostics/raw_api_calls_all10_mragent_100q_fix_20260708.jsonl` | 21036573 | `2026-07-08T22:23:01` |
+| `result/diagnostics/raw_api_calls_amem_500q_20260716_083806.jsonl` | 9954325 | `2026-07-16T11:01:12` |
 | `result/diagnostics/raw_api_calls_conv26_graphbuild_v4flash_20260707_02.jsonl` | 56158 | `2026-07-07T22:12:54` |
 | `result/diagnostics/raw_api_calls_conv26_graphbuild_v4flash_no_think_20260707_01.jsonl` | 161121 | `2026-07-07T22:49:25` |
 | `result/diagnostics/raw_api_calls_conv26_graphbuild_v4flash_no_think_20260708_01.jsonl` | 987439 | `2026-07-08T01:26:10` |
@@ -2675,6 +2998,11 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `result/diagnostics/raw_api_calls_gate10_amem_20260715_120134.jsonl` | 8716 | `2026-07-15T12:03:41` |
 | `result/diagnostics/raw_api_calls_gate10_amem_20260715_120449.jsonl` | 18028075 | `2026-07-15T17:20:44` |
 | `result/diagnostics/raw_api_calls_gate10_mem0_20260715_172157.jsonl` | 60633 | `2026-07-15T18:28:40` |
+| `result/diagnostics/raw_api_calls_graphrag_500q_20260716_083748.jsonl` | 6541984 | `2026-07-16T08:58:17` |
+| `result/diagnostics/raw_api_calls_mem0_500q_20260716_083826.jsonl` | 877656 | `2026-07-16T10:23:12` |
+| `result/diagnostics/raw_api_calls_mragent_500q_main_20260715_220124.jsonl` | 108727895 | `2026-07-16T01:58:56` |
+| `result/diagnostics/raw_api_calls_rag_500q_20260716_083452.jsonl` | 4165696 | `2026-07-16T08:52:53` |
+| `result/diagnostics/raw_api_calls_rag_500q_main_20260716_020010.jsonl` | 356985 | `2026-07-16T01:59:43` |
 | `result/diagnostics/rewrite/diagnostic_manifest_20260701-222826.json` | 1814 | `2026-07-01T22:38:35` |
 | `result/diagnostics/rewrite/diagnostic_manifest_20260701-223958.json` | 4594 | `2026-07-01T23:49:32` |
 | `result/diagnostics/rewrite/diagnostic_manifest_20260702-002219.json` | 13122 | `2026-07-02T02:10:05` |
@@ -2748,90 +3076,170 @@ Root: `/data/nishome/cuiwenjia/MRAgent-Reproduction`
 | `result/graph_snapshot/conv-50_nodes.jsonl` | 954962 | `2026-07-08T11:30:16` |
 | `result/locomo/artifact_manifest_20260701.json` | 2745 | `2026-07-02T00:23:10` |
 | `result/locomo/artifact_manifest_20260702_clean.json` | 4035 | `2026-07-02T09:33:11` |
+| `result/locomo/conv-26_result_deepseek_ablation_200q_ce_passive.jsonl` | 12431 | `2026-07-16T09:57:20` |
+| `result/locomo/conv-26_result_deepseek_ablation_200q_ctc_active.jsonl` | 85801 | `2026-07-16T10:25:58` |
+| `result/locomo/conv-26_result_deepseek_ablation_200q_ctc_passive.jsonl` | 33155 | `2026-07-16T09:57:27` |
+| `result/locomo/conv-26_result_deepseek_ablation_200q_cte_active.jsonl` | 71483 | `2026-07-16T10:25:51` |
+| `result/locomo/conv-26_result_deepseek_ablation_200q_cte_passive.jsonl` | 17217 | `2026-07-16T09:58:14` |
+| `result/locomo/conv-26_result_deepseek_ablation_gate10_ce_passive.jsonl` | 6065 | `2026-07-15T20:25:34` |
+| `result/locomo/conv-26_result_deepseek_ablation_gate10_ctc_active.jsonl` | 32967 | `2026-07-15T20:42:28` |
+| `result/locomo/conv-26_result_deepseek_ablation_gate10_ctc_passive.jsonl` | 15701 | `2026-07-15T20:26:37` |
+| `result/locomo/conv-26_result_deepseek_ablation_gate10_cte_active.jsonl` | 33204 | `2026-07-15T20:32:01` |
+| `result/locomo/conv-26_result_deepseek_ablation_gate10_cte_passive.jsonl` | 8588 | `2026-07-15T20:26:12` |
+| `result/locomo/conv-26_result_deepseek_amem_500q_main.jsonl` | 2147379 | `2026-07-16T08:42:07` |
 | `result/locomo/conv-26_result_deepseek_amem_gate10_qflash.jsonl` | 417107 | `2026-07-15T17:20:44` |
 | `result/locomo/conv-26_result_deepseek_graphbuild_100q.jsonl` | 4000 | `2026-07-08T18:34:26` |
+| `result/locomo/conv-26_result_deepseek_graphrag_500q_main.jsonl` | 41808 | `2026-07-16T08:39:25` |
 | `result/locomo/conv-26_result_deepseek_graphrag_graphbuild_100q.jsonl` | 6853 | `2026-07-08T23:10:03` |
 | `result/locomo/conv-26_result_deepseek_graphrag_plain_100q.jsonl` | 6852 | `2026-07-08T23:49:55` |
+| `result/locomo/conv-26_result_deepseek_mem0_500q_main.jsonl` | 278636 | `2026-07-16T08:39:55` |
 | `result/locomo/conv-26_result_deepseek_mem0_gate10_qflash.jsonl` | 50984 | `2026-07-15T18:28:40` |
+| `result/locomo/conv-26_result_deepseek_mragent_500q_main.jsonl` | 269555 | `2026-07-15T22:46:30` |
 | `result/locomo/conv-26_result_deepseek_oracle_graphbuild_100q.jsonl` | 3875 | `2026-07-08T22:44:48` |
 | `result/locomo/conv-26_result_deepseek_oracle_plain_100q.jsonl` | 4256 | `2026-07-08T23:53:42` |
+| `result/locomo/conv-26_result_deepseek_rag_500q_main.jsonl` | 34443 | `2026-07-16T08:36:28` |
 | `result/locomo/conv-26_result_deepseek_rag_graphbuild_100q.jsonl` | 5419 | `2026-07-08T22:59:36` |
 | `result/locomo/conv-26_result_deepseek_rag_plain_100q.jsonl` | 5495 | `2026-07-08T23:46:12` |
+| `result/locomo/conv-30_result_deepseek_ablation_200q_ce_passive.jsonl` | 13155 | `2026-07-16T09:58:28` |
+| `result/locomo/conv-30_result_deepseek_ablation_200q_ctc_active.jsonl` | 73955 | `2026-07-16T10:35:21` |
+| `result/locomo/conv-30_result_deepseek_ablation_200q_ctc_passive.jsonl` | 40170 | `2026-07-16T09:58:25` |
+| `result/locomo/conv-30_result_deepseek_ablation_200q_cte_active.jsonl` | 49164 | `2026-07-16T10:52:21` |
+| `result/locomo/conv-30_result_deepseek_ablation_200q_cte_passive.jsonl` | 23086 | `2026-07-16T09:58:56` |
 | `result/locomo/conv-30_result_deepseek_explore50.jsonl` | 4204 | `2026-07-02T11:46:58` |
 | `result/locomo/conv-30_result_deepseek_graphbuild_100q.jsonl` | 4003 | `2026-07-08T18:48:47` |
 | `result/locomo/conv-30_result_deepseek_graphrag_100q.jsonl` | 3334 | `2026-07-07T18:42:12` |
+| `result/locomo/conv-30_result_deepseek_graphrag_500q_main.jsonl` | 30750 | `2026-07-16T08:40:38` |
 | `result/locomo/conv-30_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7007 | `2026-07-08T23:11:01` |
 | `result/locomo/conv-30_result_deepseek_graphrag_plain_100q.jsonl` | 6993 | `2026-07-08T23:50:17` |
+| `result/locomo/conv-30_result_deepseek_mem0_500q_main.jsonl` | 209657 | `2026-07-16T09:06:36` |
 | `result/locomo/conv-30_result_deepseek_mragent_100q.jsonl` | 4082 | `2026-07-07T18:07:03` |
+| `result/locomo/conv-30_result_deepseek_mragent_500q_main.jsonl` | 162992 | `2026-07-15T23:04:29` |
 | `result/locomo/conv-30_result_deepseek_oracle_graphbuild_100q.jsonl` | 4032 | `2026-07-08T22:46:04` |
 | `result/locomo/conv-30_result_deepseek_oracle_plain_100q.jsonl` | 4725 | `2026-07-08T23:53:59` |
 | `result/locomo/conv-30_result_deepseek_rag_100q.jsonl` | 5649 | `2026-07-07T18:42:09` |
+| `result/locomo/conv-30_result_deepseek_rag_500q_main.jsonl` | 26702 | `2026-07-16T08:37:34` |
 | `result/locomo/conv-30_result_deepseek_rag_graphbuild_100q.jsonl` | 5790 | `2026-07-08T23:00:56` |
 | `result/locomo/conv-30_result_deepseek_rag_plain_100q.jsonl` | 5742 | `2026-07-08T23:46:34` |
 | `result/locomo/conv-30_result_deepseek_rag_smoke.jsonl` | 53997 | `2026-07-06T22:55:40` |
 | `result/locomo/conv-30_result_deepseek_rag_smoke_stratified_subset.jsonl` | 8276 | `2026-07-06T22:56:19` |
 | `result/locomo/conv-30_result_deepseek_smoke.jsonl` | 660 | `2026-07-01T06:38:50` |
 | `result/locomo/conv-30_result_deepseek_stratified.jsonl` | 6408 | `2026-07-02T05:32:03` |
+| `result/locomo/conv-41_result_deepseek_ablation_200q_ce_passive.jsonl` | 13062 | `2026-07-16T09:59:11` |
+| `result/locomo/conv-41_result_deepseek_ablation_200q_ctc_active.jsonl` | 104566 | `2026-07-16T10:51:58` |
+| `result/locomo/conv-41_result_deepseek_ablation_200q_ctc_passive.jsonl` | 43743 | `2026-07-16T09:59:14` |
+| `result/locomo/conv-41_result_deepseek_ablation_200q_cte_passive.jsonl` | 16093 | `2026-07-16T09:59:55` |
 | `result/locomo/conv-41_result_deepseek_graphbuild_100q.jsonl` | 3531 | `2026-07-08T19:12:47` |
+| `result/locomo/conv-41_result_deepseek_graphrag_500q_main.jsonl` | 36920 | `2026-07-16T08:42:28` |
 | `result/locomo/conv-41_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7005 | `2026-07-08T23:12:01` |
 | `result/locomo/conv-41_result_deepseek_graphrag_plain_100q.jsonl` | 6905 | `2026-07-08T23:50:34` |
+| `result/locomo/conv-41_result_deepseek_mem0_500q_main.jsonl` | 243857 | `2026-07-16T10:23:12` |
+| `result/locomo/conv-41_result_deepseek_mragent_500q_main.jsonl` | 238427 | `2026-07-15T23:31:29` |
 | `result/locomo/conv-41_result_deepseek_oracle_graphbuild_100q.jsonl` | 4026 | `2026-07-08T22:47:03` |
 | `result/locomo/conv-41_result_deepseek_oracle_plain_100q.jsonl` | 4445 | `2026-07-08T23:54:16` |
+| `result/locomo/conv-41_result_deepseek_rag_500q_main.jsonl` | 31070 | `2026-07-16T08:38:43` |
 | `result/locomo/conv-41_result_deepseek_rag_graphbuild_100q.jsonl` | 5738 | `2026-07-08T23:01:51` |
 | `result/locomo/conv-41_result_deepseek_rag_plain_100q.jsonl` | 5751 | `2026-07-08T23:46:50` |
+| `result/locomo/conv-42_result_deepseek_ablation_200q_ce_passive.jsonl` | 13811 | `2026-07-16T10:00:19` |
+| `result/locomo/conv-42_result_deepseek_ablation_200q_ctc_passive.jsonl` | 45877 | `2026-07-16T10:00:42` |
+| `result/locomo/conv-42_result_deepseek_ablation_200q_cte_passive.jsonl` | 19750 | `2026-07-16T10:02:10` |
 | `result/locomo/conv-42_result_deepseek_graphbuild_100q.jsonl` | 3856 | `2026-07-08T19:30:41` |
+| `result/locomo/conv-42_result_deepseek_graphrag_500q_main.jsonl` | 39991 | `2026-07-16T08:44:50` |
 | `result/locomo/conv-42_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7281 | `2026-07-08T23:12:53` |
 | `result/locomo/conv-42_result_deepseek_graphrag_plain_100q.jsonl` | 7203 | `2026-07-08T23:50:52` |
+| `result/locomo/conv-42_result_deepseek_mragent_500q_main.jsonl` | 209559 | `2026-07-15T23:56:06` |
 | `result/locomo/conv-42_result_deepseek_oracle_graphbuild_100q.jsonl` | 3894 | `2026-07-08T22:48:09` |
 | `result/locomo/conv-42_result_deepseek_oracle_plain_100q.jsonl` | 4298 | `2026-07-08T23:54:33` |
+| `result/locomo/conv-42_result_deepseek_rag_500q_main.jsonl` | 33196 | `2026-07-16T08:40:30` |
 | `result/locomo/conv-42_result_deepseek_rag_graphbuild_100q.jsonl` | 5597 | `2026-07-08T23:02:56` |
 | `result/locomo/conv-42_result_deepseek_rag_plain_100q.jsonl` | 5597 | `2026-07-08T23:47:05` |
+| `result/locomo/conv-43_result_deepseek_ablation_200q_ce_passive.jsonl` | 13302 | `2026-07-16T10:03:00` |
+| `result/locomo/conv-43_result_deepseek_ablation_200q_ctc_passive.jsonl` | 45495 | `2026-07-16T10:02:22` |
+| `result/locomo/conv-43_result_deepseek_ablation_200q_cte_passive.jsonl` | 18436 | `2026-07-16T10:03:53` |
 | `result/locomo/conv-43_result_deepseek_graphbuild_100q.jsonl` | 4762 | `2026-07-08T19:52:28` |
+| `result/locomo/conv-43_result_deepseek_graphrag_500q_main.jsonl` | 41707 | `2026-07-16T08:47:06` |
 | `result/locomo/conv-43_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7492 | `2026-07-08T23:14:00` |
 | `result/locomo/conv-43_result_deepseek_graphrag_plain_100q.jsonl` | 7518 | `2026-07-08T23:51:13` |
+| `result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl` | 249942 | `2026-07-16T00:19:11` |
 | `result/locomo/conv-43_result_deepseek_oracle_graphbuild_100q.jsonl` | 4326 | `2026-07-08T22:49:14` |
 | `result/locomo/conv-43_result_deepseek_oracle_plain_100q.jsonl` | 4972 | `2026-07-08T23:54:57` |
+| `result/locomo/conv-43_result_deepseek_rag_500q_main.jsonl` | 35360 | `2026-07-16T08:42:34` |
 | `result/locomo/conv-43_result_deepseek_rag_graphbuild_100q.jsonl` | 6323 | `2026-07-08T23:03:57` |
 | `result/locomo/conv-43_result_deepseek_rag_plain_100q.jsonl` | 6324 | `2026-07-08T23:47:37` |
+| `result/locomo/conv-44_result_deepseek_ablation_200q_ce_passive.jsonl` | 13725 | `2026-07-16T10:05:01` |
+| `result/locomo/conv-44_result_deepseek_ablation_200q_ctc_passive.jsonl` | 38155 | `2026-07-16T10:03:37` |
+| `result/locomo/conv-44_result_deepseek_ablation_200q_cte_passive.jsonl` | 16838 | `2026-07-16T10:05:38` |
 | `result/locomo/conv-44_result_deepseek_graphbuild_100q.jsonl` | 3859 | `2026-07-08T20:33:01` |
+| `result/locomo/conv-44_result_deepseek_graphrag_500q_main.jsonl` | 38820 | `2026-07-16T08:49:19` |
 | `result/locomo/conv-44_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7594 | `2026-07-08T23:14:57` |
 | `result/locomo/conv-44_result_deepseek_graphrag_plain_100q.jsonl` | 7623 | `2026-07-08T23:51:43` |
+| `result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl` | 238471 | `2026-07-16T00:42:55` |
 | `result/locomo/conv-44_result_deepseek_oracle_graphbuild_100q.jsonl` | 4226 | `2026-07-08T22:50:35` |
 | `result/locomo/conv-44_result_deepseek_oracle_plain_100q.jsonl` | 4691 | `2026-07-08T23:55:19` |
+| `result/locomo/conv-44_result_deepseek_rag_500q_main.jsonl` | 30768 | `2026-07-16T08:43:59` |
 | `result/locomo/conv-44_result_deepseek_rag_graphbuild_100q.jsonl` | 5881 | `2026-07-08T23:04:52` |
 | `result/locomo/conv-44_result_deepseek_rag_plain_100q.jsonl` | 5862 | `2026-07-08T23:47:58` |
+| `result/locomo/conv-47_result_deepseek_ablation_200q_ce_passive.jsonl` | 13031 | `2026-07-16T10:06:05` |
+| `result/locomo/conv-47_result_deepseek_ablation_200q_ctc_passive.jsonl` | 45316 | `2026-07-16T10:05:27` |
+| `result/locomo/conv-47_result_deepseek_ablation_200q_cte_passive.jsonl` | 18182 | `2026-07-16T10:06:23` |
 | `result/locomo/conv-47_result_deepseek_graphbuild_100q.jsonl` | 3964 | `2026-07-08T21:04:28` |
+| `result/locomo/conv-47_result_deepseek_graphrag_500q_main.jsonl` | 39451 | `2026-07-16T08:51:31` |
 | `result/locomo/conv-47_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7010 | `2026-07-08T23:16:10` |
 | `result/locomo/conv-47_result_deepseek_graphrag_plain_100q.jsonl` | 6924 | `2026-07-08T23:51:58` |
+| `result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl` | 244049 | `2026-07-16T01:04:01` |
 | `result/locomo/conv-47_result_deepseek_oracle_graphbuild_100q.jsonl` | 4049 | `2026-07-08T22:51:43` |
 | `result/locomo/conv-47_result_deepseek_oracle_plain_100q.jsonl` | 4507 | `2026-07-08T23:55:37` |
+| `result/locomo/conv-47_result_deepseek_rag_500q_main.jsonl` | 34029 | `2026-07-16T08:46:22` |
 | `result/locomo/conv-47_result_deepseek_rag_graphbuild_100q.jsonl` | 5765 | `2026-07-08T23:05:45` |
 | `result/locomo/conv-47_result_deepseek_rag_plain_100q.jsonl` | 5686 | `2026-07-08T23:48:14` |
+| `result/locomo/conv-48_result_deepseek_ablation_200q_ce_passive.jsonl` | 14307 | `2026-07-16T10:06:53` |
+| `result/locomo/conv-48_result_deepseek_ablation_200q_ctc_passive.jsonl` | 44235 | `2026-07-16T10:06:51` |
+| `result/locomo/conv-48_result_deepseek_ablation_200q_cte_passive.jsonl` | 18067 | `2026-07-16T10:07:21` |
 | `result/locomo/conv-48_result_deepseek_graphbuild_100q.jsonl` | 3905 | `2026-07-08T21:36:10` |
+| `result/locomo/conv-48_result_deepseek_graphrag_500q_main.jsonl` | 38385 | `2026-07-16T08:53:35` |
 | `result/locomo/conv-48_result_deepseek_graphrag_graphbuild_100q.jsonl` | 6715 | `2026-07-08T23:17:14` |
 | `result/locomo/conv-48_result_deepseek_graphrag_plain_100q.jsonl` | 6716 | `2026-07-08T23:52:21` |
+| `result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl` | 201174 | `2026-07-16T01:26:37` |
 | `result/locomo/conv-48_result_deepseek_oracle_graphbuild_100q.jsonl` | 3990 | `2026-07-08T22:54:43` |
 | `result/locomo/conv-48_result_deepseek_oracle_plain_100q.jsonl` | 4241 | `2026-07-08T23:56:06` |
+| `result/locomo/conv-48_result_deepseek_rag_500q_main.jsonl` | 32478 | `2026-07-16T08:48:20` |
 | `result/locomo/conv-48_result_deepseek_rag_graphbuild_100q.jsonl` | 5472 | `2026-07-08T23:06:42` |
 | `result/locomo/conv-48_result_deepseek_rag_plain_100q.jsonl` | 5470 | `2026-07-08T23:48:45` |
+| `result/locomo/conv-49_result_deepseek_ablation_200q_ce_passive.jsonl` | 15473 | `2026-07-16T10:07:52` |
+| `result/locomo/conv-49_result_deepseek_ablation_200q_ctc_passive.jsonl` | 34075 | `2026-07-16T10:07:54` |
+| `result/locomo/conv-49_result_deepseek_ablation_200q_cte_passive.jsonl` | 17699 | `2026-07-16T10:08:23` |
 | `result/locomo/conv-49_result_deepseek_graphbuild_100q.jsonl` | 3923 | `2026-07-08T21:54:04` |
+| `result/locomo/conv-49_result_deepseek_graphrag_500q_main.jsonl` | 42549 | `2026-07-16T08:56:08` |
 | `result/locomo/conv-49_result_deepseek_graphrag_graphbuild_100q.jsonl` | 7222 | `2026-07-08T23:18:55` |
 | `result/locomo/conv-49_result_deepseek_graphrag_plain_100q.jsonl` | 7153 | `2026-07-08T23:52:40` |
+| `result/locomo/conv-49_result_deepseek_mragent_500q_main.jsonl` | 258181 | `2026-07-16T01:41:18` |
 | `result/locomo/conv-49_result_deepseek_oracle_graphbuild_100q.jsonl` | 4430 | `2026-07-08T22:55:44` |
 | `result/locomo/conv-49_result_deepseek_oracle_plain_100q.jsonl` | 4429 | `2026-07-08T23:56:26` |
+| `result/locomo/conv-49_result_deepseek_rag_500q_main.jsonl` | 36645 | `2026-07-16T08:50:51` |
 | `result/locomo/conv-49_result_deepseek_rag_graphbuild_100q.jsonl` | 5699 | `2026-07-08T23:07:43` |
 | `result/locomo/conv-49_result_deepseek_rag_plain_100q.jsonl` | 5698 | `2026-07-08T23:49:08` |
+| `result/locomo/conv-50_result_deepseek_ablation_200q_ce_passive.jsonl` | 14711 | `2026-07-16T10:09:00` |
+| `result/locomo/conv-50_result_deepseek_ablation_200q_ctc_passive.jsonl` | 38032 | `2026-07-16T10:08:47` |
+| `result/locomo/conv-50_result_deepseek_ablation_200q_cte_passive.jsonl` | 18659 | `2026-07-16T10:09:27` |
 | `result/locomo/conv-50_result_deepseek_graphbuild_100q.jsonl` | 3507 | `2026-07-08T22:23:01` |
+| `result/locomo/conv-50_result_deepseek_graphrag_500q_main.jsonl` | 34770 | `2026-07-16T08:58:17` |
 | `result/locomo/conv-50_result_deepseek_graphrag_graphbuild_100q.jsonl` | 6583 | `2026-07-08T23:19:57` |
 | `result/locomo/conv-50_result_deepseek_graphrag_plain_100q.jsonl` | 6566 | `2026-07-08T23:53:03` |
+| `result/locomo/conv-50_result_deepseek_mragent_500q_main.jsonl` | 193159 | `2026-07-16T01:58:58` |
 | `result/locomo/conv-50_result_deepseek_oracle_graphbuild_100q.jsonl` | 4462 | `2026-07-08T22:56:43` |
 | `result/locomo/conv-50_result_deepseek_oracle_plain_100q.jsonl` | 4265 | `2026-07-08T23:56:45` |
+| `result/locomo/conv-50_result_deepseek_rag_500q_main.jsonl` | 30043 | `2026-07-16T08:52:53` |
 | `result/locomo/conv-50_result_deepseek_rag_graphbuild_100q.jsonl` | 5604 | `2026-07-08T23:08:43` |
 | `result/locomo/conv-50_result_deepseek_rag_plain_100q.jsonl` | 5574 | `2026-07-08T23:49:27` |
 | `result/locomo/diagnostic_evidence_20260701.json` | 14783 | `2026-07-01T22:22:10` |
 | `result/locomo/memory_audit_deepseek_stratified.json` | 11466 | `2026-07-02T05:32:18` |
 | `result/locomo/metrics_summary_deepseek_stratified.json` | 606 | `2026-07-02T09:12:58` |
+| `result_judge_locomo_deepseek_graphrag_500q_main.jsonl` | 0 | `2026-07-16T09:56:17` |
+| `result_judge_locomo_deepseek_mragent_500q_main.jsonl` | 0 | `2026-07-16T09:53:37` |
+| `result_judge_locomo_deepseek_rag_500q_main.jsonl` | 0 | `2026-07-16T09:55:59` |
 | `result_judge_locomo_deepseek_stratified.jsonl` | 3537 | `2026-07-02T05:34:51` |
 | `run.py` | 12944 | `2026-07-02T00:21:03` |
-| `run_stratified.py` | 24864 | `2026-07-07T19:50:07` |
+| `run_stratified.py` | 25026 | `2026-07-15T20:23:37` |
+| `tests/test_ablation.py` | 951 | `2026-07-15T20:23:37` |
 | `tests/test_external_baseline_adapters.py` | 3216 | `2026-07-15T18:57:31` |
+| `tests/test_judged_error_audit.py` | 1132 | `2026-07-15T20:23:37` |
+| `tests/test_main_experiment_manifests.py` | 2120 | `2026-07-15T20:23:37` |
