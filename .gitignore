@@ -8,7 +8,18 @@ data/locomo/
 data/AR/
 
 # results / logs / caches
+# Result rows and compact, sanitized per-question traces are part of the
+# reproducibility record. Large raw API logs remain ignored below.
 result/
+!result/
+result/*
+!result/locomo/
+result/locomo/*
+!result/locomo/*_result_*.jsonl
+!result/diagnostics/
+result/diagnostics/*
+!result/diagnostics/mragent_main500_traces/
+!result/diagnostics/mragent_main500_traces/**
 log/
 repro_runs/
 reports/generated/
@@ -32,6 +43,12 @@ __pycache__/
 MERGE_CHANGES.md
 judge_*.json
 result_judge_*.jsonl
+!result_judge_locomo_deepseek_mragent_500q_main.jsonl
+!result_judge_locomo_deepseek_rag_500q_main.jsonl
+!result_judge_locomo_deepseek_graphrag_500q_main.jsonl
+!result_judge_locomo_deepseek_amem_500q_main.jsonl
+!result_judge_locomo_deepseek_mem0_500q_main.jsonl
+!result_judge_locomo_deepseek_ablation_200q_*.jsonl
 *_backup.json
 compare_*.json
 _b10test.py

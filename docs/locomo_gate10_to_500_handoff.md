@@ -2,6 +2,19 @@
 
 更新时间：2026-07-15
 
+## 0. 2026-07-16 中期状态
+
+远端实验分支 `exp/20260716-gate10-500q-main-results` 已完成 Full MRAgent、RAG、GraphRAG 各 500/500，以及 CE/CTE/CTC 三组 passive 消融各 200/200。不要重跑这些已完成结果。
+
+当前仍未完成：
+
+- A-Mem：54/500；Mem0：145/500；
+- CTE active：40/200；CTC active：60/200；
+- 三个主方法的 Judge 文件均为 0 字节；
+- 主实验统一比较报告、逐题 CSV、Full MRAgent 5 个执行 ERROR 的原始证据和全量判错归因。
+
+严格审计与已算出的中期指标见 `reports/locomo_main500_interim_audit_20260716.md`。后续从现有 checkpoint 续跑，不删除已有结果、不重建已完成 cache。新增逐题结果、Judge 和脱敏 trace 已由 `.gitignore` 精确放行；完整 raw API 日志和运行日志继续只保存在服务器。
+
 ## 1. 交接目标
 
 服务器接收本分支代码后，完成：
@@ -102,7 +115,16 @@ python repro/update_server_directory_manifest.py \
 git status --short
 ```
 
-只提交代码、文档、manifest、provenance、指标摘要、逐题对比和 badcase 包。raw cache、embedding、全量 raw API、checkpoint 和 API key 留在服务器。
+只提交代码、文档、manifest、provenance、指标摘要、逐题结果、逐题对比、Judge 文件和脱敏 badcase trace。raw cache、embedding、全量 raw API、checkpoint、完整运行日志和 API key 留在服务器。
+
+允许直接提交的实验路径是：
+
+- `result/locomo/*_result_*.jsonl`
+- `result_judge_locomo_deepseek_*_500q_main.jsonl`
+- `result_judge_locomo_deepseek_ablation_200q_*.jsonl`
+- `result/diagnostics/mragent_main500_traces/`
+
+不要对这些路径使用 `git add -f`；正常 `git status` 应能看到新增内容。若仍不可见，先运行 `git check-ignore -v <path>` 并反馈匹配规则，不要继续扩大 `.gitignore` 放行范围。
 
 推送实验分支，不直接覆盖主分支：
 
