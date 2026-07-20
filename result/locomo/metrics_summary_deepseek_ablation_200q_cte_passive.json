@@ -1,0 +1,18 @@
+{
+  "n_samples": 10,
+  "n_questions": 200,
+  "cat_counts": {
+    "2": 100,
+    "1": 100
+  },
+  "f1_by_cat": {
+    "2": 0.3257960372960372,
+    "1": 0.37380562550470847
+  },
+  "overall_f1": 0.3498008314003727,
+  "tool_calls_avg": 0.0,
+  "schema_retries_total": 0,
+  "forced_accepts_total": 0,
+  "total_runtime_sec": 5695.410000000002,
+  "errors": 0
+}
