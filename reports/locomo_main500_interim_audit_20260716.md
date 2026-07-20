@@ -51,6 +51,32 @@
 
 `passive` 不等于完全不调用 LLM，也不等于普通向量 RAG；它共享 MRAgent 的问题 key、图和初始上下文，只去掉多轮工具决策。因此它适合做 MRAgent 内部因果消融，而 RAG/GraphRAG 适合做外部检索范式对比。
 
+### 2.2 CTE 与 CTC 到底有什么区别
+
+CTE 和 CTC 不是两套独立建图算法，也不是两张完全不同的图。当前实现中，CTC 是 CTE 的可见节点和工具超集；二者共享同一批 rewrite、embedding、keyword、episode 和底层图缓存，差异发生在回答阶段允许读取哪些记忆层。
+
+```text
+CTE：问题线索 -> 标签 -> 事件 -> 事件时间 / 关键词 / 邻近上下文
+                         \-> 通过 key-tag 边继续找事件
+
+CTC：保留 CTE 的全部路径
+     + 问题线索 -> 主题 -> 主题下的一组事件
+     + 人物 -> 人物属性 -> 与该属性相关的事件
+```
+
+| 对比维度 | CTE | CTC |
+|---|---|---|
+| 核心结构 | Cue-Tag-Episode | Cue-Tag-Content，且保留 Episode 路径 |
+| 可用的共同工具 | `edges_by_tag`、`query_event_context`、`query_event_keywords`、`query_conversation_time` | 与 CTE 相同 |
+| CTC 新增工具 | 无 | `query_topic_events`、`query_personal_information`、`query_personal_aspect` |
+| 适合的问题 | 已知实体/标签后定位具体事件，或围绕事件补上下文与时间 | 需要汇总同一主题的多个事件，或沿人物属性聚合长期信息 |
+| passive 行为 | 一次性使用事件和标签检索结果 | 在相同初始检索上额外展开命中的 topic/person content |
+| active 行为 | LLM 多轮选择标签、事件、时间与上下文工具 | LLM 还可以主动选择主题和人物内容工具 |
+
+因此，`CTC passive - CTE passive` 测到的是“开放内容层并展开更多内容”的联合效果，不是纯粹的图结构效果；如果 CTC 获得了更多上下文 token，收益也可能来自上下文数量。正式结论需要增加 context-token budget matching。`CTC active - CTE active` 则更接近“新增内容工具的边际价值”，但必须检查模型是否真的调用新增工具、调用参数是否有效，并在相同轮数/工具预算下比较。
+
+本轮 CTC active 的 200 题中，140 题至少调用一次内容工具；共调用 `query_topic_events` 416 次、`query_personal_information` 30 次、`query_personal_aspect` 78 次，说明 treatment 确实被使用。但 18 题出现 37 次内容工具错误，其中 35 次来自 topic 参数格式错误：模型传入 `D3:t1:描述文字`，而后端只接受 `D3:t1`。另外两次是不存在的人名。故当前 `CTC active - CTE active` 不显著，不能直接解释为“内容层无效”；它也可能受到工具参数契约和额外无效调用的拖累。
+
 ## 3. 500 题主实验进度
 
 | 方法 | 完成 | ERROR | 状态 | 是否可正式比较 |
@@ -252,9 +278,12 @@ Judge 文件已经不再为空，但 RAG/GraphRAG 是按 conversation 顺序中�
 ### P0：修复测量与执行错误
 
 1. 修复 active 上下文记录：分别输出 `initial_context_ids`、`tool_context_ids`、`final_context_ids`，`prediction_context` 使用并集；增加单元测试，证明答案输入不因日志修复而改变。
-2. 修复 question-key/tag-score 的 schema 边界，禁止 raw string/list 流入 `.get()`；为 fallback、retry 和 typed error 写测试。
-3. 定向重放主实验 5 个 ERROR 和 active 消融 13 个 ERROR，保留修复前后行与真实 request/response/retry。若修复只改变错误分支，可只替换这些失败行；若改变正常题候选筛选，则必须重新运行完整 active 200。
-4. 由于旧 active 结果没有保存 initial ids，Evidence hit 无法事后精确恢复。完成日志修复后至少重跑固定 20 题诊断集；若需要正式比较检索命中率，则重跑两组 active 200。原 200 题 F1 结论保留为第一轮，不静默覆盖。
+2. 修复 CTC 工具参数边界：`query_topic_events` 在 ToolBridge 层只提取并校验 `D\d+:t\d+`，保留原始参数和规范化参数；人物工具对名字做合法候选校验，但不得把不存在的人名静默映射到另一个人。
+3. 修复 question-key/tag-score 的 schema 边界，禁止 raw string/list 流入 `.get()`；为 fallback、retry 和 typed error 写测试。
+4. 定向重放主实验 5 个 ERROR、active 消融 13 个 ERROR，以及发生 37 次内容工具错误的 18 题，保留修复前后行与真实 request/response/retry。若修复只改变错误分支，可只替换这些失败行；若改变正常题候选筛选，则必须重新运行完整 active 200。
+5. 由于旧 active 结果没有保存 initial ids，Evidence hit 无法事后精确恢复。完成日志修复后至少重跑固定 20 题诊断集；若需要正式比较检索命中率，则重跑两组 active 200。原 200 题 F1 结论保留为第一轮，不静默覆盖。
+
+P0 闸门验收：20 题中 active 的三类 context id 均非缺省；合法 topic id 调用成功率 100%；非法 topic/person 参数返回结构化错误；schema 异常不再导致 `.get()` 崩溃；每题可按 request id 串联 prompt、response、tool trace 和 retry。
 
 ### P1：闭环现有主实验
 
@@ -272,9 +301,10 @@ Judge 文件已经不再为空，但 RAG/GraphRAG 是按 conversation 顺序中�
 
 ### P3：检验机制泛化并进入改造
 
-1. 当前 200 题已经足以支持“active 在多跳/时间题上有效”，但不能外推到开放域和单跳。先另建固定 cat3/cat4 诊断集，而不是重跑全部五组 500 题，验证主动搜索的收益边界和负收益案例。
-2. 基于完整 active trace 构造路径经验：状态为问题、已见证据和图前沿；动作为工具及参数；奖励同时考虑答案/Judge、gold evidence、调用成本、重复访问和错误。
-3. 做三个可插拔变体：`Full MRAgent`、`+ CBR 路径提示`、`+ 离线 Q-learning 动作排序`，再测试二者组合。CBR 负责检索相似成功路径，Q-learning 负责在当前状态下重排下一步图工具，不允许从测试题在线更新后再回头评测同一测试题。
-4. 按 conversation 划分开发与测试，避免同一长对话的问题路径泄漏；统一工具预算后同时报告 F1、Judge、Evidence hit、工具调用、轮数、延迟和失败率。首轮先用 20-50 题 gate 验证路径和日志，再扩大到固定 200 题。
+1. 先做 CTE/CTC 严格控制实验：passive 组匹配最终上下文 token 数；active 组匹配最大轮数和工具调用预算，并报告实际调用数。比较 `CTE`、`CTC-topic-only`、`CTC-person-only`、`CTC-full`，先跑固定 50 题，再决定是否扩到 200 题。
+2. 当前 200 题已经足以支持“active 在多跳/时间题上有效”，但不能外推到开放域和单跳。另建固定 cat3/cat4 诊断集，验证主动搜索的收益边界和负收益案例。
+3. 基于完整 active trace 构造路径经验：状态为问题、已见证据和图前沿；动作为工具及参数；奖励同时考虑答案/Judge、gold evidence、调用成本、重复访问和错误。
+4. 做三个可插拔变体：`Full MRAgent`、`+ CBR 路径提示`、`+ 离线 Q-learning 动作排序`，再测试二者组合。CBR 负责检索相似成功路径，Q-learning 负责在当前状态下重排下一步图工具，不允许从测试题在线更新后再回头评测同一测试题。
+5. 按 conversation 划分开发与测试，避免同一长对话的问题路径泄漏；统一工具预算后同时报告 F1、Judge、Evidence hit、工具调用、轮数、延迟和失败率。首轮先用 20-50 题 gate 验证路径和日志，再扩大到固定 200 题。
 
 当前可以写出的严格结论是：Full MRAgent 相对 RAG/GraphRAG 的 500 题 F1 主效果成立；CTC content 在 passive 下有稳定增益；active 相对 passive 在 CTE、CTC 两种视图下都有稳定增益。尚不能写成“每一层都有效”，因为 CTE passive 相对 CE passive、CTC active 相对 CTE active 均未表现出稳定增益；外部 baseline 和完整语义 Judge 也尚未闭环。

@@ -15,6 +15,7 @@ Before running experiments, read:
 - [docs/next_iteration_handoff.md](docs/next_iteration_handoff.md)
 - [docs/medium_core_validation_handoff.md](docs/medium_core_validation_handoff.md)
 - [docs/locomo_500q_ablation_protocol.md](docs/locomo_500q_ablation_protocol.md)
+- [docs/cte_ctc_next_experiment_plan_20260720.md](docs/cte_ctc_next_experiment_plan_20260720.md)
 - [docs/locomo_gate10_to_500_handoff.md](docs/locomo_gate10_to_500_handoff.md)
 - [docs/benchmark_reproduction_plan.md](docs/benchmark_reproduction_plan.md)
 - [docs/reproduction_plan.md](docs/reproduction_plan.md)
@@ -121,9 +122,9 @@ The graph/retrieval ablation uses two explicit switches instead of approximating
 --retrieval_mode passive|active
 ```
 
-`passive` performs one deterministic graph read and no agent tool loop. `active` uses the original multi-round tool-calling loop. Every result row records both settings and the initial context size. Run the five-mode 10-question interface gate before the 200-question ablation.
+`passive` performs one deterministic graph read and no agent tool loop. `active` uses the original multi-round tool-calling loop. CTE exposes cue/tag/episode navigation; CTC retains those paths and additionally exposes topic-event and person-aspect content tools. The five 200-question conditions are complete; their interpretation, measurement gaps, and next experiments are documented in [docs/cte_ctc_next_experiment_plan_20260720.md](docs/cte_ctc_next_experiment_plan_20260720.md).
 
-The external A-Mem and Mem0 conv-26 gate has completed 10/10 and verifies only engineering readiness, not statistical performance. The next server work is listed in [docs/locomo_gate10_to_500_handoff.md](docs/locomo_gate10_to_500_handoff.md): strict-ablation gate, two 250-question main checkpoints, 200-question ablation, paired bootstrap comparison, and full MRAgent judged-error attribution.
+The external A-Mem and Mem0 conv-26 gate has completed 10/10 and verifies only engineering readiness, not statistical performance. The current 500-question runs are partial: A-Mem 96/500 and Mem0 297/500. Complete them only after the active-context, content-tool, and schema fixes in the current next-experiment plan.
 
 The proposed CBR/soft-Q retrieval-path module is deliberately separated from this validation. Its leakage controls, case schema, pretraining idea, and future experiment sequence are in [docs/mragent_cbr_qlearning_module_plan.md](docs/mragent_cbr_qlearning_module_plan.md).
 
