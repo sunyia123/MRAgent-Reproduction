@@ -1,21 +1,22 @@
 # LoCoMo 500 题主实验中期审计
 
-更新时间：2026-07-16  
-审计分支基线：`exp/20260716-gate10-500q-main-results`  
-审计提交：`a4e59fe8715bf58ed93f6fc663a8a8170f756589`
+更新时间：2026-07-20
+审计分支基线：`exp/20260716-gate10-500q-main-results-v2`
+审计提交：`265aa72d918991faa02e96be99b3ba928dee84a4`
 实验协议：`docs/locomo_500q_ablation_protocol.md`
 
 ## 1. 审计结论
 
-本轮不能标记为“全部完成”，准确状态是：
+本轮仍不能标记为“全部完成”，但主动消融已经从部分结果推进为完整 200 题。准确状态是：
 
 - 500 题主实验的 Full MRAgent、RAG、GraphRAG 已完整提交，逐题键对齐，无重复或额外行。
-- A-Mem 仅完成 54/500，Mem0 仅完成 145/500，不能进入五方法公平比较。
-- 200 题被动消融已完整；两组主动消融分别只完成 40/200 和 60/200。
-- 三个主方法的 Judge 文件在服务器清单中均为 0 字节；统一 Judge 和基于 Judge 的全量 badcase 归因尚未完成。
+- A-Mem 完成 96/500，Mem0 完成 297/500，仍不能进入五方法公平比较。
+- 五组 200 题消融均为 200/200，题目键、类别分布、memory view 和 active/passive 标记通过验收。
+- Full MRAgent Judge 已完成 400/400，语义正确 312 题（0.7800）；RAG 和 GraphRAG Judge 分别只完成 354/400、290/400，不能直接把当前比例作为完整主表排名。
 - Full MRAgent 的 5 个执行级 `ERROR` 已提交摘要 trace。代码与日志可以确认它们都发生在初始 tag-score 排序，但上传的 raw prompt/response 仍是占位摘要，不是可按 request id 串联的原始调用记录。
+- 远端汇报中列出的 `reports/comparison_500q_main.md` 并未出现在提交 `265aa72` 的 Git tree 中；当前正式对比报告仍以本文为准。
 
-因此，目前已有较强的中期信号支持“主动图搜索优于被动检索”，但还不足以宣称 MRAgent 的每个组成机制都已被独立验证，也不足以完成与 A-Mem、Mem0 的正式比较。
+因此，目前已有配对实验支持“主动图搜索优于同图视图下的被动读取”：CTE 和 CTC 视图上的主动增益均为正且 95% CI 不跨 0。与此同时，CTC active 相对 CTE active 的增量很小且 CI 跨 0，尚不能证明完整内容层在主动搜索时继续提供稳定收益。外部 baseline、完整 Judge、active 上下文可观测性和执行错误修复仍未闭环。
 
 ## 2. 数据与对齐验收
 
@@ -57,8 +58,8 @@
 | Full MRAgent | 500/500 | 5 | 完整 | 可与 RAG/GraphRAG 比较 |
 | RAG | 500/500 | 0 | 完整 | 是 |
 | GraphRAG | 500/500 | 0 | 完整 | 是 |
-| A-Mem | 54/500 | 0 | 仅 conv-26 | 否 |
-| Mem0 | 145/500 | 0 | 仅 conv-26/30/41 | 否 |
+| A-Mem | 96/500 | 0 | 仅 conv-26/30 | 否 |
+| Mem0 | 297/500 | 0 | 仅 conv-26/30/41/42/43/44 | 否 |
 
 A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 题结果并排排名。其 `_metrics.runtime_sec` 也只覆盖逐题检索/回答，未证明包含 memory 构建成本，不能用于端到端耗时比较。
 
@@ -103,7 +104,19 @@ A-Mem/Mem0 的当前均值只反映已完成 conversation，不能与完整 500 
 
 CI 不跨 0 表示当前 LoCoMo-10 上的优势对 conversation 重采样较稳定；跨 0 则不能排除无差异或反向差异。当前只有 10 个独立 conversation cluster，因此即使题目有 400 道，外推力度仍受 cluster 数限制。
 
-### 4.3 F1、Judge 和 Evidence hit 的区别
+### 4.3 Judge 当前进度
+
+| 方法 | Judge 完成度 | 语义正确 | 当前正确率 | 可否进入完整主表 |
+|---|---:|---:|---:|---|
+| Full MRAgent | 400/400 | 312 | 0.7800 | 是 |
+| RAG | 354/400 | 209 | 0.5904 | 否，缺 46 题 |
+| GraphRAG | 290/400 | 169 | 0.5828 | 否，缺 110 题 |
+
+远端汇报中的 `312/400`、`209/354`、`169/290` 混合了“正确题数/已判题数”和“完成度”两个概念。只有 Full MRAgent 的分母 400 表示完整 ordinary 子集；后两者只是部分运行的正确率。
+
+缺失不是随机抽样：RAG 缺少整个 conv-50 和 conv-49 的后 9 题；GraphRAG 缺少整个 conv-49/50，并只完成 conv-48 的前 10 题。这种按运行顺序截断会造成 conversation 选择偏差。仅在已经共同 Judge 的题目上，Full MRAgent 为 0.7684、RAG 为 0.5904（354 题）；Full MRAgent 为 0.7586、GraphRAG 为 0.5828（290 题）。这些只能作为临时一致性检查，不能替代 400 题完整配对结论。
+
+### 4.4 F1、Judge 和 Evidence hit 的区别
 
 - F1 衡量 prediction 与 gold answer 的词元重叠，便宜、确定、可复算，但会惩罚同义改写和长答案。
 - LLM Judge 读取 question、gold answer、prediction，判断语义是否正确，能识别同义表达，但受 judge 模型偏差、prompt 和随机性影响。
@@ -112,11 +125,11 @@ CI 不跨 0 表示当前 LoCoMo-10 上的优势对 conversation 重采样较稳�
 
 完整 500 题主实验中，每个方法需要 Judge 的是类别 1-4 共 400 题。五方法完成后共 2000 次 Judge；五组 200 题消融再需要 1000 次。完全相同的 question/gold/prediction 三元组可以按哈希复用，但不能只因题号相同就复制 Judge。
 
-当前 `eval/judge.py` 默认 judge 是 `openai/gpt-4o-mini`，且 `evaluate_reasoning.py` 会先删除旧 Judge 文件、没有断点续跑，也没有保存完整 judge raw response。用户当前没有 OpenAI/Claude/Gemini API，因此不能直接按默认配置全量运行。公开可验收方案应固定使用独立于回答模型的 `Qwen/Qwen3.5-397B-A17B` 作为文本 Judge，并明确标注它与论文 Judge 的差异；不建议让 DeepSeek-V4-Flash 自评自己的答案。
+当前提交的 Judge 行只记录 `llm_score`、题目、预测、参考答案、类别和 sample，没有记录 judge model、prompt version、thinking、request id 或原始响应。因此结果数值可复算，但无法从 GitHub 独立确认实际 Judge 模型。后续补跑必须固定使用独立于回答模型的 `Qwen/Qwen3.5-397B-A17B`，并明确标注它与论文 Judge 的差异；不建议让 DeepSeek-V4-Flash 自评自己的答案。
 
-全量 Judge 前应先修改 runner：显式传 `JUDGE_BASE_URL`、`JUDGE_MODEL`、`JUDGE_ENABLE_THINKING=0` 和较小输出上限；按 `sample + question_index` 断点续跑而不是删除旧文件；记录 model、prompt version、request id、content、finish_reason、usage、retry 和解析错误。先在每类抽题完成 smoke，确认每行都有唯一题目键和 0/1 label，再运行三个已完成主方法；A-Mem/Mem0 完成 500 题后再进入同一主表。
+补全 Judge 前应先修改 runner：显式传 `JUDGE_BASE_URL`、`JUDGE_MODEL`、`JUDGE_ENABLE_THINKING=0` 和较小输出上限；按 `sample + question` 或新增的 `sample + question_index` 断点续跑而不是删除旧文件；记录 model、prompt version、request id、content、finish_reason、usage、retry 和解析错误。先验证现有 400/354/290 行没有重复，再只运行缺失题；A-Mem/Mem0 完成 500 题后再进入同一主表。
 
-runner 修复并通过 smoke 后，主实验的运行形态应为：
+runner 修复并通过 smoke 后，只续跑 RAG 缺失的 46 题和 GraphRAG 缺失的 110 题，不得删除或从头覆盖现有结果。运行形态应显式指定：
 
 ```bash
 export JUDGE_BASE_URL=https://api.siliconflow.cn/v1
@@ -124,13 +137,13 @@ export JUDGE_MODEL=Qwen/Qwen3.5-397B-A17B
 export JUDGE_ENABLE_THINKING=0
 # JUDGE_API_KEY 仅在服务器环境中设置，不写入命令、文档或 Git。
 
-for tag in mragent_500q_main rag_500q_main graphrag_500q_main; do
+for tag in rag_500q_main graphrag_500q_main; do
   python eval/evaluate_reasoning.py \
     --data locomo --model deepseek --file "$tag" --allfile
 done
 ```
 
-验收不是“命令退出为 0”，而是每个已完成主方法得到 400 条普通题 Judge，题目键无缺失/重复，cat5 没有混入，三份文件均非空且可以由比较脚本读出 `judge_count=400`。A-Mem/Mem0 补齐后使用同一 judge 配置运行；消融五组使用 200 题 manifest 验证各 200 条。
+验收不是“命令退出为 0”，而是每个已完成主方法得到 400 条普通题 Judge，题目键无缺失/重复，cat5 没有混入，三份文件均可由比较脚本读出 `judge_count=400`，并保存统一 provenance。A-Mem/Mem0 补齐后使用同一 judge 配置运行；五组消融暂不优先运行 Judge，先闭环主方法与 badcase。
 
 ## 5. 消融进度与当前含义
 
@@ -145,16 +158,26 @@ done
 | CE + passive | 200/200 | 0.3544 | 0.7850 | 完整 |
 | CTE + passive | 200/200 | 0.3359 | 0.8500 | 完整 |
 | CTC + passive | 200/200 | 0.4495 | 0.9750 | 完整 |
-| CTE + active | 40/200 | 0.5967 | 0.8250 | 不完整，不可排名 |
-| CTC + active | 60/200 | 0.7037 | 0.8833 | 不完整，不可排名 |
+| CTE + active | 200/200 | 0.5649 | 0.8200* | 完整，6 ERROR |
+| CTC + active | 200/200 | 0.5852 | 0.8450* | 完整，7 ERROR |
 
-在完整 200 题配对上：
+这里统一使用 `repro/compare_main_experiment.py` 的词法 F1，ERROR 按 0 分保留。提交中的 `metrics_summary_*.json` 使用另一套 F1 归一化规则，因此会得到 CTE active 0.5769、CTC active 0.5993 等不同数字；两套分数不可混写，正式对比必须固定同一个 evaluator。
 
-- CTC passive - CE passive = +0.0950，95% CI [0.0414, 0.1520]。
-- CTC passive - CTE passive = +0.1135，95% CI [0.0668, 0.1693]。
-- CTE passive 反而低于 CE passive，说明仅增加当前 tag/topic/event 视图没有形成稳定收益；content 展开才是这轮被动图视图的主要贡献。
+在完整 200 题逐题配对、以 conversation 为 cluster 的 20000 次 bootstrap 上：
 
-主动消融目前只覆盖前 2-3 个 conversation，存在完成顺序带来的样本选择偏差。补齐到同一 200 题之前，不能用 0.5967/0.7037 证明主动检索增益，也不能比较 CTE active 与 CTC active。
+| 配对差值 | F1 差值 | 95% CI | 结论 |
+|---|---:|---:|---|
+| CTE passive - CE passive | -0.0185 | [-0.0642, 0.0201] | CI 跨 0，未证明 tag 层单独有效 |
+| CTC passive - CTE passive | +0.1135 | [0.0664, 0.1684] | content 层在被动读取中有稳定增益 |
+| CTE active - CTE passive | +0.2289 | [0.1812, 0.2754] | 主动搜索在 CTE 视图上有稳定增益 |
+| CTC active - CTC passive | +0.1357 | [0.0757, 0.1952] | 主动搜索在完整 CTC 视图上有稳定增益 |
+| CTC active - CTE active | +0.0203 | [-0.0138, 0.0567] | CI 跨 0，未证明 active 下 content 层继续增益 |
+
+分题型看，CTE active 的多跳/时间 F1 为 0.4464/0.6834，CTC active 为 0.4887/0.6816。当前主动搜索的主要收益集中在时间题；CTC 相比 CTE 的可见提升主要来自多跳题，但整体配对 CI 仍跨 0。
+
+代价同样明显：CTE active 平均 5.57 次工具调用、4.12 轮、逐题 runtime 之和 46397.77 秒；CTC active 为 7.20 次、4.88 轮、48829.14 秒。两组 passive 的平均逐题耗时约 28-29 秒，而 active 约 232-244 秒，约为 8 倍。后续改进不能只追求 F1，还要报告每题调用数、轮数、延迟和错误率。
+
+`*` Active Evidence hit 当前不可与 passive 严格比较。代码在 passive 分支把 `initial_support_ids` 写入 `prediction_context`，而 active 分支只返回 `_chat_with_tools()` 的 `evidence_support`，没有并入初始上下文；因此 active 的 0.8200/0.8450 是“工具返回证据命中”而不是“模型实际看过的全部证据命中”，只能视作下界。修复时应分别保存 `initial_context_ids`、`tool_context_ids` 和二者并集 `final_context_ids`，否则 badcase 的 retrieval miss 归因会产生假阳性。
 
 ## 6. Full MRAgent 的 5 个执行错误
 
@@ -200,16 +223,17 @@ done
 
 | 要求 | 当前证据 | 判定 |
 |---|---|---|
-| 五方法各 500 题 | A-Mem 54，Mem0 145 | 未完成 |
-| 五组消融各 200 题 | 两组 active 仅 40/60 | 未完成 |
-| 普通题 Judge | 三个主方法 Judge 文件均 0 字节 | 未完成 |
-| 主实验 Markdown | 已提交三方法对比；JSON/逐题 CSV 仍缺 | 部分完成 |
+| 五方法各 500 题 | A-Mem 96，Mem0 297 | 未完成 |
+| 五组消融各 200 题 | 五组均 200/200，键与配置通过验收 | 已完成 |
+| 普通题 Judge | MRAgent 400/400；RAG 354/400；GraphRAG 290/400 | 部分完成 |
+| 主实验 Markdown | 远端声称的 `comparison_500q_main.md` 未进入 Git tree；JSON/逐题 CSV 仍缺 | 未完成 |
 | 5 个 MRAgent 执行错误摘要 | 5/5 trace + 500 行 manifest | 已提交但 raw 证据不完整 |
-| MRAgent 全量判错归因 | Judge 尚未运行 | 未完成 |
+| MRAgent 全量判错归因 | Judge 已完成，但 `audit_mragent_judged_errors` 尚未执行 | 未完成 |
 | Full MRAgent 模型/thinking provenance | trace 摘要记录 V4-Flash、thinking=false；无原始请求佐证 | 部分完成 |
+| Active 全上下文证据 | 仅保存 tool evidence，缺 initial context ids | 未完成，影响 Evidence hit/badcase 归因 |
 | 大体积 raw API 日志 | 服务器存在 | 正确地未直接提交 |
 
-服务器清单中的三个空 Judge 文件不能算“已生成”。空文件应保留现场并先做 2 题 Judge smoke，确认输出 schema、模型路由和断点写入后再跑全量。
+Judge 文件已经不再为空，但 RAG/GraphRAG 是按 conversation 顺序中断的部分结果；必须断点补齐，不能把当前分母当作完整数据集规模。
 
 ## 8. Git 交付规则调整
 
@@ -221,17 +245,36 @@ done
 
 仍然忽略 `log/`、完整 `raw_api_calls_*.jsonl`、cache、embedding、checkpoint 和密钥。不得上传 108.7 MB 全量 raw API 文件；应上传可逐题复核、无请求头和 API key 的抽取结果。
 
-## 9. 下一检查点
+## 9. 下一步实验计划
 
-下一次远端推送至少应包含：
+下一轮不应立即扩大题量，而应先把已经得到的核心信号变成可审计、可解释的结论。
 
-1. A-Mem 500/500、Mem0 500/500 的结果文件和完成度验证。
-2. CTE active 200/200、CTC active 200/200，同题键对齐。
-3. 非空 Judge 文件；先报告 2 题 smoke，再报告完整数量。
-4. `compare_main_experiment.py` 生成的 `.json/.csv`；Markdown 已提交。
-5. 修复 tag-score schema 边界后只重跑这 5 个 ERROR，并保留修复前后逐题差异。
-6. 从 per-run raw API 日志重新抽取 5 题真实 request/response/retry；不得用 `note` 占位，也不得混入相邻题日志。
-7. 所有 Judge 错题的自动归因和人工复核状态。
-8. Full MRAgent 的紧凑 provenance：实际 QA/embedding 模型、thinking、commit、manifest SHA256、RUN_ID。
+### P0：修复测量与执行错误
 
-完成上述项目后，才进入“核心改进是否 solid”的正式结论。当前可接受的表述是：Full MRAgent 相对 RAG/GraphRAG 的主效果已经得到 500 题支持，图内容视图的被动增益得到 200 题支持；主动检索的独立因果增益、外部 baseline 优势和语义 Judge 结果仍待完成。
+1. 修复 active 上下文记录：分别输出 `initial_context_ids`、`tool_context_ids`、`final_context_ids`，`prediction_context` 使用并集；增加单元测试，证明答案输入不因日志修复而改变。
+2. 修复 question-key/tag-score 的 schema 边界，禁止 raw string/list 流入 `.get()`；为 fallback、retry 和 typed error 写测试。
+3. 定向重放主实验 5 个 ERROR 和 active 消融 13 个 ERROR，保留修复前后行与真实 request/response/retry。若修复只改变错误分支，可只替换这些失败行；若改变正常题候选筛选，则必须重新运行完整 active 200。
+4. 由于旧 active 结果没有保存 initial ids，Evidence hit 无法事后精确恢复。完成日志修复后至少重跑固定 20 题诊断集；若需要正式比较检索命中率，则重跑两组 active 200。原 200 题 F1 结论保留为第一轮，不静默覆盖。
+
+### P1：闭环现有主实验
+
+1. 让 Judge runner 支持断点续跑和 provenance，只补 RAG 46 题、GraphRAG 110 题；验收三方法均为 400/400。
+2. 在相同 400 题上生成 Judge 配对差值和 conversation-clustered 95% CI；当前 354/290 题临时比例不进入最终主表。
+3. 执行 `audit_mragent_judged_errors`，覆盖 Full MRAgent 的 88 个 Judge=0 ordinary badcase。归因至少区分：执行/schema 错误、初始检索缺失、工具路径偏离、检索到证据但利用失败、答案语义正确但 Judge 错判、gold/evidence 标注问题。
+4. 每类抽取 3-5 个案例，保留 question、gold、prediction、初始上下文、逐轮工具调用、最终上下文、raw response、Judge 与人工结论。
+5. 运行统一比较脚本并提交 `.md/.json/.csv`；当前缺失的 `reports/comparison_500q_main.md` 必须真正进入 Git。
+
+### P2：补齐外部 baseline
+
+1. 先完成 Mem0 剩余 203 题，再完成 A-Mem 剩余 404 题。两者当前逐题 QA 平均仅约 3.65 秒和 5.15 秒，服务器感知的长耗时更可能来自每个 conversation 的 memory 构建；必须额外记录 build wall-clock、QA wall-clock、API 次数和 cache hit，不能只看 `_metrics.runtime_sec`。
+2. 对每种方法验收 500/500、同一 manifest、同一 QA/embedding 模型、thinking=false、无重复/额外题；单独报告 memory build 成本。
+3. 补齐后再运行同一 Qwen Judge，形成 Full MRAgent、RAG、GraphRAG、A-Mem、Mem0 的五方法完整主表。
+
+### P3：检验机制泛化并进入改造
+
+1. 当前 200 题已经足以支持“active 在多跳/时间题上有效”，但不能外推到开放域和单跳。先另建固定 cat3/cat4 诊断集，而不是重跑全部五组 500 题，验证主动搜索的收益边界和负收益案例。
+2. 基于完整 active trace 构造路径经验：状态为问题、已见证据和图前沿；动作为工具及参数；奖励同时考虑答案/Judge、gold evidence、调用成本、重复访问和错误。
+3. 做三个可插拔变体：`Full MRAgent`、`+ CBR 路径提示`、`+ 离线 Q-learning 动作排序`，再测试二者组合。CBR 负责检索相似成功路径，Q-learning 负责在当前状态下重排下一步图工具，不允许从测试题在线更新后再回头评测同一测试题。
+4. 按 conversation 划分开发与测试，避免同一长对话的问题路径泄漏；统一工具预算后同时报告 F1、Judge、Evidence hit、工具调用、轮数、延迟和失败率。首轮先用 20-50 题 gate 验证路径和日志，再扩大到固定 200 题。
+
+当前可以写出的严格结论是：Full MRAgent 相对 RAG/GraphRAG 的 500 题 F1 主效果成立；CTC content 在 passive 下有稳定增益；active 相对 passive 在 CTE、CTC 两种视图下都有稳定增益。尚不能写成“每一层都有效”，因为 CTE passive 相对 CE passive、CTC active 相对 CTE active 均未表现出稳定增益；外部 baseline 和完整语义 Judge 也尚未闭环。
