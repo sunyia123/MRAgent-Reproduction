@@ -268,6 +268,7 @@ Judge 文件已经不再为空，但 RAG/GraphRAG 是按 conversation 顺序中�
 - `result/locomo/*_result_*.jsonl`：逐题实验结果；
 - 当前 500 题主实验与 200 题消融的 Judge JSONL；
 - `result/diagnostics/mragent_main500_traces/`：脱敏、按题切分的审计 trace。
+- `result/diagnostics/judge_errors_*.jsonl`：不含密钥的 Judge 失败 attempt 与原始响应。
 
 仍然忽略 `log/`、完整 `raw_api_calls_*.jsonl`、cache、embedding、checkpoint 和密钥。不得上传 108.7 MB 全量 raw API 文件；应上传可逐题复核、无请求头和 API key 的抽取结果。
 
@@ -280,15 +281,15 @@ Judge 文件已经不再为空，但 RAG/GraphRAG 是按 conversation 顺序中�
 1. 修复 active 上下文记录：分别输出 `initial_context_ids`、`tool_context_ids`、`final_context_ids`，`prediction_context` 使用并集；增加单元测试，证明答案输入不因日志修复而改变。
 2. 修复 CTC 工具参数边界：`query_topic_events` 在 ToolBridge 层只提取并校验 `D\d+:t\d+`，保留原始参数和规范化参数；人物工具对名字做合法候选校验，但不得把不存在的人名静默映射到另一个人。
 3. 修复 question-key/tag-score 的 schema 边界，禁止 raw string/list 流入 `.get()`；为 fallback、retry 和 typed error 写测试。
-4. 定向重放主实验 5 个 ERROR、active 消融 13 个 ERROR，以及发生 37 次内容工具错误的 18 题，保留修复前后行与真实 request/response/retry。若修复只改变错误分支，可只替换这些失败行；若改变正常题候选筛选，则必须重新运行完整 active 200。
-5. 由于旧 active 结果没有保存 initial ids，Evidence hit 无法事后精确恢复。完成日志修复后至少重跑固定 20 题诊断集；若需要正式比较检索命中率，则重跑两组 active 200。原 200 题 F1 结论保留为第一轮，不静默覆盖。
+4. 使用已提交的三份 manifest 定向重放：Full MRAgent 5 题、CTE active 6 题、CTC active 25 题。最后一组包含 7 个执行错误和 18 个内容工具错误；不同原因不合并计数。
+5. 原 200 题消融及 Evidence hit 限制保留为第一轮记录，不覆盖、不扩大重跑。只有定向重放证明同类问题仍系统性影响正常题，才重新讨论全量 CTE/CTC。
 
-P0 闸门验收：20 题中 active 的三类 context id 均非缺省；合法 topic id 调用成功率 100%；非法 topic/person 参数返回结构化错误；schema 异常不再导致 `.get()` 崩溃；每题可按 request id 串联 prompt、response、tool trace 和 retry。
+P0 闸门验收：三份 replay 共 36 题且无重复键；active 的三类 context id 均有列表字段；合法 topic id 调用成功率 100%；非法 topic/person 参数返回结构化错误；schema 异常不再导致 `.get()` 崩溃；每题可按 request id 串联 prompt、response、tool trace 和 retry。
 
 ### P1：闭环现有主实验
 
-1. 让 Judge runner 支持断点续跑和 provenance，只补 RAG 46 题、GraphRAG 110 题；验收三方法均为 400/400。
-2. 在相同 400 题上生成 Judge 配对差值和 conversation-clustered 95% CI；当前 354/290 题临时比例不进入最终主表。
+1. Judge runner 已改为默认断点续跑，并在 overwrite 时先备份旧文件。由于旧 Judge 缺少统一模型 provenance，最终版应固定 Qwen3.5-397B-A17B、thinking=false 和新版严格 JSON prompt，对 MRAgent/RAG/GraphRAG 各完整重判 400 题。
+2. 使用固定 main manifest 排序先做三方法同一 20 题 Judge v2 smoke，再运行 3 x 400；每阶段用 Judge validator 检查键、重复和 provenance。在相同 400 题上生成配对差值和 conversation-clustered 95% CI。旧 400/354/290 行只作历史记录。
 3. 执行 `audit_mragent_judged_errors`，覆盖 Full MRAgent 的 88 个 Judge=0 ordinary badcase。归因至少区分：执行/schema 错误、初始检索缺失、工具路径偏离、检索到证据但利用失败、答案语义正确但 Judge 错判、gold/evidence 标注问题。
 4. 每类抽取 3-5 个案例，保留 question、gold、prediction、初始上下文、逐轮工具调用、最终上下文、raw response、Judge 与人工结论。
 5. 运行统一比较脚本并提交 `.md/.json/.csv`；当前缺失的 `reports/comparison_500q_main.md` 必须真正进入 Git。
@@ -299,12 +300,12 @@ P0 闸门验收：20 题中 active 的三类 context id 均非缺省；合法 to
 2. 对每种方法验收 500/500、同一 manifest、同一 QA/embedding 模型、thinking=false、无重复/额外题；单独报告 memory build 成本。
 3. 补齐后再运行同一 Qwen Judge，形成 Full MRAgent、RAG、GraphRAG、A-Mem、Mem0 的五方法完整主表。
 
-### P3：检验机制泛化并进入改造
+### P3：进入 Q-learning 检索路径改造
 
-1. 先做 CTE/CTC 严格控制实验：passive 组匹配最终上下文 token 数；active 组匹配最大轮数和工具调用预算，并报告实际调用数。比较 `CTE`、`CTC-topic-only`、`CTC-person-only`、`CTC-full`，先跑固定 50 题，再决定是否扩到 200 题。
-2. 当前 200 题已经足以支持“active 在多跳/时间题上有效”，但不能外推到开放域和单跳。另建固定 cat3/cat4 诊断集，验证主动搜索的收益边界和负收益案例。
-3. 基于完整 active trace 构造路径经验：状态为问题、已见证据和图前沿；动作为工具及参数；奖励同时考虑答案/Judge、gold evidence、调用成本、重复访问和错误。
-4. 做三个可插拔变体：`Full MRAgent`、`+ CBR 路径提示`、`+ 离线 Q-learning 动作排序`，再测试二者组合。CBR 负责检索相似成功路径，Q-learning 负责在当前状态下重排下一步图工具，不允许从测试题在线更新后再回头评测同一测试题。
-5. 按 conversation 划分开发与测试，避免同一长对话的问题路径泄漏；统一工具预算后同时报告 F1、Judge、Evidence hit、工具调用、轮数、延迟和失败率。首轮先用 20-50 题 gate 验证路径和日志，再扩大到固定 200 题。
+1. 不再追加 CTE/CTC 大规模结构消融；以当前 active 优势和完成 badcase 审计后的轨迹作为学习依据。
+2. 基于完整 active trace 构造 transition：状态为问题、已见证据和图前沿；动作为工具及规范化参数；下一状态记录新增证据、空结果、重复访问与剩余预算。
+3. 先实现无学习的 CBR 路径提示和 Monte-Carlo return 排序基线，再实现真正使用 `r + gamma * max Q(s', a')` 目标的离线 Q-learning；不能把成功分类器直接称为 Q-learning。
+4. 比较 `Full MRAgent`、`+ CBR`、`+ return ranker`、`+ offline Q`、`+ CBR + offline Q`。模块只重排合法候选动作，不替换图、工具执行器或最终答案器。
+5. 按 conversation 划分开发与测试，测试集冻结；统一工具预算后报告 F1、Judge、Evidence hit、首次命中步数、空/重复调用率、总调用数、延迟和失败率。先做 20-50 题 gate，再扩大到固定 200 题。
 
 当前可以写出的严格结论是：Full MRAgent 相对 RAG/GraphRAG 的 500 题 F1 主效果成立；CTC content 在 passive 下有稳定增益；active 相对 passive 在 CTE、CTC 两种视图下都有稳定增益。尚不能写成“每一层都有效”，因为 CTE passive 相对 CE passive、CTC active 相对 CTE active 均未表现出稳定增益；外部 baseline 和完整语义 Judge 也尚未闭环。

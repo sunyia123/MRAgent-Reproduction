@@ -43,3 +43,14 @@ def support_ids_from_payload(payload: object) -> list[str]:
             seen.add(origin)
             result.append(origin)
     return result
+
+
+def merge_support_ids(*groups: Iterable[str]) -> list[str]:
+    seen: set[str] = set()
+    merged: list[str] = []
+    for group in groups:
+        for value in group:
+            if value not in seen:
+                seen.add(value)
+                merged.append(value)
+    return merged

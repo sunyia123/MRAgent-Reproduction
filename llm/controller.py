@@ -291,6 +291,7 @@ class LLM:
         # metrics instrumentation
         self.last_tool_calls = 0
         self.last_reasoning_rounds = 0
+        self.chat_text_parse_failures = 0
         self._current_stage = None  # set by agent: "rewrite" / "keyword" / "qa"
 
     def chat_with_tool(
@@ -666,6 +667,7 @@ class LLM:
                     json_out = extract_json_from_content(text)
                     break
                 except (json.JSONDecodeError, ValueError) as e:
+                    self.chat_text_parse_failures += 1
                     logger.warning(f"chat_text: failed to parse JSON on attempt {attempt}: {e}")
                     continue
 

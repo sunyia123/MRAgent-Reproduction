@@ -1,4 +1,10 @@
-from agent.ablation import disabled_tools_for_view, support_ids_from_payload, uses_content, uses_tags
+from agent.ablation import (
+    disabled_tools_for_view,
+    merge_support_ids,
+    support_ids_from_payload,
+    uses_content,
+    uses_tags,
+)
 
 
 def test_memory_view_tool_filters_are_nested():
@@ -25,3 +31,8 @@ def test_support_ids_are_deduplicated_and_normalized():
     payload = {"events": ["D1:2-1:text", "D1:2-2:text", "D3:7:text"]}
     assert support_ids_from_payload(payload) == ["D1:2", "D3:7"]
 
+
+def test_support_ids_merge_initial_and_tool_context_in_order():
+    assert merge_support_ids(["D1:2", "D3:7"], ["D3:7", "D4:1"]) == [
+        "D1:2", "D3:7", "D4:1"
+    ]

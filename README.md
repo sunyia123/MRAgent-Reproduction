@@ -124,9 +124,13 @@ The graph/retrieval ablation uses two explicit switches instead of approximating
 
 `passive` performs one deterministic graph read and no agent tool loop. `active` uses the original multi-round tool-calling loop. CTE exposes cue/tag/episode navigation; CTC retains those paths and additionally exposes topic-event and person-aspect content tools. The five 200-question conditions are complete; their interpretation, measurement gaps, and next experiments are documented in [docs/cte_ctc_next_experiment_plan_20260720.md](docs/cte_ctc_next_experiment_plan_20260720.md).
 
-The external A-Mem and Mem0 conv-26 gate has completed 10/10 and verifies only engineering readiness, not statistical performance. The current 500-question runs are partial: A-Mem 96/500 and Mem0 297/500. Complete them only after the active-context, content-tool, and schema fixes in the current next-experiment plan.
+The CTE/CTC mechanism experiment is now closed except for targeted repair replay. The three committed replay manifests contain 5 Full MRAgent execution errors, 6 CTE-active execution errors, and 25 CTC-active execution/content-tool failures. Run them with new result tags, then use `repro/compare_targeted_replays.py`; do not overwrite or rerun the five original 200-question conditions.
 
-The proposed CBR/soft-Q retrieval-path module is deliberately separated from this validation. Its leakage controls, case schema, pretraining idea, and future experiment sequence are in [docs/mragent_cbr_qlearning_module_plan.md](docs/mragent_cbr_qlearning_module_plan.md).
+The Judge runner now resumes by question key, backs up files on explicit overwrite, records prompt/response/provenance, and supports a bounded smoke run. Use `--judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20` so every method receives the same smoke questions, and run `repro/validate_judge_results.py` after the smoke and again at 400/400 ordinary questions. Do not mix the old unknown-provenance Judge rows with the final Qwen, thinking-disabled Judge v2 results.
+
+The external A-Mem and Mem0 conv-26 gate has completed 10/10 and verifies only engineering readiness, not statistical performance. The current 500-question runs are partial: A-Mem 96/500 and Mem0 297/500. After targeted replay and the three-method Judge smoke pass, resume Mem0 first and then A-Mem from their existing caches.
+
+The proposed CBR/Q-learning retrieval-path module is deliberately separated from this validation. Its leakage controls, legal-action adapter, return-ranker control, TD target, and future experiment sequence are in [docs/mragent_cbr_qlearning_module_plan.md](docs/mragent_cbr_qlearning_module_plan.md).
 
 ### External baseline adapters
 

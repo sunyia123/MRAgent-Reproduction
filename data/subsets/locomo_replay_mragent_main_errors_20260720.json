@@ -1,0 +1,111 @@
+{
+  "name": "locomo_replay_mragent_main_errors_20260720",
+  "purpose": "Replay the five execution errors from the 500-question Full MRAgent run.",
+  "generated_by": "repro/build_targeted_replay_manifests.py",
+  "source_manifest": "data/subsets/locomo10_500q_main_seed42.json",
+  "source_result_tag": "mragent_500q_main",
+  "n_questions": 5,
+  "sample_ids": [
+    "conv-41",
+    "conv-43",
+    "conv-44",
+    "conv-47",
+    "conv-48"
+  ],
+  "sample_counts": {
+    "conv-41": 1,
+    "conv-43": 1,
+    "conv-44": 1,
+    "conv-47": 1,
+    "conv-48": 1
+  },
+  "category_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 2,
+    "5": 1
+  },
+  "records": [
+    {
+      "global_index": 122,
+      "sample_id": "conv-41",
+      "question_index": 53,
+      "question_index_1based": 54,
+      "category": 2,
+      "question": "When did John help renovate his hometown community center?",
+      "answer": "2022",
+      "evidence": [
+        "D28:11"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 228,
+      "sample_id": "conv-43",
+      "question_index": 67,
+      "question_index_1based": 68,
+      "category": 3,
+      "question": "What would be a good hobby related to his travel dreams for Tim to pick up?",
+      "answer": "Writing a travel blog.",
+      "evidence": [
+        "D4:1",
+        "D6:6",
+        "D15:3",
+        "D27:37"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 261,
+      "sample_id": "conv-44",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 1,
+      "question": "What is something that Audrey often dresses up her dogs with?",
+      "answer": "Hats",
+      "evidence": [
+        "D4:23",
+        "D4:25",
+        "D19:6"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 350,
+      "sample_id": "conv-47",
+      "question_index": 189,
+      "question_index_1based": 190,
+      "category": 5,
+      "question": "What is the name of James's cousin's dog?",
+      "answer": null,
+      "evidence": [
+        "D31:22"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 358,
+      "sample_id": "conv-48",
+      "question_index": 23,
+      "question_index_1based": 24,
+      "category": 3,
+      "question": "Why did Jolene sometimes put off doing yoga?",
+      "answer": "She's more interested in playing video games",
+      "evidence": [
+        "D3:11",
+        "D2:30"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    }
+  ]
+}

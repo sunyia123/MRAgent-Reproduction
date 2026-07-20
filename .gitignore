@@ -20,6 +20,7 @@ result/locomo/*
 result/diagnostics/*
 !result/diagnostics/mragent_main500_traces/
 !result/diagnostics/mragent_main500_traces/**
+!result/diagnostics/judge_errors_*.jsonl
 log/
 repro_runs/
 reports/generated/
@@ -43,6 +44,7 @@ __pycache__/
 MERGE_CHANGES.md
 judge_*.json
 result_judge_*.jsonl
+result_judge_*.jsonl.bak-*
 !result_judge_locomo_deepseek_mragent_500q_main.jsonl
 !result_judge_locomo_deepseek_rag_500q_main.jsonl
 !result_judge_locomo_deepseek_graphrag_500q_main.jsonl

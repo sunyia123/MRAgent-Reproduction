@@ -1,4 +1,5 @@
 import json
+import re
 from memory.controller import MemoryController
 
 TOOLS= [
@@ -169,41 +170,77 @@ class ToolBridge:
         text = str(value)
         return text if len(text) <= limit else text[:limit] + "...<truncated>"
 
+    def _normalize_arguments(self, op, arguments):
+        if not isinstance(arguments, dict):
+            raise ValueError(f"tool arguments must be a JSON object, got {type(arguments).__name__}")
+
+        normalized = dict(arguments)
+        memory = self.memory_controller.memory
+        if op == "query_topic_events":
+            raw_topic = str(normalized.get("topic", ""))
+            match = re.search(r"D\d+:t\d+", raw_topic)
+            if not match:
+                raise ValueError(f"invalid topic id: {raw_topic!r}; expected D<number>:t<number>")
+            topic_id = match.group(0)
+            if topic_id not in memory.topic_dict:
+                raise ValueError(f"unknown topic id: {topic_id!r}")
+            normalized["topic"] = topic_id
+        elif op in {"query_personal_information", "query_personal_aspect"}:
+            person = str(normalized.get("person", "")).strip()
+            canonical_people = {
+                str(candidate).casefold(): str(candidate)
+                for candidate in memory.persona_list
+            }
+            canonical_person = canonical_people.get(person.casefold())
+            if canonical_person is None:
+                raise ValueError(f"unknown person: {person!r}")
+            normalized["person"] = canonical_person
+        return normalized
+
     def call(self, tool_call: list) -> list:
         tool_results = []
         for item in tool_call:
             op = item["function"].get("name")
             raw_arguments = item["function"].get("arguments")
             a = None
+            decoded_arguments = None
             error = None
+            error_type = None
             try:
-                a = json.loads(raw_arguments)
+                decoded_arguments = json.loads(raw_arguments)
                 if op in self.disabled_tools:
+                    a = decoded_arguments
                     out = {"error": f"tool disabled for this ablation: {op}"}
-                elif op == "edges_by_tag":
-                    out, _, _ = self.memory_controller.event_by_tag(**a)
-                elif op == "query_conversation_time":
-                    out = self.memory_controller.query_conversation_time(**a)
-                elif op == "query_event_keywords":
-                    out = self.memory_controller.query_event_keywords(**a)
-                elif op == "query_event_context":
-                    out, _ = self.memory_controller.query_event_context(**a)
-                elif op == "query_personal_information":
-                    out = self.memory_controller.query_personal_information(**a)
-                elif op == "query_personal_aspect":
-                    out, _ = self.memory_controller.query_personal_aspect(**a)
-                elif op == "query_topic_events":
-                    out, _ = self.memory_controller.query_topic_events(**a)
                 else:
-                    out = {"error": f"unknown op {op}"}
+                    a = self._normalize_arguments(op, decoded_arguments)
+                    if op == "edges_by_tag":
+                        out, _, _ = self.memory_controller.event_by_tag(**a)
+                    elif op == "query_conversation_time":
+                        out = self.memory_controller.query_conversation_time(**a)
+                    elif op == "query_event_keywords":
+                        out = self.memory_controller.query_event_keywords(**a)
+                    elif op == "query_event_context":
+                        out, _ = self.memory_controller.query_event_context(**a)
+                    elif op == "query_personal_information":
+                        out = self.memory_controller.query_personal_information(**a)
+                    elif op == "query_personal_aspect":
+                        out, _ = self.memory_controller.query_personal_aspect(**a)
+                    elif op == "query_topic_events":
+                        out, _ = self.memory_controller.query_topic_events(**a)
+                    else:
+                        out = {"error": f"unknown op {op}"}
             except Exception as e:
                 error = str(e)
+                error_type = type(e).__name__
                 out = {"error": error}
             self.trace.append({
                 "tool": op,
                 "arguments": a if a is not None else raw_arguments,
+                "raw_arguments": raw_arguments,
+                "decoded_arguments": decoded_arguments,
                 "result_preview": self._preview(out),
                 "error": error,
+                "error_type": error_type,
             })
             tool_results.append({
                 "role": "tool",

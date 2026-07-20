@@ -3,12 +3,21 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 import json
 import argparse
 import numbers
+import shutil
 import time
 import re
+import traceback
 from pathlib import Path
 from collections import defaultdict
 from eval.evaluation import f1_score
-from eval.judge import evaluate_llm_judge
+from eval.judge import (
+    JUDGE_ENABLE_THINKING,
+    JUDGE_MODEL,
+    JUDGE_PROMPT_VERSION,
+    evaluate_llm_judge_detailed,
+    judge_done_sets,
+    order_rows_by_manifest,
+)
 
 
 def parse_args():
@@ -20,6 +29,9 @@ def parse_args():
     p.add_argument("--sample", type=str, default=None, help="Single sample id (used when --allfile is not set)")
     p.add_argument("--f1_only", action="store_true", help="Skip LLM judge; only compute F1 scores")
     p.add_argument("--no_llm_judge", action="store_true", help="Alias for --f1_only")
+    p.add_argument("--judge_overwrite", action="store_true", help="Back up the old judge file and rerun every ordinary question")
+    p.add_argument("--judge_max_new", type=int, default=None, help="Stop after this many new judge calls (smoke/checkpoint)")
+    p.add_argument("--judge_manifest", default=None, help="Restrict and order Judge calls by a fixed subset manifest")
     return p.parse_args()
 
 
@@ -45,6 +57,13 @@ def load_results(data, model, file, allfile, sample):
 def is_adversarial(category):
     # locomo category 5 = adversarial: gold answer is "not mentioned"; scored by string match, not F1/LLM-judge
     return category == 5
+
+
+def load_jsonl(path):
+    path = Path(path)
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
 def extract_metrics_from_result_rows(rows):
@@ -221,24 +240,81 @@ def main():
     if skip_judge:
         print("\n== LLM-judge skipped (--f1_only / --no_llm_judge) ==")
     else:
-        judge_by_cat = defaultdict(list)
         out_path = f"result_judge_{args.data}_{args.model}_{args.file}.jsonl"
-        # Remove old judge file to prevent append pollution from previous runs
-        if os.path.exists(out_path):
+        error_path = Path("result/diagnostics") / f"judge_errors_{args.model}_{args.file}.jsonl"
+        error_path.parent.mkdir(parents=True, exist_ok=True)
+
+        if args.judge_overwrite and os.path.exists(out_path):
+            backup_path = f"{out_path}.bak-{time.strftime('%Y%m%d_%H%M%S')}"
+            shutil.copy2(out_path, backup_path)
             os.remove(out_path)
+            print(f"backed up old judge file to {backup_path}")
+
+        judge_data = order_rows_by_manifest(data, args.judge_manifest) if args.judge_manifest else data
+        existing = load_jsonl(out_path)
+        done_by_index, done_by_question = judge_done_sets(existing)
+        print(
+            f"judge resume: existing={len(existing)} model={JUDGE_MODEL} "
+            f"thinking={JUDGE_ENABLE_THINKING} prompt={JUDGE_PROMPT_VERSION}"
+        )
         _t0 = time.time()
-        with open(out_path, "w", encoding="utf-8") as of:
-            for r in data:
+        new_count = 0
+        with open(out_path, "a", encoding="utf-8", buffering=1) as of:
+            for r in judge_data:
                 category = r["category"]
                 if is_adversarial(category):
                     continue
-                score = evaluate_llm_judge(r["question"], r["answer"], r["prediction"])
-                judge_by_cat[category].append(score)
-                of.write(json.dumps({
-                    "llm_score": score, "question": r["question"], "prediction": r["prediction"],
-                    "reference": r["answer"], "category": category, "sample": r.get("sample"),
-                }, ensure_ascii=False, default=list) + "\n")
+                sample_id = str(r.get("sample", r.get("sample_id", "")))
+                index_key = None
+                if r.get("question_index") is not None:
+                    index_key = (sample_id, int(r["question_index"]))
+                question_key = (sample_id, str(r["question"]))
+                if (index_key is not None and index_key in done_by_index) or question_key in done_by_question:
+                    continue
+                if args.judge_max_new is not None and new_count >= args.judge_max_new:
+                    break
 
+                try:
+                    detail = evaluate_llm_judge_detailed(
+                        r["question"], r["answer"], r["prediction"])
+                    record = {
+                        **detail,
+                        "question": r["question"],
+                        "prediction": r["prediction"],
+                        "reference": r["answer"],
+                        "category": category,
+                        "sample": sample_id,
+                        "question_index": r.get("question_index"),
+                    }
+                    of.write(json.dumps(record, ensure_ascii=False, default=list) + "\n")
+                    done_by_question.add(question_key)
+                    if index_key is not None:
+                        done_by_index.add(index_key)
+                    new_count += 1
+                except Exception as exc:
+                    error_record = {
+                        **getattr(exc, "audit", {}),
+                        "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                        "sample": sample_id,
+                        "question_index": r.get("question_index"),
+                        "question": r.get("question"),
+                        "prediction": r.get("prediction"),
+                        "reference": r.get("answer"),
+                        "judge_model": JUDGE_MODEL,
+                        "judge_enable_thinking": JUDGE_ENABLE_THINKING,
+                        "judge_prompt_version": JUDGE_PROMPT_VERSION,
+                        "error_type": type(exc).__name__,
+                        "error": repr(exc),
+                        "traceback": traceback.format_exc(),
+                    }
+                    with error_path.open("a", encoding="utf-8") as error_file:
+                        error_file.write(json.dumps(error_record, ensure_ascii=False) + "\n")
+                    print(f"judge error: {sample_id} q={r.get('question_index')} {exc!r}")
+
+        judge_by_cat = defaultdict(list)
+        for row in load_jsonl(out_path):
+            if row.get("llm_score") is not None:
+                judge_by_cat[row.get("category", "?")].append(int(row["llm_score"]))
         print("\n== LLM-judge accuracy by category ==")
         total_ok = total = 0
         for cat in sorted(judge_by_cat, key=str):
@@ -247,6 +323,7 @@ def main():
             print(f"  {cat}: n={len(v)} acc={sum(v) / len(v):.4f}")
         if total:
             print(f"  OVERALL: {total_ok}/{total} = {total_ok / total:.4f}")
+        print(f"  newly judged: {new_count}; elapsed: {time.time() - _t0:.1f}s")
 
     # ---- Metrics summary ----
     summary = print_metrics_summary(data, metrics)

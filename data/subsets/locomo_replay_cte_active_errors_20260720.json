@@ -1,0 +1,123 @@
+{
+  "name": "locomo_replay_cte_active_errors_20260720",
+  "purpose": "Replay execution errors from the 200-question CTE-active ablation.",
+  "generated_by": "repro/build_targeted_replay_manifests.py",
+  "source_manifest": "data/subsets/locomo10_500q_main_seed42.json",
+  "source_result_tag": "ablation_200q_cte_active",
+  "n_questions": 6,
+  "sample_ids": [
+    "conv-41",
+    "conv-44",
+    "conv-47",
+    "conv-48",
+    "conv-50"
+  ],
+  "sample_counts": {
+    "conv-41": 1,
+    "conv-44": 2,
+    "conv-47": 1,
+    "conv-48": 1,
+    "conv-50": 1
+  },
+  "category_counts": {
+    "1": 4,
+    "2": 2
+  },
+  "records": [
+    {
+      "global_index": 114,
+      "sample_id": "conv-41",
+      "question_index": 40,
+      "question_index_1based": 41,
+      "category": 1,
+      "question": "What are the names of John's children?",
+      "answer": "Kyle, Sara",
+      "evidence": [
+        "D8:4",
+        "D22:7"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 261,
+      "sample_id": "conv-44",
+      "question_index": 28,
+      "question_index_1based": 29,
+      "category": 1,
+      "question": "What is something that Audrey often dresses up her dogs with?",
+      "answer": "Hats",
+      "evidence": [
+        "D4:23",
+        "D4:25",
+        "D19:6"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 272,
+      "sample_id": "conv-44",
+      "question_index": 50,
+      "question_index_1based": 51,
+      "category": 1,
+      "question": "What is a skill that Audrey learned to take care of her dogs?",
+      "answer": "Grooming",
+      "evidence": [
+        "D16:2",
+        "D17:4"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 324,
+      "sample_id": "conv-47",
+      "question_index": 42,
+      "question_index_1based": 43,
+      "category": 2,
+      "question": "When did James take his 3 dogs to the beach?",
+      "answer": "August 9, 2022",
+      "evidence": [
+        "D19:12"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 361,
+      "sample_id": "conv-48",
+      "question_index": 29,
+      "question_index_1based": 30,
+      "category": 2,
+      "question": "When did Jolene have a mini-retreat to reflect on her career?",
+      "answer": "Wednesday before 9 February, 2023",
+      "evidence": [
+        "D5:1"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    },
+    {
+      "global_index": 459,
+      "sample_id": "conv-50",
+      "question_index": 11,
+      "question_index_1based": 12,
+      "category": 1,
+      "question": "What mishaps has Calvin run into?",
+      "answer": "flooding of his mansion, car accident",
+      "evidence": [
+        "D6:1",
+        "D9:1"
+      ],
+      "replay_reasons": [
+        "execution_error"
+      ]
+    }
+  ]
+}

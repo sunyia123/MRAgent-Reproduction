@@ -12,7 +12,8 @@ from common import config
 from llm.controller import LLM
 from memory.controller import MemoryController
 from memory.system import MemorySystem, KeyNode, EpisodeEvent, Link
-from agent.ablation import disabled_tools_for_view, support_ids_from_payload, uses_content, uses_tags
+from agent.ablation import disabled_tools_for_view, merge_support_ids, support_ids_from_payload, uses_content, uses_tags
+from agent.structured import normalize_question_keys, normalize_tag_scores
 from agent.tools import TOOLS, ToolBridge
 import logging
 logger = logging.getLogger(__name__)
@@ -494,10 +495,17 @@ class Agent:
                         max_tokens=config.QA_MAX_TOKENS,)
 
 
-                    if key_out is None:
-                        key_candidates.append({"key": key, "tags": tag})
+                    scores = normalize_tag_scores(key_out, tag)
+                    if scores is None:
+                        self.forced_accepts += 1
+                        selected_tags = tag[:config.TAG_LIMIT]
+                        logger.warning(
+                            "select_key_tag: invalid tag_scores output for key=%r; "
+                            "falling back to the first %d stored tags",
+                            key, len(selected_tags),
+                        )
+                        key_candidates.append({"key": key, "tags": selected_tags})
                     else:
-                        scores = key_out.get("tag_scores")
 
                         logger.info(f"[sort] {scores}")
 
@@ -539,6 +547,7 @@ class Agent:
         self.forced_accepts = 0
         self.llm.last_tool_calls = 0
         self.llm.last_reasoning_rounds = 0
+        self.llm.chat_text_parse_failures = 0
         self.tool_bridge.reset_trace()
         initial_support_ids = []
         passive_content = []
@@ -669,26 +678,32 @@ class Agent:
             ans_input["question"] = ans_input["question"] + (" No extra explanations in 'answer'. Give reasons with original text in 'reason'. ")
         # LM uses the LM ANSWER system prompt (how-many/temporal rules + tool navigation); locomo uses the default one
         _answer_prompt = Prompts.ANSWER_SYSTEM_TOOL_PROMPT_LM if config.dataset == "LM" else Prompts.ANSWER_SYSTEM_TOOL_PROMPT
+        initial_context_ids = merge_support_ids(
+            initial_support_ids, support_ids_from_payload(ans_input))
+        tool_context_ids = []
         if config.RETRIEVAL_MODE == "passive":
             ans_messages = self._chat_without_tools(ans_input)
-            support_origin = list(dict.fromkeys(
-                initial_support_ids or support_ids_from_payload(ans_input)))
+            support_origin = initial_context_ids
         else:
             ans_messages, evidence_support = self._chat_with_tools(
                 _answer_prompt, ans_input, category)
-            support_origin = self.memory.get_support_origin(evidence_support)
+            tool_context_ids = self.memory.get_support_origin(evidence_support)
+            support_origin = merge_support_ids(initial_context_ids, tool_context_ids)
 
         # store per-question metrics on the agent for the caller to read
         self._last_question_metrics = {
             "tool_calls": self.llm.last_tool_calls,
             "reasoning_rounds": self.llm.last_reasoning_rounds,
-            "schema_retries": self.schema_retries,
+            "schema_retries": self.schema_retries + self.llm.chat_text_parse_failures,
             "forced_accepts": self.forced_accepts,
             "runtime_sec": round(_time.time() - _t_start, 2),
             "tool_trace": self.tool_bridge.trace,
             "memory_view": config.MEMORY_VIEW,
             "retrieval_mode": config.RETRIEVAL_MODE,
-            "initial_context_units": len(set(initial_support_ids)),
+            "initial_context_units": len(initial_context_ids),
+            "initial_context_ids": initial_context_ids,
+            "tool_context_ids": tool_context_ids,
+            "final_context_ids": support_origin,
         }
         return ans_messages, support_origin
 
@@ -700,7 +715,24 @@ class Agent:
             model=config.QA_MODEL,
             max_tokens=config.QA_MAX_TOKENS,
         )
-        return question_out
+        normalized = normalize_question_keys(question_out)
+        if normalized is not None:
+            return normalized
+
+        self.forced_accepts += 1
+        question_lower = questions.lower()
+        matched_keys = sorted(
+            (str(key) for key in self.memory.keys if str(key).lower() in question_lower),
+            key=lambda key: (-len(key), key),
+        )
+        logger.warning(
+            "extract_question_keys: invalid structured output; using %d exact memory-key matches",
+            len(matched_keys),
+        )
+        return {
+            "question_time": "",
+            "keywords": [{"id": key, "alternatives": []} for key in matched_keys],
+        }
 
     @staticmethod
     def _normalize_sentence_ids(rewrite_out):
