@@ -130,7 +130,7 @@ The graph/retrieval ablation uses two explicit switches instead of approximating
 
 The CTE/CTC mechanism experiment is now closed except for targeted repair replay. The three committed replay manifests contain 5 Full MRAgent execution errors, 6 CTE-active execution errors, and 25 CTC-active execution/content-tool failures. Run them with new result tags, then use `repro/compare_targeted_replays.py`; do not overwrite or rerun the five original 200-question conditions.
 
-The Judge runner now resumes by question key, backs up files on explicit overwrite, records prompt/response/provenance, and supports a bounded smoke run. Use `--judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20` so every method receives the same smoke questions, and run `repro/validate_judge_results.py` after the smoke and again at 400/400 ordinary questions. Do not mix the old unknown-provenance Judge rows with the final Qwen, thinking-disabled Judge v2 results.
+The Judge runner now resumes by question key, backs up files on explicit overwrite, records prompt/response/provenance, and supports a bounded smoke run. The current reproduction fixes the Judge to `deepseek-ai/DeepSeek-V4-Flash` with thinking disabled. Use `--judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20` so every method receives the same smoke questions, and run `repro/validate_judge_results.py` after the smoke and again at 400/400 ordinary questions. Do not mix old-prompt Judge rows with final Judge v2 results.
 
 The external A-Mem and Mem0 conv-26 gate has completed 10/10 and verifies only engineering readiness, not statistical performance. The current 500-question runs are partial: A-Mem 96/500 and Mem0 297/500. After targeted replay and the three-method Judge smoke pass, resume Mem0 first and then A-Mem from their existing caches.
 
@@ -293,7 +293,7 @@ cp .env.example .env
 | --- | --- | --- |
 | Chat / reasoning | `common/config.py` (`--model` → `MODEL`) | e.g. `gemini` → `google/gemini-2.5-flash` |
 | Embedding | `llm/embeddings.py` | `text-embedding-3-large` (3072-d) |
-| LLM-as-judge | `eval/judge.py` | `openai/gpt-4o-mini` |
+| LLM-as-judge | `eval/judge.py` | upstream: `openai/gpt-4o-mini`; this reproduction: `deepseek-ai/DeepSeek-V4-Flash` |
 
 ---
 

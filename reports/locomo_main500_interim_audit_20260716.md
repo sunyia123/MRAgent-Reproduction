@@ -151,7 +151,7 @@ CI 不跨 0 表示当前 LoCoMo-10 上的优势对 conversation 重采样较稳�
 
 完整 500 题主实验中，每个方法需要 Judge 的是类别 1-4 共 400 题。五方法完成后共 2000 次 Judge；五组 200 题消融再需要 1000 次。完全相同的 question/gold/prediction 三元组可以按哈希复用，但不能只因题号相同就复制 Judge。
 
-当前提交的 Judge 行只记录 `llm_score`、题目、预测、参考答案、类别和 sample，没有记录 judge model、prompt version、thinking、request id 或原始响应。因此结果数值可复算，但无法从 GitHub 独立确认实际 Judge 模型。后续补跑必须固定使用独立于回答模型的 `Qwen/Qwen3.5-397B-A17B`，并明确标注它与论文 Judge 的差异；不建议让 DeepSeek-V4-Flash 自评自己的答案。
+当前提交的 Judge 行只记录 `llm_score`、题目、预测、参考答案、类别和 sample，没有记录 judge model、prompt version、thinking、request id 或原始响应。服务器运行者确认旧三组 Judge 设置为 SiliconFlow `deepseek-ai/DeepSeek-V4-Flash`，但该事实无法由已提交 JSONL 独立复核。后续统一使用同一 V4-Flash、thinking=false 和新版 prompt 完整重判，并明确标注它与论文 GPT-4o-mini Judge 的差异以及同模型自评偏差。
 
 补全 Judge 前应先修改 runner：显式传 `JUDGE_BASE_URL`、`JUDGE_MODEL`、`JUDGE_ENABLE_THINKING=0` 和较小输出上限；按 `sample + question` 或新增的 `sample + question_index` 断点续跑而不是删除旧文件；记录 model、prompt version、request id、content、finish_reason、usage、retry 和解析错误。先验证现有 400/354/290 行没有重复，再只运行缺失题；A-Mem/Mem0 完成 500 题后再进入同一主表。
 
@@ -159,7 +159,7 @@ runner 修复并通过 smoke 后，只续跑 RAG 缺失的 46 题和 GraphRAG �
 
 ```bash
 export JUDGE_BASE_URL=https://api.siliconflow.cn/v1
-export JUDGE_MODEL=Qwen/Qwen3.5-397B-A17B
+export JUDGE_MODEL=deepseek-ai/DeepSeek-V4-Flash
 export JUDGE_ENABLE_THINKING=0
 # JUDGE_API_KEY 仅在服务器环境中设置，不写入命令、文档或 Git。
 
@@ -288,7 +288,7 @@ P0 闸门验收：三份 replay 共 36 题且无重复键；active 的三类 con
 
 ### P1：闭环现有主实验
 
-1. Judge runner 已改为默认断点续跑，并在 overwrite 时先备份旧文件。由于旧 Judge 缺少统一模型 provenance，最终版应固定 Qwen3.5-397B-A17B、thinking=false 和新版严格 JSON prompt，对 MRAgent/RAG/GraphRAG 各完整重判 400 题。
+1. Judge runner 已改为默认断点续跑，并在 overwrite 时先备份旧文件。最终版固定 DeepSeek-V4-Flash、thinking=false 和新版严格 JSON prompt，对 MRAgent/RAG/GraphRAG 各完整重判 400 题。
 2. 使用固定 main manifest 排序先做三方法同一 20 题 Judge v2 smoke，再运行 3 x 400；每阶段用 Judge validator 检查键、重复和 provenance。在相同 400 题上生成配对差值和 conversation-clustered 95% CI。旧 400/354/290 行只作历史记录。
 3. 执行 `audit_mragent_judged_errors`，覆盖 Full MRAgent 的 88 个 Judge=0 ordinary badcase。归因至少区分：执行/schema 错误、初始检索缺失、工具路径偏离、检索到证据但利用失败、答案语义正确但 Judge 错判、gold/evidence 标注问题。
 4. 每类抽取 3-5 个案例，保留 question、gold、prediction、初始上下文、逐轮工具调用、最终上下文、raw response、Judge 与人工结论。
@@ -298,7 +298,7 @@ P0 闸门验收：三份 replay 共 36 题且无重复键；active 的三类 con
 
 1. 先完成 Mem0 剩余 203 题，再完成 A-Mem 剩余 404 题。两者当前逐题 QA 平均仅约 3.65 秒和 5.15 秒，服务器感知的长耗时更可能来自每个 conversation 的 memory 构建；必须额外记录 build wall-clock、QA wall-clock、API 次数和 cache hit，不能只看 `_metrics.runtime_sec`。
 2. 对每种方法验收 500/500、同一 manifest、同一 QA/embedding 模型、thinking=false、无重复/额外题；单独报告 memory build 成本。
-3. 补齐后再运行同一 Qwen Judge，形成 Full MRAgent、RAG、GraphRAG、A-Mem、Mem0 的五方法完整主表。
+3. 补齐后再运行同一 DeepSeek-V4-Flash Judge，形成 Full MRAgent、RAG、GraphRAG、A-Mem、Mem0 的五方法完整主表。
 
 ### P3：进入 Q-learning 检索路径改造
 

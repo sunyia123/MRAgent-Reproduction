@@ -13,7 +13,7 @@
 
 ## 2. 一句话说明
 
-- 当前只处理四件事：定向修复错误行并回填完整结果、统一运行 Qwen Judge、补齐 Mem0/A-Mem、生成五方法主比较与 MRAgent badcase 报告。
+- 当前只处理四件事：定向修复错误行并回填完整结果、统一运行 DeepSeek-V4-Flash Judge、补齐 Mem0/A-Mem、生成五方法主比较与 MRAgent badcase 报告。
 - 不重跑已经完成的五组 200 题消融。
 - 最先执行：拉取本分支，完成三组错误题定向重跑和完整结果回填。
 
@@ -36,7 +36,7 @@
 
 - 只重跑 Full 的 5 个 ERROR、CTE active 的 6 个 ERROR、CTC active 的 25 个错误题。
 - 将重跑结果替换到原完整结果的副本中，形成修正版 500/200 题结果。
-- 使用统一 Qwen Judge 对五方法普通题进行完整判断。
+- 使用统一 DeepSeek-V4-Flash Judge 对五方法普通题进行完整判断。
 
 ### 3.3 本轮待完成
 
@@ -204,14 +204,14 @@ python repro/compare_main_experiment.py --manifest data/subsets/locomo10_200q_ab
 事实边界：
 
 - 上游公开代码通过 OpenRouter 使用 `openai/gpt-4o-mini`。
-- 当前仓库已有旧 Judge 文件只有 `llm_score/question/prediction/reference/category/sample`，没有模型和 prompt provenance，无法证明实际 Judge 模型。
-- 本轮统一改用 SiliconFlow 的 `Qwen/Qwen3.5-397B-A17B`，关闭 thinking；这属于公开复现的替代 Judge，不得描述为论文原始 Judge。
+- 当前仓库已有旧 Judge 文件只有 `llm_score/question/prediction/reference/category/sample`，没有模型和 prompt provenance。根据服务器运行者确认，旧三组 Judge 实际设置为 SiliconFlow `deepseek-ai/DeepSeek-V4-Flash`；但仅凭已提交 JSONL 无法独立复核该配置。
+- 本轮继续使用 SiliconFlow 的 `deepseek-ai/DeepSeek-V4-Flash`，关闭 thinking，并由新版 runner 逐行记录 provenance。这属于公开复现的替代 Judge，不得描述为论文原始 Judge。
 
 运行前环境：
 
 ```bash
 export JUDGE_BASE_URL=https://api.siliconflow.cn/v1
-export JUDGE_MODEL=Qwen/Qwen3.5-397B-A17B
+export JUDGE_MODEL=deepseek-ai/DeepSeek-V4-Flash
 export JUDGE_ENABLE_THINKING=0
 export JUDGE_MAX_TOKENS=256
 export JUDGE_CLIENT_MAX_RETRIES=0
@@ -225,7 +225,7 @@ API key 只写入服务器 `.env` 的 `JUDGE_API_KEY`，禁止出现在命令、
 ```bash
 for TAG in mragent_500q_main_repaired_v2 rag_500q_main graphrag_500q_main; do
   python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_overwrite --judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20
-  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 20 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 20 --expected_model deepseek-ai/DeepSeek-V4-Flash --expected_thinking false
 done
 ```
 
@@ -234,7 +234,7 @@ done
 ```bash
 for TAG in mragent_500q_main_repaired_v2 rag_500q_main graphrag_500q_main; do
   python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_manifest data/subsets/locomo10_500q_main_seed42.json
-  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 400 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 400 --expected_model deepseek-ai/DeepSeek-V4-Flash --expected_thinking false
 done
 ```
 
@@ -243,15 +243,15 @@ done
 ```bash
 for TAG in amem_500q_main mem0_500q_main; do
   python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_overwrite --judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20
-  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 20 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 20 --expected_model deepseek-ai/DeepSeek-V4-Flash --expected_thinking false
   python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_manifest data/subsets/locomo10_500q_main_seed42.json
-  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 400 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 400 --expected_model deepseek-ai/DeepSeek-V4-Flash --expected_thinking false
 done
 ```
 
 预期效果：五个 Judge 文件各 400 行，模型、prompt version、thinking 和字段统一。
 
-验证：validator 显示无重复键、无 manifest 外题目、`judge_model=Qwen/Qwen3.5-397B-A17B`、`thinking=false`；每行保留 prompt、raw response、attempt、finish reason 和 usage。
+验证：validator 显示无重复键、无 manifest 外题目、`judge_model=deepseek-ai/DeepSeek-V4-Flash`、`thinking=false`；每行保留 prompt、raw response、attempt、finish reason 和 usage。
 
 失败处理：不得把旧 Judge 行追加到新结果。闸门出现混合 provenance、JSON parse error 或缺字段时停止并上传 `judge_errors_*.jsonl`。
 
@@ -305,7 +305,8 @@ python repro/audit_mragent_judged_errors.py --manifest data/subsets/locomo10_500
 ## 9. 风险与坑
 
 - `deepseek` 出现在结果文件名中只表示答案实验的模型短名，不证明 Judge 使用 DeepSeek。
-- 旧 Judge 没有 provenance，不能与新 Qwen Judge 混合。
+- 旧 Judge 没有逐行 provenance，且使用旧 prompt，不能与新版 V4-Flash Judge 混合。
+- V4-Flash 同时作为答案模型和 Judge 可能产生自评偏差；五方法必须使用同一 Judge，并在报告中标注该限制。
 - 定向重跑是错误修复，不是新的小样本实验；不能用 5/6/25 题计算总体结论。
 - 禁止覆盖修复前完整结果；合并器只允许生成新 output tag。
 - 禁止重建已完整的 LoCoMo 图缓存。

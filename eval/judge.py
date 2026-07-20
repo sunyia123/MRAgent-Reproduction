@@ -17,7 +17,7 @@ load_dotenv()  # read API key from .env
 # Judge LLM configuration — env-variable driven, provider-agnostic
 JUDGE_API_KEY = os.getenv("JUDGE_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
 JUDGE_BASE_URL = os.getenv("JUDGE_BASE_URL", os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1"))
-JUDGE_MODEL = os.getenv("JUDGE_MODEL", "openai/gpt-4o-mini")
+JUDGE_MODEL = os.getenv("JUDGE_MODEL", "deepseek-ai/DeepSeek-V4-Flash")
 JUDGE_ENABLE_THINKING = os.getenv("JUDGE_ENABLE_THINKING", "0") == "1"
 JUDGE_MAX_TOKENS = int(os.getenv("JUDGE_MAX_TOKENS", "256"))
 JUDGE_TIMEOUT_SECONDS = float(os.getenv("JUDGE_TIMEOUT_SECONDS", "120"))

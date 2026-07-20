@@ -83,7 +83,7 @@ CTC active 的 200 题中有 140 题调用内容工具，但 18 题出现 37 次
 
 ### E1：主实验 Judge 与 badcase 闭环
 
-- 当前 Judge 缺少统一 provenance，且新 runner 修正了互相矛盾的 JSON prompt。最终结果应先备份旧文件，再使用 `Qwen/Qwen3.5-397B-A17B`、thinking=false 对三个主方法各自完整重判 400 题，而不是把新结果追加到未知配置的旧文件中。
+- 当前 Judge 缺少逐行 provenance，且新 runner 修正了互相矛盾的 JSON prompt。最终结果应先备份旧文件，再使用 `deepseek-ai/DeepSeek-V4-Flash`、thinking=false 对三个主方法各自完整重判 400 题，而不是把新结果追加到旧 prompt 的文件中。
 - 先以 `--judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20` 对三方法同一 20 道普通题做 Judge v2 smoke，检查 label、原始响应、finish reason、usage 和断点续跑，再移除数量上限运行 3 x 400。
 - smoke 和完整结果均使用 `repro/validate_judge_results.py` 校验题目键、重复行、统一模型、prompt version、thinking 设置和审计字段；任何一项失败都不得进入比较脚本。
 - 在同一 400 题上计算 Judge 配对差值与 conversation-clustered 95% CI。
@@ -115,7 +115,7 @@ badcase 分类：执行/schema 错误、初始检索缺失、工具路径偏离�
 
 1. 拉取本分支后运行静态检查与单元测试，不调用 API。
 2. 按三份 replay manifest 定向运行 Full、CTE active、CTC active，分别使用新 tag；每组结束立即生成 before/after 对照报告。不要再跑五组 200 题消融。
-3. 固定 Qwen Judge、thinking=false，先对 Full/RAG/GraphRAG 各运行 20 个新判断并校验；三组均通过后，从现有文件断点续跑至各 400 条普通题。
+3. 固定 DeepSeek-V4-Flash Judge、thinking=false，先对 Full/RAG/GraphRAG 各运行 20 个新判断并校验；三组均通过后，从现有文件断点续跑至各 400 条普通题。
 4. 先续跑 Mem0 的 4 个缺失 conversation，再续跑 A-Mem 的 8 个缺失 conversation。复用已完成 memory cache，记录构建和 QA 两段耗时。
 5. 五方法结果和 Judge 完整后，更新主比较、MRAgent 全量 badcase 归因和中期报告。
 6. 只有上述数据闭环后，开始 transition 导出与 CBR/return-ranker/Q-learning 的 20-50 题接口实验。
