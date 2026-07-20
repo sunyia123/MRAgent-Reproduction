@@ -2,13 +2,16 @@
 
 ## Reproduction Workspace Notice
 
-This checkout is maintained as `sunyia123/MRAgent-Reproduction`, a private reproduction and extension workspace.
+This checkout is maintained as `sunyia123/MRAgent-Reproduction`, a reproduction and extension workspace.
 
-Before running experiments, read:
+Before running the current server experiment, read only the canonical handoff:
+
+- [docs/handoff.md](docs/handoff.md)
+
+The following files are historical or research references. They are not current server instructions:
 
 - [README_REPRODUCTION.md](README_REPRODUCTION.md)
 - [docs/goal.md](docs/goal.md)
-- [docs/handoff.md](docs/handoff.md)
 - [docs/claude_code_next_steps.md](docs/claude_code_next_steps.md)
 - [docs/claude_code_full_experiment_instructions.md](docs/claude_code_full_experiment_instructions.md)
 - [docs/experiment_master_agenda.md](docs/experiment_master_agenda.md)
@@ -26,10 +29,11 @@ Before running experiments, read:
 Current server-side execution entry:
 
 ```bash
-cat docs/locomo_gate10_to_500_handoff.md
+cat docs/handoff.md
 python repro/update_server_directory_manifest.py --root /data/nishome/cuiwenjia/MRAgent-Reproduction
-python repro/audit_runtime_config.py --data locomo --sample_ids 26 --model deepseek --re_model v4flash --qa_model v4flash --file mragent_full_gate10_qflash --subset_manifest data/subsets/locomo_conv26_10q_core_seed42.json
 ```
+
+The graph-build and older gate commands below are retained for historical reproducibility. The current 10-conversation graph cache is complete; do not execute those commands unless `docs/handoff.md` explicitly reopens graph construction.
 
 For the current medium-core validation, do not run `run_stratified.py --sample_ids 26 --model deepseek` as a bare command. It omits the fixed subset manifest, uses the default result tag `0`, and leaves QA model routing implicit. In this workspace, `--model deepseek` resolves to `deepseek-ai/DeepSeek-V4-Pro`; graph-building rewrite/keyword should normally use `--re_model v4flash`, while QA must explicitly use `--qa_model v4flash` or `--qa_model deepseek`. Generated baseline caches, VLM rewrite caches, logs, raw results, and secrets must stay out of Git unless a small manifest/report is explicitly written.
 

@@ -46,6 +46,7 @@ judge_*.json
 result_judge_*.jsonl
 result_judge_*.jsonl.bak-*
 !result_judge_locomo_deepseek_mragent_500q_main.jsonl
+!result_judge_locomo_deepseek_mragent_500q_main_repaired_v2.jsonl
 !result_judge_locomo_deepseek_rag_500q_main.jsonl
 !result_judge_locomo_deepseek_graphrag_500q_main.jsonl
 !result_judge_locomo_deepseek_amem_500q_main.jsonl

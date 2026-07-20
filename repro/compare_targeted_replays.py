@@ -154,6 +154,18 @@ def main() -> None:
         "after_content_tool_error_calls": sum(item["after_content_tool_errors"] for item in detail),
         "after_context_fields_complete": sum(item["after_context_fields_complete"] for item in detail),
     }
+    requires_content_repair = any(
+        "content_tool_error" in item["replay_reasons"] for item in detail)
+    failures = []
+    if summary["after_present"] != summary["expected"]:
+        failures.append("replay rows are incomplete")
+    if summary["after_execution_errors"]:
+        failures.append("execution ERROR remains after replay")
+    if requires_content_repair and summary["after_content_tool_error_calls"]:
+        failures.append("content-tool errors remain after replay")
+    if summary["after_context_fields_complete"] != summary["expected"]:
+        failures.append("active context id fields are incomplete")
+    summary["failures"] = failures
 
     prefix = Path(args.output_prefix)
     prefix.parent.mkdir(parents=True, exist_ok=True)
@@ -184,7 +196,7 @@ def main() -> None:
         )
     prefix.with_suffix(".md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    if summary["after_present"] != summary["expected"]:
+    if failures:
         raise SystemExit(1)
 
 

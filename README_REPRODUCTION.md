@@ -1,6 +1,8 @@
 # MRAgent Reproduction Workspace
 
-This private fork is the reproducibility and extension workspace for MRAgent.
+This public repository is the reproducibility and extension workspace for MRAgent.
+
+> This file preserves setup background. For the current server experiment, `docs/handoff.md` is the only execution instruction.
 
 Read first:
 
@@ -26,13 +28,13 @@ https://github.com/sunyia123/MRAgent-Reproduction
 
 - Official MRAgent code is checked out at upstream commit `7441506`.
 - `upstream` points to `https://github.com/Ji-shuo/MRAgent.git`.
-- `origin` points to the private reproduction repository.
+- `origin` points to `sunyia123/MRAgent-Reproduction`.
 - LoCoMo data is available.
 - LongMemEval data is currently blocked because the upstream Git LFS object was not available.
 
 LongMemEval blocker:
 
-`data/dataset_LM.json` is intentionally not tracked in this private reproduction repository. During initial setup, only the Git LFS pointer was available, not the real 275MB dataset object. Keeping that pointer makes fresh clones fail because Git LFS tries to download an object that does not exist in this private repository. Treat LongMemEval as unavailable until the real dataset is obtained and verified as a hundreds-of-MB JSON file.
+`data/dataset_LM.json` is intentionally not tracked in this reproduction repository. During initial setup, only the Git LFS pointer was available, not the real 275MB dataset object. Keeping that pointer makes fresh clones fail because Git LFS tries to download an object that does not exist in this repository. Treat LongMemEval as unavailable until the real dataset is obtained and verified as a hundreds-of-MB JSON file.
 
 Check:
 
@@ -65,4 +67,4 @@ docs/intermediate_artifact_checklist.md
 
 If rewrite, keyword, embedding, memory audit, metrics, logs, or artifact manifest are missing, the run is only a partial result and must not be treated as paper-level reproduction.
 
-Also read the `Git Safety And Force-Push Rules` and `Model Diagnostic Evidence Requirements` sections in `docs/handoff.md` before rewriting branch history or blaming a model for failed structured extraction.
+The current Git safety, model provenance, failure evidence, and stop conditions are maintained directly in `docs/handoff.md`.

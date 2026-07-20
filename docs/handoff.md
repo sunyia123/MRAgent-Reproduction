@@ -1,704 +1,338 @@
-# MRAgent Reproduction Handoff
+# MRAgent 当前实验交接文档
 
-## Repository Setup
+## 1. 基本信息
 
-This project uses a two-remote workflow:
+- 项目名称：MRAgent-Reproduction
+- 交接日期：2026-07-20
+- 交接人：本地 Codex
+- 接手人：服务器 Claude Code
+- 文档版本：v3.0
+- 当前状态：进行中
+- 代码分支：`codex/locomo-main500-interim-audit`
+- 代码基线：以本交接文档所在 commit 为准
 
-```bash
-git remote -v
-```
+## 2. 一句话说明
 
-Expected:
+- 当前只处理四件事：定向修复错误行并回填完整结果、统一运行 Qwen Judge、补齐 Mem0/A-Mem、生成五方法主比较与 MRAgent badcase 报告。
+- 不重跑已经完成的五组 200 题消融。
+- 最先执行：拉取本分支，完成三组错误题定向重跑和完整结果回填。
+
+## 3. 当前进度
+
+### 3.1 已完成并验证
+
+- LoCoMo-10 图缓存：10/10 conversation 完整。
+- Full MRAgent：500/500，原结果有 5 个执行 ERROR。
+- RAG：500/500。
+- GraphRAG：500/500。
+- 五组消融：每组 200/200。
+- CTE active：原结果有 6 个执行 ERROR。
+- CTC active：原结果有 7 个执行 ERROR；另有 18 题发生内容工具参数错误。
+- Mem0：297/500，已完成 6 个 conversation。
+- A-Mem：96/500，已完成 2 个 conversation。
+- structured output、topic/person 参数、active context 记录代码已经修复并有本地测试。
+
+### 3.2 本轮进行中
+
+- 只重跑 Full 的 5 个 ERROR、CTE active 的 6 个 ERROR、CTC active 的 25 个错误题。
+- 将重跑结果替换到原完整结果的副本中，形成修正版 500/200 题结果。
+- 使用统一 Qwen Judge 对五方法普通题进行完整判断。
+
+### 3.3 本轮待完成
+
+- Mem0 剩余 conversation：`conv-47,48,49,50`。
+- A-Mem 剩余 conversation：`conv-41,42,43,44,47,48,49,50`。
+- Full/RAG/GraphRAG/A-Mem/Mem0 的统一 Judge。
+- 五方法主比较、置信区间、MRAgent 全量判错归因和中期报告。
+
+## 4. 核心产物
+
+### 4.1 代码
+
+- 主运行入口：`run_stratified.py`
+- 外部基线：`repro/external_baselines/run_mem0_adapter.py`
+- 外部基线：`repro/external_baselines/run_amem_adapter.py`
+- Judge：`eval/evaluate_reasoning.py`、`eval/judge.py`
+- 定向清单生成：`repro/build_targeted_replay_manifests.py`
+- 重跑前后检查：`repro/compare_targeted_replays.py`
+- 错误行回填：`repro/merge_targeted_replay_results.py`
+- Judge 验收：`repro/validate_judge_results.py`
+- 五方法比较：`repro/compare_main_experiment.py`
+- MRAgent 判错归因：`repro/audit_mragent_judged_errors.py`
+
+### 4.2 数据与清单
+
+- 主实验：`data/subsets/locomo10_500q_main_seed42.json`
+- Full 错误题：`data/subsets/locomo_replay_mragent_main_errors_20260720.json`，5 题。
+- CTE active 错误题：`data/subsets/locomo_replay_cte_active_errors_20260720.json`，6 题。
+- CTC active 错误题：`data/subsets/locomo_replay_ctc_active_repairs_20260720.json`，25 题。
+
+### 4.3 原始完整结果
+
+- Full：`*_result_deepseek_mragent_500q_main.jsonl`
+- RAG：`*_result_deepseek_rag_500q_main.jsonl`
+- GraphRAG：`*_result_deepseek_graphrag_500q_main.jsonl`
+- CTE active：`*_result_deepseek_ablation_200q_cte_active.jsonl`
+- CTC active：`*_result_deepseek_ablation_200q_ctc_active.jsonl`
+
+上述文件是修复前证据，不删除、不覆盖。
+
+### 4.4 本轮最终结果 tag
+
+- 修正版 Full：`mragent_500q_main_repaired_v2`
+- 修正版 CTE active：`ablation_200q_cte_active_repaired_v2`
+- 修正版 CTC active：`ablation_200q_ctc_active_repaired_v2`
+- Mem0：继续使用 `mem0_500q_main`
+- A-Mem：继续使用 `amem_500q_main`
+
+## 5. 目录结构
 
 ```text
-origin   https://github.com/sunyia123/MRAgent-Reproduction.git
-upstream https://github.com/Ji-shuo/MRAgent.git
+MRAgent-Reproduction/
+├── agent/                         # MRAgent 检索与工具边界
+├── eval/                          # F1 与 Judge
+├── data/subsets/                  # 固定题目和定向修复清单
+├── data/locomo/                   # 服务器缓存，不提交大文件
+├── repro/                         # 重跑、合并、校验、比较脚本
+├── result/locomo/                 # 逐题结果，允许提交
+├── result/diagnostics/            # 脱敏错误/trace
+├── reports/                       # 汇总、逐题审计和实验报告
+├── log/                           # 完整运行日志，仅服务器保存
+└── docs/handoff.md                # 当前唯一服务器执行交接
 ```
 
-- `upstream` is read-only and tracks the official MRAgent repository.
-- `origin` is the private synchronization repository for local and server work.
+- 输入：`data/dataset_locomo.json`、`data/subsets/*.json`。
+- 中间产物：`data/locomo/`、外部 baseline memory cache、embedding。
+- 最终产物：`result/locomo/*.jsonl`、Judge JSONL、`reports/*.md/json/csv`。
+- 归档：修复前结果和 Judge 备份；不得删除。
 
-## First Sync
+## 6. 数据说明
+
+- 数据来源：LoCoMo 官方数据，仓库文件 `data/dataset_locomo.json`。
+- 当前范围：10 个 conversation，固定 500 题；普通题 400，adversarial 题 100。
+- 消融范围：固定 200 题，category 1/2 各 100。
+- 格式：manifest 为 JSON；逐题结果和 Judge 为 JSONL。
+- 可复现性：题目由固定 manifest 和 `question_index` 唯一确定。
+- 定向重跑结果不能单独计算总体均值；它们只用于替换完整结果中的同一题。
+
+## 7. 运行说明
+
+### 7.1 同步和静态检查
+
+命令：
 
 ```bash
-cd ~/repro
-git clone https://github.com/sunyia123/MRAgent-Reproduction.git
-cd MRAgent-Reproduction
 git status --short --branch
+git fetch origin
+git switch codex/locomo-main500-interim-audit
+git pull --ff-only origin codex/locomo-main500-interim-audit
+python -m py_compile agent/structured.py agent/tools.py agent/agent.py eval/judge.py eval/evaluate_reasoning.py repro/merge_targeted_replay_results.py
 ```
 
-Expected:
+预期效果：工作区位于交接分支，代码可以编译，不触发 API。
 
-- Current branch is `main`.
-- Working tree is clean.
-- Documentation under `docs/` is present.
+验证：反馈当前 commit、`git status` 和编译退出码。
 
-## Server Sync Safety
+失败处理：工作区有未提交结果时先停止，不执行 reset/clean；先把结果提交到独立实验分支。
 
-Before pulling new code, especially while another experiment is still running:
+### 7.2 定向重跑三组错误题
+
+统一环境：沿用原实验的 V4-Flash QA、Qwen3-Embedding-4B、`ENABLE_THINKING=0` 和现有图缓存。不要重建图。
+
+Full 5 题：
 
 ```bash
-cd /data/nishome/cuiwenjia/MRAgent-Reproduction
-git status --short --branch
-git log --oneline --decorate -5
-git branch -vv
+python run_stratified.py --data locomo --model deepseek --re_model v4flash --qa_model v4flash --memory_view ctc --retrieval_mode active --file repair_mragent_main_errors_v2 --subset_manifest data/subsets/locomo_replay_mragent_main_errors_20260720.json
 ```
 
-Expected:
-
-- If the working tree is clean and the branch is not ahead of `origin/main`, `git pull --ff-only origin main` is safe.
-- If there are local commits ahead of `origin/main`, push them first or record why they are intentionally local-only.
-- If the working tree is dirty, do not pull until the current run finishes and the files are classified as code/report/ignored artifact.
-
-Failure handling:
-
-- Do not use `git reset --hard` or `git clean -fdx` to "fix" a dirty experiment checkout.
-- If code must be updated while a long experiment continues, create a second clone and run the new task there.
-- If a server-side report says "committed" but GitHub `main` does not show it, treat it as unpushed or committed on another branch until proven otherwise.
-
-## Git Safety And Force-Push Rules
-
-Force-push means rewriting the remote branch pointer to a different commit history.
-Example commands include:
+CTE active 6 题：
 
 ```bash
-git push --force origin exp/...
-git push --force-with-lease origin exp/...
+python run_stratified.py --data locomo --model deepseek --re_model v4flash --qa_model v4flash --memory_view cte --retrieval_mode active --file repair_cte_active_errors_v2 --subset_manifest data/subsets/locomo_replay_cte_active_errors_20260720.json
 ```
 
-Why this matters:
-
-- A normal push adds commits. A force-push can remove previously pushed commits from the GitHub branch view.
-- If those removed commits contained reports, logs, metrics, or manifests, they disappear from that branch on GitHub.
-- Force-push does not directly delete ignored server files such as `data/locomo/rewrite_*` or `embedding.pkl`.
-- However, after a force-push, commands such as `git reset --hard`, `git clean -fdx`, deleting/recloning the repo, or switching to a branch that lacks tracked files can delete local tracked/untracked/ignored artifacts depending on the command.
-- Therefore, a force-push can make evidence hard to recover even if it does not itself erase every server-side cache.
-
-Rules:
-
-- Never force-push `main`.
-- Do not force-push a shared experiment branch after results have been reported.
-- Prefer a new corrective commit over rewriting history.
-- If history rewrite is unavoidable, use `--force-with-lease`, not plain `--force`.
-- Before any force-push, create a safety tag:
+CTC active 25 题：
 
 ```bash
-git tag backup/YYYYMMDD-HHMM-before-force
-git push origin backup/YYYYMMDD-HHMM-before-force
+python run_stratified.py --data locomo --model deepseek --re_model v4flash --qa_model v4flash --memory_view ctc --retrieval_mode active --file repair_ctc_active_repairs_v2 --subset_manifest data/subsets/locomo_replay_ctc_active_repairs_20260720.json
 ```
 
-- Before any force-push, write or update an artifact manifest with remote paths, file sizes, and checksums.
-- After a force-push, explicitly state which commits were replaced and whether any reports/results/logs were removed from the branch.
+预期效果：分别得到 5、6、25 行；原始完整结果不变。
 
-Commands to inspect whether a branch was rewritten:
+验证：每组检查题目键与 manifest 完全一致；执行 ERROR 为 0；CTC 内容工具参数错误为 0；每行包含三类 context id、tool trace 和 retry/schema 指标。
+
+失败处理：任一题仍为 ERROR 时停止在该组，上传该题 prompt、raw response、retry、trace 和 traceback，不继续回填。
+
+### 7.3 比较并回填完整结果
+
+先分别运行前后检查：
 
 ```bash
-git fetch origin --prune
-git log --oneline --decorate --graph --all -20
-git reflog --date=iso
-git diff --name-status origin/main..origin/exp/20260701-stage-b-eval-audit
+python repro/compare_targeted_replays.py --manifest data/subsets/locomo_replay_mragent_main_errors_20260720.json --after_tag repair_mragent_main_errors_v2 --output_prefix reports/repair_compare_mragent_main_v2
+python repro/compare_targeted_replays.py --manifest data/subsets/locomo_replay_cte_active_errors_20260720.json --after_tag repair_cte_active_errors_v2 --output_prefix reports/repair_compare_cte_active_v2
+python repro/compare_targeted_replays.py --manifest data/subsets/locomo_replay_ctc_active_repairs_20260720.json --after_tag repair_ctc_active_repairs_v2 --output_prefix reports/repair_compare_ctc_active_v2
 ```
 
-Do not use these commands unless explicitly approved:
+确认重跑行通过后再运行：
 
 ```bash
-git reset --hard
-git clean -fdx
-rm -rf data/locomo log result reports
+python repro/merge_targeted_replay_results.py --manifest data/subsets/locomo_replay_mragent_main_errors_20260720.json --replay_tag repair_mragent_main_errors_v2 --output_tag mragent_500q_main_repaired_v2 --report_prefix reports/repair_merge_mragent_main_v2
+
+python repro/merge_targeted_replay_results.py --manifest data/subsets/locomo_replay_cte_active_errors_20260720.json --replay_tag repair_cte_active_errors_v2 --output_tag ablation_200q_cte_active_repaired_v2 --report_prefix reports/repair_merge_cte_active_v2
+
+python repro/merge_targeted_replay_results.py --manifest data/subsets/locomo_replay_ctc_active_repairs_20260720.json --replay_tag repair_ctc_active_repairs_v2 --output_tag ablation_200q_ctc_active_repaired_v2 --report_prefix reports/repair_merge_ctc_active_v2
 ```
 
-## Environment
+预期效果：生成完整修正版 500/200/200 题结果；只替换 5/6/25 行。
 
-Recommended:
+验证：合并报告必须显示 `source_rows == output_rows`、`replaced_rows` 正确、修复后执行 ERROR 为 0；输出 tag 与源 tag 不同。
+
+随后用修正版 active tag 和未改动的 passive tag 重新计算 200 题消融：
 
 ```bash
-conda create -n mragent-repro python=3.10 -y
-conda activate mragent-repro
-pip install -r requirements.txt
-python -c "import openai, torch, numpy, requests; print('ok')"
+python repro/compare_main_experiment.py --manifest data/subsets/locomo10_200q_ablation_seed42.json --methods 'CTE-active-v2=ablation_200q_cte_active_repaired_v2,CTE-passive=ablation_200q_cte_passive' --output_prefix reports/ablation_200q_cte_repaired_v2
+
+python repro/compare_main_experiment.py --manifest data/subsets/locomo10_200q_ablation_seed42.json --methods 'CTC-active-v2=ablation_200q_ctc_active_repaired_v2,CTC-passive=ablation_200q_ctc_passive,CTE-active-v2=ablation_200q_cte_active_repaired_v2' --output_prefix reports/ablation_200q_ctc_repaired_v2
 ```
 
-Expected:
+这两份报告才是修复后 200 题消融结果；临时 replay 结果不单独进入表格。
 
-- Python imports succeed.
-- CPU torch is sufficient for upstream MRAgent; GPU is not required for baseline.
+失败处理：禁止手工复制粘贴 JSONL。键不一致、输出已存在或行数变化时停止并反馈脚本输出。
 
-Failure handling:
+### 7.4 统一 Judge
 
-- If dependency resolution fails, record the exact pip error in `reports/environment_check_YYYYMMDD.md`.
-- Do not edit requirements blindly; first identify whether the error is Python version, package conflict, or network.
+事实边界：
 
-## Secrets
+- 上游公开代码通过 OpenRouter 使用 `openai/gpt-4o-mini`。
+- 当前仓库已有旧 Judge 文件只有 `llm_score/question/prediction/reference/category/sample`，没有模型和 prompt provenance，无法证明实际 Judge 模型。
+- 本轮统一改用 SiliconFlow 的 `Qwen/Qwen3.5-397B-A17B`，关闭 thinking；这属于公开复现的替代 Judge，不得描述为论文原始 Judge。
 
-Create `.env` manually:
+运行前环境：
 
 ```bash
-cp .env.example .env
+export JUDGE_BASE_URL=https://api.siliconflow.cn/v1
+export JUDGE_MODEL=Qwen/Qwen3.5-397B-A17B
+export JUDGE_ENABLE_THINKING=0
+export JUDGE_MAX_TOKENS=256
+export JUDGE_CLIENT_MAX_RETRIES=0
+export JUDGE_CALL_MAX_ATTEMPTS=2
 ```
 
-Then fill:
+API key 只写入服务器 `.env` 的 `JUDGE_API_KEY`，禁止出现在命令、日志或 Git。
 
-```text
-OPENROUTER_API_KEY=
-```
-
-Rules:
-
-- Never commit `.env`.
-- Never paste API keys into issue text, reports, prompts, or command history.
-- If a key has appeared in chat, rotate it before formal experiments.
-
-## Data
-
-LoCoMo:
-
-- `data/dataset_locomo.json` is tracked and should be usable immediately.
-
-LongMemEval:
-
-- `data/dataset_LM.json` is tracked through Git LFS in the upstream repository.
-- The real LFS object was not available when this private reproduction repository was created.
-- This private repository intentionally does not track `data/dataset_LM.json` until the real dataset is obtained.
-- Until resolved, LongMemEval reproduction is blocked or must use an alternate legitimate dataset source.
-
-What this means:
-
-- Git LFS is used when a repository stores large files outside normal Git history.
-- The normal Git checkout only contains a small pointer file. Git LFS then downloads the real large file.
-- If only the pointer is pushed to the private repository, fresh clones fail because Git LFS tries to download a large object that is not present in the private repository.
-- This is not a MRAgent code bug and not a local Python environment bug.
-- LongMemEval cannot be treated as available until `data/dataset_LM.json` is the real dataset file, not a pointer.
-
-If a clone failed with `smudge filter lfs failed`:
+先对修正版 Full、RAG、GraphRAG 使用同一批题做闸门：
 
 ```bash
-cd /data/nishome/cuiwenjia/MRAgent-Reproduction
-GIT_LFS_SKIP_SMUDGE=1 git checkout -f HEAD
-git pull --ff-only origin main
+for TAG in mragent_500q_main_repaired_v2 rag_500q_main graphrag_500q_main; do
+  python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_overwrite --judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 20 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+done
 ```
 
-Check:
+三组都通过后从 20 条断点续跑至 400 条普通题：
 
 ```bash
-git lfs ls-files
-ls -lh data/dataset_LM.json
-head data/dataset_LM.json
+for TAG in mragent_500q_main_repaired_v2 rag_500q_main graphrag_500q_main; do
+  python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_manifest data/subsets/locomo10_500q_main_seed42.json
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 400 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+done
 ```
 
-Expected:
-
-- If the file is missing, LongMemEval is not ready.
-- If the file is a small pointer and contains `version https://git-lfs.github.com/spec/v1`, LongMemEval is not ready.
-- If the file is hundreds of MB, LongMemEval is ready.
-
-Required handling:
-
-- Prefer LoCoMo for the first reproducible baseline.
-- Before any LongMemEval experiment, record the dataset source, file size, checksum, and acquisition method.
-- Do not fabricate, truncate, or silently replace `dataset_LM.json`.
-
-### LongMemEval Recovery Procedure
-
-Do not keep trying to repair the broken private-repo Git LFS pointer. The safer route is:
-
-1. Download the real LongMemEval cleaned data from the official HuggingFace dataset.
-2. Inspect the schema.
-3. Convert it to MRAgent's expected `data/dataset_LM.json` schema only after confirming the fields.
-4. Run a small LM smoke test.
-5. Record provenance, file size, checksum, and conversion command.
-
-Recommended download:
+外部 baseline 达到 500/500 后，以相同 Judge 配置运行 A-Mem、Mem0 至各 400 条普通题。
 
 ```bash
-mkdir -p data/external
-curl -L --fail \
-  -o data/external/longmemeval_s_cleaned.json \
-  https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json
+for TAG in amem_500q_main mem0_500q_main; do
+  python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_overwrite --judge_manifest data/subsets/locomo10_500q_main_seed42.json --judge_max_new 20
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 20 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+  python eval/evaluate_reasoning.py --data locomo --model deepseek --file "$TAG" --allfile --judge_manifest data/subsets/locomo10_500q_main_seed42.json
+  python repro/validate_judge_results.py --manifest data/subsets/locomo10_500q_main_seed42.json --judge_path "result_judge_locomo_deepseek_${TAG}.jsonl" --expected_count 400 --expected_model Qwen/Qwen3.5-397B-A17B --expected_thinking false
+done
 ```
 
-Validate the downloaded file:
+预期效果：五个 Judge 文件各 400 行，模型、prompt version、thinking 和字段统一。
+
+验证：validator 显示无重复键、无 manifest 外题目、`judge_model=Qwen/Qwen3.5-397B-A17B`、`thinking=false`；每行保留 prompt、raw response、attempt、finish reason 和 usage。
+
+失败处理：不得把旧 Judge 行追加到新结果。闸门出现混合 provenance、JSON parse error 或缺字段时停止并上传 `judge_errors_*.jsonl`。
+
+### 7.5 补齐 Mem0 和 A-Mem
+
+Mem0：只运行 `conv-47,48,49,50`，继续使用 `mem0_500q_main`。
+
+A-Mem：只运行 `conv-41,42,43,44,47,48,49,50`，继续使用 `amem_500q_main`。
+
+两个 adapter 均使用 `data/subsets/locomo10_500q_main_seed42.json`、V4-Flash QA、Qwen3-Embedding-4B、thinking=false，并从 `data/locomo/external_cache/` 恢复。
 
 ```bash
-ls -lh data/external/longmemeval_s_cleaned.json
-head -c 200 data/external/longmemeval_s_cleaned.json
-sha256sum data/external/longmemeval_s_cleaned.json
+export ENABLE_THINKING=0
+export EMBED_MODEL=Qwen/Qwen3-Embedding-4B
+
+python repro/external_baselines/run_mem0_adapter.py --external_repo external/mem0 --data locomo --sample_ids 47,48,49,50 --model deepseek --re_model v4flash --qa_model v4flash --file mem0_500q_main --retrieve_k 10 --subset_manifest data/subsets/locomo10_500q_main_seed42.json
+
+python repro/external_baselines/run_amem_adapter.py --external_repo external/A-mem --data locomo --sample_ids 41,42,43,44,47,48,49,50 --model deepseek --re_model v4flash --qa_model v4flash --file amem_500q_main --retrieve_k 10 --max_context_memories 30 --subset_manifest data/subsets/locomo10_500q_main_seed42.json
 ```
 
-Expected:
+预期效果：Mem0 和 A-Mem 各达到 500/500，无重复题。
 
-- File is real JSON, not a Git LFS pointer.
-- File is large enough to plausibly be LongMemEval data.
-- The first bytes are JSON content, not `version https://git-lfs.github.com/spec/v1`.
+验证：分别反馈每个 conversation 的结果行数、cache hit、memory build wall-clock、QA wall-clock、API 次数和 ERROR 数。
 
-Inspect schema before conversion:
+失败处理：cache provenance 与当前模型配置不一致时停止，不删除缓存；提交审计报告后等待确认。
+
+### 7.6 五方法比较和 badcase
+
+五方法固定为：修正版 Full MRAgent、RAG、GraphRAG、A-Mem、Mem0。Oracle 不进入主比较。
+
+使用 `repro/compare_main_experiment.py` 输出 Markdown、JSON 和逐题 CSV；使用 `repro/audit_mragent_judged_errors.py` 审计修正版 Full 的所有 Judge=0、cat5 错误和执行错误。
 
 ```bash
-python - <<'PY'
-import json
-from pathlib import Path
-p = Path("data/external/longmemeval_s_cleaned.json")
-data = json.loads(p.read_text(encoding="utf-8"))
-print(type(data), len(data) if hasattr(data, "__len__") else "NA")
-first = data[0] if isinstance(data, list) else next(iter(data.values()))
-print(first.keys())
-for k, v in first.items():
-    print(k, type(v), (str(v)[:300]).replace("\n", " "))
-PY
+python repro/compare_main_experiment.py --manifest data/subsets/locomo10_500q_main_seed42.json --methods 'FullMRAgent=mragent_500q_main_repaired_v2,RAG=rag_500q_main,GraphRAG=graphrag_500q_main,A-Mem=amem_500q_main,Mem0=mem0_500q_main' --output_prefix reports/comparison_500q_repaired_v2
+
+python repro/audit_mragent_judged_errors.py --manifest data/subsets/locomo10_500q_main_seed42.json --result_glob 'result/locomo/*_result_deepseek_mragent_500q_main_repaired_v2.jsonl' --judge_glob 'result_judge_locomo_deepseek_mragent_500q_main_repaired_v2.jsonl' --trace_dir result/diagnostics/mragent_main500_traces --output_prefix reports/mragent_500q_repaired_v2_badcase_audit
 ```
 
-MRAgent expects `data/dataset_LM.json` to be a list of samples with at least:
+预期效果：五方法均为 500 题，普通题 Judge 均为 400；报告包含配对差值和 conversation-clustered 95% CI。
 
-```text
-sample_id
-conversation
-  session_1
-  session_1_date_time
-qa
-  question
-  answer
-  category
-metadata.question_date
-```
+验证：每个 MRAgent badcase 必须能关联 question、gold、prediction、初始上下文、工具轨迹、最终上下文、raw response、Judge 和人工结论。
 
-If the HuggingFace file does not match that schema, create a converter such as:
+失败处理：任何方法不是完整同题 500/400 时，不生成最终排名，只报告缺失项。
 
-```text
-repro/convert_longmemeval_to_mragent.py
-```
+## 8. 结果说明
 
-The converter must write:
+- 当前已验证：Full MRAgent 相对 RAG/GraphRAG 的 500 题 F1 主效果存在；active 在 CTE/CTC 两种视图中均优于 passive。
+- 当前未闭环：统一语义 Judge、A-Mem/Mem0 全量、修复后的完整结果、全量 badcase 归因。
+- 本轮修复行合并后，后续所有报告必须使用 `*_repaired_v2` 的 Full/CTE/CTC 结果，不得把临时 replay tag 当作独立实验方法。
 
-```text
-data/dataset_LM.json
-```
+## 9. 风险与坑
 
-Then validate with:
+- `deepseek` 出现在结果文件名中只表示答案实验的模型短名，不证明 Judge 使用 DeepSeek。
+- 旧 Judge 没有 provenance，不能与新 Qwen Judge 混合。
+- 定向重跑是错误修复，不是新的小样本实验；不能用 5/6/25 题计算总体结论。
+- 禁止覆盖修复前完整结果；合并器只允许生成新 output tag。
+- 禁止重建已完整的 LoCoMo 图缓存。
+- 禁止 force-push、`git reset --hard`、`git clean -fdx` 和提交 API key。
+- 完整 raw API 日志留在服务器；Git 只提交脱敏逐题 trace、结果、Judge 和报告。
 
-```bash
-python - <<'PY'
-from data.get_data import get_data
-c, q, _, _ = get_data("LM", "data/dataset_LM.json")
-print("samples", len(c))
-print("questions", sum(len(v or []) for v in q.values()))
-print("first_sample", next(iter(c)))
-PY
-```
+## 10. 下一步与查收清单
 
-Only after this succeeds may LM smoke tests start:
+服务器按顺序完成后，Codex 将逐项查收：
 
-```bash
-python run.py --data LM --model deepseek --file lm_smoke_ca0 --ca 0 --lm_batch 1 --max_samples 1
-```
+- [ ] 三份 replay 行数为 5/6/25，键与 manifest 完全一致。
+- [ ] 三份 repair compare 报告存在，错误归零。
+- [ ] 修正版完整结果为 500/200/200，替换行数为 5/6/25。
+- [ ] Full/RAG/GraphRAG Judge 20 题闸门通过。
+- [ ] 五方法结果均为 500，Judge 均为 400。
+- [ ] Mem0/A-Mem 构建和 QA 耗时分开记录。
+- [ ] 五方法主比较和置信区间完成。
+- [ ] MRAgent 全量 badcase 自动归因与人工复核完成。
+- [ ] 服务器目录 manifest 更新。
+- [ ] 实验分支、commit、日志/结果/报告路径完整反馈。
 
-Important:
+## 11. 推送交付
 
-- Do not commit `data/external/`.
-- Do not commit `data/dataset_LM.json`.
-- Commit only the converter, a small schema audit report, and a manifest with source URL, size, SHA256, and conversion command.
+每次推送前运行服务器目录扫描脚本，提交代码、manifest、逐题结果、Judge、脱敏错误记录和报告。不要提交 cache、embedding、checkpoint、`.env` 或完整 raw API 日志。
 
-## Baseline Smoke
+反馈必须包含：分支、commit、每项 completed/expected、实际模型与 thinking、ERROR 数、Judge provenance、输出路径、任何偏离本交接文档的操作。
 
-Run one LoCoMo sample:
+## 12. 更新日志
 
-```bash
-python run.py --data locomo --model gemini --file smoke --sample 0
-```
-
-Expected:
-
-- Rewrite, keyword, embedding artifacts are created under `data/locomo/`.
-- Prediction JSONL is created under `result/locomo/`.
-- Logs are created under `log/locomo/`.
-
-Failure handling:
-
-- If API auth fails, check `.env`.
-- If embedding fails, check OpenRouter model access and `llm/embeddings.py`.
-- If output format validation fails, preserve raw error and sample id.
-
-## Current Next Experiments
-
-Before continuing from the current MRAgent state, read:
-
-```bash
-cat docs/claude_code_next_steps.md
-cat docs/claude_code_full_experiment_instructions.md
-```
-
-Current priority:
-
-1. Validate Qwen/Qwen3.5-397B-A17B as a standalone visual-evidence tool.
-2. Run a 50-question exploratory LoCoMo subset after VLM connectivity is confirmed.
-3. Before calling anything a benchmark reproduction, read `docs/benchmark_reproduction_plan.md`.
-
-Stage 1 command:
-
-```bash
-python repro/validate_vlm_tool.py \
-  --data locomo \
-  --sample 30 \
-  --limit 5 \
-  --file stage1_vlm
-```
-
-Expected:
-
-- At least 3 real image turns return non-empty VLM evidence.
-- JSONL is written under `result/diagnostics/`.
-- A Markdown validation report is written under `reports/`.
-- This is tool validation only; it is not a QA benchmark.
-
-Stage 2 command:
-
-```bash
-python run_stratified.py \
-  --data locomo \
-  --model deepseek \
-  --file explore50_vlmready \
-  --sample_ids 30,42,44,48,50 \
-  --per_category 2 \
-  --total 10 \
-  --seed 42
-```
-
-Expected:
-
-- Exactly 5 conversation samples are processed.
-- Exactly 10 questions are selected per sample.
-- The intended total is 50 QA questions.
-- Results are exploratory diagnostics, not a formal validation/test split.
-- This run does not yet inject VLM output into MRAgent QA.
-- This run is not a paper benchmark reproduction.
-
-Required after Stage 2:
-
-- Write `reports/explore50_vlmready_YYYYMMDD.md`.
-- Report exact sample list, selected question counts, category distribution, errors, runtime, tool calls, and badcases.
-- Do not claim CBR/Q-learning effect from this run.
-- Do not claim full paper reproduction from this run.
-
-## VLM-Enriched Rewrite Experiment
-
-Current issue:
-
-- Baseline MRAgent rewrite does not call a VLM.
-- Image turns only contribute text fields such as dialogue text and existing `blip_caption`.
-- If visual facts are missing before graph construction, later retrieval may fail even when the graph traversal logic is correct.
-
-New script:
-
-```text
-repro/run_vlm_enriched_rewrite.py
-```
-
-It creates a separate VLM rewrite cache:
-
-```text
-data/locomo/rewrite_deepseek_vlm/
-```
-
-It must not overwrite:
-
-```text
-data/locomo/rewrite_deepseek/
-```
-
-Dry run:
-
-```bash
-python repro/run_vlm_enriched_rewrite.py \
-  --data locomo \
-  --model deepseek \
-  --sample 30 \
-  --file vlmrewrite_smoke \
-  --limit_image_turns 10 \
-  --max_sessions 3 \
-  --dry_run
-```
-
-Real VLM evidence collection:
-
-```bash
-python repro/run_vlm_enriched_rewrite.py \
-  --data locomo \
-  --model deepseek \
-  --sample 30 \
-  --file vlmrewrite_smoke \
-  --limit_image_turns 10 \
-  --max_sessions 3
-```
-
-Full rewrite smoke:
-
-```bash
-python repro/run_vlm_enriched_rewrite.py \
-  --data locomo \
-  --model deepseek \
-  --sample 30 \
-  --file vlmrewrite_smoke \
-  --limit_image_turns 10 \
-  --max_sessions 3 \
-  --rewrite
-```
-
-Expected outputs:
-
-```text
-reports/vlm_enriched_rewrite_vlmrewrite_smoke_*.md
-result/diagnostics/vlm_enriched_rewrite_visual_vlmrewrite_smoke_*.jsonl
-result/diagnostics/vlm_enriched_rewrite_sessions_vlmrewrite_smoke_*.jsonl
-data/locomo/rewrite_deepseek_vlm/conv-30_rewrite.json
-```
-
-Acceptance:
-
-- The report states image-turn count, VLM attempts, VLM successes, rewrite status, and output paths.
-- The generated rewrite file contains non-empty rewritten sessions.
-- At least 3 image turns are manually compared against the baseline rewrite.
-- If server-side image URLs cannot be fetched, record it as network/tool failure and do not conclude that the method has no value.
-
-Failure handling:
-
-- If VLM fails but rewrite succeeds with caption-only fallback, label the run as fallback-only.
-- If VLM succeeds but rewrite fails, preserve visual JSONL and debug the text rewrite stage separately.
-- If the baseline cache is accidentally overwritten, stop and record exactly which files changed before rerunning anything.
-
-## Benchmark Reproduction Requirements
-
-Read:
-
-```bash
-cat docs/benchmark_reproduction_plan.md
-```
-
-MRAgent benchmark reproduction must cover, or explicitly document inability to cover:
-
-- LoCoMo.
-- LongMemEval.
-- Standard RAG baseline.
-- A-Mem baseline.
-- MemoryOS baseline.
-- LangMem baseline.
-- Mem0 baseline.
-
-Current dataset status:
-
-- `data/dataset_locomo.json` is available locally, but current private repo copy contains 10 conversation samples and 1986 QA items.
-- The paper-level LoCoMo data scale must be verified before claiming full LoCoMo reproduction.
-- `data/dataset_LM.json` is not available as a real LongMemEval JSON file in this private repository.
-
-Hard rule:
-
-- `explore50_vlmready` is a diagnostic subset.
-- It must not be reported as benchmark reproduction.
-- A benchmark report must include dataset size, sample ids, question count, category distribution, baseline name, result paths, evaluation paths, and whether the data scale matches the paper.
-
-## Intermediate Artifact Review
-
-Before reporting any experiment as successful, read:
-
-```bash
-cat docs/intermediate_artifact_checklist.md
-```
-
-Required minimum evidence:
-
-- `result/*.jsonl`: final predictions with gold answer, category, evidence, prediction context, and per-question metrics.
-- `result/*metrics*.json`: aggregate F1 / judge / runtime / tool-call summary.
-- `result/*memory_audit*.json`: rewrite, keyword, and estimated graph quality summary.
-- `reports/*.md`: human-readable report with command, commit, model, dataset subset, failures, and next action.
-- A clean or clearly segmented log showing the valid run, not only earlier failed attempts.
-- An artifact manifest recording rewrite, keyword, embedding, result, log, metrics, and memory-audit paths.
-
-Large generated caches may stay on the server, but their existence must be auditable:
-
-```bash
-ls -lh data/locomo/rewrite_<model>/<sample>_rewrite.json
-ls -lh data/locomo/keyword_<model>/<sample>_keyword.json
-ls -lh data/locomo/embedding/*/<sample>_embedding.pkl
-sha256sum data/locomo/rewrite_<model>/<sample>_rewrite.json
-sha256sum data/locomo/keyword_<model>/<sample>_keyword.json
-sha256sum data/locomo/embedding/*/<sample>_embedding.pkl
-```
-
-Required checks:
-
-- Rewrite must not contain silent `null` sessions.
-- Keyword sentence count must align with rewrite sentence count, or the report must explain the gap.
-- Embedding question count must cover every selected question original index.
-- Memory audit must report node/edge/topic/persona counts.
-- Logs must be checked for `Traceback`, `ERROR`, `IndexError`, `ValueError`, and timeout patterns.
-- Judge files must not be polluted by repeated append runs.
-
-If any of these are missing:
-
-- Stop expanding the experiment.
-- Do not merge the experiment branch into `main`.
-- Do not write "reproduction succeeded".
-- First add the missing audit summary or an `artifact_manifest_*.json` explaining remote paths, file sizes, checksums, and why the raw artifact is not committed.
-
-## OpenAI-Compatible Provider Notes
-
-OpenAI-compatible means the provider exposes endpoints shaped like the OpenAI API, usually:
-
-```text
-/v1/chat/completions
-/v1/embeddings
-```
-
-This does not guarantee identical behavior across providers or models.
-
-Must verify for each provider/model:
-
-- Whether `message.content` contains the final answer.
-- Whether important output is instead placed in `reasoning_content`.
-- Whether `tool_calls` follow the OpenAI schema exactly.
-- Whether `response_format={"type":"json_object"}` is supported.
-- Whether strict JSON schema output is supported.
-- Whether `parallel_tool_calls` is ignored, rejected, or honored.
-- Whether `seed` is ignored.
-- Whether `max_tokens` is interpreted as output tokens, total tokens, or provider-specific limit.
-- Whether `finish_reason` reports `stop`, `length`, `tool_calls`, or provider-specific values.
-- Whether `usage.prompt_tokens`, `usage.completion_tokens`, and `usage.total_tokens` are present and reliable.
-
-If a run fails under an OpenAI-compatible provider, do not immediately conclude that the model is weak. First identify whether the failure is caused by provider compatibility, response parsing, token truncation, schema mismatch, or prompt fragility.
-
-## Model Diagnostic Evidence Requirements
-
-When rewrite, keyword extraction, tool calling, or evaluation fails, the experiment report must include enough evidence to distinguish model capability from implementation/provider issues.
-
-Required for every failed rewrite/keyword session:
-
-- Raw prompt sent to the model, with API keys and private secrets redacted.
-- Raw API response, with secrets redacted.
-- `message.content`.
-- `reasoning_content`, if the provider returns it.
-- `finish_reason`.
-- `usage.prompt_tokens`, `usage.completion_tokens`, `usage.total_tokens`.
-- JSON parse error text.
-- Schema validation error text.
-- Whether `max_tokens` truncation occurred or is suspected.
-- Retry number, retry temperature, output length, and error type.
-- Whether the output was `None`, empty string, invalid JSON, valid JSON with null fields, or valid JSON failing schema.
-
-Required comparison tests before blaming a model:
-
-- DeepSeek-V4-Pro with current settings.
-- DeepSeek-V4-Pro with `response_format={"type":"json_object"}` if the provider supports it.
-- DeepSeek-V4-Pro with larger `max_tokens`, at least 16384 and preferably 32768 if supported.
-- Qwen3-235B on the same failed sessions.
-- Gemini-2.5-Flash or Claude-Sonnet-4.5 on the same failed sessions, because these are closer to the original paper/repository settings.
-
-Minimum diagnostic subset:
-
-```text
-1 known-success session
-3 failed sessions
-same prompt
-same parser
-same schema checker
-same report format
-```
-
-For the current `conv-30` investigation, use:
-
-```text
-failed sessions: 6, 8, 17 if available
-plus one successful session from the same rewrite file
-```
-
-Required diagnostic artifact:
-
-```text
-reports/model_diagnostics_YYYYMMDD.md
-result/locomo/model_diagnostic_manifest_YYYYMMDD.json
-```
-
-The manifest must include:
-
-```json
-{
-  "run_id": "",
-  "sample_id": "conv-30",
-  "session_id": "",
-  "model": "",
-  "provider": "",
-  "base_url": "",
-  "response_format": "",
-  "max_tokens": 0,
-  "temperature": 0.0,
-  "retry_id": 0,
-  "prompt_sha256": "",
-  "raw_response_sha256": "",
-  "content_length": 0,
-  "reasoning_content_length": 0,
-  "finish_reason": "",
-  "usage": {
-    "prompt_tokens": null,
-    "completion_tokens": null,
-    "total_tokens": null
-  },
-  "parse_status": "ok|json_parse_error|schema_error|empty|truncated|unknown",
-  "parse_error": "",
-  "schema_error": "",
-  "output_status": "valid|valid_with_null_fields|invalid|none"
-}
-```
-
-Raw prompts/responses may be kept on the server if large, but the report must record their absolute paths, sizes, checksums, and redaction status. Do not commit secrets.
-
-## Evaluation
-
-```bash
-python eval/evaluate_reasoning.py --data locomo --model gemini --file smoke --allfile
-```
-
-Expected:
-
-- Evaluation file is written.
-- LLM-judge correctness and F1/EM summary are available.
-
-## Branch Protocol
-
-Use experiment branches:
-
-```bash
-git pull --ff-only origin main
-git switch -c exp/YYYYMMDD-short-topic
-```
-
-Commit only:
-
-- Code changes.
-- Scripts.
-- Small data subsets.
-- Markdown/CSV/JSON summaries.
-- Configuration templates.
-
-Do not commit:
-
-- `.env`
-- `result/`
-- `log/`
-- `data/locomo/rewrite_*`
-- `data/locomo/keyword_*`
-- `data/locomo/embedding/`
-- checkpoints
-- large raw artifacts
-
-## Required Report Per Experiment
-
-Write `reports/<experiment_name>_YYYYMMDD.md` with:
-
-1. Purpose.
-2. Branch and commit.
-3. Dataset/subset.
-4. Model/backend.
-5. Command.
-6. Expected result.
-7. Actual result.
-8. Metrics.
-9. Failure cases.
-10. Next action.
-11. Intermediate artifact status: rewrite, keyword, embedding, memory audit, trace, metrics, and manifest.
-12. Whether the run passes `docs/intermediate_artifact_checklist.md`.
+- 2026-07-20 v3.0：交接范围收窄到错误行回填、统一 Judge、外部 baseline 和最终审计；移除后续研究设想。
