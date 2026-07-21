@@ -1,0 +1,166 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 8,
+  "question_index_1based": 9,
+  "category": 1,
+  "question": "How many pets does James have?",
+  "gold_answer": "Three dogs.",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D1:12",
+    "D1:14",
+    "D5:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D1:12",
+    "D1:14",
+    "D5:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 22,
+  "runtime_sec": 770.53,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How many pets does James have?",
+    "prediction": "no information available",
+    "reference": "Three dogs.",
+    "category": 1,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "c59b7cc880ee8e4e",
+    "ab9d5efa12c6247c",
+    "74afd23ddd778b79",
+    "08cdfcdd290384ac",
+    "761d619990cf96b3",
+    "0fa3956f04edd453",
+    "c9e84649ca412259",
+    "392d6181919d392f",
+    "d58edc37fea2a0a9",
+    "05eb080779fe9866",
+    "e0b6616cbdb45374"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D1:12": [
+      {
+        "sentence_id": "D1:12-1",
+        "origin": "D1:12",
+        "text": "James: It would be cool! For example, John and James could write some kind of application for dogs.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "App Idea",
+        "topic": [
+          "t9",
+          "t10"
+        ]
+      },
+      {
+        "sentence_id": "D1:12-2",
+        "origin": "D1:12",
+        "text": "James shares a photo of two dogs tied to a fence with a leash.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "Photo Share",
+        "topic": [
+          "t10"
+        ]
+      }
+    ],
+    "D1:14": [
+      {
+        "sentence_id": "D1:14-1",
+        "origin": "D1:14",
+        "text": "James: The dogs are Max and Daisy.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "Pet Names",
+        "topic": [
+          "t10"
+        ]
+      },
+      {
+        "sentence_id": "D1:14-2",
+        "origin": "D1:14",
+        "text": "James says it will be actually cool to build an app for dog walking and pet care.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "App Purpose",
+        "topic": [
+          "t9",
+          "t10"
+        ]
+      },
+      {
+        "sentence_id": "D1:14-3",
+        "origin": "D1:14",
+        "text": "The dog app goal is to connect pet owners with reliable dog walkers and provide helpful information on pet care.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "App Goal",
+        "topic": [
+          "t9",
+          "t10"
+        ]
+      }
+    ],
+    "D5:1": [
+      {
+        "sentence_id": "D5:1-1",
+        "origin": "D5:1",
+        "text": "James:Hey John! Long time no chat - I adopted a pup from a shelter in Stamford last week and my days have been so much happier with the pup in the fam.",
+        "event_time": "2022-04-05",
+        "session_date": "2022-04-12",
+        "tag": "pet adoption",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D5:1-2",
+        "origin": "D5:1",
+        "text": "James:I named the pup Ned.",
+        "event_time": "2022-04-12",
+        "session_date": "2022-04-12",
+        "tag": "pet naming",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D5:1-3",
+        "origin": "D5:1",
+        "text": "James:Any progress on your gaming goals?",
+        "event_time": "2022-04-12",
+        "session_date": "2022-04-12",
+        "tag": "gaming inquiry",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D5:1-4",
+        "origin": "D5:1",
+        "text": "James:and shared a photo of a dog and a cat sitting on a dog bed",
+        "event_time": "2022-04-12",
+        "session_date": "2022-04-12",
+        "tag": "photo sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

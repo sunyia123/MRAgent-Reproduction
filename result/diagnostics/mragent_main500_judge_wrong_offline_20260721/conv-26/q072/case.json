@@ -1,0 +1,155 @@
+{
+  "sample_id": "conv-26",
+  "question_index": 71,
+  "question_index_1based": 72,
+  "category": 1,
+  "question": "What book did Melanie read from Caroline's suggestion?",
+  "gold_answer": "\"Becoming Nicole\"",
+  "prediction": "The book title is not explicitly stated in the available evidence, but it has a book cover with a gold coin on it and is about pursuing dreams.",
+  "gold_evidence": [
+    "D17:10",
+    "D7:11"
+  ],
+  "gold_evidence_in_graph": [
+    "D17:10",
+    "D7:11"
+  ],
+  "gold_evidence_retrieved": [
+    "D17:10"
+  ],
+  "prediction_context": [
+    "D17:10",
+    "D7:8"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.5,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/2 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 11,
+  "runtime_sec": 237.7,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What book did Melanie read from Caroline's suggestion?",
+    "prediction": "The book title is not explicitly stated in the available evidence, but it has a book cover with a gold coin on it and is about pursuing dreams.",
+    "reference": "\"Becoming Nicole\"",
+    "category": 1,
+    "sample": "conv-26"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "be0a0fb4faf78e68",
+    "f177b7705d96fbef",
+    "49d051751b5b599f",
+    "ee2c4c9a1788eeec",
+    "4a9eddb80aaf0e88",
+    "8ace76b14fe5d03e",
+    "7ee75d5c7c709258",
+    "5904fa94f31563a5",
+    "176f2249c2fc82f4",
+    "5118aabe02ac041f",
+    "444d40eb9c864fa0"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D17:10": [
+      {
+        "sentence_id": "D17:10-1",
+        "origin": "D17:10",
+        "text": "Melanie:Thanks, Caroline.",
+        "event_time": "2023-10-13",
+        "session_date": "2023-10-13",
+        "tag": "Gratitude",
+        "topic": []
+      },
+      {
+        "sentence_id": "D17:10-2",
+        "origin": "D17:10",
+        "text": "The pottery break was tough, but Melanie is doing ok.",
+        "event_time": "2023-10-13",
+        "session_date": "2023-10-13",
+        "tag": "Recovery",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D17:10-3",
+        "origin": "D17:10",
+        "text": "Melanie has been reading the book Caroline recommended a while ago and painting to keep busy.",
+        "event_time": "2023-10-13",
+        "session_date": "2023-10-13",
+        "tag": "Coping Activities",
+        "topic": [
+          "t3",
+          "t4"
+        ]
+      }
+    ],
+    "D7:11": [
+      {
+        "sentence_id": "D7:11-1",
+        "origin": "D7:11",
+        "text": "Caroline loved \"Becoming Nicole\" by Amy Ellis Nutt.",
+        "event_time": "2023-07-12",
+        "session_date": "2023-07-12",
+        "tag": "Book Recommendation",
+        "topic": [
+          "t6",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D7:11-2",
+        "origin": "D7:11",
+        "text": "\"Becoming Nicole\" is a real inspiring true story about a trans girl and her family.",
+        "event_time": "2023-07-12",
+        "session_date": "2023-07-12",
+        "tag": "Book Description",
+        "topic": [
+          "t6",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D7:11-3",
+        "origin": "D7:11",
+        "text": "\"Becoming Nicole\" made Caroline feel connected and gave Caroline a lot of hope for Caroline's own path.",
+        "event_time": "2023-07-12",
+        "session_date": "2023-07-12",
+        "tag": "Book Impact",
+        "topic": [
+          "t6",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D7:11-4",
+        "origin": "D7:11",
+        "text": "Caroline highly recommends \"Becoming Nicole\" for sure!",
+        "event_time": "2023-07-12",
+        "session_date": "2023-07-12",
+        "tag": "Recommendation",
+        "topic": [
+          "t6",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D7:11-5",
+        "origin": "D7:11",
+        "text": "Caroline shared a photo of a dog sitting in a boat on the water.",
+        "event_time": "2023-07-12",
+        "session_date": "2023-07-12",
+        "tag": "Photo Share",
+        "topic": [
+          "t8"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-26_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,95 @@
+{
+  "sample_id": "conv-41",
+  "question_index": 41,
+  "question_index_1based": 42,
+  "category": 3,
+  "question": "Does John live close to a beach or the mountains?",
+  "gold_answer": "beach",
+  "prediction": "Insufficient evidence",
+  "gold_evidence": [
+    "D22:15"
+  ],
+  "gold_evidence_in_graph": [
+    "D22:15"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D11:3",
+    "D11:5",
+    "D16:11",
+    "D19:22",
+    "D23:1"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 16,
+  "runtime_sec": 420.37,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Does John live close to a beach or the mountains?",
+    "prediction": "Insufficient evidence",
+    "reference": "beach",
+    "category": 3,
+    "sample": "conv-41"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "d2b3617599a2fc9c",
+    "c5ed635515a2fc42",
+    "6baa8b95de05c5d0",
+    "fe4e3c74bd04c13f",
+    "9a5656ca70c2b58e",
+    "f005a679aca0c8ee",
+    "1cbdba9b829ded43",
+    "bde6509a0dac7d24",
+    "065988ab08663e35",
+    "326c9f7a834fdcb7",
+    "1640a702826daf2c"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D22:15": [
+      {
+        "sentence_id": "D22:15-1",
+        "origin": "D22:15",
+        "text": "John agrees with Maria that little things like a walk or a song can make a big impact in how we think.",
+        "event_time": "2023-07-05",
+        "session_date": "2023-07-05",
+        "tag": "agreement",
+        "topic": [
+          "t6",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D22:15-2",
+        "origin": "D22:15",
+        "text": "Oh, and here's a pic John got from John's walk last week.",
+        "event_time": "2023-06-28",
+        "session_date": "2023-07-05",
+        "tag": "sunset photo",
+        "topic": [
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D22:15-3",
+        "origin": "D22:15",
+        "text": "The sunset photo always reminds John to take a break, breathe, and appreciate nature.",
+        "event_time": "2023-07-05",
+        "session_date": "2023-07-05",
+        "tag": "nature appreciation",
+        "topic": [
+          "t7"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-41_result_deepseek_mragent_500q_main.jsonl"
+}

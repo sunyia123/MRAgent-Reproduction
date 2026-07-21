@@ -1,0 +1,135 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 20,
+  "question_index_1based": 21,
+  "category": 3,
+  "question": "Which meat does Audrey prefer eating more than others?",
+  "gold_answer": "chicken",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D10:13",
+    "D10:23"
+  ],
+  "gold_evidence_in_graph": [
+    "D10:13",
+    "D10:23"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 14,
+  "runtime_sec": 166.99,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which meat does Audrey prefer eating more than others?",
+    "prediction": "no information available",
+    "reference": "chicken",
+    "category": 3,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "ef2de3114efc9916",
+    "59ddeda5765f5280",
+    "d1d0cf88e9c90a9e",
+    "a217dd3eeb9a4c04",
+    "d97281c1f6aa8ab3",
+    "873d3f868e299a11",
+    "350a6da0d566378e",
+    "91f75aff7674feda",
+    "e33d9c1ee1f9fa88",
+    "ccd500b6f4a0d509"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D10:13": [
+      {
+        "sentence_id": "D10:13-1",
+        "origin": "D10:13",
+        "text": "Audrey says: I love cooking!",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Cooking Love",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:13-2",
+        "origin": "D10:13",
+        "text": "Audrey says: My favorite recipe is Chicken Pot Pie.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Favorite Recipe",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:13-3",
+        "origin": "D10:13",
+        "text": "Audrey says: Chicken Pot Pie is so cozy and delicious, especially on a cold day.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Recipe Description",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:13-4",
+        "origin": "D10:13",
+        "text": "Audrey says: If you want, I can share the Chicken Pot Pie recipe with you.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Recipe Offer",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:13-5",
+        "origin": "D10:13",
+        "text": "Audrey shares a photo of a pie on a wooden board with a knife.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Photo Share",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D10:23": [
+      {
+        "sentence_id": "D10:23-1",
+        "origin": "D10:23",
+        "text": "Audrey says: Sure! Roasted Chicken is one of my favorites - sure I'll send you the Roasted Chicken recipe in a bit.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Recipe Offer",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:23-2",
+        "origin": "D10:23",
+        "text": "Audrey shares a photography of a pan of chicken and potatoes on a stove.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Photo Share",
+        "topic": [
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

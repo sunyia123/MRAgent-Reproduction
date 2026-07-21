@@ -1,0 +1,120 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 19,
+  "question_index_1based": 20,
+  "category": 3,
+  "question": "What is a prominent charity organization that John might want to work with and why?",
+  "gold_answer": "Good Sports, because they work with Nike, Gatorade, and Under Armour and they aim toprovide youth sports opportunities for kids ages 3-18 in high-need communities.",
+  "prediction": "A local organization that helps disadvantaged kids with sports and school",
+  "gold_evidence": [
+    "D3:13",
+    "D3:15",
+    "D6:15"
+  ],
+  "gold_evidence_in_graph": [
+    "D3:13",
+    "D3:15",
+    "D6:15"
+  ],
+  "gold_evidence_retrieved": [
+    "D6:15"
+  ],
+  "prediction_context": [
+    "D26:21",
+    "D6:15",
+    "D6:17"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.3333333333333333,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/3 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 6,
+  "runtime_sec": 32.23,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What is a prominent charity organization that John might want to work with and why?",
+    "prediction": "A local organization that helps disadvantaged kids with sports and school",
+    "reference": "Good Sports, because they work with Nike, Gatorade, and Under Armour and they aim toprovide youth sports opportunities for kids ages 3-18 in high-need communities.",
+    "category": 3,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 6,
+  "raw_response_count": 6,
+  "raw_request_ids": [
+    "d6bbbe93f5cdfa76",
+    "5eb866d29d832230",
+    "a3078798f74d8310",
+    "8c3393fe2cdf4581",
+    "8cc644141c7d36ba",
+    "71d056c280e635a4"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D3:13": [
+      {
+        "sentence_id": "D3:13-1",
+        "origin": "D3:13",
+        "text": "John:John just signed up Nike for a basketball shoe and gear deal. John is also in talks with Gatorade about a potential sponsorship. It's pretty cool to be working with such big brands!",
+        "event_time": "2023-07-16",
+        "session_date": "2023-07-16",
+        "tag": "Nike and Gatorade",
+        "topic": [
+          "t6"
+        ]
+      }
+    ],
+    "D3:15": [
+      {
+        "sentence_id": "D3:15-1",
+        "origin": "D3:15",
+        "text": "John:Thanks! The Nike and Gatorade deals have John stoked! John has always liked Under Armour, working with Under Armour would be really cool. and shared a photo of a mannequin in a blue suit and a chair",
+        "event_time": "2023-07-16",
+        "session_date": "2023-07-16",
+        "tag": "Under Armour Interest",
+        "topic": [
+          "t6"
+        ]
+      }
+    ],
+    "D6:15": [
+      {
+        "sentence_id": "D6:15-1",
+        "origin": "D6:15",
+        "text": "John: Yeah! Winning a championship is my number one goal.",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "championship goal",
+        "topic": [
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D6:15-2",
+        "origin": "D6:15",
+        "text": "John: But I also want to make a difference away from the court, like through charity or inspiring people.",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "charity goal",
+        "topic": [
+          "t7",
+          "t8"
+        ]
+      },
+      {
+        "sentence_id": "D6:15-3",
+        "origin": "D6:15",
+        "text": "John: Basketball has been great to me, so I want to give something back.",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "give back",
+        "topic": [
+          "t8"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

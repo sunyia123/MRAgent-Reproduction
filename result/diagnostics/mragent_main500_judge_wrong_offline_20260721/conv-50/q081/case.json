@@ -1,0 +1,99 @@
+{
+  "sample_id": "conv-50",
+  "question_index": 80,
+  "question_index_1based": 81,
+  "category": 4,
+  "question": "How does Calvin plan to jumpstart his inspiration?",
+  "gold_answer": "explore other things and have some fun",
+  "prediction": "He watches music videos, concerts, and documentaries about artists and their creative process.",
+  "gold_evidence": [
+    "D5:11"
+  ],
+  "gold_evidence_in_graph": [
+    "D5:11"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D28:31"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 9,
+  "runtime_sec": 66.38,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How does Calvin plan to jumpstart his inspiration?",
+    "prediction": "He watches music videos, concerts, and documentaries about artists and their creative process.",
+    "reference": "explore other things and have some fun",
+    "category": 4,
+    "sample": "conv-50"
+  },
+  "raw_prompt_count": 9,
+  "raw_response_count": 9,
+  "raw_request_ids": [
+    "31452ce9e20ccfcc",
+    "b17c8c6bdae22932",
+    "52ab8d49faa2d7de",
+    "1cc9afb3bb500b4e",
+    "db069a4cb86bd6cb",
+    "0e2786985c209c04",
+    "c42430fe7b7163a9",
+    "c1b764f03ffa56a3",
+    "a9127453929023fe"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D5:11": [
+      {
+        "sentence_id": "D5:11-1",
+        "origin": "D5:11",
+        "text": "If Dave is having trouble coming up with ideas, Dave usually immerses Dave in something Dave loves, like concerts or Dave's favorite albums.",
+        "event_time": "2023-05-03",
+        "session_date": "2023-05-03",
+        "tag": "Advice",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D5:11-2",
+        "origin": "D5:11",
+        "text": "Doing that usually helps to jumpstart Dave's inspiration.",
+        "event_time": "2023-05-03",
+        "session_date": "2023-05-03",
+        "tag": "Advice",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D5:11-3",
+        "origin": "D5:11",
+        "text": "Maybe try taking a break from music and explore other things.",
+        "event_time": "2023-05-03",
+        "session_date": "2023-05-03",
+        "tag": "Advice",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D5:11-4",
+        "origin": "D5:11",
+        "text": "Plus, have some fun while Calvin is at it!",
+        "event_time": "2023-05-03",
+        "session_date": "2023-05-03",
+        "tag": "Advice",
+        "topic": [
+          "t5"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-50_result_deepseek_mragent_500q_main.jsonl"
+}

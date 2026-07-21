@@ -1,0 +1,67 @@
+{
+  "sample_id": "conv-49",
+  "question_index": 138,
+  "question_index_1based": 139,
+  "category": 4,
+  "question": "What did Sam recently start enjoying to clear his head?",
+  "gold_answer": "running in the mornings",
+  "prediction": "going on car rides",
+  "gold_evidence": [
+    "D21:9"
+  ],
+  "gold_evidence_in_graph": [
+    "D21:9"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D25:5"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 19,
+  "runtime_sec": 117.24,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What did Sam recently start enjoying to clear his head?",
+    "prediction": "going on car rides",
+    "reference": "running in the mornings",
+    "category": 4,
+    "sample": "conv-49"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "02c0432717b39b76",
+    "ddf3edcee88a7b4e",
+    "6c9c2b81c4e56e72",
+    "3a1ce8cca8c1e004",
+    "1835ecc27a111ec7",
+    "da627eb5658a6e90",
+    "e06f2eeb9e66feb1",
+    "cad49f64b9822eca",
+    "564590d5653816d0",
+    "a4c36b033f7844d2"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D21:9": [
+      {
+        "sentence_id": "D21:9-1",
+        "origin": "D21:9",
+        "text": "Sam:Wish I could feel the same about love, but I've started to enjoy running in the mornings, and running in the mornings has been a great way to clear my head. What can you do, right?",
+        "event_time": "2023-12-26",
+        "session_date": "2023-12-26",
+        "tag": "Running Hobby",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-49_result_deepseek_mragent_500q_main.jsonl"
+}

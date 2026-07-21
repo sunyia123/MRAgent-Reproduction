@@ -1,0 +1,69 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 188,
+  "question_index_1based": 189,
+  "category": 4,
+  "question": "What outdoor activity did Jolene suggest doing together with Deborah?",
+  "gold_answer": "Surfing",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D29:27"
+  ],
+  "gold_evidence_in_graph": [
+    "D29:27"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 14,
+  "runtime_sec": 677.6,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What outdoor activity did Jolene suggest doing together with Deborah?",
+    "prediction": "no information available",
+    "reference": "Surfing",
+    "category": 4,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 14,
+  "raw_response_count": 14,
+  "raw_request_ids": [
+    "eba40d5ee0fd81c6",
+    "0dc29b9355384075",
+    "57ab9f7dda8e44e6",
+    "180d68182243c28d",
+    "fcc9ca7aed5b9fa1",
+    "e5478fe240b4201f",
+    "f6f43002f1e0387e",
+    "eda9964a03966d27",
+    "c345cbcc83da3b7c",
+    "b67219477924667e",
+    "a6be263f3ae66c66",
+    "84e5ea13df087334",
+    "a660bf2bc7c0c8f3",
+    "39c07c770df2a68b"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D29:27": [
+      {
+        "sentence_id": "D29:27-1",
+        "origin": "D29:27",
+        "text": "Deborah:It's okay, maybe Deborah and Jolene can try surfing together sometime!",
+        "event_time": "2023-09-17",
+        "session_date": "2023-09-17",
+        "tag": "suggest together",
+        "topic": [
+          "t8"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

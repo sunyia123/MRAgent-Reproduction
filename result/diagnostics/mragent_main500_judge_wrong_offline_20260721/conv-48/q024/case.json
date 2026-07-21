@@ -1,0 +1,75 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 23,
+  "question_index_1based": 24,
+  "category": 3,
+  "question": "Why did Jolene sometimes put off doing yoga?",
+  "gold_answer": "She's more interested in playing video games",
+  "prediction": "ERROR",
+  "gold_evidence": [
+    "D2:30",
+    "D3:11"
+  ],
+  "gold_evidence_in_graph": [
+    "D2:30",
+    "D3:11"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "execution_or_schema_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Stored prediction is ERROR or records an execution failure.",
+  "execution_error": true,
+  "tool_calls": 0,
+  "runtime_sec": 0,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Why did Jolene sometimes put off doing yoga?",
+    "prediction": "ERROR",
+    "reference": "She's more interested in playing video games",
+    "category": 3,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 5,
+  "raw_response_count": 5,
+  "raw_request_ids": [
+    "bde2f90cd4635449",
+    "ea44d03aac198edc",
+    "3b6048058c6f555e",
+    "0c88340c46baac59",
+    "386c3c6a5d07d7fd"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D2:30": [
+      {
+        "sentence_id": "D2:30-1",
+        "origin": "D2:30",
+        "text": "Jolene: Jolene and Jolene's partner are planning to play \"Walking Dead\" next Saturday.",
+        "event_time": "2023-02-04",
+        "session_date": "2023-01-27",
+        "tag": "future game",
+        "topic": [
+          "t10"
+        ]
+      }
+    ],
+    "D3:11": [
+      {
+        "sentence_id": "D3:11-1",
+        "origin": "D3:11",
+        "text": "Jolene:Well... Jolene and Jolene's partner planned to play the console with Jolene's partner.",
+        "event_time": "2023-02-01",
+        "session_date": "2023-02-01",
+        "tag": "Plans",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

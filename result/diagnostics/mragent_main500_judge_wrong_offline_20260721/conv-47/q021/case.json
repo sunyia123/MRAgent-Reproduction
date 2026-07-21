@@ -1,0 +1,166 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 20,
+  "question_index_1based": 21,
+  "category": 1,
+  "question": "How many charity tournaments has John organized till date?",
+  "gold_answer": "two",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D10:2",
+    "D29:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D10:2",
+    "D29:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 21,
+  "runtime_sec": 164.19,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How many charity tournaments has John organized till date?",
+    "prediction": "no information available",
+    "reference": "two",
+    "category": 1,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "e9597dc49b2db7bb",
+    "8bcc04625ade86b1",
+    "e5947da974e29513",
+    "42adc11367a4ffcc",
+    "ff31630e65c13a71",
+    "1596751fcc2ea494",
+    "6f518ade9f359c2a",
+    "8066322908a991ec",
+    "cbb059431bb3d467",
+    "ecbcf5d04231e67a",
+    "36e33f9359f75673"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D10:2": [
+      {
+        "sentence_id": "D10:2-1",
+        "origin": "D10:2",
+        "text": "John: Hey James! No worries, James knows John is really busy at work.",
+        "event_time": "2022-05-08",
+        "session_date": "2022-05-08",
+        "tag": "response",
+        "topic": []
+      },
+      {
+        "sentence_id": "D10:2-2",
+        "origin": "D10:2",
+        "text": "John: John is good, thanks for asking.",
+        "event_time": "2022-05-08",
+        "session_date": "2022-05-08",
+        "tag": "status",
+        "topic": []
+      },
+      {
+        "sentence_id": "D10:2-3",
+        "origin": "D10:2",
+        "text": "John: Oh, John has been organizing something with John's friends on 2022-05-07 - the organizing was cool!",
+        "event_time": "2022-05-07",
+        "session_date": "2022-05-08",
+        "tag": "event planning",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D10:2-4",
+        "origin": "D10:2",
+        "text": "John: Guess what the organizing was, John will give James a little hint.",
+        "event_time": "2022-05-08",
+        "session_date": "2022-05-08",
+        "tag": "hint",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D10:2-5",
+        "origin": "D10:2",
+        "text": "John: John shared a photo of a wooden table with a game controller on it.",
+        "event_time": "2022-05-08",
+        "session_date": "2022-05-08",
+        "tag": "photo sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ],
+    "D29:1": [
+      {
+        "sentence_id": "D29:1-1",
+        "origin": "D29:1",
+        "text": "John: Hey James! Hope you're doing great.",
+        "event_time": "2022-10-31",
+        "session_date": "2022-10-31",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D29:1-2",
+        "origin": "D29:1",
+        "text": "John: I've some amazing news - I held a gaming tourney with my buddies last night.",
+        "event_time": "2022-10-30",
+        "session_date": "2022-10-31",
+        "tag": "Gaming Tournament",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D29:1-3",
+        "origin": "D29:1",
+        "text": "John: We played Fortnite and a few other games.",
+        "event_time": "2022-10-30",
+        "session_date": "2022-10-31",
+        "tag": "Games Played",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D29:1-4",
+        "origin": "D29:1",
+        "text": "John: We raised a decent amount for a children's hospital.",
+        "event_time": "2022-10-30",
+        "session_date": "2022-10-31",
+        "tag": "Fundraising",
+        "topic": [
+          "t1",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D29:1-5",
+        "origin": "D29:1",
+        "text": "John: Combining gaming and a good cause felt awesome!",
+        "event_time": "2022-10-30",
+        "session_date": "2022-10-31",
+        "tag": "Positive Feeling",
+        "topic": [
+          "t1",
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

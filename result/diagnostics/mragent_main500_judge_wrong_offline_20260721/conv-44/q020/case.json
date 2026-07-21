@@ -1,0 +1,118 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 19,
+  "question_index_1based": 20,
+  "category": 3,
+  "question": "What is an indoor activity that Andrew would enjoy doing while make his dog happy?",
+  "gold_answer": "cook dog treats",
+  "prediction": "puzzles, training, hide-and-seek",
+  "gold_evidence": [
+    "D10:12",
+    "D12:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D10:12",
+    "D12:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D27:14",
+    "D27:15"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 9,
+  "runtime_sec": 572.01,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What is an indoor activity that Andrew would enjoy doing while make his dog happy?",
+    "prediction": "puzzles, training, hide-and-seek",
+    "reference": "cook dog treats",
+    "category": 3,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "8969fa71195d9edb",
+    "ec57fb7aff4f5499",
+    "3b0e00a534fcda15",
+    "bdd0f0c3c6ea2ba6",
+    "835cb20a42909158",
+    "37fb0077f91ed049",
+    "5dc7344bac305159",
+    "280f8f648835f930",
+    "d9fe6b6cccd42383",
+    "51df02f8926c4806",
+    "b7deeff042c1fad0"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D10:12": [
+      {
+        "sentence_id": "D10:12-1",
+        "origin": "D10:12",
+        "text": "Andrew says: Lately I've been finding new hobbies since I can't hike.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Hobby Change",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:12-2",
+        "origin": "D10:12",
+        "text": "Andrew says: I've been getting into cooking more and trying out new recipes - cooking has been enjoyable.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Cooking Interest",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:12-3",
+        "origin": "D10:12",
+        "text": "Andrew asks: Do you enjoy cooking?",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Cooking Inquiry",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D10:12-4",
+        "origin": "D10:12",
+        "text": "Andrew asks: Any favorite recipes?",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "Recipe Inquiry",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D12:1": [
+      {
+        "sentence_id": "D12:1-1",
+        "origin": "D12:1",
+        "text": "Andrew: Hey! So much has changed since last time we talked - meet Toby, my puppy. Toby is a bundle of joy and I couldn't resist taking Toby home, city living and all. How've you been? and shared a photo of a dog sitting on a leash in a room",
+        "event_time": "2023-07-11",
+        "session_date": "2023-07-11",
+        "tag": "introducing puppy",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,80 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 43,
+  "question_index_1based": 44,
+  "category": 2,
+  "question": "When did John plan his next meeting with his siblings?",
+  "gold_answer": "In September, 2022",
+  "prediction": "21 August 2022",
+  "gold_evidence": [
+    "D20:17"
+  ],
+  "gold_evidence_in_graph": [
+    "D20:17"
+  ],
+  "gold_evidence_retrieved": [
+    "D20:17"
+  ],
+  "prediction_context": [
+    "D20:16",
+    "D20:17",
+    "D20:18"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 1.0,
+  "retrieval_coverage_label": "full",
+  "primary_cause": "temporal_reasoning_failure",
+  "cause_confidence": "medium",
+  "cause_reason": "All annotated evidence was retrieved, but date or duration reasoning disagreed with gold.",
+  "execution_error": false,
+  "tool_calls": 5,
+  "runtime_sec": 254.02,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did John plan his next meeting with his siblings?",
+    "prediction": "21 August 2022",
+    "reference": "In September, 2022",
+    "category": 2,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 8,
+  "raw_response_count": 8,
+  "raw_request_ids": [
+    "9002167771da86f7",
+    "9507234c0aa98ba0",
+    "983f8a08cc9050b9",
+    "50691abe1496f8dc",
+    "976353fcc90ffa44",
+    "b92022f5d3347bc8",
+    "2b10107ff67318f4",
+    "c580f46e3968b539"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D20:17": [
+      {
+        "sentence_id": "D20:17-1",
+        "origin": "D20:17",
+        "text": "John:Yep, John is organizing a gaming night with John's siblings next month.",
+        "event_time": "2022-09-21",
+        "session_date": "2022-08-21",
+        "tag": "Future Plan",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D20:17-2",
+        "origin": "D20:17",
+        "text": "John:John and the siblings are stoked! Can't wait!",
+        "event_time": "2022-09-21",
+        "session_date": "2022-08-21",
+        "tag": "Excitement",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

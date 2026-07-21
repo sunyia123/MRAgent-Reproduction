@@ -1,0 +1,98 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 0,
+  "question_index_1based": 1,
+  "category": 3,
+  "question": "What are John's suspected health problems?",
+  "gold_answer": "Obesity",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D1:27"
+  ],
+  "gold_evidence_in_graph": [
+    "D1:27"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 22,
+  "runtime_sec": 65.79,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What are John's suspected health problems?",
+    "prediction": "no information available",
+    "reference": "Obesity",
+    "category": 3,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "41d2f708404623da",
+    "a78fb2b82349628d",
+    "be3615778945e0dd",
+    "949fe7040a0f781c",
+    "d280b5e911658e37",
+    "4247908b19d6259a",
+    "93b7658b9cb8e34c",
+    "81c736858d3d0b90",
+    "5c16ea366ff41274",
+    "c39e04fb53e7a463"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D1:27": [
+      {
+        "sentence_id": "D1:27-1",
+        "origin": "D1:27",
+        "text": "John: John is sure James is very good at bowling.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "Compliment",
+        "topic": [
+          "t13"
+        ]
+      },
+      {
+        "sentence_id": "D1:27-2",
+        "origin": "D1:27",
+        "text": "Unfortunately, John can't share John's love for bowling with James, because John's fingers are too big.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "Physical Limitation",
+        "topic": [
+          "t13"
+        ]
+      },
+      {
+        "sentence_id": "D1:27-3",
+        "origin": "D1:27",
+        "text": "Perhaps John should take up exercise, at least start going for a run in the morning.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "Exercise Plan",
+        "topic": [
+          "t14"
+        ]
+      },
+      {
+        "sentence_id": "D1:27-4",
+        "origin": "D1:27",
+        "text": "John also doesn't like bowling itself, to be honest.",
+        "event_time": "2022-03-17",
+        "session_date": "2022-03-17",
+        "tag": "Dislike",
+        "topic": [
+          "t13"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

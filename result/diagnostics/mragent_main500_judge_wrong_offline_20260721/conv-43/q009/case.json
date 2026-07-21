@@ -1,0 +1,124 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 8,
+  "question_index_1based": 9,
+  "category": 3,
+  "question": "Which outdoor gear company likely signed up John for an endorsement deal?",
+  "gold_answer": "Under Armour",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D25:2",
+    "D3:15"
+  ],
+  "gold_evidence_in_graph": [
+    "D25:2",
+    "D3:15"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 17,
+  "runtime_sec": 125.68,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which outdoor gear company likely signed up John for an endorsement deal?",
+    "prediction": "no information available",
+    "reference": "Under Armour",
+    "category": 3,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "2f9fc5622c0dea6a",
+    "422e63fd5606ce2b",
+    "6d14872104507bc2",
+    "b95bdef5abcdd58c",
+    "eaa7883ae28e4bba",
+    "c3adf088d6c2d673",
+    "ccdd648079c5c0a5",
+    "f3c9d01f650bd291",
+    "26c62f1489fd901f",
+    "e8d7900bd209f24f"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D25:2": [
+      {
+        "sentence_id": "D25:2-1",
+        "origin": "D25:2",
+        "text": "John:Yo Tim! Great to hear from Tim.",
+        "event_time": "2023-12-19",
+        "session_date": "2023-12-19",
+        "tag": "greeting",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D25:2-2",
+        "origin": "D25:2",
+        "text": "Things have been wild!",
+        "event_time": "2023-12-19",
+        "session_date": "2023-12-19",
+        "tag": "life update",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D25:2-3",
+        "origin": "D25:2",
+        "text": "Last week John got this amazing deal with a renowned outdoor gear company.",
+        "event_time": "2023-12-12",
+        "session_date": "2023-12-19",
+        "tag": "gear deal",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D25:2-4",
+        "origin": "D25:2",
+        "text": "So pumped!",
+        "event_time": "2023-12-19",
+        "session_date": "2023-12-19",
+        "tag": "excitement",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D25:2-5",
+        "origin": "D25:2",
+        "text": "John shared a photography of a man with a backpack and a backpack walking down a path.",
+        "event_time": "2023-12-19",
+        "session_date": "2023-12-19",
+        "tag": "photo share",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D3:15": [
+      {
+        "sentence_id": "D3:15-1",
+        "origin": "D3:15",
+        "text": "John:Thanks! The Nike and Gatorade deals have John stoked! John has always liked Under Armour, working with Under Armour would be really cool. and shared a photo of a mannequin in a blue suit and a chair",
+        "event_time": "2023-07-16",
+        "session_date": "2023-07-16",
+        "tag": "Under Armour Interest",
+        "topic": [
+          "t6"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

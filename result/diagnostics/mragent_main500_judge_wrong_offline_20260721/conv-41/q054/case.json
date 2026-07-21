@@ -1,0 +1,82 @@
+{
+  "sample_id": "conv-41",
+  "question_index": 53,
+  "question_index_1based": 54,
+  "category": 2,
+  "question": "When did John help renovate his hometown community center?",
+  "gold_answer": "2022",
+  "prediction": "ERROR",
+  "gold_evidence": [
+    "D28:11"
+  ],
+  "gold_evidence_in_graph": [
+    "D28:11"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "execution_or_schema_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Stored prediction is ERROR or records an execution failure.",
+  "execution_error": true,
+  "tool_calls": 0,
+  "runtime_sec": 0,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did John help renovate his hometown community center?",
+    "prediction": "ERROR",
+    "reference": "2022",
+    "category": 2,
+    "sample": "conv-41"
+  },
+  "raw_prompt_count": 5,
+  "raw_response_count": 5,
+  "raw_request_ids": [
+    "ba54a9aaa5e43317",
+    "7a999680d4fa94d4",
+    "64d479a6271dfcbe",
+    "a9a869c358388f0b",
+    "229346bd69d40126"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D28:11": [
+      {
+        "sentence_id": "D28:11-1",
+        "origin": "D28:11",
+        "text": "John:John hasn't been able to volunteer much lately, but John definitely cares about volunteering.",
+        "event_time": "2023-08-05",
+        "session_date": "2023-08-05",
+        "tag": "Volunteering",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D28:11-2",
+        "origin": "D28:11",
+        "text": "Last year, John helped renovate a rundown community center back home.",
+        "event_time": "2022-08-05",
+        "session_date": "2023-08-05",
+        "tag": "Volunteering",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D28:11-3",
+        "origin": "D28:11",
+        "text": "The community center renovation took a lot of work, but seeing the impact on the community was so worth it.",
+        "event_time": "2022-08-05",
+        "session_date": "2023-08-05",
+        "tag": "Volunteering",
+        "topic": [
+          "t6"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-41_result_deepseek_mragent_500q_main.jsonl"
+}

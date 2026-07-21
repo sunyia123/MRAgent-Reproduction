@@ -1,0 +1,150 @@
+{
+  "sample_id": "conv-26",
+  "question_index": 59,
+  "question_index_1based": 60,
+  "category": 3,
+  "question": "Would Caroline be considered religious?",
+  "gold_answer": "Somewhat, but not extremely religious",
+  "prediction": "No",
+  "gold_evidence": [
+    "D12:1",
+    "D14:19"
+  ],
+  "gold_evidence_in_graph": [
+    "D12:1",
+    "D14:19"
+  ],
+  "gold_evidence_retrieved": [
+    "D12:1"
+  ],
+  "prediction_context": [
+    "D12:1",
+    "D13:15",
+    "D15:9",
+    "D19:5",
+    "D3:23"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.5,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/2 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 13,
+  "runtime_sec": 164.21,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Would Caroline be considered religious?",
+    "prediction": "No",
+    "reference": "Somewhat, but not extremely religious",
+    "category": 3,
+    "sample": "conv-26"
+  },
+  "raw_prompt_count": 8,
+  "raw_response_count": 8,
+  "raw_request_ids": [
+    "977df76f51abe7d0",
+    "a95f1c0caa39a350",
+    "139178aa76c8a6fc",
+    "3290546c310df08a",
+    "cc786733f2c745a5",
+    "394b28729366b0b4",
+    "db821244454265a3",
+    "4092e9f17d2b6074"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D12:1": [
+      {
+        "sentence_id": "D12:1-1",
+        "origin": "D12:1",
+        "text": "Caroline:Hey Mel! How're ya doin'?",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D12:1-2",
+        "origin": "D12:1",
+        "text": "Recently, Caroline had a not-so-great experience on a hike.",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "hike experience",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D12:1-3",
+        "origin": "D12:1",
+        "text": "Caroline ran into a group of religious conservatives who said something that really upset Caroline.",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "upsetting encounter",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D12:1-4",
+        "origin": "D12:1",
+        "text": "The upsetting encounter made Caroline think how much work we still have to do for LGBTQ rights.",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "LGBTQ rights",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D12:1-5",
+        "origin": "D12:1",
+        "text": "It's been so helpful to have people around Caroline who accept and support Caroline, so Caroline knows Caroline will be ok!",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "support network",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D14:19": [
+      {
+        "sentence_id": "D14:19-1",
+        "origin": "D14:19",
+        "text": "Caroline: Thanks! The stained glass window was made for a local church and shows time changing our lives.",
+        "event_time": "2023-08-25",
+        "session_date": "2023-08-25",
+        "tag": "Stained Glass",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D14:19-2",
+        "origin": "D14:19",
+        "text": "Caroline made the stained glass window to show Caroline's own journey as a transgender woman and how we should accept growth and change.",
+        "event_time": "2023-08-25",
+        "session_date": "2023-08-25",
+        "tag": "Stained Glass",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D14:19-3",
+        "origin": "D14:19",
+        "text": "Caroline shared a photo of a large stained glass window in a church.",
+        "event_time": "2023-08-25",
+        "session_date": "2023-08-25",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-26_result_deepseek_mragent_500q_main.jsonl"
+}

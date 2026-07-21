@@ -1,0 +1,68 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 19,
+  "question_index_1based": 20,
+  "category": 3,
+  "question": "Was James feeling lonely before meeting Samantha?",
+  "gold_answer": "Most likely yes, because he mentioned that the only creatures that gave him joy are dogs and he was actively trying to date.",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D9:16"
+  ],
+  "gold_evidence_in_graph": [
+    "D9:16"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 13,
+  "runtime_sec": 122.01,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Was James feeling lonely before meeting Samantha?",
+    "prediction": "no information available",
+    "reference": "Most likely yes, because he mentioned that the only creatures that gave him joy are dogs and he was actively trying to date.",
+    "category": 3,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "2eb5efb98b6b975d",
+    "03e0a2109dc75214",
+    "299905b03ee33d2a",
+    "43b84b93ba4c2bae",
+    "fafb350a1d1484cc",
+    "e25bd426b3581121",
+    "fa50d96f2d04f09e",
+    "8aef37df4f5a7fff",
+    "9d6f19c4d055b662",
+    "19474db436a89132"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D9:16": [
+      {
+        "sentence_id": "D9:16-1",
+        "origin": "D9:16",
+        "text": "James:My pets, computer games, travel and pizza are all that bring me happiness in life.",
+        "event_time": "2022-05-04",
+        "session_date": "2022-05-04",
+        "tag": "Happiness",
+        "topic": [
+          "t6",
+          "t7",
+          "t8",
+          "t9"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

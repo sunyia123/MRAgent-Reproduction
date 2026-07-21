@@ -1,0 +1,119 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 36,
+  "question_index_1based": 37,
+  "category": 1,
+  "question": "Who is Tim and John's favorite basketball player?",
+  "gold_answer": "LeBron James",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D12:20",
+    "D12:22",
+    "D16:9"
+  ],
+  "gold_evidence_in_graph": [
+    "D12:20",
+    "D12:22",
+    "D16:9"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 300.73,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Who is Tim and John's favorite basketball player?",
+    "prediction": "no information available",
+    "reference": "LeBron James",
+    "category": 1,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 12,
+  "raw_response_count": 12,
+  "raw_request_ids": [
+    "c5ee8b23c267dd0e",
+    "f918da7615ffe651",
+    "8ad760700362bbfc",
+    "640dc6dece3012f6",
+    "18a0adcb5608bd88",
+    "e008ad9b40bbf8b8",
+    "c5e9b9b6df28c35d",
+    "4deb90688defafe7",
+    "594ed6504f9822f3",
+    "732a063750564f00",
+    "8ab376f31dd0bf44",
+    "8ba74e21be1d7996"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D12:20": [
+      {
+        "sentence_id": "D12:20-1",
+        "origin": "D12:20",
+        "text": "John:Thanks! The Wolves are my team for sure. And LeBron is the man - love his skills and leadership.",
+        "event_time": "2023-10-02",
+        "session_date": "2023-10-02",
+        "tag": "team and player",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D12:22": [
+      {
+        "sentence_id": "D12:22-1",
+        "origin": "D12:22",
+        "text": "John:I really admire his work ethic and dedication to the game, such an inspiration. and shared a photo of a group of people standing on a basketball court",
+        "event_time": "2023-10-02",
+        "session_date": "2023-10-02",
+        "tag": "admiration",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D16:9": [
+      {
+        "sentence_id": "D16:9-1",
+        "origin": "D16:9",
+        "text": "Tim:Tim just loves watching LeBron.",
+        "event_time": "2023-11-06",
+        "session_date": "2023-11-06",
+        "tag": "Favorite Player",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D16:9-2",
+        "origin": "D16:9",
+        "text": "There was a Finals game a few years back with an epic block that totally changed the game and ended up winning the game.",
+        "event_time": "2023-11-06",
+        "session_date": "2023-11-06",
+        "tag": "Epic Block",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D16:9-3",
+        "origin": "D16:9",
+        "text": "Seeing LeBron go for the epic block like that was such an inspiration - never give up, you know?",
+        "event_time": "2023-11-06",
+        "session_date": "2023-11-06",
+        "tag": "Inspiration",
+        "topic": [
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

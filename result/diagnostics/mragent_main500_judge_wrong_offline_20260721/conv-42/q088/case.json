@@ -1,0 +1,66 @@
+{
+  "sample_id": "conv-42",
+  "question_index": 87,
+  "question_index_1based": 88,
+  "category": 3,
+  "question": "What state did Nate visit?",
+  "gold_answer": "Florida",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D29:6"
+  ],
+  "gold_evidence_in_graph": [
+    "D29:6"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 16,
+  "runtime_sec": 219.25,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What state did Nate visit?",
+    "prediction": "no information available",
+    "reference": "Florida",
+    "category": 3,
+    "sample": "conv-42"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "a783a8fec008b924",
+    "c3a08e51dfd10d4a",
+    "65d16dc317881433",
+    "61f3b09a8011ecdd",
+    "97a80625cda9c994",
+    "c4d26429e61df4c7",
+    "429779be90803f79",
+    "ce9ead03b0e430e4",
+    "a6315a67edde51e2",
+    "74b3deb3976f2bf3"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D29:6": [
+      {
+        "sentence_id": "D29:6-1",
+        "origin": "D29:6",
+        "text": "Wow Joanna, that must have been so exciting! It's incredible when you get those moments of joy. Anyway, I took my turtles to the beach in Tampa yesterday! The turtles always bring me peace in the craziness of life. and shared a photo of a turtle in a sink with a reflection of its head",
+        "event_time": "2022-11-10",
+        "session_date": "2022-11-11",
+        "tag": "turtle beach trip",
+        "topic": [
+          "t3",
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-42_result_deepseek_mragent_500q_main.jsonl"
+}

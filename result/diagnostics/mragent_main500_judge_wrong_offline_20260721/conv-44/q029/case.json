@@ -1,0 +1,90 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 28,
+  "question_index_1based": 29,
+  "category": 1,
+  "question": "What is something that Audrey often dresses up her dogs with?",
+  "gold_answer": "Hats",
+  "prediction": "ERROR",
+  "gold_evidence": [
+    "D19:6",
+    "D4:23",
+    "D4:25"
+  ],
+  "gold_evidence_in_graph": [
+    "D19:6",
+    "D4:23",
+    "D4:25"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "execution_or_schema_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Stored prediction is ERROR or records an execution failure.",
+  "execution_error": true,
+  "tool_calls": 0,
+  "runtime_sec": 0,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What is something that Audrey often dresses up her dogs with?",
+    "prediction": "ERROR",
+    "reference": "Hats",
+    "category": 1,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 2,
+  "raw_response_count": 2,
+  "raw_request_ids": [
+    "1525d87029a5a94a",
+    "8130ea2f69a67a4d"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D19:6": [
+      {
+        "sentence_id": "D19:6-1",
+        "origin": "D19:6",
+        "text": "Audrey:Building trust with dogs needs patience and regular training. Give dogs time and love, and praise dogs' successes. and shared a photography of three dogs wearing birthday hats and sitting next to each other",
+        "event_time": "2023-09-24",
+        "session_date": "2023-09-24",
+        "tag": "Training tips",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      }
+    ],
+    "D4:23": [
+      {
+        "sentence_id": "D4:23-1",
+        "origin": "D4:23",
+        "text": "Audrey: The dogs absolutely adore playing fetch! The dogs have tons of energy and love meeting new pals at playdates. Plus, the dogs always get excited when I bring the ball or frisbee out.",
+        "event_time": "2023-05-03",
+        "session_date": "2023-05-03",
+        "tag": "dog playdates",
+        "topic": [
+          "t7",
+          "t10"
+        ]
+      }
+    ],
+    "D4:25": [
+      {
+        "sentence_id": "D4:25-1",
+        "origin": "D4:25",
+        "text": "Audrey: The hats don't bother the dogs, the dogs just put the hats on for fun and treats. And the dog park is great place to start! The dogs can run and mingle with other pooches. The dog park is such a fun spot for playdates!",
+        "event_time": "2023-05-03",
+        "session_date": "2023-05-03",
+        "tag": "dog park",
+        "topic": [
+          "t7",
+          "t10"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

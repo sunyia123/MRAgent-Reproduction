@@ -1,0 +1,132 @@
+{
+  "sample_id": "conv-42",
+  "question_index": 34,
+  "question_index_1based": 35,
+  "category": 1,
+  "question": "What book recommendations has Joanna given to Nate?",
+  "gold_answer": "\"Little Women\",'A Court of Thorns andRoses'.",
+  "prediction": "finding a fantasy book series to read through",
+  "gold_evidence": [
+    "D19:14",
+    "D19:16",
+    "D3:17"
+  ],
+  "gold_evidence_in_graph": [
+    "D19:14",
+    "D19:16",
+    "D3:17"
+  ],
+  "gold_evidence_retrieved": [
+    "D19:14"
+  ],
+  "prediction_context": [
+    "D19:14"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.3333333333333333,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/3 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 6,
+  "runtime_sec": 189.26,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What book recommendations has Joanna given to Nate?",
+    "prediction": "finding a fantasy book series to read through",
+    "reference": "\"Little Women\",'A Court of Thorns andRoses'.",
+    "category": 1,
+    "sample": "conv-42"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "1dbb8f8109b014da",
+    "3e00b61cc9e38cbe",
+    "27a57c248e11b874",
+    "3770f5f4a49429a3",
+    "61fba97c61ef447d",
+    "fe03d7defd8b159d",
+    "6f762bb88964bd7f",
+    "78bcdfc0beb5c333",
+    "ed825c4056ab0b2f",
+    "7bbc8daedc6382dc"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D19:14": [
+      {
+        "sentence_id": "D19:14-1",
+        "origin": "D19:14",
+        "text": "Joanna recommends finding a fantasy book series to read through.",
+        "event_time": "2022-08-22",
+        "session_date": "2022-08-22",
+        "tag": "book recommendation",
+        "topic": [
+          "t9"
+        ]
+      },
+      {
+        "sentence_id": "D19:14-2",
+        "origin": "D19:14",
+        "text": "Most fiction series are great reads when trying to relax.",
+        "event_time": "2022-08-22",
+        "session_date": "2022-08-22",
+        "tag": "reading relaxation",
+        "topic": [
+          "t9"
+        ]
+      }
+    ],
+    "D19:16": [
+      {
+        "sentence_id": "D19:16-1",
+        "origin": "D19:16",
+        "text": "Joanna says that series is a great one and asks Nate to let Joanna know what Nate thinks when Nate is finished.",
+        "event_time": "2022-08-22",
+        "session_date": "2022-08-22",
+        "tag": "series approval",
+        "topic": [
+          "t9"
+        ]
+      }
+    ],
+    "D3:17": [
+      {
+        "sentence_id": "D3:17-1",
+        "origin": "D3:17",
+        "text": "Joanna:I just watched \"Little Women\" and the movie was amazing!",
+        "event_time": "2022-02-07",
+        "session_date": "2022-02-07",
+        "tag": "movie recommendation",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D3:17-2",
+        "origin": "D3:17",
+        "text": "\"Little Women\" is a great story about sisterhood, love, and reaching for your dreams.",
+        "event_time": "2022-02-07",
+        "session_date": "2022-02-07",
+        "tag": "movie description",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D3:17-3",
+        "origin": "D3:17",
+        "text": "\"Little Women\" is definitely a must-see!",
+        "event_time": "2022-02-07",
+        "session_date": "2022-02-07",
+        "tag": "recommendation",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-42_result_deepseek_mragent_500q_main.jsonl"
+}

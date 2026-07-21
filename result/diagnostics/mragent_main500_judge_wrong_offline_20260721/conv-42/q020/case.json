@@ -1,0 +1,112 @@
+{
+  "sample_id": "conv-42",
+  "question_index": 19,
+  "question_index_1based": 20,
+  "category": 1,
+  "question": "How many times has Joanna found new hiking trails?",
+  "gold_answer": "twice",
+  "prediction": "3",
+  "gold_evidence": [
+    "D11:3",
+    "D8:4"
+  ],
+  "gold_evidence_in_graph": [
+    "D11:3",
+    "D8:4"
+  ],
+  "gold_evidence_retrieved": [
+    "D11:3",
+    "D8:4"
+  ],
+  "prediction_context": [
+    "D11:3",
+    "D14:19",
+    "D8:4"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 1.0,
+  "retrieval_coverage_label": "full",
+  "primary_cause": "multi_hop_composition_failure",
+  "cause_confidence": "medium",
+  "cause_reason": "All annotated evidence was retrieved, but facts were omitted or combined incorrectly.",
+  "execution_error": false,
+  "tool_calls": 12,
+  "runtime_sec": 349.79,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How many times has Joanna found new hiking trails?",
+    "prediction": "3",
+    "reference": "twice",
+    "category": 1,
+    "sample": "conv-42"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "b9754bece07d2b22",
+    "d3b238c30967051b",
+    "116cac4cc71f61c3",
+    "eae84605086e0a9f",
+    "ea56b5a196eb0b43",
+    "7bb6e145750dbeb7",
+    "b4b6350a90851819",
+    "db69960dad083931",
+    "84445ce829b2f32c",
+    "ce9b497f1d1a9220"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D11:3": [
+      {
+        "sentence_id": "D11:3-1",
+        "origin": "D11:3",
+        "text": "Joanna went hiking and found some more amazing trails in Joanna's town.",
+        "event_time": "2022-05-12",
+        "session_date": "2022-05-12",
+        "tag": "Hiking Experience",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D11:3-2",
+        "origin": "D11:3",
+        "text": "The hiking was such an awesome experience.",
+        "event_time": "2022-05-12",
+        "session_date": "2022-05-12",
+        "tag": "Hiking Experience",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D11:3-3",
+        "origin": "D11:3",
+        "text": "Joanna thinks Joanna is an expert hiker now.",
+        "event_time": "2022-05-12",
+        "session_date": "2022-05-12",
+        "tag": "Self-assessment",
+        "topic": [
+          "t2"
+        ]
+      }
+    ],
+    "D8:4": [
+      {
+        "sentence_id": "D8:4-1",
+        "origin": "D8:4",
+        "text": "Joanna: It really is! On a different note, Joanna found an awesome hiking trail in Joanna's hometown yesterday! The hiking trail was gorgeous. Nature is so inspiring, and nature is a great way to reset. Do you know of any good hiking spots?",
+        "event_time": "2022-04-16",
+        "session_date": "2022-04-17",
+        "tag": "Hiking Trail",
+        "topic": [
+          "t3",
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-42_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,66 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 15,
+  "question_index_1based": 16,
+  "category": 2,
+  "question": "When did James start playing Civilization VI?",
+  "gold_answer": "March 2022",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D8:29"
+  ],
+  "gold_evidence_in_graph": [
+    "D8:29"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 9,
+  "runtime_sec": 434.0,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did James start playing Civilization VI?",
+    "prediction": "no information available",
+    "reference": "March 2022",
+    "category": 2,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "3abdee5b07902b72",
+    "b7e8890c32dcb69a",
+    "4fa926702c42807e",
+    "a3c190116c9909d0",
+    "4752b45505436f3e",
+    "1a2443ff5a820475",
+    "e1f8f0bc4dac258b",
+    "15cb786a3ecaaccc",
+    "c619078e39ae6dd7",
+    "1dd4b0a777dd8caa",
+    "938b1c3bd2c0146a"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D8:29": [
+      {
+        "sentence_id": "D8:29-1",
+        "origin": "D8:29",
+        "text": "Been playing Civilization VI for a month now - Civilization VI has really challenged James's strategy skills.",
+        "event_time": "2022-04-29",
+        "session_date": "2022-04-29",
+        "tag": "One Month",
+        "topic": [
+          "t5"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

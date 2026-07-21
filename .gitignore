@@ -20,6 +20,8 @@ result/locomo/*
 result/diagnostics/*
 !result/diagnostics/mragent_main500_traces/
 !result/diagnostics/mragent_main500_traces/**
+!result/diagnostics/mragent_main500_judge_wrong_offline_20260721/
+!result/diagnostics/mragent_main500_judge_wrong_offline_20260721/**
 !result/diagnostics/judge_errors_*.jsonl
 log/
 repro_runs/

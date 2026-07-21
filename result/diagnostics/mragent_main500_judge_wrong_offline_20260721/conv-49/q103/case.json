@@ -1,0 +1,87 @@
+{
+  "sample_id": "conv-49",
+  "question_index": 102,
+  "question_index_1based": 103,
+  "category": 4,
+  "question": "What dish did Sam make on 18 August, 2023 that turned out flavorful?",
+  "gold_answer": "grilled dish with salmon and vegetables",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D7:4"
+  ],
+  "gold_evidence_in_graph": [
+    "D7:4"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 21,
+  "runtime_sec": 233.77,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What dish did Sam make on 18 August, 2023 that turned out flavorful?",
+    "prediction": "no information available",
+    "reference": "grilled dish with salmon and vegetables",
+    "category": 4,
+    "sample": "conv-49"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "bb1d01e9d0dd1f05",
+    "723d7ef8302bc2d3",
+    "c8a5be766701997b",
+    "2c98344513ea14a5",
+    "5f3a27ae508eaeda",
+    "dfed180710e33d05",
+    "d0b00c78c80e0f64",
+    "ca16e2270ebd63f5",
+    "d2187e1d575870fb",
+    "66d0a7790db8036b"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D7:4": [
+      {
+        "sentence_id": "D7:4-1",
+        "origin": "D7:4",
+        "text": "Sam:The cooking class has been great, I've learned awesome recipes.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "cooking class",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D7:4-2",
+        "origin": "D7:4",
+        "text": "Last night I made this yummy grilled dish, so good!",
+        "event_time": "2023-08-14",
+        "session_date": "2023-08-15",
+        "tag": "recipe sharing",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D7:4-3",
+        "origin": "D7:4",
+        "text": "and shared a photo of a plate of food with a piece of salmon and some vegetables",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "photo sharing",
+        "topic": [
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-49_result_deepseek_mragent_500q_main.jsonl"
+}

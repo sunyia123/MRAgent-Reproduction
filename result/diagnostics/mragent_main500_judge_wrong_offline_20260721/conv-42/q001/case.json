@@ -1,0 +1,66 @@
+{
+  "sample_id": "conv-42",
+  "question_index": 0,
+  "question_index_1based": 1,
+  "category": 3,
+  "question": "Is it likely that Nate has friends besides Joanna?",
+  "gold_answer": "Yesteammates on hisvideo game team.",
+  "prediction": "Yes",
+  "gold_evidence": [
+    "D1:7"
+  ],
+  "gold_evidence_in_graph": [
+    "D1:7"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D13:1",
+    "D13:3",
+    "D14:14",
+    "D23:3",
+    "D2:16"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "judge_false_negative_likely",
+  "cause_confidence": "high",
+  "cause_reason": "Prediction 'Yes' directly answers the yes/no question; the malformed gold also starts with Yes.",
+  "execution_error": false,
+  "tool_calls": 0,
+  "runtime_sec": 160.11,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Is it likely that Nate has friends besides Joanna?",
+    "prediction": "Yes",
+    "reference": "Yesteammates on hisvideo game team.",
+    "category": 3,
+    "sample": "conv-42"
+  },
+  "raw_prompt_count": 5,
+  "raw_response_count": 5,
+  "raw_request_ids": [
+    "ac23bfe4bff37c93",
+    "7c7561e4f0f5cc9b",
+    "72df38c80ba35011",
+    "3e87c31af0ab0a91",
+    "9d1b77ebb318a291"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D1:7": [
+      {
+        "sentence_id": "D1:7-1",
+        "origin": "D1:7",
+        "text": "The game was called Counter-Strike: Global Offensive, and me and my team had a blast to the very end!",
+        "event_time": "2022-01-21",
+        "session_date": "2022-01-21",
+        "tag": "game name",
+        "topic": [
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-42_result_deepseek_mragent_500q_main.jsonl"
+}

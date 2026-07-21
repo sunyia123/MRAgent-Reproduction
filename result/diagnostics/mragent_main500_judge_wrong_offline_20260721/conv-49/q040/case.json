@@ -1,0 +1,145 @@
+{
+  "sample_id": "conv-49",
+  "question_index": 39,
+  "question_index_1based": 40,
+  "category": 2,
+  "question": "How many months lapsed between Sam's first and second doctor's appointment?",
+  "gold_answer": "three months",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D2:6",
+    "D7:2"
+  ],
+  "gold_evidence_in_graph": [
+    "D2:6",
+    "D7:2"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 14,
+  "runtime_sec": 167.37,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How many months lapsed between Sam's first and second doctor's appointment?",
+    "prediction": "no information available",
+    "reference": "three months",
+    "category": 2,
+    "sample": "conv-49"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "f79fb352113dca66",
+    "45eb2e669c3886a4",
+    "8136b5296eece6c0",
+    "a719ee28db0c7346",
+    "9558ec94afc425b6",
+    "a7382caaea90c599",
+    "a88b3b678210580d",
+    "d8ab04132ff8986a",
+    "0c6c6cfa9f806143",
+    "45f7efdd88a43c02"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D2:6": [
+      {
+        "sentence_id": "D2:6-1",
+        "origin": "D2:6",
+        "text": "Thanks, Evan.",
+        "event_time": "2023-05-24",
+        "session_date": "2023-05-24",
+        "tag": "Thanks",
+        "topic": []
+      },
+      {
+        "sentence_id": "D2:6-2",
+        "origin": "D2:6",
+        "text": "Appreciate Evan's offer, but Sam had a check-up with Sam's doctor a few days ago and, yikes, Sam's weight wasn't great.",
+        "event_time": "2023-05-21",
+        "session_date": "2023-05-24",
+        "tag": "Health update",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D2:6-3",
+        "origin": "D2:6",
+        "text": "The check-up result was pretty eye-opening.",
+        "event_time": "2023-05-21",
+        "session_date": "2023-05-24",
+        "tag": "Reaction",
+        "topic": [
+          "t5"
+        ]
+      }
+    ],
+    "D7:2": [
+      {
+        "sentence_id": "D7:2-1",
+        "origin": "D7:2",
+        "text": "Sam:Hey Evan, sorry to hear about what happened.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "sympathy",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:2-2",
+        "origin": "D7:2",
+        "text": "I can imagine how hard it must have been for you.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "empathy",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:2-3",
+        "origin": "D7:2",
+        "text": "Things haven't been easy for me either.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "personal struggle",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D7:2-4",
+        "origin": "D7:2",
+        "text": "Had a tough week and a doc's appointment, so it was kinda like a wake-up call to take better care of myself.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "health concern",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D7:2-5",
+        "origin": "D7:2",
+        "text": "On a bright side, I'm taking a cooking class to learn how to make healthier meals.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "cooking class",
+        "topic": [
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-49_result_deepseek_mragent_500q_main.jsonl"
+}

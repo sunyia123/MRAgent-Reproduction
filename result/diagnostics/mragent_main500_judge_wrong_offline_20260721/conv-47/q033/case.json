@@ -1,0 +1,87 @@
+{
+  "sample_id": "conv-47",
+  "question_index": 32,
+  "question_index_1based": 33,
+  "category": 2,
+  "question": "Where was James at on July 12, 2022?",
+  "gold_answer": "Toronto, Canada",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D16:9"
+  ],
+  "gold_evidence_in_graph": [
+    "D16:9"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 253.04,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Where was James at on July 12, 2022?",
+    "prediction": "no information available",
+    "reference": "Toronto, Canada",
+    "category": 2,
+    "sample": "conv-47"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "918b7d30266a838f",
+    "828af62358ba2e2d",
+    "3fe6c275a2c799d1",
+    "c90dda57abe24c9c",
+    "feadea5492764fbe",
+    "26b747745a51705b",
+    "6799be8d74c694ad",
+    "81bda1d4dd60541e",
+    "27258e7b7a079f01",
+    "6d59a22f87ce6cd3"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D16:9": [
+      {
+        "sentence_id": "D16:9-1",
+        "origin": "D16:9",
+        "text": "I also love to read, especially while snuggled under the covers on a cold winter day.",
+        "event_time": "2022-07-09",
+        "session_date": "2022-07-09",
+        "tag": "reading preference",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D16:9-2",
+        "origin": "D16:9",
+        "text": "But now it’s summer and I want something more exciting!",
+        "event_time": "2022-07-09",
+        "session_date": "2022-07-09",
+        "tag": "summer desire",
+        "topic": [
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D16:9-3",
+        "origin": "D16:9",
+        "text": "By the way, I bought air tickets to Toronto, and I’m leaving on 2022-07-11 evening.",
+        "event_time": "2022-07-11",
+        "session_date": "2022-07-09",
+        "tag": "travel plan",
+        "topic": [
+          "t7"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-47_result_deepseek_mragent_500q_main.jsonl"
+}

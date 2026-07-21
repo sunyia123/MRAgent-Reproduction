@@ -1,0 +1,96 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 55,
+  "question_index_1based": 56,
+  "category": 2,
+  "question": "When did John start playing professionally?",
+  "gold_answer": "May, 2023",
+  "prediction": "January 2023",
+  "gold_evidence": [
+    "D1:3",
+    "D21:4"
+  ],
+  "gold_evidence_in_graph": [
+    "D1:3",
+    "D21:4"
+  ],
+  "gold_evidence_retrieved": [
+    "D21:4"
+  ],
+  "prediction_context": [
+    "D21:3",
+    "D21:4"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.5,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/2 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 8,
+  "runtime_sec": 247.87,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did John start playing professionally?",
+    "prediction": "January 2023",
+    "reference": "May, 2023",
+    "category": 2,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "81b50631af17cb8f",
+    "28c6e8b2fd29a851",
+    "0a354de012c7312f",
+    "738181a0dab52183",
+    "4f96c3e393bb28ca",
+    "8f708e70b70933b1",
+    "3944a3e1e5e11cb8",
+    "083defb10f159564",
+    "0aed076eff6334cb",
+    "c2d900237de2a39c"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D1:3": [
+      {
+        "sentence_id": "D1:3-1",
+        "origin": "D1:3",
+        "text": "John:That's great! John just signed with a new team - excited for the season!",
+        "event_time": "2023-05-21",
+        "session_date": "2023-05-21",
+        "tag": "new team",
+        "topic": [
+          "t2"
+        ]
+      }
+    ],
+    "D21:4": [
+      {
+        "sentence_id": "D21:4-1",
+        "origin": "D21:4",
+        "text": "John has been playing professionally for just under a year now.",
+        "event_time": "2023-12-06",
+        "session_date": "2023-12-06",
+        "tag": "professional career",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D21:4-2",
+        "origin": "D21:4",
+        "text": "The professional career has been a wild ride.",
+        "event_time": "2023-12-06",
+        "session_date": "2023-12-06",
+        "tag": "professional career",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

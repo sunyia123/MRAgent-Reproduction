@@ -1,0 +1,173 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 49,
+  "question_index_1based": 50,
+  "category": 1,
+  "question": "How many times has John injured his ankle?",
+  "gold_answer": "two times",
+  "prediction": "1",
+  "gold_evidence": [
+    "D18:2",
+    "D19:6"
+  ],
+  "gold_evidence_in_graph": [
+    "D18:2",
+    "D19:6"
+  ],
+  "gold_evidence_retrieved": [
+    "D19:6"
+  ],
+  "prediction_context": [
+    "D19:6"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.5,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/2 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 15,
+  "runtime_sec": 707.57,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How many times has John injured his ankle?",
+    "prediction": "1",
+    "reference": "two times",
+    "category": 1,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "3aef871e14135c8b",
+    "38d4dc0b5975240d",
+    "d224b90d53b5d318",
+    "67c3a69d17e9a3b0",
+    "919d4e75fd532aee",
+    "1acb56ea621415ea",
+    "188d402457500fbf",
+    "e3ebd9dcfde494c9",
+    "e3b118a2233c8bba",
+    "cfb4f5ef0f47ef7a",
+    "d45dfe952c2def21"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D18:2": [
+      {
+        "sentence_id": "D18:2-1",
+        "origin": "D18:2",
+        "text": "John:Hey Tim! That's awesome! Yeah, the castle was really cool.",
+        "event_time": "2023-11-16",
+        "session_date": "2023-11-16",
+        "tag": "response",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D18:2-2",
+        "origin": "D18:2",
+        "text": "Oh man, it's been a tough week for me with this injury.",
+        "event_time": "2023-11-16",
+        "session_date": "2023-11-16",
+        "tag": "injury update",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D18:2-3",
+        "origin": "D18:2",
+        "text": "But I'm staying positive.",
+        "event_time": "2023-11-16",
+        "session_date": "2023-11-16",
+        "tag": "attitude",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D18:2-4",
+        "origin": "D18:2",
+        "text": "How about you? How's your week been? and shared a photo of a person with a bandage on their leg",
+        "event_time": "2023-11-16",
+        "session_date": "2023-11-16",
+        "tag": "inquiry",
+        "topic": []
+      }
+    ],
+    "D19:6": [
+      {
+        "sentence_id": "D19:6-1",
+        "origin": "D19:6",
+        "text": "John:Last season, John had a major challenge when John hurt John's ankle.",
+        "event_time": "2023-05-01",
+        "session_date": "2023-11-21",
+        "tag": "injury challenge",
+        "topic": [
+          "t1",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D19:6-2",
+        "origin": "D19:6",
+        "text": "The ankle injury required some time off and physical therapy.",
+        "event_time": "2023-05-01",
+        "session_date": "2023-11-21",
+        "tag": "recovery process",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D19:6-3",
+        "origin": "D19:6",
+        "text": "The ankle injury was frustrating because John couldn't play or help the team.",
+        "event_time": "2023-05-01",
+        "session_date": "2023-11-21",
+        "tag": "frustration",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D19:6-4",
+        "origin": "D19:6",
+        "text": "John stayed focused on John's recovery and worked hard to strengthen John's body.",
+        "event_time": "2023-05-01",
+        "session_date": "2023-11-21",
+        "tag": "determination",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D19:6-5",
+        "origin": "D19:6",
+        "text": "The ankle injury was a tough mental and physical challenge, but the challenge made John realize the importance of patience and perseverance.",
+        "event_time": "2023-05-01",
+        "session_date": "2023-11-21",
+        "tag": "lesson learned",
+        "topic": [
+          "t1",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D19:6-6",
+        "origin": "D19:6",
+        "text": "John is grateful that John was able to overcome the ankle injury.",
+        "event_time": "2023-05-01",
+        "session_date": "2023-11-21",
+        "tag": "gratitude",
+        "topic": [
+          "t1"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

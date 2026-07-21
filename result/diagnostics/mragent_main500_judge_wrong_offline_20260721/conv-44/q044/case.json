@@ -1,0 +1,69 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 43,
+  "question_index_1based": 44,
+  "category": 3,
+  "question": "Which US state do Audrey and Andrew potentially live in?",
+  "gold_answer": "Minnesota",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D11:9"
+  ],
+  "gold_evidence_in_graph": [
+    "D11:9"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 31,
+  "runtime_sec": 480.45,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which US state do Audrey and Andrew potentially live in?",
+    "prediction": "no information available",
+    "reference": "Minnesota",
+    "category": 3,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 13,
+  "raw_response_count": 13,
+  "raw_request_ids": [
+    "d86cc374c9814b3c",
+    "f136ff42db50eb83",
+    "17c5c8582b840b0c",
+    "ea803cb28919b69e",
+    "c39b94f0d04cef07",
+    "64d978fe72794986",
+    "dbeb6c0b45b1e4c9",
+    "ec7f4ef512ccb230",
+    "90c7e36655b5db67",
+    "98b6215fbb1f458b",
+    "21345a0627a3d1d6",
+    "569d0126ca9fd5f4",
+    "a931a71ef815de74"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D11:9": [
+      {
+        "sentence_id": "D11:9-1",
+        "origin": "D11:9",
+        "text": "Andrew:Looking forward to seeing the dogs have fun hiking. Let's get planning for next month! Here's the map for the trail.",
+        "event_time": "2023-08-08",
+        "session_date": "2023-07-08",
+        "tag": "hike plan",
+        "topic": [
+          "t9",
+          "t10"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

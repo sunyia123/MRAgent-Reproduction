@@ -1,0 +1,172 @@
+{
+  "sample_id": "conv-26",
+  "question_index": 48,
+  "question_index_1based": 49,
+  "category": 1,
+  "question": "What types of pottery have Melanie and her kids made?",
+  "gold_answer": "bowls, cup",
+  "prediction": "pots and a cup with a dog face on it",
+  "gold_evidence": [
+    "D12:14",
+    "D5:6",
+    "D8:4"
+  ],
+  "gold_evidence_in_graph": [
+    "D12:14",
+    "D5:6",
+    "D8:4"
+  ],
+  "gold_evidence_retrieved": [
+    "D8:4"
+  ],
+  "prediction_context": [
+    "D8:2",
+    "D8:4"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.3333333333333333,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/3 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 4,
+  "runtime_sec": 178.92,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What types of pottery have Melanie and her kids made?",
+    "prediction": "pots and a cup with a dog face on it",
+    "reference": "bowls, cup",
+    "category": 1,
+    "sample": "conv-26"
+  },
+  "raw_prompt_count": 6,
+  "raw_response_count": 6,
+  "raw_request_ids": [
+    "0f847684d9f35a3e",
+    "ae200a8e7c4276b3",
+    "245417050a34b802",
+    "40a2927a1eb073d9",
+    "a1a62789e377a3ed",
+    "20687202a7f7d844"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D12:14": [
+      {
+        "sentence_id": "D12:14-1",
+        "origin": "D12:14",
+        "text": "Melanie:Melanie appreciates Caroline and Melanie's friendship too, Caroline.",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "friendship",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D12:14-2",
+        "origin": "D12:14",
+        "text": "Caroline has always been there for Melanie.",
+        "event_time": "2023-08-17",
+        "session_date": "2023-08-17",
+        "tag": "support",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D5:6": [
+      {
+        "sentence_id": "D5:6-1",
+        "origin": "D5:6",
+        "text": "I'm a big fan of pottery - the creativity and skill is awesome.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "pottery appreciation",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D5:6-2",
+        "origin": "D5:6",
+        "text": "Plus, making pottery is so calming.",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "pottery calmness",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D5:6-3",
+        "origin": "D5:6",
+        "text": "Look at this!",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "photo share",
+        "topic": []
+      },
+      {
+        "sentence_id": "D5:6-4",
+        "origin": "D5:6",
+        "text": "and shared a photo of a bowl with a black and white flower design",
+        "event_time": "2023-07-03",
+        "session_date": "2023-07-03",
+        "tag": "bowl photo",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D8:4": [
+      {
+        "sentence_id": "D8:4-1",
+        "origin": "D8:4",
+        "text": "Melanie:The kids loved the pottery workshop!",
+        "event_time": "2023-07-15",
+        "session_date": "2023-07-15",
+        "tag": "Kids Enjoy",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D8:4-2",
+        "origin": "D8:4",
+        "text": "Melanie:Melanie's kids were so excited to get Melanie's kids' hands dirty and make something with clay.",
+        "event_time": "2023-07-15",
+        "session_date": "2023-07-15",
+        "tag": "Kids Excitement",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D8:4-3",
+        "origin": "D8:4",
+        "text": "Melanie:It was special to watch Melanie's kids' creativity and imagination come to life, Melanie's kids made a cup with a dog face on it!",
+        "event_time": "2023-07-15",
+        "session_date": "2023-07-15",
+        "tag": "Kids Creativity",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D8:4-4",
+        "origin": "D8:4",
+        "text": "Melanie:and shared a photo of a cup with a dog face on it",
+        "event_time": "2023-07-15",
+        "session_date": "2023-07-15",
+        "tag": "Photo Share",
+        "topic": [
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-26_result_deepseek_mragent_500q_main.jsonl"
+}

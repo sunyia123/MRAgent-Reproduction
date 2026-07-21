@@ -1,0 +1,59 @@
+# conv-47 Q1 Judge WRONG
+
+- Category: 3
+- Primary cause: active_search_path_failure
+- Confidence: high
+- Graph origin coverage: 1/1
+- Retrieval coverage: 0/1
+- Tool calls: 22
+- Raw calls: prompts=10, responses=10
+
+## Input and output
+
+- Question: What are John's suspected health problems?
+- Gold: Obesity
+- Prediction: no information available
+
+## Attribution
+
+Gold turns exist in graph representation but none entered prediction_context.
+
+## Gold evidence in graph
+
+### D1:27
+- D1:27-1 time=2022-03-17 session=2022-03-17: John: John is sure James is very good at bowling.
+- D1:27-2 time=2022-03-17 session=2022-03-17: Unfortunately, John can't share John's love for bowling with James, because John's fingers are too big.
+- D1:27-3 time=2022-03-17 session=2022-03-17: Perhaps John should take up exercise, at least start going for a run in the morning.
+- D1:27-4 time=2022-03-17 session=2022-03-17: John also doesn't like bowling itself, to be honest.
+
+## Retrieval path
+
+1. edges_by_tag args={"tag": "Physical Limitation", "key": "John", "note": "Exploring John's physical limitations mentioned in key sentences"} error=None result=["D1:27-2:John:I'm sure you're very good at this. Unfortunately, I can’t share my love for him with you, my fingers are too big. Perhaps I should take up exercise, at least start going for a run in the morning. And I also don’t like bowling itself, to be honest."]
+2. edges_by_tag args={"tag": "Personal Struggle", "key": "John", "note": "Exploring John's personal struggles for health context"} error=None result=["D22:18-2:John:Your friendship really means a lot. I'm going through some difficult times now and it's really good to know I've got someone like you."]
+3. edges_by_tag args={"tag": "Work Stress", "key": "John", "note": "Exploring John's work stress which may relate to health"} error=None result=["D7:9-1:John:I need some chill vibes too because it's been crazy for me lately."]
+4. query_event_context args={"event_id": "D1:27-2"} error=None result=["D1:26:James:I'll be looking forward to it. By the way, yesterday I went bowling and got 2 strikes. I love bowling!", "D1:27:John:I'm sure you're very good at this. Unfortunately, I can’t share my love for him with you, my fingers are too big. Perhaps I should take up exercise, at least start going for a run in the morning. And I also don’t like bowling itself, to be honest.", "D1:28:James:It's a pity, it would be nice to go play with you one day."]
+5. query_event_context args={"event_id": "D22:18-2"} error=None result=["D22:17:James:Yeah, you're the best! I'm here for you, no doubt.", "D22:18:John:Your friendship really means a lot. I'm going through some difficult times now and it's really good to know I've got someone like you.", "D22:19:James:Just know I'm here if you need someone to talk or vent to. It might help alleviate some of the difficult times you're going through."]
+6. query_event_context args={"event_id": "D7:9-1"} error=None result=["D7:8:James:Love hearing the crunch of leaves under my feet and the peacefulness. It helps me clear my head and chill.", "D7:9:John:I need some chill vibes too because it's been crazy for me lately.", "D7:10:James:What's been going on? Is there anything you want to talk about? I'm here for you."]
+7. query_event_context args={"event_id": "D7:11-1"} error=None result=["D7:10:James:What's been going on? Is there anything you want to talk about? I'm here for you.", "D7:11:John:Thanks, James. Yeah, been super busy at work. Deadlines all over the place and so much to do. It's just been really hectic lately.", "D7:12:James:Yeah, work can be tough. Is there something specific that's making it worse?"]
+8. query_topic_events args={"topic": "D1:t14"} error=None result=["D1:27-3:John:I'm sure you're very good at this. Unfortunately, I can’t share my love for him with you, my fingers are too big. Perhaps I should take up exercise, at least start going for a run in the morning. And I also don’t like bowling itself, to be honest."]
+9. query_topic_events args={"topic": "D7:t9"} error=None result=["D7:10-1:James:What's been going on? Is there anything you want to talk about? I'm here for you."]
+10. query_topic_events args={"topic": "D22:t8"} error=None result=["D22:18-2:John:Your friendship really means a lot. I'm going through some difficult times now and it's really good to know I've got someone like you.", "D22:19-1:James:Just know I'm here if you need someone to talk or vent to. It might help alleviate some of the difficult times you're going through."]
+11. query_topic_events args={"topic": "D7:t13"} error=None result=["D7:17-1:John:Yeah, that'd be great. I'm trying to make this new algorithm work better, but I'm stuck. Do you have any ideas?", "D7:18-1:James:Not sure about your algorithm, but breaking it down into smaller steps might help. Doing some research on similar algorithms or asking other programmers for advice could be beneficial. Don't be afraid to seek help and remember, every problem has a solution."]
+12. query_personal_information args={"person": "John"} error=None result={'person': 'John', 'aspects': ['hobby', 'education', 'skill', 'physical attribute', 'dislike', 'plan', 'experience', 'opinion', 'stress relief', 'findings', 'pet desire', 'gaming achievement', 'event participation', 'self-improvement', 'gaming progress', 'gaming benefit', 'current game', 'bug report', 'link offer', 'new friends', 'nature visit', 'principle', 'motivation', 'travel experience', 'travel dream', 'hope', 'work status', 'need', 'work problem', 'emotion', 'gratitude', 'Freelance Work',
+13. query_personal_aspect args={"person": "John", "aspect": "physical attribute"} error=None result=["D1:27:John's fingers are too big for bowling."]
+14. query_personal_aspect args={"person": "John", "aspect": "self-care"} error=None result=['D25:23:John plans to make time for himself.']
+15. query_personal_aspect args={"person": "John", "aspect": "stress relief"} error=None result=['D2:6:John uses gaming to escape stress.']
+16. query_personal_aspect args={"person": "John", "aspect": "emotion"} error=None result=['D7:13:John finds coding frustrating.', 'D16:4:John feels determined and passionate but also overwhelmed and stressed.', 'D21:8:John is proud of his siblings.', 'D26:3:John is excited about the mentoring role.', 'D26:5:John finds mentoring rewarding and fulfilling.']
+17. query_event_context args={"event_id": "D25:23"} error=None result=["D25:22:James:Sorry to hear about your busy week, John. Make sure to take some time for yourself and take care. You've got this!", "D25:23:John:I appreciate your help. Gonna make time for myself.", "D25:24:James:No worries, take care of yourself. Relax and recharge - you deserve it."]
+18. query_event_context args={"event_id": "D2:6"} error=None result=["D2:5:James:Yeah, it's our shared language and passion. It's been a refuge for me in tough times.", "D2:6:John:Yeah, gaming always helps me escape stress. It's amazing how it calms me down during tough times.", "D2:7:James:Games are my go-to when I'm feeling overwhelmed. It's like therapy. I can relax, forget my troubles, and get lost in another world."]
+19. query_event_context args={"event_id": "D7:13"} error=None result=["D7:12:James:Yeah, work can be tough. Is there something specific that's making it worse?", "D7:13:John:Ugh, this project is giving me a hard time. It's a difficult assignment that involves coding and I'm stuck on it. It's frustrating because I hate being stuck and not making progress.", "D7:14:James:Yeah, it's really frustrating when a project doesn't go as planned. What specifically is giving you trouble? Maybe I can offer some assistance."]
+20. query_event_context args={"event_id": "D16:4"} error=None result=["D16:3:James:Thanks! It was really fulfilling to see my hard work pay off with a victory in the tournament. How are you?", "D16:4:John:Feeling the tug of emotion lately. Determined and passionate on one hand, but feeling overwhelmed and stressed on the other. Balancing personal and professional is kind of a challenge. How have you been?", "D16:5:James:Yeah, staying balanced can be tough. I'm trying to take breaks from my hobbies and do other things. Lately I've become interested in extreme spor
+21. query_event_context args={"event_id": "D22:17"} error=None result=["D22:16:John:Thanks, James, for the support. I really appreciate it.", "D22:17:James:Yeah, you're the best! I'm here for you, no doubt.", "D22:18:John:Your friendship really means a lot. I'm going through some difficult times now and it's really good to know I've got someone like you."]
+22. query_event_context args={"event_id": "D22:15"} error=None result=["D22:14:John:I'm excited to see how far they can go! With their passion for video games like me, hopefully they can use those coding skills to make something cool. I'm so proud of them, can't wait to see what they come up with!", "D22:15:James:I'm proud of them too! Seeing the next generation pick up coding and making their own games is awesome. Can't wait to see what they create!", "D22:16:John:Thanks, James, for the support. I really appreciate it."]
+
+## Raw evidence files
+
+- raw_prompts.jsonl
+- raw_responses.jsonl
+- tool_trace.jsonl
+- case.json

@@ -1,0 +1,87 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 48,
+  "question_index_1based": 49,
+  "category": 3,
+  "question": "Which US state did Jolene visit during her internship?",
+  "gold_answer": "Alaska",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D13:15"
+  ],
+  "gold_evidence_in_graph": [
+    "D13:15"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 21,
+  "runtime_sec": 67.46,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which US state did Jolene visit during her internship?",
+    "prediction": "no information available",
+    "reference": "Alaska",
+    "category": 3,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "8b748089ced72d21",
+    "c27a33241b6b977d",
+    "4da1f40ec8df7133",
+    "7dcde047b89032a6",
+    "cc0a96ef4281bce8",
+    "6c800704d316eecc",
+    "04bde88f5ad5e1b5",
+    "a670a16bd4a69a89",
+    "6fcf104fcec331f0",
+    "bcbbcff90fc1be0d"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D13:15": [
+      {
+        "sentence_id": "D13:15-1",
+        "origin": "D13:15",
+        "text": "Jolene:Yeah, Jolene is trying to do the taking breaks and finding activities like yoga.",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Attempt",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D13:15-2",
+        "origin": "D13:15",
+        "text": "Here's an example of how Jolene spent yesterday morning, yoga on top of mount Talkeetna.",
+        "event_time": "2023-06-05",
+        "session_date": "2023-06-06",
+        "tag": "Yoga Example",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D13:15-3",
+        "origin": "D13:15",
+        "text": "and shared a photo of a man standing on a rock with his arms outstretched",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t6"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

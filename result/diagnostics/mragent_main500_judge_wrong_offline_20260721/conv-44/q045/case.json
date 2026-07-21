@@ -1,0 +1,90 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 44,
+  "question_index_1based": 45,
+  "category": 3,
+  "question": "Which national park could Audrey and Andrew be referring to in their conversations?",
+  "gold_answer": "Voyageurs National Park",
+  "prediction": "No specific national park name is mentioned in the conversations. Audrey refers to 'a national park' (D5:8-1, D7:3-1) and Andrew shares a photo from 'a national park' (D26:14-2), but neither names a particular park.",
+  "gold_evidence": [
+    "D11:9",
+    "D5:8"
+  ],
+  "gold_evidence_in_graph": [
+    "D11:9",
+    "D5:8"
+  ],
+  "gold_evidence_retrieved": [
+    "D5:8"
+  ],
+  "prediction_context": [
+    "D26:14",
+    "D5:8",
+    "D7:3"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.5,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/2 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 20,
+  "runtime_sec": 477.64,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which national park could Audrey and Andrew be referring to in their conversations?",
+    "prediction": "No specific national park name is mentioned in the conversations. Audrey refers to 'a national park' (D5:8-1, D7:3-1) and Andrew shares a photo from 'a national park' (D26:14-2), but neither names a particular park.",
+    "reference": "Voyageurs National Park",
+    "category": 3,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 12,
+  "raw_response_count": 12,
+  "raw_request_ids": [
+    "f8a8d322c4c65261",
+    "92b63714d0d9f97d",
+    "75e4113e80a72a3c",
+    "ad6609e2d31709b1",
+    "c0e1c997fea62e74",
+    "462873705a00ba2c",
+    "d1437ab7384b42a4",
+    "9f42b8aaa9a00977",
+    "72ba89f2b7d8964c",
+    "adae5fe0121e9413",
+    "d8315b59d4626d10",
+    "a26d320b7116291a"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D11:9": [
+      {
+        "sentence_id": "D11:9-1",
+        "origin": "D11:9",
+        "text": "Andrew:Looking forward to seeing the dogs have fun hiking. Let's get planning for next month! Here's the map for the trail.",
+        "event_time": "2023-08-08",
+        "session_date": "2023-07-08",
+        "tag": "hike plan",
+        "topic": [
+          "t9",
+          "t10"
+        ]
+      }
+    ],
+    "D5:8": [
+      {
+        "sentence_id": "D5:8-1",
+        "origin": "D5:8",
+        "text": "Audrey: That's a good plan! Audrey is lucky to have a park near Audrey - it's great for Audrey's pup's walks. Last Friday we took a road trip - we went to a beautiful national park and Audrey's dogs had a blast! It was an awesome trip! and shared a photography of three dogs running through a field of grass",
+        "event_time": "2023-05-05",
+        "session_date": "2023-05-06",
+        "tag": "Road trip experience",
+        "topic": [
+          "t8",
+          "t9"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

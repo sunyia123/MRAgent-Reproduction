@@ -1,0 +1,68 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 5,
+  "question_index_1based": 6,
+  "category": 2,
+  "question": "When did Audrey see a hummingbird?",
+  "gold_answer": "first week of May 2023",
+  "prediction": "the week before 3 May 2023",
+  "gold_evidence": [
+    "D4:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D4:1"
+  ],
+  "gold_evidence_retrieved": [
+    "D4:1"
+  ],
+  "prediction_context": [
+    "D4:1"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 1.0,
+  "retrieval_coverage_label": "full",
+  "primary_cause": "temporal_reasoning_failure",
+  "cause_confidence": "medium",
+  "cause_reason": "All annotated evidence was retrieved, but date or duration reasoning disagreed with gold.",
+  "execution_error": false,
+  "tool_calls": 6,
+  "runtime_sec": 362.57,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did Audrey see a hummingbird?",
+    "prediction": "the week before 3 May 2023",
+    "reference": "first week of May 2023",
+    "category": 2,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 8,
+  "raw_response_count": 8,
+  "raw_request_ids": [
+    "40f5385b2222f784",
+    "d602527ceb46a6d4",
+    "66e59dab8bf5d7a8",
+    "845184287be46a9b",
+    "822a1719ff5803e7",
+    "0b866959f670c059",
+    "f2da061fb81bbb55",
+    "5a4ada339a9567f2"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D4:1": [
+      {
+        "sentence_id": "D4:1-1",
+        "origin": "D4:1",
+        "text": "Audrey: Hey Andrew! Long time no talk! Last week I finally went on a hike and had this amazing experience with a hummingbird. The hummingbird was so cool watching the hummingbird dart around with the hummingbird's wings! Nature is so beautiful.",
+        "event_time": "2023-04-26",
+        "session_date": "2023-05-03",
+        "tag": "hiking experience",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

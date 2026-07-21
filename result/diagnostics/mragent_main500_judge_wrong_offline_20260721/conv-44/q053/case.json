@@ -1,0 +1,160 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 52,
+  "question_index_1based": 53,
+  "category": 3,
+  "question": "What is something that Andrew could do to make birdwatching hobby to fit in his city schedule?",
+  "gold_answer": "Install a bird feeder outside where he can see the birds without going outdoors.",
+  "prediction": "Go to nearby parks on weekends for birdwatching",
+  "gold_evidence": [
+    "D1:14",
+    "D20:21",
+    "D20:5",
+    "D23:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D1:14",
+    "D20:21",
+    "D20:5",
+    "D23:1"
+  ],
+  "gold_evidence_retrieved": [
+    "D20:21"
+  ],
+  "prediction_context": [
+    "D1:18",
+    "D20:17",
+    "D20:21",
+    "D21:8",
+    "D23:23",
+    "D4:4"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.25,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/4 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 552.03,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What is something that Andrew could do to make birdwatching hobby to fit in his city schedule?",
+    "prediction": "Go to nearby parks on weekends for birdwatching",
+    "reference": "Install a bird feeder outside where he can see the birds without going outdoors.",
+    "category": 3,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "9639e93d6a813d4e",
+    "9a06eb027c909bfc",
+    "1346bca5a51e2691",
+    "168b492614151592",
+    "a267e38e301d215b",
+    "008037a39501aa38",
+    "c622e0cd80de5a66",
+    "472fed072a045440",
+    "2f37a1aeff7a42fd",
+    "96a8ddf30e7cac53",
+    "e3f2eaa629c35646"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D1:14": [
+      {
+        "sentence_id": "D1:14-1",
+        "origin": "D1:14",
+        "text": "Andrew:Andrew has always been awed by birds. Birds' power to soar and explore new spots is amazing.",
+        "event_time": "2023-03-27",
+        "session_date": "2023-03-27",
+        "tag": "bird admiration",
+        "topic": [
+          "t5"
+        ]
+      }
+    ],
+    "D20:21": [
+      {
+        "sentence_id": "D20:21-1",
+        "origin": "D20:21",
+        "text": "Andrew:Nice! Looks like you're prepared. I'll bring my binos and a notebook to log birds at the trip. and shared a photography of a pen and a notebook with a pen and a camera",
+        "event_time": "2023-10-01",
+        "session_date": "2023-10-01",
+        "tag": "birdwatching gear",
+        "topic": [
+          "t6"
+        ]
+      }
+    ],
+    "D20:5": [
+      {
+        "sentence_id": "D20:5-1",
+        "origin": "D20:5",
+        "text": "Andrew:Aww, they look so cute! That spot looks ideal for them to play. Where did you take them?",
+        "event_time": "2023-10-01",
+        "session_date": "2023-10-01",
+        "tag": "dog park inquiry",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D23:1": [
+      {
+        "sentence_id": "D23:1-1",
+        "origin": "D23:1",
+        "text": "Andrew:Hey Audrey, it's been a busy week for me.",
+        "event_time": "2023-10-13",
+        "session_date": "2023-10-13",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D23:1-2",
+        "origin": "D23:1",
+        "text": "Last Tuesday, my gf, Toby, and I had a really awesome night playing board games.",
+        "event_time": "2023-10-10",
+        "session_date": "2023-10-13",
+        "tag": "Board Game Night",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D23:1-3",
+        "origin": "D23:1",
+        "text": "The board game night was really nice.",
+        "event_time": "2023-10-10",
+        "session_date": "2023-10-13",
+        "tag": "Board Game Night",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D23:1-4",
+        "origin": "D23:1",
+        "text": "What's been up with you lately?",
+        "event_time": "2023-10-13",
+        "session_date": "2023-10-13",
+        "tag": "Inquiry",
+        "topic": []
+      },
+      {
+        "sentence_id": "D23:1-5",
+        "origin": "D23:1",
+        "text": "Andrew shared a photography of a dog sitting at a chess board with a chess set in front of him",
+        "event_time": "2023-10-13",
+        "session_date": "2023-10-13",
+        "tag": "Photo Share",
+        "topic": [
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

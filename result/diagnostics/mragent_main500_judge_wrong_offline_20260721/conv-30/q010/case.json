@@ -1,0 +1,143 @@
+{
+  "sample_id": "conv-30",
+  "question_index": 9,
+  "question_index_1based": 10,
+  "category": 1,
+  "question": "Which city have both Jean and John visited?",
+  "gold_answer": "Rome",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D15:1",
+    "D2:5"
+  ],
+  "gold_evidence_in_graph": [
+    "D15:1",
+    "D2:5"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 220.04,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which city have both Jean and John visited?",
+    "prediction": "no information available",
+    "reference": "Rome",
+    "category": 1,
+    "sample": "conv-30"
+  },
+  "raw_prompt_count": 9,
+  "raw_response_count": 9,
+  "raw_request_ids": [
+    "5e8d6a685405850c",
+    "a1f7bd91a18a6410",
+    "b060d0a22dc8303a",
+    "42beb8dea0ce2b74",
+    "8aa1cc5fa9d90363",
+    "d84ef4726fd808cb",
+    "117a923e83c6f100",
+    "2386ef8c50ae0c56",
+    "96cc9791d359ff5f"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D15:1": [
+      {
+        "sentence_id": "D15:1-1",
+        "origin": "D15:1",
+        "text": "Hey Gina, hope Gina is doing great!",
+        "event_time": "2023-06-19",
+        "session_date": "2023-06-19",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D15:1-2",
+        "origin": "D15:1",
+        "text": "Still working on Jon's biz.",
+        "event_time": "2023-06-19",
+        "session_date": "2023-06-19",
+        "tag": "Business",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D15:1-3",
+        "origin": "D15:1",
+        "text": "Took a short trip last week to Rome to clear Jon's mind a little.",
+        "event_time": "2023-06-15",
+        "session_date": "2023-06-19",
+        "tag": "Trip",
+        "topic": [
+          "t2"
+        ]
+      }
+    ],
+    "D2:5": [
+      {
+        "sentence_id": "D2:5-1",
+        "origin": "D2:5",
+        "text": "Wow, nice spot!",
+        "event_time": "2023-01-29",
+        "session_date": "2023-01-29",
+        "tag": "Location Praise",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D2:5-2",
+        "origin": "D2:5",
+        "text": "Paris?!",
+        "event_time": "2023-01-29",
+        "session_date": "2023-01-29",
+        "tag": "Surprise",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D2:5-3",
+        "origin": "D2:5",
+        "text": "Jon going to Paris is really great!",
+        "event_time": "2023-01-29",
+        "session_date": "2023-01-29",
+        "tag": "Paris Trip Praise",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D2:5-4",
+        "origin": "D2:5",
+        "text": "Gina never had a chance to visit Paris.",
+        "event_time": "2023-01-29",
+        "session_date": "2023-01-29",
+        "tag": "Paris Regret",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D2:5-5",
+        "origin": "D2:5",
+        "text": "Gina has been only to Rome once.",
+        "event_time": "2023-01-29",
+        "session_date": "2023-01-29",
+        "tag": "Rome Trip",
+        "topic": [
+          "t7"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-30_result_deepseek_mragent_500q_main.jsonl"
+}

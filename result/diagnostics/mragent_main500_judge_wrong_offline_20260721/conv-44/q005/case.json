@@ -1,0 +1,68 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 4,
+  "question_index_1based": 5,
+  "category": 2,
+  "question": "When did Audrey make muffins for herself?",
+  "gold_answer": "The week of April 3rd to 9th",
+  "prediction": "the week before 16 April 2023",
+  "gold_evidence": [
+    "D3:18"
+  ],
+  "gold_evidence_in_graph": [
+    "D3:18"
+  ],
+  "gold_evidence_retrieved": [
+    "D3:18"
+  ],
+  "prediction_context": [
+    "D3:18"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 1.0,
+  "retrieval_coverage_label": "full",
+  "primary_cause": "temporal_reasoning_failure",
+  "cause_confidence": "medium",
+  "cause_reason": "All annotated evidence was retrieved, but date or duration reasoning disagreed with gold.",
+  "execution_error": false,
+  "tool_calls": 6,
+  "runtime_sec": 448.94,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did Audrey make muffins for herself?",
+    "prediction": "the week before 16 April 2023",
+    "reference": "The week of April 3rd to 9th",
+    "category": 2,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 8,
+  "raw_response_count": 8,
+  "raw_request_ids": [
+    "ab4d4761bac3e688",
+    "1510337494b4ff03",
+    "14025df2e50c778d",
+    "e8a6030db9f2278f",
+    "8fb2e15086f5e1b6",
+    "ba6419c8f89788f3",
+    "a2227854b39565cf",
+    "6d3fd9a5afaee7d5"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D3:18": [
+      {
+        "sentence_id": "D3:18-1",
+        "origin": "D3:18",
+        "text": "Audrey:Wow, sounds amazing! Glad you got to enjoy them. Since you metioned pastries, I made some of my favorite treats last week. Let's have a pastry party sometime! and shared a photo of a muffin pan filled with blueberries and muffins",
+        "event_time": "2023-04-09",
+        "session_date": "2023-04-16",
+        "tag": "pastry party",
+        "topic": [
+          "t7",
+          "t8"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

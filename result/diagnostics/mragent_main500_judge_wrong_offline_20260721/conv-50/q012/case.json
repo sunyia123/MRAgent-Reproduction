@@ -1,0 +1,121 @@
+{
+  "sample_id": "conv-50",
+  "question_index": 11,
+  "question_index_1based": 12,
+  "category": 1,
+  "question": "What mishaps has Calvin run into?",
+  "gold_answer": "flooding of his mansion, car accident",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D6:1",
+    "D9:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D6:1",
+    "D9:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 21,
+  "runtime_sec": 260.79,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What mishaps has Calvin run into?",
+    "prediction": "no information available",
+    "reference": "flooding of his mansion, car accident",
+    "category": 1,
+    "sample": "conv-50"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "4756a509a8855190",
+    "e223d1562697c99a",
+    "1ca7d701fad5633c",
+    "375793b05892691d",
+    "ebbee53f46834fa0",
+    "54731b7e1828a85d",
+    "7d9c8932d6c053fd",
+    "4456b120f4fce960",
+    "05c7d662c8d1c7a8",
+    "1dcac40b511e3171",
+    "6dc937d8012a9b77"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D6:1": [
+      {
+        "sentence_id": "D6:1-1",
+        "origin": "D6:1",
+        "text": "Calvin: Hey Dave! Long time no chat! Lots has gone down since we last caught up.",
+        "event_time": "2023-05-16",
+        "session_date": "2023-05-16",
+        "tag": "greeting",
+        "topic": []
+      }
+    ],
+    "D9:1": [
+      {
+        "sentence_id": "D9:1-1",
+        "origin": "D9:1",
+        "text": "Calvin: Hi Dave! Nice to hear from Dave.",
+        "event_time": "2023-06-21",
+        "session_date": "2023-06-21",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D9:1-2",
+        "origin": "D9:1",
+        "text": "Since last chat, some things have happened.",
+        "event_time": "2023-06-21",
+        "session_date": "2023-06-21",
+        "tag": "Life Update",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D9:1-3",
+        "origin": "D9:1",
+        "text": "Calvin had a lil car accident last Friday, kinda upsetting but no one was hurt.",
+        "event_time": "2023-06-16",
+        "session_date": "2023-06-21",
+        "tag": "Car Accident",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D9:1-4",
+        "origin": "D9:1",
+        "text": "Calvin has been dealing with insurance and repairs - taking up a lot of time and energy.",
+        "event_time": "2023-06-21",
+        "session_date": "2023-06-21",
+        "tag": "Insurance Repairs",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D9:1-5",
+        "origin": "D9:1",
+        "text": "Look at this photo! and shared a photo of a red car with a black rim parked on a sidewalk",
+        "event_time": "2023-06-21",
+        "session_date": "2023-06-21",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-50_result_deepseek_mragent_500q_main.jsonl"
+}

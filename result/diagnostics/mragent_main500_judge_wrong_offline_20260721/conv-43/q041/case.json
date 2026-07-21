@@ -1,0 +1,85 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 40,
+  "question_index_1based": 41,
+  "category": 2,
+  "question": "Has Tim been to North Carolina and/or Tennesee states in the US?",
+  "gold_answer": "Yes",
+  "prediction": "No",
+  "gold_evidence": [
+    "D14:16"
+  ],
+  "gold_evidence_in_graph": [
+    "D14:16"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D10:9",
+    "D13:1",
+    "D18:1",
+    "D1:18",
+    "D28:1",
+    "D9:7"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 15,
+  "runtime_sec": 366.78,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Has Tim been to North Carolina and/or Tennesee states in the US?",
+    "prediction": "No",
+    "reference": "Yes",
+    "category": 2,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "ea19882e43b633ef",
+    "61b843d42a984cc7",
+    "5ae53ecd0726b9c0",
+    "e58177c4d97b9db6",
+    "7cc011499743bdf5",
+    "829ddbe777bf4745",
+    "24ba64c22910b705",
+    "67036c7b9a963618",
+    "375ac868421fca37",
+    "e688761767d5b573"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D14:16": [
+      {
+        "sentence_id": "D14:16-1",
+        "origin": "D14:16",
+        "text": "Tim:Tim snapped the photo of a sunset over a mountain with a tree on Tim's trip to the Smoky Mountains last year.",
+        "event_time": "2022-07-01",
+        "session_date": "2023-10-17",
+        "tag": "Photo Location",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D14:16-2",
+        "origin": "D14:16",
+        "text": "It was incredible seeing the sunset over a mountain with a tree in person. Nature's really something else!",
+        "event_time": "2022-07-01",
+        "session_date": "2023-10-17",
+        "tag": "Nature Appreciation",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,183 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 1,
+  "question_index_1based": 2,
+  "category": 1,
+  "question": "Which of Deborah`s family and friends have passed away?",
+  "gold_answer": "mother, father, her friend Karlie",
+  "prediction": "Deborah's mother, Deborah's dad, a friend (lost last week), and a friend (who wrote a quote)",
+  "gold_evidence": [
+    "D1:5",
+    "D2:1",
+    "D6:4"
+  ],
+  "gold_evidence_in_graph": [
+    "D1:5",
+    "D2:1",
+    "D6:4"
+  ],
+  "gold_evidence_retrieved": [
+    "D1:5",
+    "D2:1",
+    "D6:4"
+  ],
+  "prediction_context": [
+    "D1:5",
+    "D22:23",
+    "D23:22",
+    "D2:1",
+    "D2:13",
+    "D6:4"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 1.0,
+  "retrieval_coverage_label": "full",
+  "primary_cause": "multi_hop_composition_failure",
+  "cause_confidence": "medium",
+  "cause_reason": "All annotated evidence was retrieved, but facts were omitted or combined incorrectly.",
+  "execution_error": false,
+  "tool_calls": 16,
+  "runtime_sec": 144.35,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which of Deborah`s family and friends have passed away?",
+    "prediction": "Deborah's mother, Deborah's dad, a friend (lost last week), and a friend (who wrote a quote)",
+    "reference": "mother, father, her friend Karlie",
+    "category": 1,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "3c571ae63ca480c9",
+    "48877c3ba5827720",
+    "9fe4038c7b1fb368",
+    "e1a17edceb8b877b",
+    "f028008f01894aa5",
+    "5e7830a4cc0ed1e5",
+    "5e6b9016bb350f60",
+    "e844c8a966fb0702",
+    "af55bf36df089fd1",
+    "b8742a6e7cd0f72e"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D1:5": [
+      {
+        "sentence_id": "D1:5-1",
+        "origin": "D1:5",
+        "text": "The mother's old house was full of memories, Deborah's mother passed away a few years ago.",
+        "event_time": "2023-01-23",
+        "session_date": "2023-01-23",
+        "tag": "mother's passing",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D1:5-2",
+        "origin": "D1:5",
+        "text": "This is Deborah and Deborah's mother's last photo together.",
+        "event_time": "2023-01-23",
+        "session_date": "2023-01-23",
+        "tag": "photo sharing",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D1:5-3",
+        "origin": "D1:5",
+        "text": "Deborah shared a photo of a woman in a wheelchair hugging a woman in a wheelchair.",
+        "event_time": "2023-01-23",
+        "session_date": "2023-01-23",
+        "tag": "photo description",
+        "topic": [
+          "t4"
+        ]
+      }
+    ],
+    "D2:1": [
+      {
+        "sentence_id": "D2:1-1",
+        "origin": "D2:1",
+        "text": "Deborah: Hey Jolene, sorry to tell you this but my dad passed away two days ago.",
+        "event_time": "2023-01-25",
+        "session_date": "2023-01-27",
+        "tag": "death announcement",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D2:1-2",
+        "origin": "D2:1",
+        "text": "Deborah: It's been really tough on us all - Deborah's dad's sudden death left us all kinda shell-shocked.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "grief reaction",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D2:1-3",
+        "origin": "D2:1",
+        "text": "Deborah: I'm trying to channel my grief by spending more time with family and cherishing the memories.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "coping strategy",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D2:1-4",
+        "origin": "D2:1",
+        "text": "Deborah: The moments of spending time with family remind me to live life fully.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "life reflection",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D2:1-5",
+        "origin": "D2:1",
+        "text": "Deborah: and shared a photo of a woman hugging a woman who is sitting on a couch",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "photo sharing",
+        "topic": []
+      }
+    ],
+    "D6:4": [
+      {
+        "sentence_id": "D6:4-1",
+        "origin": "D6:4",
+        "text": "Deborah:The roses and dahlias bring Deborah peace.",
+        "event_time": "2023-02-22",
+        "session_date": "2023-02-22",
+        "tag": "flower peace",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D6:4-2",
+        "origin": "D6:4",
+        "text": "Deborah lost a friend last week, so Deborah has been spending time in the garden to find some comfort.",
+        "event_time": "2023-02-22",
+        "session_date": "2023-02-22",
+        "tag": "grief comfort",
+        "topic": [
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

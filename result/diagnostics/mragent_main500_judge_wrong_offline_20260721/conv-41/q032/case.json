@@ -1,0 +1,99 @@
+{
+  "sample_id": "conv-41",
+  "question_index": 31,
+  "question_index_1based": 32,
+  "category": 2,
+  "question": "When did John get his dog Max?",
+  "gold_answer": "In 2013",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D17:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D17:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 12,
+  "runtime_sec": 812.46,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did John get his dog Max?",
+    "prediction": "no information available",
+    "reference": "In 2013",
+    "category": 2,
+    "sample": "conv-41"
+  },
+  "raw_prompt_count": 12,
+  "raw_response_count": 12,
+  "raw_request_ids": [
+    "618f15ff57d4830f",
+    "d6c970f177dd82d8",
+    "114c2472b9a82431",
+    "c2ba10e3884df3d1",
+    "9fa6513511c6abd0",
+    "274e0695fbafced7",
+    "b7b6a24ce5ce9266",
+    "bc47b6b07603ce2e",
+    "860e4de885d8c3d6",
+    "57ca9098ba54db15",
+    "5b430de7761ba5f0",
+    "532484faca2f25e4"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D17:1": [
+      {
+        "sentence_id": "D17:1-1",
+        "origin": "D17:1",
+        "text": "John:Hey Maria, long time no talk!",
+        "event_time": "2023-06-03",
+        "session_date": "2023-06-03",
+        "tag": "greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D17:1-2",
+        "origin": "D17:1",
+        "text": "Life's been pretty wild lately.",
+        "event_time": "2023-06-03",
+        "session_date": "2023-06-03",
+        "tag": "life update",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D17:1-3",
+        "origin": "D17:1",
+        "text": "The toughest thing to deal with is that we had to say goodbye to Max.",
+        "event_time": "2023-06-03",
+        "session_date": "2023-06-03",
+        "tag": "pet loss",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D17:1-4",
+        "origin": "D17:1",
+        "text": "Max was such an important part of our family for 10 years and it's so hard to think Max is not here wagging that tail anymore.",
+        "event_time": "2023-06-03",
+        "session_date": "2023-06-03",
+        "tag": "pet memory",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-41_result_deepseek_mragent_500q_main.jsonl"
+}

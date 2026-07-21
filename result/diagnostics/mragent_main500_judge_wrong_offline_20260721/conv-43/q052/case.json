@@ -1,0 +1,88 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 51,
+  "question_index_1based": 52,
+  "category": 3,
+  "question": "What kind of yoga for building core strength might John benefit from?",
+  "gold_answer": "Hatha Yoga",
+  "prediction": "Warrior II pose and a balance/stability pose held for 30-60 seconds",
+  "gold_evidence": [
+    "D20:2"
+  ],
+  "gold_evidence_in_graph": [
+    "D20:2"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D20:10",
+    "D20:6",
+    "D20:8"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 3,
+  "runtime_sec": 296.15,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What kind of yoga for building core strength might John benefit from?",
+    "prediction": "Warrior II pose and a balance/stability pose held for 30-60 seconds",
+    "reference": "Hatha Yoga",
+    "category": 3,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 7,
+  "raw_response_count": 7,
+  "raw_request_ids": [
+    "eb3da9b96576ba93",
+    "b0c1796d7dc24ed5",
+    "b341e2763fbf0bc3",
+    "b9f79c4e0e9e3943",
+    "aff4e5ee87271446",
+    "9c784daf3da82d85",
+    "79acdf5bd6ec13b2"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D20:2": [
+      {
+        "sentence_id": "D20:2-1",
+        "origin": "D20:2",
+        "text": "Hi Tim! Congrats on Tim's success! Keep Tim's success up, Tim's doing great!",
+        "event_time": "2023-12-01",
+        "session_date": "2023-12-01",
+        "tag": "congratulations",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D20:2-2",
+        "origin": "D20:2",
+        "text": "John is also trying out yoga to get a little extra strength and flexibility.",
+        "event_time": "2023-12-01",
+        "session_date": "2023-12-01",
+        "tag": "yoga practice",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D20:2-3",
+        "origin": "D20:2",
+        "text": "Yoga is challenging but worth it. and shared a photo of a white wall with a black lettering that says 30 positive suites",
+        "event_time": "2023-12-01",
+        "session_date": "2023-12-01",
+        "tag": "yoga challenge",
+        "topic": [
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

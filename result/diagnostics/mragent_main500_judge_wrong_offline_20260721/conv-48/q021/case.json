@@ -1,0 +1,231 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 20,
+  "question_index_1based": 21,
+  "category": 1,
+  "question": "Which games have Jolene and her partner played together?",
+  "gold_answer": "Detroit, Walking Dead, Battlefield 1, It Takes Two, Overcooked 2",
+  "prediction": "Detroit, It Takes Two, Overcooked 2, Battlefield 1",
+  "gold_evidence": [
+    "D15:10",
+    "D19:10",
+    "D20:1",
+    "D2:26",
+    "D2:30"
+  ],
+  "gold_evidence_in_graph": [
+    "D15:10",
+    "D19:10",
+    "D20:1",
+    "D2:26",
+    "D2:30"
+  ],
+  "gold_evidence_retrieved": [
+    "D15:10",
+    "D19:10",
+    "D20:1",
+    "D2:26"
+  ],
+  "prediction_context": [
+    "D15:10",
+    "D19:10",
+    "D20:1",
+    "D2:26"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.8,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 4/5 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 4,
+  "runtime_sec": 29.96,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Which games have Jolene and her partner played together?",
+    "prediction": "Detroit, It Takes Two, Overcooked 2, Battlefield 1",
+    "reference": "Detroit, Walking Dead, Battlefield 1, It Takes Two, Overcooked 2",
+    "category": 1,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 6,
+  "raw_response_count": 6,
+  "raw_request_ids": [
+    "42ba73df58937249",
+    "aaf1aa8cfc8999e0",
+    "69ee4130c82eede3",
+    "61cacbbe1d5d905d",
+    "ec80beaa98b126dd",
+    "8712238dbec4ec7b"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D15:10": [
+      {
+        "sentence_id": "D15:10-1",
+        "origin": "D15:10",
+        "text": "Jolene says Jolene and Jolene's partner love playing \"It takes two\" together!",
+        "event_time": "2023-07-09",
+        "session_date": "2023-07-09",
+        "tag": "Favorite game",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D15:10-2",
+        "origin": "D15:10",
+        "text": "Jolene says \"It takes two\" is a fun team-strategy game and it's competitive.",
+        "event_time": "2023-07-09",
+        "session_date": "2023-07-09",
+        "tag": "Game description",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D15:10-3",
+        "origin": "D15:10",
+        "text": "Jolene says playing \"It takes two\" is a great way for Jolene and Jolene's partner to bond.",
+        "event_time": "2023-07-09",
+        "session_date": "2023-07-09",
+        "tag": "Bonding game",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D15:10-4",
+        "origin": "D15:10",
+        "text": "Jolene asks Deborah if Deborah has any activities Deborah likes doing with people.",
+        "event_time": "2023-07-09",
+        "session_date": "2023-07-09",
+        "tag": "Shared activities",
+        "topic": [
+          "t6"
+        ]
+      }
+    ],
+    "D19:10": [
+      {
+        "sentence_id": "D19:10-1",
+        "origin": "D19:10",
+        "text": "Jolene: Oh, I forgot to mention Overcooked 2 - Overcooked 2 is a good co-op game if you're into hilarious and chaotic cooking.",
+        "event_time": "2023-08-19",
+        "session_date": "2023-08-19",
+        "tag": "Game Suggestion",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D19:10-2",
+        "origin": "D19:10",
+        "text": "My partner and I often play Overcooked 2 for bets!",
+        "event_time": "2023-08-19",
+        "session_date": "2023-08-19",
+        "tag": "Gaming with Partner",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D19:10-3",
+        "origin": "D19:10",
+        "text": "I once won three large pizzas from playing Overcooked 2!",
+        "event_time": "2023-08-19",
+        "session_date": "2023-08-19",
+        "tag": "Gaming Win",
+        "topic": [
+          "t5"
+        ]
+      }
+    ],
+    "D20:1": [
+      {
+        "sentence_id": "D20:1-1",
+        "origin": "D20:1",
+        "text": "Long time no talk! We were given a new game for the console last week, it is Battlefield 1. What's been up with you?",
+        "event_time": "2023-08-14",
+        "session_date": "2023-08-21",
+        "tag": "greeting and game",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      }
+    ],
+    "D2:26": [
+      {
+        "sentence_id": "D2:26-1",
+        "origin": "D2:26",
+        "text": "Jolene: The snakes are very unusual pets!",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "unusual pets",
+        "topic": [
+          "t9"
+        ]
+      },
+      {
+        "sentence_id": "D2:26-2",
+        "origin": "D2:26",
+        "text": "Jolene: Here's Jolene and Jolene's partner gaming last week - the gaming is so fun.",
+        "event_time": "2023-01-20",
+        "session_date": "2023-01-27",
+        "tag": "gaming together",
+        "topic": [
+          "t10"
+        ]
+      },
+      {
+        "sentence_id": "D2:26-3",
+        "origin": "D2:26",
+        "text": "Jolene: Jolene and Jolene's partner played the game \"Detroit\" on the console.",
+        "event_time": "2023-01-20",
+        "session_date": "2023-01-27",
+        "tag": "game played",
+        "topic": [
+          "t10"
+        ]
+      },
+      {
+        "sentence_id": "D2:26-4",
+        "origin": "D2:26",
+        "text": "Jolene: Jolene and Jolene's partner are both crazy about gaming!",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "gaming passion",
+        "topic": [
+          "t10"
+        ]
+      },
+      {
+        "sentence_id": "D2:26-5",
+        "origin": "D2:26",
+        "text": "Jolene: and shared a photo of a person laying in bed with a dog watching tv",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "photo sharing",
+        "topic": []
+      }
+    ],
+    "D2:30": [
+      {
+        "sentence_id": "D2:30-1",
+        "origin": "D2:30",
+        "text": "Jolene: Jolene and Jolene's partner are planning to play \"Walking Dead\" next Saturday.",
+        "event_time": "2023-02-04",
+        "session_date": "2023-01-27",
+        "tag": "future game",
+        "topic": [
+          "t10"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

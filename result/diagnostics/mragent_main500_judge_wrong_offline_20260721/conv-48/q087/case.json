@@ -1,0 +1,189 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 86,
+  "question_index_1based": 87,
+  "category": 1,
+  "question": "What gifts has Deborah received?",
+  "gold_answer": "an appreciate letter from her community, a flower bouqet from her friend, a motivational quote from a friend",
+  "prediction": "a bouquet of flowers from a friend and a letter from her group members",
+  "gold_evidence": [
+    "D23:20",
+    "D23:22",
+    "D2:7",
+    "D2:9",
+    "D4:26"
+  ],
+  "gold_evidence_in_graph": [
+    "D23:20",
+    "D23:22",
+    "D2:7",
+    "D2:9",
+    "D4:26"
+  ],
+  "gold_evidence_retrieved": [
+    "D2:7",
+    "D2:9"
+  ],
+  "prediction_context": [
+    "D2:7",
+    "D2:9",
+    "D4:28"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.4,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 2/5 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 11,
+  "runtime_sec": 370.8,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What gifts has Deborah received?",
+    "prediction": "a bouquet of flowers from a friend and a letter from her group members",
+    "reference": "an appreciate letter from her community, a flower bouqet from her friend, a motivational quote from a friend",
+    "category": 1,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "cf1b37957be8779f",
+    "8b1f8972f8f09b85",
+    "07109ed98d2212fc",
+    "ec025221d44c7932",
+    "c53ea536318cb94d",
+    "a1848ac3fea797d7",
+    "1f026ed7b2bef475",
+    "dbf4da2988e778d7",
+    "2f7fd484537fc320",
+    "0012929ab0a604f3",
+    "8097ad35bb21d637"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D23:20": [
+      {
+        "sentence_id": "D23:20-1",
+        "origin": "D23:20",
+        "text": "Deborah:Exploring historical places and learning their stories is so fun. Deborah's trip to Rio de Janeiro was a great experience. Deborah wants to share this photo with Jolene. and shared a photo of a hand holding a piece of paper with writing on it",
+        "event_time": "2023-08-30",
+        "session_date": "2023-08-30",
+        "tag": "historical interest",
+        "topic": [
+          "t1",
+          "t7",
+          "t8"
+        ]
+      }
+    ],
+    "D23:22": [
+      {
+        "sentence_id": "D23:22-1",
+        "origin": "D23:22",
+        "text": "Deborah:The paper was written to Deborah by a friend who, unfortunately, will never be able to support Deborah. Deborah misses Deborah's friend here. The quote on the paper says \"Let go of what no longer serves you.\"",
+        "event_time": "2023-08-30",
+        "session_date": "2023-08-30",
+        "tag": "meaningful quote",
+        "topic": [
+          "t8",
+          "t9"
+        ]
+      }
+    ],
+    "D2:7": [
+      {
+        "sentence_id": "D2:7-1",
+        "origin": "D2:7",
+        "text": "Deborah: It is love, and openness that have kept Deborah and Deborah's husband close all these years.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "relationship values",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D2:7-2",
+        "origin": "D2:7",
+        "text": "Deborah: Being there for each other has made Deborah and Deborah's husband both happy.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "mutual support",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D2:7-3",
+        "origin": "D2:7",
+        "text": "Deborah: Look what letter Deborah received yesterday!",
+        "event_time": "2023-01-26",
+        "session_date": "2023-01-27",
+        "tag": "letter received",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D2:7-4",
+        "origin": "D2:7",
+        "text": "Deborah: and shared a photo of a note written to someone on a piece of paper",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "photo sharing",
+        "topic": []
+      }
+    ],
+    "D2:9": [
+      {
+        "sentence_id": "D2:9-1",
+        "origin": "D2:9",
+        "text": "Deborah: The group members sent the letter to Deborah!",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "letter sender",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D2:9-2",
+        "origin": "D2:9",
+        "text": "Deborah: The group members thanked Deborah for the positive influence Deborah had on them.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "gratitude",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D2:9-3",
+        "origin": "D2:9",
+        "text": "Deborah: The moments of receiving the letter remind Deborah why Deborah is so passionate about yoga.",
+        "event_time": "2023-01-27",
+        "session_date": "2023-01-27",
+        "tag": "yoga passion",
+        "topic": [
+          "t6"
+        ]
+      }
+    ],
+    "D4:26": [
+      {
+        "sentence_id": "D4:26-1",
+        "origin": "D4:26",
+        "text": "Deborah:That's a really powerful message. The story reminds me of someone special and their grace and strength when they faced hardships. Check out this creation! and shared a photo of a bouquet of flowers in a vase on a table",
+        "event_time": "2023-02-04",
+        "session_date": "2023-02-04",
+        "tag": "bouquet sharing",
+        "topic": [
+          "t6"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

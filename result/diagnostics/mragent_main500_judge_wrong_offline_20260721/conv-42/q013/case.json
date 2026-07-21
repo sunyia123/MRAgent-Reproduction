@@ -1,0 +1,110 @@
+{
+  "sample_id": "conv-42",
+  "question_index": 12,
+  "question_index_1based": 13,
+  "category": 3,
+  "question": "What underlying condition might Joanna have based on her allergies?",
+  "gold_answer": "asthma",
+  "prediction": "Lactose intolerance",
+  "gold_evidence": [
+    "D2:23",
+    "D5:11"
+  ],
+  "gold_evidence_in_graph": [
+    "D2:23",
+    "D5:11"
+  ],
+  "gold_evidence_retrieved": [
+    "D2:23"
+  ],
+  "prediction_context": [
+    "D20:10",
+    "D2:21",
+    "D2:23",
+    "D8:18"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.5,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 1/2 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 15,
+  "runtime_sec": 336.36,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What underlying condition might Joanna have based on her allergies?",
+    "prediction": "Lactose intolerance",
+    "reference": "asthma",
+    "category": 3,
+    "sample": "conv-42"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "4dd3d5312b6cf825",
+    "2b5cf324ec115e8f",
+    "aec31fc44270fca1",
+    "0059857c9c2313ec",
+    "1bb53563a75d8cf8",
+    "494138e5cc2f0bba",
+    "21a71c31f04fc617",
+    "6ce5f8bc0577d463",
+    "57a208285ab5079f",
+    "cc11b7a2d9518bb9"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D2:23": [
+      {
+        "sentence_id": "D2:23-1",
+        "origin": "D2:23",
+        "text": "Joanna:Joanna is allergic to most reptiles and animals with fur. The allergy can be a bit of a drag, but Joanna finds other ways to be happy.",
+        "event_time": "2022-01-23",
+        "session_date": "2022-01-23",
+        "tag": "allergy specifics",
+        "topic": [
+          "t3"
+        ]
+      }
+    ],
+    "D5:11": [
+      {
+        "sentence_id": "D5:11-1",
+        "origin": "D5:11",
+        "text": "Joanna says Joanna wishes Joanna wasn't allergic!",
+        "event_time": "2022-03-18",
+        "session_date": "2022-03-18",
+        "tag": "Allergy Regret",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D5:11-2",
+        "origin": "D5:11",
+        "text": "Joanna says Joanna would get two turtles today if Joanna could!",
+        "event_time": "2022-03-18",
+        "session_date": "2022-03-18",
+        "tag": "Pet Desire",
+        "topic": [
+          "t5",
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D5:11-3",
+        "origin": "D5:11",
+        "text": "Joanna says Joanna found out recently Joanna is allergic to cockroaches as well, so who knows if Joanna will ever get a pet.",
+        "event_time": "2022-03-18",
+        "session_date": "2022-03-18",
+        "tag": "Allergy Disclosure",
+        "topic": [
+          "t6"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-42_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,112 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 66,
+  "question_index_1based": 67,
+  "category": 3,
+  "question": "What is a Star Wars book that Tim might enjoy?",
+  "gold_answer": "Star Wars: Jedi Apprentice by Judy Blundell and David Farland. It is a highly rated and immersive series about his favorite movies.",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D27:19",
+    "D27:21"
+  ],
+  "gold_evidence_in_graph": [
+    "D27:19",
+    "D27:21"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 402.84,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What is a Star Wars book that Tim might enjoy?",
+    "prediction": "no information available",
+    "reference": "Star Wars: Jedi Apprentice by Judy Blundell and David Farland. It is a highly rated and immersive series about his favorite movies.",
+    "category": 3,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "99655d4dde0fc854",
+    "5ecac953dbb7a8e2",
+    "8cc2164958185950",
+    "49f4b831db9679ca",
+    "5dc7b5b1daafb6ef",
+    "3f8114a6f6b71080",
+    "0084762828caf164",
+    "6ca09f620f3fd0f6",
+    "90f77be6c510ba03",
+    "145d7a4de6d6b3f2",
+    "daee30804ab3e4de"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D27:19": [
+      {
+        "sentence_id": "D27:19-1",
+        "origin": "D27:19",
+        "text": "Harry Potter is Tim's favorite book.",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Favorite Book",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D27:19-2",
+        "origin": "D27:19",
+        "text": "Harry Potter is so immersive!",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Book Immersion",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D27:19-3",
+        "origin": "D27:19",
+        "text": "Tim shared a photo of a collection of movies and dvds on a carpet.",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Photo Sharing",
+        "topic": []
+      }
+    ],
+    "D27:21": [
+      {
+        "sentence_id": "D27:21-1",
+        "origin": "D27:21",
+        "text": "Definitely Star Wars! Star Wars is Tim's favorite and Star Wars never gets old.",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Favorite Movie",
+        "topic": [
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D27:21-2",
+        "origin": "D27:21",
+        "text": "What about John, does John have any favorite fantasy films?",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Question Fantasy Films",
+        "topic": [
+          "t7"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

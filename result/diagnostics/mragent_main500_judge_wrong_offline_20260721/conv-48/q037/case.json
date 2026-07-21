@@ -1,0 +1,429 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 36,
+  "question_index_1based": 37,
+  "category": 3,
+  "question": "How old is Jolene?",
+  "gold_answer": "likely no more than 30; since she's in school",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D13:5",
+    "D21:6",
+    "D21:8",
+    "D22:14",
+    "D22:6",
+    "D24:14",
+    "D24:2",
+    "D25:5",
+    "D26:6",
+    "D8:2"
+  ],
+  "gold_evidence_in_graph": [
+    "D13:5",
+    "D21:6",
+    "D21:8",
+    "D22:14",
+    "D22:6",
+    "D24:14",
+    "D24:2",
+    "D25:5",
+    "D26:6",
+    "D8:2"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 152.64,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How old is Jolene?",
+    "prediction": "no information available",
+    "reference": "likely no more than 30; since she's in school",
+    "category": 3,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "fffe0d559ea67b75",
+    "94caf5c5d0e748c6",
+    "1682be5afc9dd902",
+    "4b6309c7a3a46be2",
+    "6197a46906da5909",
+    "bba25017cab34bfa",
+    "e3ef752efbcba0dd",
+    "094c628138902f54",
+    "360ad46fdcd2cccf",
+    "fc1eb17f0fa4afe6"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D13:5": [
+      {
+        "sentence_id": "D13:5-1",
+        "origin": "D13:5",
+        "text": "Jolene is interning at a well-known engineering firm.",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Internship",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D13:5-2",
+        "origin": "D13:5",
+        "text": "The internship has been a great opportunity to test Jolene's skills and gain real-world experience.",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Internship Benefit",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D13:5-3",
+        "origin": "D13:5",
+        "text": "The new colleagues are Jolene's new colleagues! and shared a photo of a group of construction workers posing for a picture",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t3"
+        ]
+      }
+    ],
+    "D21:6": [
+      {
+        "sentence_id": "D21:6-1",
+        "origin": "D21:6",
+        "text": "Jolene:My goal is to be successful in my field and make a positive impact.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Career Goal",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D21:6-2",
+        "origin": "D21:6",
+        "text": "I've been studying, attending workshops, and networking to make my goal happen.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Actions",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D21:6-3",
+        "origin": "D21:6",
+        "text": "Recently, I had the opportunity to present at a virtual conference and received positive feedback.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Conference Presentation",
+        "topic": [
+          "t4",
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D21:6-4",
+        "origin": "D21:6",
+        "text": "The virtual conference presentation was a great experience and confirmed that I'm on the right track.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Confirmation",
+        "topic": [
+          "t4",
+          "t6"
+        ]
+      }
+    ],
+    "D21:8": [
+      {
+        "sentence_id": "D21:8-1",
+        "origin": "D21:8",
+        "text": "Jolene:I was thrilled to receive such positive feedback!",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Thrill",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D21:8-2",
+        "origin": "D21:8",
+        "text": "The positive feedback felt so rewarding to know that my efforts were appreciated.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Reward",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D21:8-3",
+        "origin": "D21:8",
+        "text": "Right now, I'm focusing on studying and gaining more experience.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Current Focus",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D21:8-4",
+        "origin": "D21:8",
+        "text": "I'm even thinking about more internships to further enhance my skills.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Internships",
+        "topic": [
+          "t4",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D21:8-5",
+        "origin": "D21:8",
+        "text": "Exciting times!",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Excitement",
+        "topic": []
+      },
+      {
+        "sentence_id": "D21:8-6",
+        "origin": "D21:8",
+        "text": "Hopefully, there will be more updates to share with you soon.",
+        "event_time": "2023-08-24",
+        "session_date": "2023-08-24",
+        "tag": "Future Updates",
+        "topic": []
+      }
+    ],
+    "D22:14": [
+      {
+        "sentence_id": "D22:14-1",
+        "origin": "D22:14",
+        "text": "Jolene says yoga helps with challenges, giving balance and strength.",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Yoga benefits",
+        "topic": [
+          "t6",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D22:14-2",
+        "origin": "D22:14",
+        "text": "Jolene asks Deborah any tips for staying relaxed while studying.",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Study relaxation tips",
+        "topic": [
+          "t6",
+          "t8"
+        ]
+      }
+    ],
+    "D22:6": [
+      {
+        "sentence_id": "D22:6-1",
+        "origin": "D22:6",
+        "text": "Jolene says yeah, Deborah!",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Affirmation",
+        "topic": []
+      },
+      {
+        "sentence_id": "D22:6-2",
+        "origin": "D22:6",
+        "text": "Jolene and Jolene's partner have been figuring out how to add these values into their projects.",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Adding values to projects",
+        "topic": [
+          "t1",
+          "t3",
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D22:6-3",
+        "origin": "D22:6",
+        "text": "As an engineering student, Jolene wants to use Jolene's talents to do good and help solve important problems.",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Engineering for good",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D22:6-4",
+        "origin": "D22:6",
+        "text": "Jolene is keen on coming up with new ideas and making things more efficient to make the world a better place.",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Innovation and efficiency",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D22:6-5",
+        "origin": "D22:6",
+        "text": "Going further, Jolene's mom stressed the value of helping others and that is something Jolene wants to keep in mind for Jolene's engineering projects.",
+        "event_time": "2023-08-26",
+        "session_date": "2023-08-26",
+        "tag": "Helping others in engineering",
+        "topic": [
+          "t1",
+          "t3",
+          "t4"
+        ]
+      }
+    ],
+    "D24:14": [
+      {
+        "sentence_id": "D24:14-1",
+        "origin": "D24:14",
+        "text": "Jolene said she has a lot of finals coming up this month, so she has been studying real hard.",
+        "event_time": "2023-09-03",
+        "session_date": "2023-09-03",
+        "tag": "finals studying",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D24:14-2",
+        "origin": "D24:14",
+        "text": "Jolene said the finals studying has been quite stressful, but it will be worth it in the end.",
+        "event_time": "2023-09-03",
+        "session_date": "2023-09-03",
+        "tag": "stressful finals",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D24:14-3",
+        "origin": "D24:14",
+        "text": "Jolene said she is thinking about taking a trip somewhere to relax and recharge after the finals.",
+        "event_time": "2023-09-03",
+        "session_date": "2023-09-03",
+        "tag": "post-finals trip",
+        "topic": [
+          "t12"
+        ]
+      }
+    ],
+    "D24:2": [
+      {
+        "sentence_id": "D24:2-1",
+        "origin": "D24:2",
+        "text": "Jolene said she has been focusing on studying and her relationship with her partner.",
+        "event_time": "2023-09-03",
+        "session_date": "2023-09-03",
+        "tag": "current focus",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D24:2-2",
+        "origin": "D24:2",
+        "text": "Jolene and her partner are taking little trips to the beach, which is a great way to relax.",
+        "event_time": "2023-09-03",
+        "session_date": "2023-09-03",
+        "tag": "beach trips",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D24:2-3",
+        "origin": "D24:2",
+        "text": "Jolene asked Deborah if Deborah has anything new going on.",
+        "event_time": "2023-09-03",
+        "session_date": "2023-09-03",
+        "tag": "inquiry",
+        "topic": [
+          "t3"
+        ]
+      }
+    ],
+    "D25:5": [
+      {
+        "sentence_id": "D25:5-1",
+        "origin": "D25:5",
+        "text": "Jolene says same!",
+        "event_time": "2023-09-06",
+        "session_date": "2023-09-06",
+        "tag": "agreement",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D25:5-2",
+        "origin": "D25:5",
+        "text": "Meditation helps Jolene stay balanced during Jolene's studies.",
+        "event_time": "2023-09-06",
+        "session_date": "2023-09-06",
+        "tag": "study balance",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      }
+    ],
+    "D26:6": [
+      {
+        "sentence_id": "D26:6-1",
+        "origin": "D26:6",
+        "text": "Jolene:Having a routine helps me stay on top of everything I need to do. I have a schedule for classes, studying, and personal time. Self-care activities like yoga and meditation help me stay balanced and relax.",
+        "event_time": "2023-09-08",
+        "session_date": "2023-09-08",
+        "tag": "routine and self-care",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      }
+    ],
+    "D8:2": [
+      {
+        "sentence_id": "D8:2-1",
+        "origin": "D8:2",
+        "text": "One of Jolene's favorite dishes is lasagna! Comfort food can be a great pick-me-up. Jolene has got a lot going on with Jolene's studies and exams.",
+        "event_time": "2023-03-02",
+        "session_date": "2023-03-02",
+        "tag": "favorite food",
+        "topic": [
+          "t3",
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

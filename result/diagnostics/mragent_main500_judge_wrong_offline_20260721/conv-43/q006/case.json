@@ -1,0 +1,88 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 5,
+  "question_index_1based": 6,
+  "category": 3,
+  "question": "Based on Tim's collections, what is a shop that he would enjoy visiting in New York city?",
+  "gold_answer": "House of MinaLima",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D2:9"
+  ],
+  "gold_evidence_in_graph": [
+    "D2:9"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 25,
+  "runtime_sec": 154.49,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Based on Tim's collections, what is a shop that he would enjoy visiting in New York city?",
+    "prediction": "no information available",
+    "reference": "House of MinaLima",
+    "category": 3,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "78d56150332cdb85",
+    "91c31cf27d1d2c6e",
+    "6f85511bf36a6048",
+    "9d56cd15de88ee36",
+    "deba99add34767c3",
+    "65b5a664dd07611e",
+    "935080a94ec790c5",
+    "190b215b58c30900",
+    "2e4fc76361fd4762",
+    "f5b3cf4a0abd8c5a"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D2:9": [
+      {
+        "sentence_id": "D2:9-1",
+        "origin": "D2:9",
+        "text": "Thanks! That picture is from MinaLima.",
+        "event_time": "2023-06-15",
+        "session_date": "2023-06-15",
+        "tag": "picture origin",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D2:9-2",
+        "origin": "D2:9",
+        "text": "MinaLima created all the props for the Harry Potter films, and Tim loves MinaLima's work.",
+        "event_time": "2023-06-15",
+        "session_date": "2023-06-15",
+        "tag": "MinaLima work",
+        "topic": [
+          "t3",
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D2:9-3",
+        "origin": "D2:9",
+        "text": "It's like having a piece of the wizarding world at home!",
+        "event_time": "2023-06-15",
+        "session_date": "2023-06-15",
+        "tag": "wizarding world",
+        "topic": [
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

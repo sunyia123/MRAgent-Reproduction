@@ -1,0 +1,169 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 46,
+  "question_index_1based": 47,
+  "category": 2,
+  "question": "How long did Jolene work on the robotics project given to her by her Professor?",
+  "gold_answer": "four months",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D12:10",
+    "D13:1",
+    "D3:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D12:10",
+    "D13:1",
+    "D3:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 14,
+  "runtime_sec": 281.24,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How long did Jolene work on the robotics project given to her by her Professor?",
+    "prediction": "no information available",
+    "reference": "four months",
+    "category": 2,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "b5a56ca9cfe1ec24",
+    "d508a49c1ab4aa79",
+    "1e9ef939ebab93b7",
+    "c3443fb3aa4c2758",
+    "3c3978a22a64e165",
+    "1585c6a2a5c00575",
+    "ccc424efd451f1a6",
+    "2117064428293887",
+    "926f21721c98ae51",
+    "727c866c8d6841db",
+    "4e66bbe6f7607b9e"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D12:10": [
+      {
+        "sentence_id": "D12:10-1",
+        "origin": "D12:10",
+        "text": "Jolene says Jolene has been working on a big project lately - the project has been tough but also really cool to watch the project take shape.",
+        "event_time": "2023-04-09",
+        "session_date": "2023-04-09",
+        "tag": "project work",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D12:10-2",
+        "origin": "D12:10",
+        "text": "Jolene says Jolene can't wait to see the final result of the project.",
+        "event_time": "2023-04-09",
+        "session_date": "2023-04-09",
+        "tag": "project anticipation",
+        "topic": [
+          "t6"
+        ]
+      }
+    ],
+    "D13:1": [
+      {
+        "sentence_id": "D13:1-1",
+        "origin": "D13:1",
+        "text": "Jolene:Hey Deborah! Long time no talk - Jolene had lots of stuff going on.",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D13:1-2",
+        "origin": "D13:1",
+        "text": "Remember the tough engineering project? Jolene finally wrapped the tough engineering project up last month.",
+        "event_time": "2023-05-06",
+        "session_date": "2023-06-06",
+        "tag": "Project Completion",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D13:1-3",
+        "origin": "D13:1",
+        "text": "Look at the result! and shared a photo of a solar powered vehicle with a solar panel on the back",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ],
+    "D3:1": [
+      {
+        "sentence_id": "D3:1-1",
+        "origin": "D3:1",
+        "text": "Jolene:Hi Deb! How're you?",
+        "event_time": "2023-02-01",
+        "session_date": "2023-02-01",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D3:1-2",
+        "origin": "D3:1",
+        "text": "Jolene:Jolene has been busy.",
+        "event_time": "2023-02-01",
+        "session_date": "2023-02-01",
+        "tag": "Busy Status",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D3:1-3",
+        "origin": "D3:1",
+        "text": "Jolene:Jolene's engineering professor gave Jolene a huge robotics project.",
+        "event_time": "2023-02-01",
+        "session_date": "2023-02-01",
+        "tag": "Project Assignment",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D3:1-4",
+        "origin": "D3:1",
+        "text": "Jolene:The robotics project is tough but fun, the robotics project is making Jolene get creative and problem-solve.",
+        "event_time": "2023-02-01",
+        "session_date": "2023-02-01",
+        "tag": "Project Experience",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D3:1-5",
+        "origin": "D3:1",
+        "text": "Jolene:Jolene shared a photo of a table with a robot on a table and a laptop.",
+        "event_time": "2023-02-01",
+        "session_date": "2023-02-01",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

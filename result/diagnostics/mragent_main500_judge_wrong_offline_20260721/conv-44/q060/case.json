@@ -1,0 +1,65 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 59,
+  "question_index_1based": 60,
+  "category": 2,
+  "question": "How long has it been since Andrew adopted his first pet, as of November 2023?",
+  "gold_answer": "4 months",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D12:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D12:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 18,
+  "runtime_sec": 126.92,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "How long has it been since Andrew adopted his first pet, as of November 2023?",
+    "prediction": "no information available",
+    "reference": "4 months",
+    "category": 2,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 9,
+  "raw_response_count": 9,
+  "raw_request_ids": [
+    "8ef4876ffb92e952",
+    "025b020117e034b1",
+    "b0361ce5c59fb951",
+    "de015fa9f6870261",
+    "fb07bbd848b2c0db",
+    "da13996f2841830b",
+    "b61e3073e0a6cd6e",
+    "166ad33ccc4d6744",
+    "cfd54518d298f7b3"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D12:1": [
+      {
+        "sentence_id": "D12:1-1",
+        "origin": "D12:1",
+        "text": "Andrew: Hey! So much has changed since last time we talked - meet Toby, my puppy. Toby is a bundle of joy and I couldn't resist taking Toby home, city living and all. How've you been? and shared a photo of a dog sitting on a leash in a room",
+        "event_time": "2023-07-11",
+        "session_date": "2023-07-11",
+        "tag": "introducing puppy",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

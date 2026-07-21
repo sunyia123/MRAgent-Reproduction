@@ -1,0 +1,252 @@
+{
+  "sample_id": "conv-43",
+  "question_index": 67,
+  "question_index_1based": 68,
+  "category": 3,
+  "question": "What would be a good hobby related to his travel dreams for Tim to pick up?",
+  "gold_answer": "Writing a travel blog.",
+  "prediction": "ERROR",
+  "gold_evidence": [
+    "D15:3",
+    "D27:37",
+    "D4:1",
+    "D6:6"
+  ],
+  "gold_evidence_in_graph": [
+    "D15:3",
+    "D27:37",
+    "D4:1",
+    "D6:6"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "execution_or_schema_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Stored prediction is ERROR or records an execution failure.",
+  "execution_error": true,
+  "tool_calls": 0,
+  "runtime_sec": 0,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What would be a good hobby related to his travel dreams for Tim to pick up?",
+    "prediction": "ERROR",
+    "reference": "Writing a travel blog.",
+    "category": 3,
+    "sample": "conv-43"
+  },
+  "raw_prompt_count": 5,
+  "raw_response_count": 5,
+  "raw_request_ids": [
+    "324a605019ae55f5",
+    "f7aed8602f670804",
+    "79a8f7b3fbe8c676",
+    "b47aabf66d10b838",
+    "9121c3fdc93430c0"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D15:3": [
+      {
+        "sentence_id": "D15:3-1",
+        "origin": "D15:3",
+        "text": "Tim: The castle in the photo looks amazing!",
+        "event_time": "2023-10-21",
+        "session_date": "2023-10-21",
+        "tag": "Photo Reaction",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D15:3-2",
+        "origin": "D15:3",
+        "text": "Tim hopes Tim gets to visit the castle in the photo someday.",
+        "event_time": "2023-10-21",
+        "session_date": "2023-10-21",
+        "tag": "Travel Wish",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D15:3-3",
+        "origin": "D15:3",
+        "text": "Tim's writing is going well: Tim is in the middle of a fantasy novel and the fantasy novel is a bit nerve-wracking but so exciting!",
+        "event_time": "2023-10-21",
+        "session_date": "2023-10-21",
+        "tag": "Writing Progress",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D15:3-4",
+        "origin": "D15:3",
+        "text": "All Tim's hard work is paying off.",
+        "event_time": "2023-10-21",
+        "session_date": "2023-10-21",
+        "tag": "Writing Success",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D15:3-5",
+        "origin": "D15:3",
+        "text": "Writing brings such joy and the writing is incredible how the writing can create a whole new world.",
+        "event_time": "2023-10-21",
+        "session_date": "2023-10-21",
+        "tag": "Writing Joy",
+        "topic": [
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D15:3-6",
+        "origin": "D15:3",
+        "text": "Thanks so much for believing in Tim!",
+        "event_time": "2023-10-21",
+        "session_date": "2023-10-21",
+        "tag": "Gratitude",
+        "topic": []
+      }
+    ],
+    "D27:37": [
+      {
+        "sentence_id": "D27:37-1",
+        "origin": "D27:37",
+        "text": "Tim loves traveling too.",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Travel Love",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D27:37-2",
+        "origin": "D27:37",
+        "text": "The picture of the person walking down a path in front of the eiffel tower is awesome.",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Photo Appreciation",
+        "topic": []
+      },
+      {
+        "sentence_id": "D27:37-3",
+        "origin": "D27:37",
+        "text": "Have you been to Paris?",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Question Paris",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D27:37-4",
+        "origin": "D27:37",
+        "text": "The Eiffel Tower is so cool!",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Eiffel Tower",
+        "topic": [
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D27:37-5",
+        "origin": "D27:37",
+        "text": "Tim shared a photo of a group of people climbing up a stone wall.",
+        "event_time": "2024-01-02",
+        "session_date": "2024-01-02",
+        "tag": "Photo Sharing",
+        "topic": []
+      }
+    ],
+    "D4:1": [
+      {
+        "sentence_id": "D4:1-1",
+        "origin": "D4:1",
+        "text": "Tim:Hey John! How've you been?",
+        "event_time": "2023-08-02",
+        "session_date": "2023-08-02",
+        "tag": "greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D4:1-2",
+        "origin": "D4:1",
+        "text": "Something awesome happened - Tim is writing articles about fantasy novels for an online mag.",
+        "event_time": "2023-08-02",
+        "session_date": "2023-08-02",
+        "tag": "new job",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D4:1-3",
+        "origin": "D4:1",
+        "text": "Writing articles about fantasy novels is so rewarding!",
+        "event_time": "2023-08-02",
+        "session_date": "2023-08-02",
+        "tag": "job satisfaction",
+        "topic": [
+          "t1"
+        ]
+      }
+    ],
+    "D6:6": [
+      {
+        "sentence_id": "D6:6-1",
+        "origin": "D6:6",
+        "text": "Tim: I can just imagine the thrill of being in that kind of atmosphere.",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "imagination",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D6:6-2",
+        "origin": "D6:6",
+        "text": "Tim: The atmosphere must've been an amazing experience for you!",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "amazement",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D6:6-3",
+        "origin": "D6:6",
+        "text": "Tim: BTW, I have been writing more articles - writing articles lets me combine my love for reading and the joy of sharing great stories.",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "writing hobby",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D6:6-4",
+        "origin": "D6:6",
+        "text": "Tim: Here's my latest article! and shared a photography of a book opened to a page with a picture of a man",
+        "event_time": "2023-08-11",
+        "session_date": "2023-08-11",
+        "tag": "sharing article",
+        "topic": [
+          "t4"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-43_result_deepseek_mragent_500q_main.jsonl"
+}

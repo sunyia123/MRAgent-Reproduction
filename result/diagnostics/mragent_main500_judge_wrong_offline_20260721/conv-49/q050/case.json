@@ -1,0 +1,272 @@
+{
+  "sample_id": "conv-49",
+  "question_index": 49,
+  "question_index_1based": 50,
+  "category": 1,
+  "question": "Who was injured in Evan's family?",
+  "gold_answer": "Evan's son and Evan himself",
+  "prediction": "Evan's son",
+  "gold_evidence": [
+    "D11:2",
+    "D11:3",
+    "D7:1",
+    "D7:10",
+    "D7:9",
+    "D9:2"
+  ],
+  "gold_evidence_in_graph": [
+    "D11:2",
+    "D11:3",
+    "D7:1",
+    "D7:10",
+    "D7:9",
+    "D9:2"
+  ],
+  "gold_evidence_retrieved": [
+    "D7:1",
+    "D7:9"
+  ],
+  "prediction_context": [
+    "D7:1",
+    "D7:9"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.3333333333333333,
+  "retrieval_coverage_label": "partial",
+  "primary_cause": "partial_retrieval_then_incomplete_answer",
+  "cause_confidence": "high",
+  "cause_reason": "Only 2/6 gold turns entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 2,
+  "runtime_sec": 36.4,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Who was injured in Evan's family?",
+    "prediction": "Evan's son",
+    "reference": "Evan's son and Evan himself",
+    "category": 1,
+    "sample": "conv-49"
+  },
+  "raw_prompt_count": 4,
+  "raw_response_count": 4,
+  "raw_request_ids": [
+    "c4ee874d183f4a7a",
+    "7ba32ec32c7ad302",
+    "8bfd25389a1aedd7",
+    "869ff101b18b91f5"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D11:2": [
+      {
+        "sentence_id": "D11:2-1",
+        "origin": "D11:2",
+        "text": "Evan:Hey Sam! That's awesome about Sam's healthier eating! For Evan, Evan had a setback last week - messed up Evan's knee playing b-ball with the kids. It's been tough to stay active since. Evan really misses going on adventures like Sam and Evan did last year - good times with the family! and shared a photography of a person with a cast on their leg and a cast on their leg",
+        "event_time": "2023-10-06",
+        "session_date": "2023-10-06",
+        "tag": "injury and nostalgia",
+        "topic": [
+          "t3",
+          "t4"
+        ]
+      }
+    ],
+    "D11:3": [
+      {
+        "sentence_id": "D11:3-1",
+        "origin": "D11:3",
+        "text": "Sam:Hey Evan, sorry to hear about Evan's knee. Evan's knee must be tough. Are there any ways to stay active while Evan heals up?",
+        "event_time": "2023-10-06",
+        "session_date": "2023-10-06",
+        "tag": "sympathy and advice",
+        "topic": [
+          "t3",
+          "t5"
+        ]
+      }
+    ],
+    "D7:1": [
+      {
+        "sentence_id": "D7:1-1",
+        "origin": "D7:1",
+        "text": "Evan:Hey Sam, what's up? It's been a few days since we talked.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D7:1-2",
+        "origin": "D7:1",
+        "text": "How have you been?",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "inquiry",
+        "topic": []
+      },
+      {
+        "sentence_id": "D7:1-3",
+        "origin": "D7:1",
+        "text": "Life's been tough lately - my son had a soccer accident last Saturday and hurt his ankle, it was tough seeing him hurt!",
+        "event_time": "2023-08-12",
+        "session_date": "2023-08-15",
+        "tag": "son's accident",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:1-4",
+        "origin": "D7:1",
+        "text": "I just been looking after him and taking him to the doctor.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "caregiving",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:1-5",
+        "origin": "D7:1",
+        "text": "As a dad, it's hard to watch your kid go through something like that.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "parental concern",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:1-6",
+        "origin": "D7:1",
+        "text": "and shared a photography of a person with a cast on their foot",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "photo sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ],
+    "D7:10": [
+      {
+        "sentence_id": "D7:10-1",
+        "origin": "D7:10",
+        "text": "Sam:Glad to hear your son's ankle is getting better.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "relief",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:10-2",
+        "origin": "D7:10",
+        "text": "It's hard seeing someone we care about hurt.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "empathy",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:10-3",
+        "origin": "D7:10",
+        "text": "Look after yourself too, yeah?",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "advice",
+        "topic": [
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D7:10-4",
+        "origin": "D7:10",
+        "text": "We gotta look after our health.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "health advice",
+        "topic": [
+          "t3"
+        ]
+      }
+    ],
+    "D7:9": [
+      {
+        "sentence_id": "D7:9-1",
+        "origin": "D7:9",
+        "text": "Evan:Thanks, Sam. My son's ankle is getting better, but still sore.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "recovery update",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D7:9-2",
+        "origin": "D7:9",
+        "text": "The soccer incident was rough at first, but thank goodness the ankle injury was nothing serious.",
+        "event_time": "2023-08-15",
+        "session_date": "2023-08-15",
+        "tag": "recovery update",
+        "topic": [
+          "t1"
+        ]
+      }
+    ],
+    "D9:2": [
+      {
+        "sentence_id": "D9:2-1",
+        "origin": "D9:2",
+        "text": "Evan is glad Sam's new diet and exercise is going well.",
+        "event_time": "2023-08-27",
+        "session_date": "2023-08-27",
+        "tag": "reaction",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D9:2-2",
+        "origin": "D9:2",
+        "text": "Evan twisted Evan's knee on 25 August 2023 and the twisted knee is really painful.",
+        "event_time": "2023-08-25",
+        "session_date": "2023-08-27",
+        "tag": "injury",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D9:2-3",
+        "origin": "D9:2",
+        "text": "The twisted knee has been tough to stay consistent with Evan's usual fitness routine.",
+        "event_time": "2023-08-27",
+        "session_date": "2023-08-27",
+        "tag": "fitness challenge",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D9:2-4",
+        "origin": "D9:2",
+        "text": "The twisted knee is really frustrating because staying active is mega-important to Evan.",
+        "event_time": "2023-08-27",
+        "session_date": "2023-08-27",
+        "tag": "frustration",
+        "topic": [
+          "t4",
+          "t5"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-49_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,87 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 45,
+  "question_index_1based": 46,
+  "category": 2,
+  "question": "When did Jolene finish her robotics project?",
+  "gold_answer": "May 2023",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D13:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D13:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 11,
+  "runtime_sec": 525.7,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did Jolene finish her robotics project?",
+    "prediction": "no information available",
+    "reference": "May 2023",
+    "category": 2,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 12,
+  "raw_response_count": 12,
+  "raw_request_ids": [
+    "e18aade440c9711a",
+    "148066e5ef253db5",
+    "4152fcefa95b1b73",
+    "01eaac879ce0d040",
+    "5549fa196c062b42",
+    "e52873c5e64d9497",
+    "64ad1f1e0bfe20ab",
+    "2c54537a0d4d5fe8",
+    "2577e8b18f7ef5a8",
+    "f295945aab603f62",
+    "9c12ba9917874cb7",
+    "6b621bf680480516"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D13:1": [
+      {
+        "sentence_id": "D13:1-1",
+        "origin": "D13:1",
+        "text": "Jolene:Hey Deborah! Long time no talk - Jolene had lots of stuff going on.",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D13:1-2",
+        "origin": "D13:1",
+        "text": "Remember the tough engineering project? Jolene finally wrapped the tough engineering project up last month.",
+        "event_time": "2023-05-06",
+        "session_date": "2023-06-06",
+        "tag": "Project Completion",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D13:1-3",
+        "origin": "D13:1",
+        "text": "Look at the result! and shared a photo of a solar powered vehicle with a solar panel on the back",
+        "event_time": "2023-06-06",
+        "session_date": "2023-06-06",
+        "tag": "Photo Sharing",
+        "topic": [
+          "t1"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

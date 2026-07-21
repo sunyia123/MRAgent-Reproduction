@@ -1,0 +1,77 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 81,
+  "question_index_1based": 82,
+  "category": 2,
+  "question": "When did the Deboran and Jolene agree to go surfing?",
+  "gold_answer": "in October 2023",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D29:34"
+  ],
+  "gold_evidence_in_graph": [
+    "D29:34"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 12,
+  "runtime_sec": 56.12,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did the Deboran and Jolene agree to go surfing?",
+    "prediction": "no information available",
+    "reference": "in October 2023",
+    "category": 2,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 11,
+  "raw_response_count": 11,
+  "raw_request_ids": [
+    "b76951183c3dab1f",
+    "a2f1d5ad8d823550",
+    "b8318ae3624b99f6",
+    "98d9dbb5d22d5d0c",
+    "309aa0dd3a941aa8",
+    "b2e1bfc704756b7b",
+    "020bccd647eb3d31",
+    "901afaa9a51a0e6b",
+    "1664af09b28a84a7",
+    "d9c0516ec4ffd28c",
+    "62509c4f5193809a"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D29:34": [
+      {
+        "sentence_id": "D29:34-1",
+        "origin": "D29:34",
+        "text": "Jolene:Let's plan for next month - Jolene will check Jolene's schedule and let Deborah know.",
+        "event_time": "2023-10-17",
+        "session_date": "2023-09-17",
+        "tag": "plan next month",
+        "topic": [
+          "t8"
+        ]
+      },
+      {
+        "sentence_id": "D29:34-2",
+        "origin": "D29:34",
+        "text": "Jolene can't wait!",
+        "event_time": "2023-09-17",
+        "session_date": "2023-09-17",
+        "tag": "excitement",
+        "topic": [
+          "t8"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

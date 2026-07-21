@@ -1,0 +1,125 @@
+{
+  "sample_id": "conv-26",
+  "question_index": 11,
+  "question_index_1based": 12,
+  "category": 1,
+  "question": "Where did Caroline move from 4 years ago?",
+  "gold_answer": "Sweden",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D3:13",
+    "D4:3"
+  ],
+  "gold_evidence_in_graph": [
+    "D3:13",
+    "D4:3"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 17,
+  "runtime_sec": 217.55,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Where did Caroline move from 4 years ago?",
+    "prediction": "no information available",
+    "reference": "Sweden",
+    "category": 1,
+    "sample": "conv-26"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "90f2d62ecea35ec2",
+    "75486f2a65a49877",
+    "734f71eec3afcce3",
+    "c6ace87bef291a4c",
+    "085ff2303a8ce834",
+    "38781e165ef3e805",
+    "92e5cc04a040e55e",
+    "5230e26dea168c41",
+    "99de259704aa1a2c",
+    "249521c6252169f0"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D3:13": [
+      {
+        "sentence_id": "D3:13-1",
+        "origin": "D3:13",
+        "text": "Caroline: Yeah, I'm really lucky to have my support system.",
+        "event_time": "2023-06-09",
+        "session_date": "2023-06-09",
+        "tag": "gratitude",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D3:13-2",
+        "origin": "D3:13",
+        "text": "Caroline: My support system have been there through everything, I've known these friends for 4 years, since I moved from my home country.",
+        "event_time": "2019-06-09",
+        "session_date": "2023-06-09",
+        "tag": "friendship duration",
+        "topic": [
+          "t6",
+          "t8"
+        ]
+      },
+      {
+        "sentence_id": "D3:13-3",
+        "origin": "D3:13",
+        "text": "Caroline: My support system's love and help have been so important especially after that tough breakup.",
+        "event_time": "2023-06-09",
+        "session_date": "2023-06-09",
+        "tag": "breakup support",
+        "topic": [
+          "t6",
+          "t9"
+        ]
+      },
+      {
+        "sentence_id": "D3:13-4",
+        "origin": "D3:13",
+        "text": "Caroline: I'm super thankful.",
+        "event_time": "2023-06-09",
+        "session_date": "2023-06-09",
+        "tag": "gratitude",
+        "topic": []
+      },
+      {
+        "sentence_id": "D3:13-5",
+        "origin": "D3:13",
+        "text": "Caroline: Who supports you, Mel?",
+        "event_time": "2023-06-09",
+        "session_date": "2023-06-09",
+        "tag": "question support",
+        "topic": [
+          "t5"
+        ]
+      }
+    ],
+    "D4:3": [
+      {
+        "sentence_id": "D4:3-1",
+        "origin": "D4:3",
+        "text": "Caroline: Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. The grandma gave the necklace to me when I was young, and the necklace stands for love, faith and strength. The necklace is like a reminder of my roots and all the love and support I get from my family.",
+        "event_time": "2023-06-27",
+        "session_date": "2023-06-27",
+        "tag": "Necklace meaning",
+        "topic": [
+          "t2",
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-26_result_deepseek_mragent_500q_main.jsonl"
+}

@@ -1,0 +1,93 @@
+{
+  "sample_id": "conv-41",
+  "question_index": 8,
+  "question_index_1based": 9,
+  "category": 3,
+  "question": "What might John's financial status be?",
+  "gold_answer": "Middle-class or wealthy",
+  "prediction": "Likely struggling financially",
+  "gold_evidence": [
+    "D5:5"
+  ],
+  "gold_evidence_in_graph": [
+    "D5:5"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D11:1",
+    "D28:1",
+    "D28:3",
+    "D28:5"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 26,
+  "runtime_sec": 139.46,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What might John's financial status be?",
+    "prediction": "Likely struggling financially",
+    "reference": "Middle-class or wealthy",
+    "category": 3,
+    "sample": "conv-41"
+  },
+  "raw_prompt_count": 10,
+  "raw_response_count": 10,
+  "raw_request_ids": [
+    "cf8bc42a1ed11f7a",
+    "fd648c7e3ea09782",
+    "bce8d9414d89bf56",
+    "29b321b9736eddaa",
+    "04af2ce8763c78b6",
+    "f531d08efbe74fb9",
+    "ca567e3923039554",
+    "534856174a0b2a85",
+    "75cd1a875318aef3",
+    "f073152edb61e951"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D5:5": [
+      {
+        "sentence_id": "D5:5-1",
+        "origin": "D5:5",
+        "text": "John:It's definitely isn't, Maria.",
+        "event_time": "2023-01-28",
+        "session_date": "2023-01-28",
+        "tag": "agreement",
+        "topic": [
+          "t4"
+        ]
+      },
+      {
+        "sentence_id": "D5:5-2",
+        "origin": "D5:5",
+        "text": "John's kids have so much and others don't.",
+        "event_time": "2023-01-28",
+        "session_date": "2023-01-28",
+        "tag": "inequality",
+        "topic": [
+          "t4",
+          "t7"
+        ]
+      },
+      {
+        "sentence_id": "D5:5-3",
+        "origin": "D5:5",
+        "text": "We really need to do something about the inequality.",
+        "event_time": "2023-01-28",
+        "session_date": "2023-01-28",
+        "tag": "call to action",
+        "topic": [
+          "t5"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-41_result_deepseek_mragent_500q_main.jsonl"
+}

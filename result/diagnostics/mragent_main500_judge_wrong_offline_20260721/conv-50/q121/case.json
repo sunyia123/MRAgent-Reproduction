@@ -1,0 +1,114 @@
+{
+  "sample_id": "conv-50",
+  "question_index": 120,
+  "question_index_1based": 121,
+  "category": 4,
+  "question": "What does Dave aim to do with his passion for cars?",
+  "gold_answer": "Take something broken and make it into something awesome",
+  "prediction": "build a custom car from scratch",
+  "gold_evidence": [
+    "D22:5"
+  ],
+  "gold_evidence_in_graph": [
+    "D22:5"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D13:3",
+    "D5:5"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 7,
+  "runtime_sec": 166.27,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What does Dave aim to do with his passion for cars?",
+    "prediction": "build a custom car from scratch",
+    "reference": "Take something broken and make it into something awesome",
+    "category": 4,
+    "sample": "conv-50"
+  },
+  "raw_prompt_count": 7,
+  "raw_response_count": 7,
+  "raw_request_ids": [
+    "2dc3aeaa038a2336",
+    "8b5bcab50409f1e5",
+    "5e072088a5cca17e",
+    "93568e0938762d70",
+    "25344537323a3842",
+    "69c9ad0ef04c9bf4",
+    "06f22a832a60e925"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D22:5": [
+      {
+        "sentence_id": "D22:5-1",
+        "origin": "D22:5",
+        "text": "Thanks Calvin! Dave has spent a lot of time and effort on the car.",
+        "event_time": "2023-10-08",
+        "session_date": "2023-10-08",
+        "tag": "effort acknowledgment",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D22:5-2",
+        "origin": "D22:5",
+        "text": "Car restoration is not just a hobby, it's a passion.",
+        "event_time": "2023-10-08",
+        "session_date": "2023-10-08",
+        "tag": "passion statement",
+        "topic": [
+          "t2",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D22:5-3",
+        "origin": "D22:5",
+        "text": "Car restoration is like therapy, a way to get away from everyday stress.",
+        "event_time": "2023-10-08",
+        "session_date": "2023-10-08",
+        "tag": "therapy analogy",
+        "topic": [
+          "t2",
+          "t5"
+        ]
+      },
+      {
+        "sentence_id": "D22:5-4",
+        "origin": "D22:5",
+        "text": "When Dave was little Dave would spend hours in Dave's dad's garage, tinkering with engines - the garage was like Dave's own sanctuary.",
+        "event_time": "2023-10-08",
+        "session_date": "2023-10-08",
+        "tag": "childhood memory",
+        "topic": [
+          "t2",
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D22:5-5",
+        "origin": "D22:5",
+        "text": "Now Dave is lucky enough to do car restoration as a job, to take something broken and make the broken thing into something awesome.",
+        "event_time": "2023-10-08",
+        "session_date": "2023-10-08",
+        "tag": "career fulfillment",
+        "topic": [
+          "t2",
+          "t7"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-50_result_deepseek_mragent_500q_main.jsonl"
+}

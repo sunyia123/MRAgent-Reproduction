@@ -1,0 +1,91 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 48,
+  "question_index_1based": 49,
+  "category": 1,
+  "question": "What does Andrew view his pets as?",
+  "gold_answer": "Family",
+  "prediction": "friends and confidantes",
+  "gold_evidence": [
+    "D15:14",
+    "D28:18"
+  ],
+  "gold_evidence_in_graph": [
+    "D15:14",
+    "D28:18"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [
+    "D13:11"
+  ],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 2,
+  "runtime_sec": 33.23,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "What does Andrew view his pets as?",
+    "prediction": "friends and confidantes",
+    "reference": "Family",
+    "category": 1,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 7,
+  "raw_response_count": 7,
+  "raw_request_ids": [
+    "29455e5d4c46196f",
+    "7f1bb0ee9c5c4187",
+    "7889190a044cc384",
+    "e6c5a9136a5d1016",
+    "9306e6e7053485ba",
+    "8f04898b71707b73",
+    "d6567f62086384bc"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D15:14": [
+      {
+        "sentence_id": "D15:14-1",
+        "origin": "D15:14",
+        "text": "Andrew: Totally get it, pets bring such joy and pets feel like family.",
+        "event_time": "2023-08-16",
+        "session_date": "2023-08-16",
+        "tag": "pet family",
+        "topic": [
+          "t8"
+        ]
+      },
+      {
+        "sentence_id": "D15:14-2",
+        "origin": "D15:14",
+        "text": "Andrew can't imagine life without Andrew's pets.",
+        "event_time": "2023-08-16",
+        "session_date": "2023-08-16",
+        "tag": "pet importance",
+        "topic": [
+          "t8",
+          "t9"
+        ]
+      }
+    ],
+    "D28:18": [
+      {
+        "sentence_id": "D28:18-1",
+        "origin": "D28:18",
+        "text": "Andrew:Yeah, it's great! Dogs are always there for us. We should count ourselves lucky to have such amazing furry friends as family member.",
+        "event_time": "2023-11-22",
+        "session_date": "2023-11-22",
+        "tag": "dogs as family",
+        "topic": [
+          "t12"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}

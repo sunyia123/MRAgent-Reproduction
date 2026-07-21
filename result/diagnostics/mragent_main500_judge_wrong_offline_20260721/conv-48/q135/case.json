@@ -1,0 +1,91 @@
+{
+  "sample_id": "conv-48",
+  "question_index": 134,
+  "question_index_1based": 135,
+  "category": 4,
+  "question": "For how long has Jolene had Seraphim as a pet?",
+  "gold_answer": "one year",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D14:6"
+  ],
+  "gold_evidence_in_graph": [
+    "D14:6"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 14,
+  "runtime_sec": 230.33,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "For how long has Jolene had Seraphim as a pet?",
+    "prediction": "no information available",
+    "reference": "one year",
+    "category": 4,
+    "sample": "conv-48"
+  },
+  "raw_prompt_count": 12,
+  "raw_response_count": 12,
+  "raw_request_ids": [
+    "dc6ddfa410f8b141",
+    "ea9e1258d8d38038",
+    "f2a5da2a32be73be",
+    "e69b998820c1cf82",
+    "8880aad65b9c97b7",
+    "cb583d78a3a32a2f",
+    "dad3552f9861baec",
+    "a725be220fc496d8",
+    "d2a3da32e879c109",
+    "d280714e02b03747",
+    "e65dd440e0656a41",
+    "e4a232b940a0268a"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D14:6": [
+      {
+        "sentence_id": "D14:6-1",
+        "origin": "D14:6",
+        "text": "Jolene: Jolene got Seraphim last year, Seraphim is a great pet.",
+        "event_time": "2022-06-26",
+        "session_date": "2023-06-26",
+        "tag": "Pet acquisition",
+        "topic": [
+          "t6"
+        ]
+      },
+      {
+        "sentence_id": "D14:6-2",
+        "origin": "D14:6",
+        "text": "Seraphim always cheers Jolene up and brings a sense of peace.",
+        "event_time": "2023-06-26",
+        "session_date": "2023-06-26",
+        "tag": "Pet comfort",
+        "topic": [
+          "t6",
+          "t3"
+        ]
+      },
+      {
+        "sentence_id": "D14:6-3",
+        "origin": "D14:6",
+        "text": "Spending time with Seraphim is so comforting.",
+        "event_time": "2023-06-26",
+        "session_date": "2023-06-26",
+        "tag": "Pet comfort",
+        "topic": [
+          "t6",
+          "t3"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-48_result_deepseek_mragent_500q_main.jsonl"
+}

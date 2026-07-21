@@ -1,0 +1,131 @@
+{
+  "sample_id": "conv-50",
+  "question_index": 31,
+  "question_index_1based": 32,
+  "category": 2,
+  "question": "Where was Dave in the last two weeks of August 2023?",
+  "gold_answer": "San Francisco",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D14:1",
+    "D17:1"
+  ],
+  "gold_evidence_in_graph": [
+    "D14:1",
+    "D17:1"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 14,
+  "runtime_sec": 68.06,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "Where was Dave in the last two weeks of August 2023?",
+    "prediction": "no information available",
+    "reference": "San Francisco",
+    "category": 2,
+    "sample": "conv-50"
+  },
+  "raw_prompt_count": 9,
+  "raw_response_count": 9,
+  "raw_request_ids": [
+    "2ad3f7708f2e0a9f",
+    "2aa9a88da131f40f",
+    "35c0405455e5eb79",
+    "8401950d75a692ad",
+    "f8ee54ea942d5934",
+    "69b66af197d844f2",
+    "d21ad6905bc7850e",
+    "02fd772a45e79555",
+    "23bcb5930b33e568"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D14:1": [
+      {
+        "sentence_id": "D14:1-1",
+        "origin": "D14:1",
+        "text": "Dave:Hey Cal, how's it going?",
+        "event_time": "2023-08-14",
+        "session_date": "2023-08-14",
+        "tag": "greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D14:1-2",
+        "origin": "D14:1",
+        "text": "Something cool happened since last we talked - Dave got to go to a car workshop in San Francisco!",
+        "event_time": "2023-08-14",
+        "session_date": "2023-08-14",
+        "tag": "car workshop",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D14:1-3",
+        "origin": "D14:1",
+        "text": "So cool to dive into the world of car restoration and see all the different techniques.",
+        "event_time": "2023-08-14",
+        "session_date": "2023-08-14",
+        "tag": "car restoration",
+        "topic": [
+          "t1"
+        ]
+      },
+      {
+        "sentence_id": "D14:1-4",
+        "origin": "D14:1",
+        "text": "People were really passionate and dedicated - truly inspiring!",
+        "event_time": "2023-08-14",
+        "session_date": "2023-08-14",
+        "tag": "workshop people",
+        "topic": [
+          "t1"
+        ]
+      }
+    ],
+    "D17:1": [
+      {
+        "sentence_id": "D17:1-1",
+        "origin": "D17:1",
+        "text": "Dave:Hey Calvin! Been a while, what's up?",
+        "event_time": "2023-09-02",
+        "session_date": "2023-09-02",
+        "tag": "greeting",
+        "topic": []
+      },
+      {
+        "sentence_id": "D17:1-2",
+        "origin": "D17:1",
+        "text": "Dave is tied up with car stuff lately, yesterday Dave came back from San Francsico with some great insights and knowledge on car modification that Dave wants to share with Calvin!",
+        "event_time": "2023-09-01",
+        "session_date": "2023-09-02",
+        "tag": "car modification",
+        "topic": [
+          "t1",
+          "t2"
+        ]
+      },
+      {
+        "sentence_id": "D17:1-3",
+        "origin": "D17:1",
+        "text": "Changing things around, and giving an old car a new life - so satisfying!",
+        "event_time": "2023-09-02",
+        "session_date": "2023-09-02",
+        "tag": "car satisfaction",
+        "topic": [
+          "t1"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-50_result_deepseek_mragent_500q_main.jsonl"
+}

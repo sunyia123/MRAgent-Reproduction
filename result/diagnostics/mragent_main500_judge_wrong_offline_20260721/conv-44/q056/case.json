@@ -1,0 +1,69 @@
+{
+  "sample_id": "conv-44",
+  "question_index": 55,
+  "question_index_1based": 56,
+  "category": 2,
+  "question": "When did Andrew make his dogs a fun indoor area?",
+  "gold_answer": "few days before November 22, 2023",
+  "prediction": "no information available",
+  "gold_evidence": [
+    "D28:12"
+  ],
+  "gold_evidence_in_graph": [
+    "D28:12"
+  ],
+  "gold_evidence_retrieved": [],
+  "prediction_context": [],
+  "graph_origin_coverage": 1.0,
+  "retrieval_coverage": 0.0,
+  "retrieval_coverage_label": "none",
+  "primary_cause": "active_search_path_failure",
+  "cause_confidence": "high",
+  "cause_reason": "Gold turns exist in graph representation but none entered prediction_context.",
+  "execution_error": false,
+  "tool_calls": 12,
+  "runtime_sec": 385.29,
+  "judge_record": {
+    "llm_score": 0,
+    "question": "When did Andrew make his dogs a fun indoor area?",
+    "prediction": "no information available",
+    "reference": "few days before November 22, 2023",
+    "category": 2,
+    "sample": "conv-44"
+  },
+  "raw_prompt_count": 13,
+  "raw_response_count": 13,
+  "raw_request_ids": [
+    "0602857e5970ee34",
+    "e415fc1e9b8fdfc1",
+    "65e52162cbee91e7",
+    "20dba03989d7638c",
+    "09bca067b52a165d",
+    "8c9f87a0b1d0a0ae",
+    "4cddd3bb01200b81",
+    "2e6f5af0f7137c4a",
+    "ea9bce6ef0bc59ad",
+    "003f60b345675a8d",
+    "be89665189dd0406",
+    "9e135b7dd9554f10",
+    "1824d61c0b16bbe7"
+  ],
+  "legacy_trace_files": [],
+  "gold_evidence_text": {
+    "D28:12": [
+      {
+        "sentence_id": "D28:12-1",
+        "origin": "D28:12",
+        "text": "Andrew:Yeah, safety first! For now, we're keeping the new addition on a leash while they get used to being outside. That pic you of your dog at the park is so cute. So we got some essentials for their comfort and entertainment, like a bed, toys, and some puppy pads just in case. It's like their own little safe haven.",
+        "event_time": "2023-11-22",
+        "session_date": "2023-11-22",
+        "tag": "safety essentials",
+        "topic": [
+          "t9",
+          "t10"
+        ]
+      }
+    ]
+  },
+  "source_result_file": "result/locomo/conv-44_result_deepseek_mragent_500q_main.jsonl"
+}
